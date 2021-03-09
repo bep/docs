@@ -6,4 +6,8 @@ title_short: "Applications"
 weight: 110
 icon: "cogs"
 aliases: ['/applications/']
+cascade:
+    gtags:
+        - key: content_group2
+          value: app_group
 ---
