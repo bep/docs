@@ -15,6 +15,9 @@ title: 'Access Google Drive from Linode with Ubuntu 14.04'
 contributor:
     name: Scott Sumner
 aliases: ['/applications/cloud-storage/access-google-drive-linode/']
+gtags:
+    - key: content_group2
+      value: google_group
 ---
 
 
