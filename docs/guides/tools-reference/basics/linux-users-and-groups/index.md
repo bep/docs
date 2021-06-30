@@ -7,6 +7,7 @@ description: 'In this guide, you learn about Linux users and groups. This guide 
 og_description: 'In this guide, you learn about Linux users and groups. This guide includes several examples using commands to execute the most common tasks related to user and group management. You also learn about primary and secondary Linux groups.'
 keywords: ["users", "permissions", "access control lists", "chmod", "chown", "linux"]
 tags: ["security","linux"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 aliases: ['/tools-reference/linux-users-and-groups/','/tools-reference/basics/linux-users-and-groups/','/docs/using-linux/users-and-groups/']
 modified: 2021-01-07

@@ -5,6 +5,7 @@ author:
   email: docs@linode.com
 description: 'Deploy a Minecraft server on Linode using Marketplace Apps.'
 keywords: ['minecraft','marketplace', 'server']
+bundles: ['gaming']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 published: 2019-04-01
 modified: 2019-04-01

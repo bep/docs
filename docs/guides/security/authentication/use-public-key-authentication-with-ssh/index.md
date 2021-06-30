@@ -6,6 +6,7 @@ author:
 description: 'Understand SSH Public Key Authentication and learn how to use SSH public key authentication on Linux, macOS, and Windows.'
 keywords: ["ssh", "public key"]
 tags: ["ssh","security"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 aliases: ['/security/ssh-keys/','/tools-reference/ssh/use-public-key-authentication-with-ssh/','/security/use-public-key-authentication-with-ssh/','/security/authentication/use-public-key-authentication-with-ssh/']
 modified_by:

@@ -6,6 +6,7 @@ description: 'Learn how to use ClamAV, ClamTK, and rkhunter for anti-virus and r
 og_description: 'Learn how to use ClamAV, ClamTK, and rkhunter for anti-virus and rootkit detection to secure your server.'
 keywords: ["clamav setup", "linux rootkit detection"]
 tags: ["security"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 modified: 2020-10-30
 modified_by:

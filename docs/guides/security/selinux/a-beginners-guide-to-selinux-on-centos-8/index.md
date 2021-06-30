@@ -7,6 +7,7 @@ description: 'This guide provides a brief and basic introduction to commonly use
 og_description: 'This guide provides a brief and basic introduction to commonly used commands and practices for SELinux system administration on CentOS 8.'
 keywords: ["Security-enhanced Linux", "secure open source", " SELinux", "CentOS8"]
 tags: ["centos","security"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 published: 2020-03-18
 modified_by:

@@ -6,6 +6,7 @@ author:
 description: 'If you are considering hosting a game server on Linux, this guide helps you understand its benefits and provides tips to get started. It covers topics like resource requirements, and choosing a Linux distribution. You can also find resources to install popular games like, Valheim and CS:GO.'
 og_description: 'If you are considering hosting a game server on Linux, this guide helps you understand its benefits and provides tips to get started. It covers topics like resource requirements, and choosing a Linux distribution. You can also find resources to install popular games like, Valheim and CS:GO.'
 keywords: ['linux game server']
+bundles: ['gaming']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 published: 2021-03-08
 modified_by:

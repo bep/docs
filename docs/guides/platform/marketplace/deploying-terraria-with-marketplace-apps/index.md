@@ -5,6 +5,7 @@ author:
   email: docs@linode.com
 description: 'Deploy a Terraria server on Linode using Marketplace Apps.'
 keywords: ['terraria','marketplace app', 'game server']
+bundles: ['gaming']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 published: 2019-04-05
 modified: 2019-04-05

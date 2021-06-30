@@ -8,6 +8,7 @@ og_description: 'If you are switching to Debian 10, are already familiar with SE
 keywords: ["linux", "selinux", "apparmor", "Mandatory Access Control system"]
 aliases: ['/quick-answers/linux/install-selinux-on-ubuntu/','/quick-answers/linux/how-to-install-selinux-on-debian-10/']
 tags: ["debian","linux"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 modified_by:
   name: Linode

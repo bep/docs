@@ -6,6 +6,7 @@ author:
 description: 'This guide will show you how to modify file and directory permissions using chmod for owner, group, and others in Unix systems.'
 keywords: ["chmod", "commands", "reference", "file permissions"]
 tags: ["security","linux"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 aliases: ['/linux-tools/common-commands/chmod/','/tools-reference/modify-file-permissions-with-chmod/','/tools-reference/tools/modify-file-permissions-with-chmod/']
 modified: 2021-04-16

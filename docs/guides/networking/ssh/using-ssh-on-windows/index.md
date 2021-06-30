@@ -5,6 +5,7 @@ author:
   email: docs@linode.com
 description: 'Learn how to use SSH on Windows 10, Windows 8, Windows 7, etc using SSH client, Secure Shell App and third-party SSH clients.'
 keywords: ["ssh", "windows", "putty", "cygwin", "openssh"]
+bundles: ['gaming']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 aliases: ['/networking/ssh/ssh-connections-using-putty-on-windows/','/networking/ssh/using-ssh-on-windows/','/networking/using-putty/']
 modified: 2020-02-02

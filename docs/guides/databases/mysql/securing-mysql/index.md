@@ -7,6 +7,7 @@ og_description: 'This guide shows how to audit MySQL security, including: using 
 keywords: ["mysql", "security", "audit", "root", "database", "privilege"]
 aliases: ['/security/auditing/secure-and-audit-mysql-server/','/security/secure-and-audit-mysql-server/']
 tags: ["mysql","security","database"]
+bundles: ['security']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 title: 'How to Secure MySQL Server'
 h1_title: 'Securing MySQL Server'
