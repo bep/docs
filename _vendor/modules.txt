@@ -1,7 +1,6 @@
 # github.com/linode/linode-website-partials v0.0.0-20210810183033-b98b2ef4b54c
-# github.com/gohugoio/hugo-mod-jslibs/alpinejs/v3 v3.0.0-20210902104917-6597e987c7ba
-# github.com/bep/alpine/v3 v3.2.5-0.20210902104719-ebe255f6cc1d
-# github.com/vuejs/vue-next v3.0.2+incompatible
+# github.com/gohugoio/hugo-mod-jslibs/alpinejs/v3 v3.0.0-20210914082014-da970840482b
+# github.com/bep/alpine/v3 v3.2.5-0.20210914075739-668379af38ea
 # github.com/gohugoio/hugo-mod-jslibs/instantpage v0.5.1
 # github.com/instantpage/instant.page v5.1.0+incompatible
 # github.com/linode/linode-api-docs/v4 v4.102.0
