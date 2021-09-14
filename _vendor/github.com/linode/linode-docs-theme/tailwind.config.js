@@ -2,7 +2,7 @@
 /* eslint-disable no-process-env */
 const theme = require('tailwindcss/defaultTheme');
 const typography = require('@tailwindcss/typography');
-const customform = require('@tailwindcss/custom-forms');
+const customform = require('@tailwindcss/forms');
 
 // Colors
 /*
@@ -40,21 +40,28 @@ const em = (px, base) => `${round(px / base)}em`;
 const px = (px) => `${px}px`;
 
 module.exports = {
-	experimental: {
-		// See https://github.com/tailwindlabs/tailwindcss/pull/2159
-		applyComplexClasses: true
-	},
 	purge: {
 		enabled: process.env.HUGO_ENVIRONMENT === 'production',
 		mode: 'all',
 		preserveHtmlElements: false,
+		// TODO1 form
 		content: [ './hugo_stats.json' ],
+		// Re. x-cloak: hugo_stats.json does not contain attribute name/values (coming in upcoming Hugo).
+		// th: fixed in latest Hugo.
+		// The /type/ is for @tailwindcss/forms plugin (Hugo does not currently record attribute values).
+		safelist: [ 'pl-1', 'pl-3', 'x-cloak', 'th', /^level-|^is-/, /type/ ],
 		options: {
-			whitelist: [ 'pl-1', 'pl-3', 'x-cloak', 'th' ], // Re. x-cloak: hugo_stats.json does not contain attribute name/values (coming in upcoming Hugo).
-			whitelistPatterns: [ /^level-|^is-/ ], // is-explorer-open etc. Toggled on off in JS.
 			defaultExtractor: (content) => {
 				let els = JSON.parse(content).htmlElements;
 				els = els.tags.concat(els.classes, els.ids);
+
+				// Transition classes used in JS only.
+				els = els.concat(
+					'transition-transform transition-opacity ease-out duration-500 sm:duration-700'.split(' ')
+				);
+				els = els.concat('opacity-0 transform mobile:-translate-x-8 sm:-translate-y-8'.split(' '));
+				els = els.concat('opacity-100 transform mobile:translate-x-0 sm:translate-y-0'.split(' '));
+
 				return els;
 			}
 		}
@@ -95,28 +102,6 @@ module.exports = {
 	},
 	important: '#ln-docs',
 	theme: {
-		// See https://tailwindcss-custom-forms.netlify.app/
-		customForms: {
-			default: {
-				input: {
-					'&::placeholder': {
-						color: colorBasicGray,
-						opacity: '1'
-					},
-					'&:focus': {
-						outline: 'none',
-						boxShadow: 'none',
-						borderColor: 'none'
-					}
-				},
-				checkbox: {
-					icon: (iconColor) =>
-						`<svg fill="${iconColor}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z"/></svg>`,
-					iconColor: '#02b159',
-					borderRadius: '0px'
-				}
-			}
-		},
 		// See https://github.com/tailwindcss/typography/blob/master/src/styles.js
 		typography: {
 			default: {
@@ -242,12 +227,12 @@ module.exports = {
 						marginTop: '2em',
 						marginBottom: '2em'
 					},
-          table: {
-            width: 'auto'
-          },
+					table: {
+						width: 'auto'
+					},
 					'thead th': {
 						color: colorBodyText
-					},
+					}
 				}
 			},
 			sm: {
