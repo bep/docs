@@ -3,6 +3,7 @@ module github.com/linode/docs
 go 1.16
 
 require (
+	github.com/gohugoio/hugo-mod-jslibs/alpinejs v0.8.2 // indirect
 	github.com/gohugoio/hugo-mod-jslibs/instantpage v0.5.1 // indirect
 	github.com/linode/linode-api-docs/v4 v4.106.1 // indirect
 	github.com/linode/linode-docs-theme v0.0.0-20211006101730-d326239921c3
