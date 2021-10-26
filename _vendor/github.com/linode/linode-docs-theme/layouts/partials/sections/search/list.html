@@ -13,7 +13,7 @@
   <div class="flex flex-col space-y-2 pt-2" data-testid="view-1">
     <template x-for="(item, j) in $store.search.results.main.result.hits" :key="item.objectID">
       <a class="group flex items-center" x-bind:href="item.href" data-testid="link-hit">
-        <span  x-html="item.linkTitle" class="font-semibold text-md text-gray-700 no-underline"></span>
+        <span  x-html="item.title" class="font-semibold text-md text-gray-700 no-underline"></span>
         <div class="ml-2">
           {{ template "search-list-section-label" . }}
         </div>
@@ -31,7 +31,7 @@
           <div>
             <template x-if="item.href">
               <a class="group flex items-center" x-bind:href="item.href" data-testid="link-hit">
-                <span  x-html="item.linkTitle" class="font-semibold text-md text-gray-700 no-underline"></span>
+                <span  x-html="item.title" class="font-semibold text-md text-gray-700 no-underline"></span>
                 <div class="ml-2">
                   {{ template "search-list-section-label" . }}
                 </div>
@@ -52,7 +52,7 @@
               </template>
             </div>
             <div class="pt-2 space-x-1">
-              <template x-for="(v, i) in item.tags" :key="v">
+              <template x-for="v in item.tagsValues()">
                 <span x-html="v" style="background-color: #E9EAEC;"
                                         class="border rounded border-transparent text-basicgray tracking-normal font-semibold text-xs uppercase px-2"></span>
               </template>

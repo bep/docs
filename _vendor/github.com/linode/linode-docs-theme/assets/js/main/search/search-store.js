@@ -371,6 +371,14 @@ const normalizeResult = function(self, result) {
 		if (!hit.thumbnailUrl) {
 			hit.thumbnailUrl = '/docs/media/images/Linode-Default-416x234.jpg';
 		}
+
+		hit.tagsValues = function() {
+			if (!this.tags) {
+				return [];
+			}
+
+			return Object.values(this.tags);
+		};
 	});
 };
 

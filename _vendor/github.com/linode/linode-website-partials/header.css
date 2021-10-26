@@ -295,7 +295,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   font-weight: 400;
   overflow: visible;
 }
-.c-site-header a, .c-site-header a:hover, .c-site-header a:focus {
+.c-site-header a, .c-site-header a:where(:link,:visited,:hover,:active,:focus) {
   color: inherit;
   text-decoration: none;
 }
@@ -315,7 +315,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   font-family: "Source Sans Pro", sans-serif;
   font-weight: 400;
   letter-spacing: 0;
-  background-color: white;
+  background-color: #ffffff;
   border-bottom: 1px solid #ededf4;
   overflow: visible;
   padding-bottom: 0;
@@ -386,7 +386,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   background-color: #02b159;
   border-radius: 4px;
   border: 0 solid;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-size: 13px;
@@ -476,7 +476,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
 }
 
 .c-sub-menu {
-  background-color: white;
+  background-color: #ffffff;
   overflow-y: scroll;
   position: absolute;
   top: -9999px;
@@ -486,7 +486,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   transition: opacity 0.175s ease-out, transform 0.25s ease-out;
   will-change: position, transform;
   display: initial;
-  padding-top: calc( var( --site-top-offset ) + var( --site-topbar-height ) + var( --site-header-height ) );
+  padding-top: calc(var(--site-top-offset) + var(--site-topbar-height) + var(--site-header-height));
 }
 @media (max-width: 61.99em) {
   .c-sub-menu {
@@ -572,12 +572,12 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   display: block;
 }
 .c-sub-menu .o-menu--featured .o-menu__item {
+  color: var(--h5-color, var(--heading-color));
   font-family: "Source Sans Pro", sans-serif;
   font-size: 24px;
-  line-height: 1.1666666667;
-  letter-spacing: -0.5px;
   font-weight: 600;
-  color: var(--h5-color, var(--heading-color));
+  letter-spacing: -0.5px;
+  line-height: 1.1666666667;
   font-size: 22px;
   line-height: 1.1818181818;
 }
@@ -589,7 +589,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   letter-spacing: 0;
 }
 .c-sub-menu .o-menu--featured .o-menu__item .title + .description {
-  color: #616266;
+  color: #5e6065;
   margin-top: 4px;
 }
 .c-sub-menu .o-menu--featured .o-menu__item + .o-menu__item {
@@ -651,7 +651,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   background-color: #02b159;
   border-radius: 4px;
   border: 0 solid;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
   display: inline-block;
   font-size: 13px;
@@ -714,7 +714,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
   border-radius: 4px;
   border-style: solid;
   border-width: 2px;
-  color: white;
+  color: #ffffff;
   cursor: pointer;
   display: block;
   font-weight: 600;
@@ -725,12 +725,12 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
 .c-sub-menu--mobile .o-button:visited {
   background-color: #02b159;
   border-color: #02b159;
-  color: white;
+  color: #ffffff;
 }
 .c-sub-menu--mobile .o-button:hover {
   background-color: #32363b;
   border-color: #32363b;
-  color: white;
+  color: #ffffff;
 }
 .c-sub-menu--mobile .o-button * {
   color: inherit !important;
@@ -788,7 +788,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
 }
 
 .c-site-header__topbar {
-  background-color: white;
+  background-color: #ffffff;
   border-bottom: 1px solid #ededf4;
   font-weight: 600;
   padding-bottom: 0;
@@ -833,7 +833,7 @@ html[dir=rtl] .weglot-flags a:before, html[dir=rtl] .weglot-flags span:before {
 .c-site-header__topbar .c-notification__tag {
   background: var(--notification-tag-color, #02b159);
   border-radius: 3px;
-  color: white;
+  color: #ffffff;
   flex: none;
   padding-right: 0.666em;
   padding-left: 0.666em;

@@ -184,6 +184,10 @@ export function newSearchFiltersController(searchConfig, queryCallback = functio
 	};
 
 	ctrl.populateFilters = function() {
+		if (this.filters.loaded) {
+			return;
+		}
+		debug('populateFilters');
 		// Get the UI in synch with the search params.
 		let query = this.getQ();
 		this.filters.data.filters.forEach((filter, key) => {
@@ -205,7 +209,7 @@ export function newSearchFiltersController(searchConfig, queryCallback = functio
 
 	// apply applies the current UI filters. This is invoked on any change.
 	ctrl.apply = function() {
-		debug('apply', this.data);
+		debug('apply');
 		let query = this.getQ();
 		// Clear filters, preserve q.
 		query.filters.clear();

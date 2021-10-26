@@ -221,6 +221,7 @@ github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.0.0-20211006112106-e56f8
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.0.0-20211006152016-3e00795644ec/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.400.200/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.401.200/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
+github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.401.201 h1:rIBco2i/51nTPbi7pHUvwBwznCddMOsp/9pR2veAPx8=
 github.com/gohugoio/hugo-mod-jslibs-dist/alpinejs/v3 v3.401.201/go.mod h1:WWQxcmPs5Xy3xDgi29ipkmZT6NKVb3bsqyCDTY3eYYY=
 github.com/gohugoio/hugo-mod-jslibs/alpinejs v0.5.0/go.mod h1:XvAGp/0tQ8bZpoCcM6rdx1NbzZUy3/KtetedtdgaNek=
 github.com/gohugoio/hugo-mod-jslibs/alpinejs v0.6.0/go.mod h1:QB5IEnFYPAWpMEBg4tF1OW0xzI1O68QNWnqfPuUkpnU=
@@ -246,6 +247,7 @@ github.com/gohugoio/hugo-mod-jslibs/turbo v0.0.0-20210914111331-5d2e9606cd2b/go.
 github.com/gohugoio/hugo-mod-jslibs/turbo v0.0.0-20211001111320-84b09979de2c h1:I5kwVCUIZRUnha1UJ8R1foi7C2D+BA+mac+hFXbDthM=
 github.com/gohugoio/hugo-mod-jslibs/turbo v0.0.0-20211001111320-84b09979de2c/go.mod h1:xZNgZo91Mie87q4bb4+p74mMjdOVby2JzG49b9Cb8pE=
 github.com/gohugoio/hugo-mod-jslibs/turbo v0.0.0-20211006151018-be18f13ce8b5/go.mod h1:xZNgZo91Mie87q4bb4+p74mMjdOVby2JzG49b9Cb8pE=
+github.com/gohugoio/hugo-mod-jslibs/turbo/v7 v7.0.0-20211006154215-97cb50aae023 h1:3Ls0sU9Hh2od7Vc0j7AaAss3qkiEunLzBFyJfzQ7NjQ=
 github.com/gohugoio/hugo-mod-jslibs/turbo/v7 v7.0.0-20211006154215-97cb50aae023/go.mod h1:7YpZ5H9gE7M/Br+1g052hfMl6jZs1x+yU0hdJfSiB14=
 github.com/gohugoio/hugo-mod-jslibs/turbolinks v0.5.0/go.mod h1:0COpoSU/YogktyDLZn4aoXioJPq+f4jvdenIZj5ozMQ=
 github.com/gohugoio/hugo-mod-jslibs/turbolinks v0.6.0 h1:3jJ57v6Rr6BOQ0wYmlRt1ZE+kSP8vXnKNFMn8w1u6bA=
@@ -388,6 +390,10 @@ github.com/linode/linode-docs-theme v0.0.0-20210917073932-cc4a191969e4 h1:4l+UVC
 github.com/linode/linode-docs-theme v0.0.0-20210917073932-cc4a191969e4/go.mod h1:n3mBYcpEcuXjQTZKBi2pw96HyZs1lnXJNesxULI85MA=
 github.com/linode/linode-docs-theme v0.0.0-20210928084243-0b498451ee48 h1:Tx8P8K1qlcTn+UYLdbPpiXZ+T+sZJOpiy/XxXkGBdAA=
 github.com/linode/linode-docs-theme v0.0.0-20210928084243-0b498451ee48/go.mod h1:SPJKGqQ/4XNDUsCASOjDSpV900zgWRnIx2ALw7djRo4=
+github.com/linode/linode-docs-theme v0.0.0-20211006101730-d326239921c3 h1:GYj1ROp9vVaKlNTDV+J4qvc/ye+hQ6nODtfXI1MnGJQ=
+github.com/linode/linode-docs-theme v0.0.0-20211006101730-d326239921c3/go.mod h1:DNdrF/DiqJGG9JwPpVqv30JXHUH0MCfSaVBwA4oULRg=
+github.com/linode/linode-docs-theme v0.0.0-20211022193052-5d3b3e1df742 h1:NVa6OqBnEK8kFy9jP959BHnE9/rQm+rop9bcXO1Dwx8=
+github.com/linode/linode-docs-theme v0.0.0-20211022193052-5d3b3e1df742/go.mod h1:SGK/sgbgq+uJWz3/4v6ZLN01sgWLIhkFwHHuGzmY53k=
 github.com/linode/linode-website-partials v0.0.0-20200907163220-d3856e759e21/go.mod h1:e68x+kyP45JvsnatClDG16z9uAQ/Fg8gBDwpI6KMNI0=
 github.com/linode/linode-website-partials v0.0.0-20200921210751-887bbecdd5dd/go.mod h1:e68x+kyP45JvsnatClDG16z9uAQ/Fg8gBDwpI6KMNI0=
 github.com/linode/linode-website-partials v0.0.0-20201001182036-fe8965a45b3c h1:j2j0WYHnoSEsGg7790A+gNQqKYIXGTi/i1FHTwt9zBM=
@@ -405,6 +411,7 @@ github.com/linode/linode-website-partials v0.0.0-20210810183033-b98b2ef4b54c h1:
 github.com/linode/linode-website-partials v0.0.0-20210810183033-b98b2ef4b54c/go.mod h1:K1Em3lwb16JiCwNVftAFwWGhyB9Zkl/nXhxjBBUC1Ao=
 github.com/linode/linode-website-partials v0.0.0-20210921193642-f594a016c19a h1:AvvqTCa9YWhkqWkUVA6BN+r8wK2HStSKmXoJEbDhbtI=
 github.com/linode/linode-website-partials v0.0.0-20210921193642-f594a016c19a/go.mod h1:K1Em3lwb16JiCwNVftAFwWGhyB9Zkl/nXhxjBBUC1Ao=
+github.com/linode/linode-website-partials v0.0.0-20211020185321-5c98d80c9b8a/go.mod h1:K1Em3lwb16JiCwNVftAFwWGhyB9Zkl/nXhxjBBUC1Ao=
 github.com/turbolinks/turbolinks-source-gem v5.2.0+incompatible/go.mod h1:Cl0Br9tUXkQvxumVNGTvyaa7dqpFC2kPMrsS0Ttc94U=
 github.com/vuejs/vue-next v3.0.2+incompatible h1:E8pORTa7zVeWrX3GxUNLK1QnnDh/SmRvc9KDahPpeF8=
 github.com/vuejs/vue-next v3.0.2+incompatible/go.mod h1:ulo1XhaHAZB/k6wzZ6YaorEhSLNaoVQeLD/3heptfQQ=

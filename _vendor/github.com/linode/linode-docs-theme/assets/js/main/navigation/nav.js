@@ -97,8 +97,10 @@ export function newNavController(weglot_api_key) {
 		},
 
 		onTurboBeforeRender: function(event) {
-			// Always hide the search panel.
-			this.$store.nav.searchResults = { open: false };
+			if (!isTopResultsPage()) {
+				// Always hide the search panel unless on the search page.
+				this.$store.nav.searchResults = { open: false };
+			}
 		},
 
 		onTurboRender: function() {
