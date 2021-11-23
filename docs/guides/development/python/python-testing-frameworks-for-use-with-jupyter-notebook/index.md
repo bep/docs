@@ -13,6 +13,7 @@ modified_by:
 title: "Python Testing Frameworks for Unit Testing"
 h1_title: "An Overview of Python Testing Frameworks for Unit Testing"
 enable_h1: true
+excludeFromViews: ["home", "some_other_view"]
 contributor:
   name: John Mueller
   link: https://github.com/JohnPaulMueller

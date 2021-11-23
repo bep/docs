@@ -11,6 +11,7 @@ modified_by:
   name: Linode
 title: "Open Source Software Definition and Examples"
 h1_title: "What is Open Source Software?"
+excludeFromViews: ['home']
 enable_h1: true
 contributor:
   name: Jack Wallen

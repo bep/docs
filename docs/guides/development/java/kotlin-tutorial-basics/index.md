@@ -11,6 +11,7 @@ modified_by:
   name: Linode
 title: "Kotlin Tutorial: Learn the Basics"
 h1_title: "Kotlin Tutorial: An Introduction to the Basics"
+excludeFromViews: ['home']
 enable_h1: true
 contributor:
   name: John Mueller

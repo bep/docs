@@ -13,6 +13,7 @@ modified_by:
 title: "Using Node.js, Typescript, and Express to Build a Web Server"
 h1_title: "How to Use Node.js, TypeScript, and Express to Build a Web Server"
 enable_h1: true
+excludeFromViews: [ 'home' ]
 contributor:
   name: John Mueller
 external_resources:
