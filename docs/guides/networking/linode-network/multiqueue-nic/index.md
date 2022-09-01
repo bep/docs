@@ -18,6 +18,7 @@ external_resources:
  - '[KVM Multi-Queue documentation and performance](https://www.linux-kvm.org/page/Multiqueue)'
  - '[HOWTO for multiqueue network device support](https://www.kernel.org/doc/html/latest/networking/multiqueue.html)'
 tags: ["networking","linode platform"]
+authors: ["Linode"]
 ---
 
 Multi-queue NICs (network interface cards) are supported on all Linode Compute Instances that have 2 or more CPU cores (vCPUs). This feature provides multiple receive (RX) and transmit (TX) queues, assigns them to different network interrupts, and balances them over multiple vCPUs. Historically, this traffic was all handled by a single vCPU core. Depending on the server's workload and network traffic, multi-queue can dramatically enhance network performance.

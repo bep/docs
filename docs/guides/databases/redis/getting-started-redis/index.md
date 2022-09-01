@@ -17,6 +17,7 @@ contributor:
   link: https://github.com/nasanos
 external_resources:
 - '[Redis: Commands](https://redis.io/commands)'
+authors: ["Nathaniel Stickman"]
 ---
 
 Redis is an open-source NoSQL database used for in-memory storage of data structures. It works exceptionally well for caching, messaging, and other data storage contexts where quick, and low-latency storage is needed.

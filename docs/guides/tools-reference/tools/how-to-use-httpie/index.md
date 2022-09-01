@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 [HTTPie](https://httpie.io/) is a command-line HTTP client built for modern web APIs. It provides intuitive commands and a user-friendly interface. In this guide, you learn about HTTPie's features and how it compares to cURL. You also learn how to install and start using HTTPie on your Linux system.

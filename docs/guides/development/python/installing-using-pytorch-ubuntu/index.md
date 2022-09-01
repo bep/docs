@@ -13,6 +13,7 @@ h1_title: "How to Install PyTorch on Ubuntu 20.04"
 enable_h1: true
 contributor:
   name: Tom Henderson
+authors: ["Tom Henderson"]
 ---
 
 This guide shows you how to install [PyTorch](https://pytorch.org/), a Python framework, on an Ubuntu 20.04 Linode. PyTorch provides support for a variety of math-intensive applications that run on GPU and CPU hardware. Linode offers dedicated [CPU instances](https://www.linode.com/products/dedicated-cpu/) and [GPU instances](https://www.linode.com/products/gpu/) that you can use to run PyTorch-based projects.

@@ -13,6 +13,7 @@ published: 2021-07-15
 image: OverviewofPackageManagementinLinux.jpg
 title: "An Overview of Package Management in Linux"
 tags: ["linux"]
+authors: ["Linode"]
 ---
 
 On Linux, software is typically built as a *package*, distributed through *repositories*, and managed on the end-user's system through *package managers*. Each Linux system typically contains thousands of packages, many of which are required dependencies for other packages.

@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/dns-manager-add-domain-shortguide/']
+authors: ["Linode"]
 ---
 
 If you're new to Linode, or if you've just purchased a new domain name, the first step is to add a new domain in the **Domains** section of the Cloud Manager. If you don't know what DNS records to add, the DNS Manager can insert some basic records when you create the new domain.

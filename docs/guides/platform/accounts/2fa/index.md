@@ -14,6 +14,7 @@ published: 2022-06-27
 title: "Managing 2FA on a Linode User Account"
 h1_title: "Managing Two-Factor Authentication (2FA) on a User Account"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 2FA (*two-factor authentication*) increases the security of your Linode account by requiring two forms of authentication: your password and an expiring token, also called an OTP (one-time passcode) or 2FA code. This follows the security principle of authenticating with something you *know* (a password) and something you *have* (the device used to generate the token). This additional layer of security reduces the risk that an unauthorized individual can gain access to your Linode account. **Linode highly recommends enabling 2FA**.

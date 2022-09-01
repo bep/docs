@@ -23,6 +23,7 @@ relations:
         key: how-to-install-anaconda
         keywords:
             - distribution: Ubuntu
+authors: ["Linode Community"]
 ---
 
 ## Install Anaconda on Ubuntu

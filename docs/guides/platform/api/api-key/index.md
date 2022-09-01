@@ -15,6 +15,7 @@ modified_by:
   name: Linode
 published: 2014-01-27
 title: API Key
+authors: ["Linode"]
 ---
 
 Learn how to generate and remove your Linode API keys for use with the [Linode API](https://www.linode.com/api/).

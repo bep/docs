@@ -12,6 +12,7 @@ modified_by:
 published: 2015-02-27
 title: Reboot Survival Guide
 aliases: ['/uptime/reboot-survival-guide/','/uptime/best-practices/reboot-survival-guide/']
+authors: ["Alex Fornuto"]
 ---
 
 ![Reboot Survival Guide](reboot-survival-guide.png "Reboot Survival Guide")

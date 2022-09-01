@@ -13,6 +13,7 @@ h1_title: "The Ultimate Web Servers List: 11 Popular Web Servers To Use Today"
 enable_h1: true
 contributor:
   name: Wayne Rash
+authors: ["Wayne Rash"]
 ---
 
 This is the web server list you’ve been looking for – the guide discusses the most popular web servers and their advantages.

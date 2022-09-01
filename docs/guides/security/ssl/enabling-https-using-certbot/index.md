@@ -15,6 +15,7 @@ modified_by:
 title: "Enabling HTTPS Using Certbot"
 h1_title: "Securing Web Traffic Using Certbot"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 The [Certbot](https://certbot.eff.org/) utility automates all processes involved in obtaining and installing a TLS/SSL certificate. It works directly with the free [Let's Encrypt](https://letsencrypt.org/) certificate authority to request (or renew) a certificate, prove ownership of the domain, and install the certificate on Apache, NGINX, or other web servers. This allows Certbot to dramatically reduce the effort (and cost) of securing your websites with HTTPS.

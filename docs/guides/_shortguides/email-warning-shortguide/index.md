@@ -14,6 +14,7 @@ keywords: []
 headless: true
 show_on_rss_feed: false
 aliases: ['/email-warning-shortguide/']
+authors: ["Linode"]
 ---
 
 {{< disclosure-note "Note About Email at Linode" >}}

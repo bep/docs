@@ -16,6 +16,7 @@ h1_title: Securing Your LAMP Stack
 enable_h1: true
 aliases: ['security/basics/securing-your-lamp-stack/']
 image: SecureLAMPstack.png
+authors: ["Hackersploit"]
 ---
 
 ## What is a LAMP Stack?

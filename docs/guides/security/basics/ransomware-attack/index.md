@@ -13,6 +13,7 @@ h1_title: "Ransomware Attack: What It Is and How to Prevent It "
 enable_h1: true
 contributor:
   name: David Strom
+authors: ["David Strom"]
 ---
 
 Cybersecurity continues to be a challenge as adversaries come up with new and innovative ways to penetrate computer networks and steal data. One of the more popular attack methods is ransomware. There are tools to defend yourself against potential attack and techniques to strengthen your computer security posture.

@@ -15,6 +15,7 @@ title: "How to Manage Billing in the Linode Cloud Manager"
 h1_title: "Managing Billing in the Cloud Manager"
 enable_h1: true
 aliases: ['/platform/billing-and-support/manage-billing-in-cloud-manager/']
+authors: ["Linode"]
 ---
 
 We've done our best to create straightforward billing and payment policies. Still have questions? Use this guide to learn how to make payments, update your billing information, and remove services. To learn how billing works see the [Billing and Payments](/docs/guides/understanding-billing-and-payments/) guide. If you have a question that isn't answered in either guide, please feel free to [contact Support](/docs/guides/support/).

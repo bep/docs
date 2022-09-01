@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/api/api-authenticate-requests-shortguide/']
+authors: ["Linode"]
 ---
 
 This token must be sent as a header on all requests to authenticated endpoints. The header should use the format:

@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/dns-manager-transfer-domain-zone-shortguide/']
+authors: ["Linode"]
 ---
 
 Linode's DNS servers allow Domain zone transfers to non-Linode DNS servers that you designate and trust. This feature can be used to transfer a Domain zone to another hosting provider's DNS servers. To enable this capability, you will need to alter your Domain's SOA record. This section will cover these steps.

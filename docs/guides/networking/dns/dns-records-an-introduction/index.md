@@ -13,6 +13,7 @@ modified_by:
 published: 2009-07-29
 title: "DNS Records: An Introduction"
 tags: ["dns","networking"]
+authors: ["Linode"]
 ---
 
 ![DNS Records: an Introduction](dns-records-an-introduction.png "DNS Records: an Introduction")

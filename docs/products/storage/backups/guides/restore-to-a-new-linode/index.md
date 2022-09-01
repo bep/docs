@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Restore a Backup to a New Linode
 description: "How to restore a backup to a new Linode."
+authors: ["Linode"]
 ---
 
 These steps cover how to restore a backup to a new Linode Compute Instance. The new Compute Instance will be deployed to the same data center, though you can [migrate](/docs/guides/how-to-initiate-a-cross-data-center-migration-for-your-linode/) it to any data center you'd like after the restore is complete.

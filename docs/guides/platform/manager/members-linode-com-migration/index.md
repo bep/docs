@@ -12,6 +12,7 @@ modified_by:
 title: "members.linode.com and nodebalancer.linode.com Migration"
 h1_title: "Migrating Away from members.linode.com and nodebalancer.linode.com"
 enable_h1: true
+authors: ["Linode Community"]
 ---
 
 ## What are members.linode.com and nodebalancer.linode.com?

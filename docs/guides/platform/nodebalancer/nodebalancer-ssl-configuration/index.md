@@ -13,6 +13,7 @@ modified_by:
 published: 2015-09-01
 title: NodeBalancer SSL Configuration
 aliases: ['/platform/nodebalancer/nodebalancer-ssl-configuration/']
+authors: ["Joel Kruger"]
 ---
 
 ![NodeBalancer SSL Configuration.](nodebalancer-ssl-configuration.png "NodeBalancer SSL Configuration.")

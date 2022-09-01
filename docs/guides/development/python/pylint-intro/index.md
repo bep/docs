@@ -27,6 +27,7 @@ external_resources:
 - '[isort](https://pypi.org/project/isort/)'
 - '[mypy](http://mypy-lang.org/)'
 
+authors: ["Cameron Laird"]
 ---
 
 ## What is Pylint?

@@ -19,6 +19,7 @@ external_resources:
 - '[Angular Getting Started](https://angular.io/start)'
 - '[Node.js Getting Started](https://nodejs.org/es/docs/guides/getting-started-guide/)'
 aliases: ['/platform/marketplace/deploy-mean-with-marketplace-apps/', '/platform/one-click/deploy-mean-with-one-click-apps/', '/guides/deploy-mean-with-one-click-apps/','/guides/deploy-mean-with-marketplace-apps/','/guides/mean-stack-marketplace-app/']
+authors: ["Linode"]
 ---
 
 A MEAN (MongoDB, Express, Angular, Node.js) stack is a free and open-source web software bundle used to build modern web applications:

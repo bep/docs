@@ -14,6 +14,7 @@ title: "Resizing a Disk on a Linode Compute Instance"
 show_on_rss_feed: false
 aliases: ['/quick-answers/linode-platform/resize-a-linode-disk-classic-manager/','/quick-answers/linode-platform/resize-a-linode-disk-new-manager/','/quick-answers/linode-platform/resize-a-linode-disk/']
 tags: ["linode platform","cloud manager"]
+authors: ["Linode"]
 ---
 
 {{< content "resizing-a-compute-instance-disk-shortguide" >}}

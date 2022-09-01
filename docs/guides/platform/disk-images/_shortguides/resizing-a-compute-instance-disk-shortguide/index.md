@@ -17,6 +17,7 @@ author:
   email: docs@linode.com
 modified_by:
   name: Linode
+authors: ["Linode"]
 ---
 
 The size of a Linode Compute Instance's disk can be increased or decreased as needed. When resizing, it's important to keep the following restrictions in mind:

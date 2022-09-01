@@ -24,6 +24,7 @@ relations:
         key: one-time-pass-for-2fa
         keywords:
             - distribution: CentOS 7
+authors: ["Linode"]
 ---
 
 !['Header Image: Use One-Time Passwords for Two-Factor Authentication with SSH on CentOS7'](two-factor-authentication-centos-title.png)

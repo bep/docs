@@ -15,6 +15,7 @@ image: Linode-Configuration-Profiles.jpg
 title: "How to Manage Configuration Profiles on a Linode"
 h1_title: "Managing Configuration Profiles on a Linode"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 A **configuration profile** functions as a boot loader for a Linode. It controls general boot settings, including the disk the Linode will boot from, the disks that will be mounted, the kernel that will be used, and the network interfaces on the Linode. Multiple configuration profiles can be created, each one booting from different disks with different settings. This can allow you to try out new Linux distributions without paying for additional Linodes (see [Deploy an Image to a Disk on an Existing Linode](/docs/products/tools/images/guides/deploy-image-to-existing-linode/)) or to create custom software testing environments.

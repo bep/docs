@@ -19,6 +19,7 @@ relations:
         key: install-logwatch-monitoring
         keywords:
             - distribution: Fedora 13
+authors: ["Linode"]
 ---
 
 

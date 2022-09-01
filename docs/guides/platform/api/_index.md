@@ -9,5 +9,6 @@ aliases: ['/platform/api/']
 published: 2014-01-27
 title: Linode API
 show_in_lists: true
+authors: ["Linode"]
 ---
 

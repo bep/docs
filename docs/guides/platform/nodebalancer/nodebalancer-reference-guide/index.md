@@ -13,6 +13,7 @@ modified_by:
 published: 2011-07-08
 title: NodeBalancer Reference Guide
 tags: ["linode platform","networking"]
+authors: ["Christopher S. Aker"]
 ---
 
 This is the NodeBalancer reference guide. Please see the [NodeBalancer Getting Started Guide](/docs/platform/nodebalancer/getting-started-with-nodebalancers) for practical examples.

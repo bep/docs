@@ -19,6 +19,7 @@ relations:
         key: how-to-install-selinux
         keywords:
             - distribution: Ubuntu 18.04
+authors: ["Angel"]
 ---
 
 ![How to Install SELinux on Ubuntu](selinux-ubuntu-title.jpg "How to Install SELinux on Ubuntu title graphic")

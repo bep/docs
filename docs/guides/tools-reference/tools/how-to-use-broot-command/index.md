@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 The `broot` command provides a modern approach to generating directory trees on the Linux command line. It renders the tree in a succinct and intuitive layout that helps you navigate around your computer's directories. Additionally, `broot` offers advanced features for managing and retrieving details about your files and directories. This guide shows you how to install `broot` on your Linux system and get started using it.

@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/accounts-recover-username-shortguide/']
+authors: ["Linode"]
 ---
 
 Did you forget your Cloud Manager username? Recover it with the *Forgot Username* webpage. Here's how:

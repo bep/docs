@@ -13,6 +13,7 @@ modified_by:
   name: Linode
 tags: ["linode platform"]
 aliases: ['/platform/linode-gpu/why-linode-gpu/','/guides/why-linode-gpu/']
+authors: ["Linode"]
 ---
 
 ## What are GPUs?

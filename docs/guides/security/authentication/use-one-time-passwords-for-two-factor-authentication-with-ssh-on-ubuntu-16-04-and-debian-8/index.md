@@ -21,6 +21,7 @@ relations:
         key: one-time-pass-for-2fa
         keywords:
             - distribution: Ubuntu/Debian
+authors: ["Phil Zona"]
 ---
 
 In this guide, you'll learn how to use one-time passwords for two-factor authentication with SSH on Ubuntu 16.04 and Debian 8.

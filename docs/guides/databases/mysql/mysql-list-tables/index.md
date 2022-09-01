@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 This guide provides the commands you can use to list tables in MySQL and MariaDB. It also includes instructions on how to list tables using MySQL Workbench.

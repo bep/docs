@@ -18,6 +18,7 @@ enable_h1: true
 contributor:
   name: Linode
 aliases: ['/applications/configuration-management/how-to-use-linode-packer-builder/','/applications/configuration-management/packer/how-to-use-linode-packer-builder/']
+authors: ["Linode"]
 ---
 
 ## Introduction to Packer

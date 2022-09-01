@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Edit DNS Records
 description: "How to edit DNS records using the Linode DNS Manager."
+authors: ["Linode"]
 ---
 
 {{< content "dns-manager-edit-dns-records-shortguide" >}}

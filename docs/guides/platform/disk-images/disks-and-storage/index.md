@@ -15,6 +15,7 @@ title: "How to Manage Disks and Storage on a Linode"
 h1_title: "Managing Disks and Storage on a Linode"
 enable_h1: true
 aliases: ['/guides/linode-disks/']
+authors: ["Linode"]
 ---
 
 ## Understanding Storage

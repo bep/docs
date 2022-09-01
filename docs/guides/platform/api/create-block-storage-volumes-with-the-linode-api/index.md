@@ -17,6 +17,7 @@ external_resources:
   - '[API Documentation](https://developers.linode.com/api/v4)'
 tags: ["linode platform"]
 aliases: ['/platform/api/create-block-storage-volumes-with-the-linode-api/']
+authors: ["Jared Kobos"]
 ---
 
 ![Manage Block Storage Volumes with the Linode API](manage-block-storage-volumes-with-the-linode-api.png "Manage Block Storage Volumes with the Linode API")

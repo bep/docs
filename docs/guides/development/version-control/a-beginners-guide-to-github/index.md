@@ -13,6 +13,7 @@ title: "A Beginner's Guide to GitHub"
 h1_title: "Getting Started with GitHub"
 aliases: ['/development/version-control/a-beginners-guide-to-github/','/github-guide/']
 tags: ["version control system"]
+authors: ["Linode"]
 ---
 
 ![GitHub Beginner's Guide](github-beginners-guide.png "GitHub Beginner's Guide")

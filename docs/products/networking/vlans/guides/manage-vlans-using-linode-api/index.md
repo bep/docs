@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Linode
 aliases: ['/platform/vlan/how-to-create-a-private-network-with-linode-vlans-api/','/guides/how-to-create-a-private-network-with-linode-vlans-api/','/guides/vlan-api/']
+authors: ["Linode"]
 ---
 
 This guide shows you how to use [Linode's API](/docs/api) to create and attach a VLAN to a Linode.

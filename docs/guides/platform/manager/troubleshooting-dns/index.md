@@ -15,6 +15,7 @@ published: 2020-07-09
 title: Troubleshooting DNS Records
 h1_title: Diagnose & Resolve DNS Records in DNS Manager
 aliases: ['/platform/manager/troubleshooting-dns/']
+authors: ["Linode"]
 ---
 
 Having problems with your DNS records? This guide to help get your DNS settings back on track. Follow these tips to troubleshoot DNS issues.

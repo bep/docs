@@ -22,6 +22,7 @@ external_resources:
 - '[How to run Jenkins X Boot](https://jenkins-x.io/docs/install-setup/boot/how-it-works/)'
 - '[Creating and importing projects in Jenkins X](https://jenkins-x.io/docs/create-project/creating/)'
 aliases: ['/kubernetes/how-to-deploy-jenkins-x-in-linode-kubernetes-engine/']
+authors: ["Daniele Polencic"]
 ---
 
 ## What is Jenkins X?

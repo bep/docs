@@ -14,6 +14,7 @@ published: 2015-01-09
 title: "High Availability WordPress Hosting for Debian 7 and Ubuntu 14.04"
 deprecated: true
 aliases: ['/websites/cms/high-availability-wordpress/','/websites/cms/wordpress/high-availability-wordpress/']
+authors: ["James Stewart"]
 ---
 
 This guide configures a high availability WordPress site with a two-Linode cluster, using MySQL Master-Master replication and a Linode NodeBalancer front-end.

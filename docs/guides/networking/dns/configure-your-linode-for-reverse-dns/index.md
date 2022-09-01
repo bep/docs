@@ -16,6 +16,7 @@ modified: 2021-05-21
 title: How To Configure Your Linode for Reverse DNS (rDNS)
 h1_title: Configure Your Linode for Reverse DNS (rDNS)
 enable_h1: true
+authors: ["Linode"]
 ---
 
 ![Configure Your Linode for Reverse DNS (rDNS)](configure-your-linode-reverse-dns.jpg)

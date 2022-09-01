@@ -14,6 +14,7 @@ h1_title: "How to Use Rclone to Sync Files to Linode Object Storage"
 enable_h1: true
 contributor:
   name: Jack Wallen
+authors: ["Jack Wallen"]
 ---
 
 ## What is Rclone?

@@ -15,6 +15,7 @@ h1_title: "Linux Red Team Defense Evasion - Rootkits"
 enable_h1: true
 contributor:
   name: HackerSploit
+authors: ["HackerSploit"]
 ---
 
 {{< content "hackersploit-red-team-series-note-shortguide" >}}

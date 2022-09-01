@@ -14,6 +14,7 @@ h1_title: "Confidential Computing: A Collaborative Security Model for Data in Us
 enable_h1: true
 contributor:
   name: Pam Baker
+authors: ["Pam Baker"]
 ---
 
 Cloud providers, hardware vendors, and software developers have teamed up to tackle data-in-use security issues. The result is a security model called *confidential computing*.

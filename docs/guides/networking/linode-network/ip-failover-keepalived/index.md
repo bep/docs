@@ -15,6 +15,7 @@ contributor:
   name: Linode
 external_resources:
 - '[keepalived Documentation](https://keepalived.readthedocs.io/en/latest/index.html)'
+authors: ["Linode"]
 ---
 
 {{<note>}}

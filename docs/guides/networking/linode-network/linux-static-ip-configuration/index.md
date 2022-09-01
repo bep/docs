@@ -15,6 +15,7 @@ modified_by:
 published: 2014-07-20
 title: Linux Static IP Configuration
 tags: ["networking","linode platform"]
+authors: ["Linode"]
 ---
 
 All Linodes are created with one IPv4 address and one for IPv6. An IPv4 address is assigned by our infrastructure from a pool of unused addresses when you create your Linode, and [Stateless Address Autoconfiguration](https://en.wikipedia.org/wiki/IPv6#Stateless_address_autoconfiguration_.28SLAAC.29) (SLAAC) is used for IPv6 assignment. Additional IPv4 or IPv6 addresses can be requested by opening a [support ticket](/docs/guides/support/) and detailing your requirements.

@@ -7,4 +7,5 @@ license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 title: Billing and Support
 show_in_lists: true
 aliases: ['/platform/billing-and-support/']
+authors: ["Linode"]
 ---

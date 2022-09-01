@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Chelsea Troy
   link: https://twitter.com/HeyChelseaTroy
+authors: ["Chelsea Troy"]
 ---
 
 A tuple is a built-in Python data structure that stores multiple comma-separated values. Tuples are an immutable *sequence* type that can store values of any data type. A mix of different data types can also be stored in a tuple. This guide describes the characteristics of tuples and shows you the various ways you can create a Python tuple.

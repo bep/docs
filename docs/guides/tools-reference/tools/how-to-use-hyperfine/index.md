@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 hyperfine is a Linux tool used to benchmark command-line commands. It includes features to test the performance of individual commands, side by side. hyperfine stands out from similar tools by giving you fine-tuned control over the benchmarking process and advanced features for more effective testing.

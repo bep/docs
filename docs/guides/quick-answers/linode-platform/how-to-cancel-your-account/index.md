@@ -17,6 +17,7 @@ h1_title: Cancelling Your Account
 enable_h1: true
 tags: ["linode platform","cloud manager"]
 aliases: ['/quick-answers/linode-platform/how-to-cancel-your-account/']
+authors: ["Linode"]
 ---
 
 {{< content "cancel-your-account-shortguide" >}}

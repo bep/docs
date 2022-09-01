@@ -18,6 +18,7 @@ external_resources:
 - '[Linode APIv4 Python library documentation](https://linode-api4.readthedocs.io/en/latest/index.html)'
 - '[Linode APIv4 Python library example app repository](https://github.com/linode/linode_api4-python/tree/master/examples/install-on-linode)'
 aliases: ['/platform/api/how-to-create-an-oauth-app-with-the-linode-python-api-library/']
+authors: ["Linode"]
 ---
 
 ![How To Create an OAuth App with the Linode Python API Library](how-to-create-an-oauth-app-with-the-linode-python-api-library.png "How To Create an OAuth App with the Linode Python API Library")

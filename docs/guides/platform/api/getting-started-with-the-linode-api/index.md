@@ -17,6 +17,7 @@ external_resources:
   - '[Linode API Python Library](https://github.com/linode/python-linode-api)'
 aliases: ['/platform/api/getting-started-with-the-linode-api-classic-manager/','/platform/api/getting-started-with-the-linode-api-new-manager/','/platform/api/getting-started-with-the-linode-api/']
 tags: ["linode platform"]
+authors: ["Jared Kobos"]
 ---
 
 ![Getting Started with the Linode API](getting-started-with-the-linode-api.png "Getting Started with the Linode API")

@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Doug Hayman for NanoHertz Solutions Inc.
   link: http://nhzsolutions.com/
+authors: ["Doug Hayman for NanoHertz Solutions Inc."]
 ---
 
 Choosing the proper data type for a table column is an important decision. It reduces the need for data type conversions, enhances the performance of database queries, and minimizes storage requirements.

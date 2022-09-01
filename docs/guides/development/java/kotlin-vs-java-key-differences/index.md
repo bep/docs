@@ -15,6 +15,7 @@ h1_title: "Kotlin vs. Java: Key Differences"
 enable_h1: true
 contributor:
   name: Jack Wallen
+authors: ["Jack Wallen"]
 ---
 
 ## What is Kotlin?

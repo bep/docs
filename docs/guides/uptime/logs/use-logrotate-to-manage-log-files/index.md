@@ -14,6 +14,7 @@ published: 2010-10-11
 title: "How to Use logrotate to Manage Log Files"
 h1_title: "Using logrotate to Manage Log Files"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 ## What is logrotate?

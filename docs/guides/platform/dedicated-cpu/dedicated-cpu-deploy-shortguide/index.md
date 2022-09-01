@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/dedicated-cpu/dedicated-cpu-deploy-shortguide/']
+authors: ["Linode"]
 ---
 
 ![Create a Dedicated CPU Linode in the Cloud Manager](dedi-cpu-with-new-manager.gif "Create a Dedicated CPU Linode in the Cloud Manager")

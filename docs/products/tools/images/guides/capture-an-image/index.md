@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Capture an Image
 description: "How to capture an Image from a Linode."
+authors: ["Linode"]
 ---
 
 ## Requirements and Considerations

@@ -16,6 +16,7 @@ modified_by:
 title: "How to Use Portage to Manage Packages in Gentoo"
 h1_title: "Using Portage to Manage Packages in Gentoo"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 Gentoo provides its entire operating system in source format. These source packages, in concert with `ebuild` scripts, provide a package management system that borrows and builds on many concepts from the BSD's "portage" system.

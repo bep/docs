@@ -13,6 +13,7 @@ modified_by:
   name: Linode
 modified: 2020-12-01
 title: Install a Custom Distribution on a Linode
+authors: ["Nick Brewer"]
 ---
 
 This guide shows you how to install and configure a custom distribution on your Linode.

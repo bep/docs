@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/api/api-create-api-token-shortguide/']
+authors: ["Linode"]
 ---
 
 1.  Log in to the [Cloud Manager](https://cloud.linode.com).

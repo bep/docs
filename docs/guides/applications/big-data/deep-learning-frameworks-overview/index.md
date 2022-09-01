@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Andy Patrizio
   link: https://twitter.com/apatrizio
+authors: ["Andy Patrizio"]
 ---
 
 ## What is Deep Learning?

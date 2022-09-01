@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["kubernetes"]
 aliases: ['/kubernetes/lke-network-firewall-information-shortguide/']
+authors: ["Linode"]
 ---
 
 In an LKE cluster, both of the following types of workload endpoints *cannot* be reached from the Internet:

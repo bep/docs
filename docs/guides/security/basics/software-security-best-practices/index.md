@@ -13,6 +13,7 @@ h1_title: "The 14 Top Software Security Best Practices you Need to Implement Tod
 enable_h1: true
 contributor:
   name: David Strom
+authors: ["David Strom"]
 ---
 
 The days where software developers wrote their application code in isolation of any security implications are over. Applications are exploited every minute of the day, thanks to the internet that connects them to any hacker around the planet. Application security doesn't have to be overwhelming: there are dozens if not hundreds of tools to help you improve your security posture, prevent exploits, and reduce configuration errors that let bad actors gain unauthorized access to your network.

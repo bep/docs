@@ -14,6 +14,7 @@ published: 2009-11-16
 title: "Linode Beginner's Guide"
 tags: ["linode platform"]
 image: linode-beginners-guide.png
+authors: ["Linode"]
 ---
 
 If you're relatively new to Linux system administration, or just new to our platform, this guide will help address some of the most common questions we receive. If you've just created your first Linode account, please first refer to our [Creating a Compute Instance](/docs/guides/creating-a-compute-instance/) Guide and return here once your Linode has been deployed.

@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Transfer Domain Zones
 description: "How to transfer domain zones using the Linode DNS Manager."
+authors: ["Linode"]
 ---
 
 {{< content "dns-manager-transfer-domain-zone-shortguide" >}}

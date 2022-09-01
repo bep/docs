@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Cameron Laird
   link: https://twitter.com/Phaseit
+authors: ["Cameron Laird"]
 ---
 
 A team of Google employees [designed the Go programming language](https://qarea.com/blog/the-evolution-of-go-a-history-of-success) in 2007 to help developers make better use of high-performance, networked, multi-core computing chips. [Well over a million coders around the world](https://research.swtch.com/gophercount) now work in Go.

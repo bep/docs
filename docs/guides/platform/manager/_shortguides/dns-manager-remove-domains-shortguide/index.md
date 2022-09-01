@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/dns-manager-remove-domains-shortguide/']
+authors: ["Linode"]
 ---
 
 If one of your domain names has expired or if you want to start hosting it on another DNS provider, you should permanently delete the domain and all of its associated DNS records.

@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 Version Control Systems (VCS), like Git and SVN, track and manage code changes and provide an efficient way to collaborate on software development projects. A VCS is especially useful as a software development project grows in size and complexity, but even the simplest projects can benefit from tracking code changes with a VCS.
 

@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Nathaniel Stickman
   link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 The gping tool takes the functionality of the ping tool and displays its data on a graph. With gping you can track the response time for hosts, and compare the data side by side. This guide shows you how to install gping and get started using it on your Linux system.

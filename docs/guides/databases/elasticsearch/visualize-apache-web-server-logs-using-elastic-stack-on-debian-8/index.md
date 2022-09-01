@@ -27,6 +27,7 @@ relations:
         key: visualize-apache-logs-using-elastic-stack
         keywords:
             - distribution: Debian 8
+authors: ["Tyler Langlois"]
 ---
 
 

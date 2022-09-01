@@ -15,6 +15,7 @@ title: "Getting Started with NGINX: Installation and Basic Setup"
 h1_title: "Getting Started with NGINX (Part 1): Installation and Basic Setup"
 enable_h1: true
 tags: ["web server","nginx"]
+authors: ["Linode"]
 ---
 
 ![Getting Started with NGINX - Part 1: Installation and Basic Setup](Getting-Started-with-NGINX-Part-1-smg.jpg)

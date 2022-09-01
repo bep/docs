@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/accounts-change-username-shortguide/']
+authors: ["Linode"]
 ---
 
 You can update a username, including your own, from the Linode Cloud Manager.

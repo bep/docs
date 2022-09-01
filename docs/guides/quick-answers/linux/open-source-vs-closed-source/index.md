@@ -14,6 +14,7 @@ h1_title: "Open Source vs. Closed Source: What’s the Difference?"
 enable_h1: true
 contributor:
   name: Steven J. Vaughan-Nichols
+authors: ["Steven J. Vaughan-Nichols"]
 ---
 
 ## What is Open Source?

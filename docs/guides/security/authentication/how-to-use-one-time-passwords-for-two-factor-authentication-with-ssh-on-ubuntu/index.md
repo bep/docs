@@ -26,6 +26,7 @@ relations:
         keywords:
             - distribution: Ubuntu 18.04
 aliases: ['/security/authentication/how-to-use-one-time-passwords-for-two-factor-authentication-with-ssh-on-ubuntu/','/security/authentication/two-factor-authentication/how-to-use-one-time-passwords-for-two-factor-authentication-with-ssh-on-ubuntu/']
+authors: ["Linode"]
 ---
 
 In this guide, you'll learn how to use one-time passwords for two-factor authentication with SSH on Ubuntu 18.04 LTS. No matter what kind of data you're hosting, securing access to your Linode is a critical step in preventing your information from being compromised. By default, you will need a password to log in, and you may also configure an authentication key-pair for even greater security. However, another option exists to complement these methods: [time-based one-time passwords](https://en.wikipedia.org/wiki/Time-based_One-time_Password_algorithm) (*TOTPs*).

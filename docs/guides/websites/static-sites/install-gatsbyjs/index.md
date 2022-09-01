@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Linode
 aliases: ['/websites/static-sites/install-gatsbyjs/']
+authors: ["Linode"]
 ---
 
 ![Create a CI/CD Pipeline with Gatsby.js, Netlify and Travis CI](create-a-ci-cd-pipeline.png "Create a CI/CD Pipeline with Gatsby.js, Netlify and Travis CI")

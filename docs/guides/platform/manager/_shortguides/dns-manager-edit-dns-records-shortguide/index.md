@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/dns-manager-edit-dns-records-shortguide/']
+authors: ["Linode"]
 ---
 
 To modify a Domain's existing DNS records:

@@ -15,6 +15,7 @@ contributor:
   name: Linode
 tags: ["linode platform","automation"]
 aliases: ['/platform/stackscripts/common-stackscripts-use-cases/']
+authors: ["Linode"]
 ---
 ## What are StackScripts?
 

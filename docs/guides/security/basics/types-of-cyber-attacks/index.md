@@ -14,6 +14,7 @@ enable_h1: true
 contributor:
   name: Andy Patrizio
   link: https://twitter.com/apatrizio
+authors: ["Andy Patrizio"]
 ---
 
 As long as there have been personal computers, there have been cyber attacks, even in the pre-Internet days of the 1980s. Malware started out simple; they damaged your data, apps, or floppy disks. Malware authors did it for no other reason than to be mean.

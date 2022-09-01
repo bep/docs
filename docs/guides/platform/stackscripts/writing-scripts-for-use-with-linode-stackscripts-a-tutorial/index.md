@@ -17,6 +17,7 @@ enable_h1: true
 contributor:
   name: Linode
 aliases: ['/platform/stackscripts/writing-scripts-for-use-with-linode-stackscripts-a-tutorial/']
+authors: ["Linode"]
 ---
 ## What are StackScripts?
 

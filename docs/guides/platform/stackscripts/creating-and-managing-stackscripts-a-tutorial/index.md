@@ -16,6 +16,7 @@ published: 2020-04-22
 title: Create and Manage StackScripts - A Tutorial
 h1_title: A Tutorial for Creating and Managing StackScripts
 aliases: ['/platform/stackscripts/creating-and-managing-stackscripts-a-tutorial/']
+authors: ["Linode"]
 ---
 
 ## What are StackScripts?

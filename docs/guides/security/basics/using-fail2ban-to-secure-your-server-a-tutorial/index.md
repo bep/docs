@@ -15,6 +15,7 @@ published: 2015-10-12
 title: "How to Use Fail2ban to Secure Your Server (A Tutorial)"
 h1_title: "Using Fail2ban to Secure Your Server"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 ## What is Fail2Ban

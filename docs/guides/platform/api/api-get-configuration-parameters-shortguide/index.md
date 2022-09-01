@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/api/api-get-configuration-parameters-shortguide/']
+authors: ["Linode"]
 ---
 
 Specify the type, region, and image for the new Linode.

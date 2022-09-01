@@ -18,6 +18,7 @@ contributor:
   link: https://github.com/nasanos
 external_resources:
 - '[usermod - Ubuntu Manpage](https://manpages.ubuntu.com/manpages/xenial/en/man8/usermod.8.html)'
+authors: ["Nathaniel Stickman"]
 ---
 ## What is usermod?
 

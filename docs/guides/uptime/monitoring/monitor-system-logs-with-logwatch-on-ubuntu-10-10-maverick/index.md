@@ -19,6 +19,7 @@ relations:
         key: install-logwatch-monitoring
         keywords:
             - distribution: Ubuntu 10.10
+authors: ["Linode"]
 ---
 
 

@@ -14,6 +14,7 @@ h1_title: "What are the Advantages of Open Source Software?"
 enable_h1: true
 contributor:
   name: Jack Wallen
+authors: ["Jack Wallen"]
 ---
 
 Open-source software and technology is proven within the world of both mid-market and enterprise businesses. Most companies across the globe depend on open-source software at nearly every point in their delivery chain. From the underlying (backend) software that powers business functionality, to the front ends that users interact with, Linux and open-source applications make things happen.

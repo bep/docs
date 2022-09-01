@@ -9,4 +9,5 @@ published: 2019-03-26
 title: Marketplace Apps
 show_in_lists: true
 aliases: ['/platform/marketplace/', /platform/one-click/]
+authors: ["Linode"]
 ---

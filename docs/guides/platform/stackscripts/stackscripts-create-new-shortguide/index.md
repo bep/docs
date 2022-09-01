@@ -14,6 +14,7 @@ keywords: ["stackscripts"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/platform/stackscripts/stackscripts-create-new-shortguide/']
+authors: ["Linode"]
 ---
 
 1. Log into the [Linode Cloud Manager](https://cloud.linode.com/).

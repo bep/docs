@@ -14,6 +14,7 @@ h1_title: "How to Resolve Merge Conflicts in Git"
 enable_h1: true
 contributor:
   name: Stephen Savitzky
+authors: ["Stephen Savitzky"]
 ---
 
 ## What Causes Merge Conflicts?

@@ -16,6 +16,7 @@ title: "Cron Jobs: Schedule Tasks for Certain Times or Intervals"
 h1_title: "Using Cron to Schedule Tasks for Certain Times or Intervals"
 enable_h1: true
 image: schedule-tasks-with-cron.png
+authors: ["Linode"]
 ---
 
 ## What is Cron?

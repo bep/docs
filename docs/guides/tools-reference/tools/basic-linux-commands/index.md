@@ -13,6 +13,7 @@ h1_title: "Basic Linux Commands: A Beginner’s Guide "
 enable_h1: true
 contributor:
   name: Tom Henderson
+authors: ["Tom Henderson"]
 ---
 
 Both beginners and advanced users of Linux can benefit from a Linux command cheat sheet. If you need to use a command that isn't part of your daily toolchain, or if you are coming from a non-Linux based operating system, a Linux command reference is what you need. These commands work on most Linux distributions released since 2012.

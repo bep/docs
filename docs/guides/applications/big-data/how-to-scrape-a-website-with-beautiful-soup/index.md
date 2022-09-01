@@ -16,6 +16,7 @@ contributor:
 title: "How to Scrape a Website with Beautiful Soup"
 dedicated_cpu_link: true
 aliases: ['/applications/big-data/how-to-scrape-a-website-with-beautiful-soup/']
+authors: ["Luis Cortés"]
 ---
 
 ![How to Scrape a Website with BeautifulSoup](beautifulsoup-title-graphic.jpg "How to Scrape a Website with BeautifulSoup")

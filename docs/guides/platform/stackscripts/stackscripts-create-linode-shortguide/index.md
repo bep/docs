@@ -14,6 +14,7 @@ keywords: ["stackscripts"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/platform/stackscripts/stackscripts-create-linode-shortguide/']
+authors: ["Linode"]
 ---
 
 - If you have an existing deployment script, you can use a StackScript to deploy Linode instances with it. The following example StackScript installs PHP on the Linode, downloads an external PHP script from the URL `http://example.com/deployment-script.php`, makes it executable, and then runs the downloaded script.

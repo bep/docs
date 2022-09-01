@@ -13,6 +13,7 @@ h1_title: "Multicloud vs. Hybrid Cloud: Differences Explained"
 enable_h1: true
 contributor:
   name: Jack Wallen
+authors: ["Jack Wallen"]
 ---
 
 In the last couple of years, *the cloud* has become a ubiquitous term and piece of technology. But depending on who you ask, what is meant by "the cloud" can vary dramatically. For some, the cloud is only a way to store files and photos on a third-party service. For others, the cloud is a means to sync data between phones and desktops. Others look at the cloud as a method of serving applications to consumers and customers. As you keep climbing up the IT ladder, the definition gets more granular and more complicated.

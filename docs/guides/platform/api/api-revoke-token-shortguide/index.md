@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/api/api-revoke-token-shortguide/']
+authors: ["Linode"]
 ---
 
 If you forget your access token or think it may have been compromised, you can revoke an API access token in the Cloud Manager.

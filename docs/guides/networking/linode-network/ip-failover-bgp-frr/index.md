@@ -15,6 +15,7 @@ contributor:
   name: Linode
 external_resources:
 - '[FRRouting Documentation](http://docs.frrouting.org/en/latest/overview.html)'
+authors: ["Linode"]
 ---
 
 {{<note>}}

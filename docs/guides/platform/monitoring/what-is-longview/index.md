@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Linode
 tags: ["linode platform","cloud manager","statistics","monitoring"]
+authors: ["Linode"]
 ---
 
 ![Our guide to installing and using Linode Longview.](longview_smg.png "Our guide to installing and using Linode Longview.")

@@ -13,6 +13,7 @@ h1_title: "Using the Git Rebase Command"
 enable_h1: true
 contributor:
   name: Stephen Savitzky
+authors: ["Stephen Savitzky"]
 ---
 
 ## What Does Git Rebase Do?

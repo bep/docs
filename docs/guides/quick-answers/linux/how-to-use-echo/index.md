@@ -15,6 +15,7 @@ image: UseEchoCommand.png
 title: How to Use Echo
 h1_title: Using the echo Command
 tags: ["linux"]
+authors: ["Rajakavitha Kodhandapani"]
 ---
 
 ## What Is the Echo Command?

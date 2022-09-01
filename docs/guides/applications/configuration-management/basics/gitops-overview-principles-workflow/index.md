@@ -14,6 +14,7 @@ h1_title: "GitOps: An Overview of Its Principles and Workflow"
 enable_h1: true
 contributor:
   name: Jack Wallen
+authors: ["Jack Wallen"]
 ---
 
 If you're a developer, chances are you know what [Git](/docs/guides/a-beginners-guide-to-github/) is. However, you may not be as familiar with *GitOps*. This guide gives you an understanding of GitOps, compares GitOps to DevOps, describes the GitOps workflow, and the tools often used with this methodology.

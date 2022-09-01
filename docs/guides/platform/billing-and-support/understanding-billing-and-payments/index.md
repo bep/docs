@@ -15,6 +15,7 @@ title: "Understanding Billing and Payments on the Linode Platform"
 h1_title: "Understanding Billing and Payments"
 enable_h1: true
 tags: ["linode platform"]
+authors: ["Linode"]
 ---
 
 Linode strives to provide transparent and uncomplicated pricing structures and billing policies. As a supplement to our [Pricing](https://www.linode.com/pricing/) page, read through this guide to understand how we bill for services and how you can pay for these services. For instructions on how to manage your billing in the Cloud Manager, see the [Manage Billing in Cloud Manager](/docs/guides/manage-billing-in-cloud-manager/) guide. If you have a question that isn't answered in either of these guides, don't hesitate to [contact Support](https://www.linode.com/support/).

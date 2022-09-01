@@ -16,6 +16,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/quick-answers/linode-platform/cancel-your-account-shortguide/']
+authors: ["Linode"]
 ---
 
 You can cancel your account at any time. Please note that when you cancel your account, any past due balance and uninvoiced balance remaining on your account will be charged to your account's credit card. If you have any positive credit on your account at time of cancellation, then that credit will be used to pay for your uninvoiced balance.

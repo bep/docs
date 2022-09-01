@@ -14,6 +14,7 @@ keywords: ["stackscripts"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/platform/stackscripts/stackscripts-edit-account-shortguide/']
+authors: ["Linode"]
 ---
 
 After you've created an Account StackScript, you can go back and edit it as required. These instructions show you how to access a StackScript for editing.

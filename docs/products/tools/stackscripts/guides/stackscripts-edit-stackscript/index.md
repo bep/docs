@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Edit a Stackscript
 description: "How to edit a StackScript using Linode StackScripts."
+authors: ["Linode"]
 ---
 
 {{< content "stackscripts-edit-account-shortguide" >}}

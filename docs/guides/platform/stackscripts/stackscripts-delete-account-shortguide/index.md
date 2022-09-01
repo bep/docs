@@ -14,6 +14,7 @@ keywords: ["stackscripts"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/platform/stackscripts/stackscripts-delete-account-shortguide/']
+authors: ["Linode"]
 ---
 
 {{< note >}}

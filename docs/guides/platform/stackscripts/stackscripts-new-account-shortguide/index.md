@@ -14,6 +14,7 @@ keywords: ["stackscripts"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/platform/stackscripts/stackscripts-new-account-shortguide/']
+authors: ["Linode"]
 ---
 
 You can make any of your Account StackScripts public. When an account StackScript is public it becomes available to the rest of the Linode Community in the Cloud Manager as a Community StackScript.

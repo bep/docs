@@ -16,6 +16,7 @@ h1_title: Securing phpMyAdmin
 enable_h1: true
 aliases: ['/security/basics/how-to-secure-phpmyadmin/']
 image: Securing_phpMyAdmin.png
+authors: ["Hackersploit"]
 ---
 
 ## What is phpMyAdmin?

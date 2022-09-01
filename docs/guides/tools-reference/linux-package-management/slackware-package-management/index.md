@@ -16,6 +16,7 @@ modified_by:
 title: "How to Manage Packages in Slackware"
 h1_title: "Managing Packages in Slackware"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 Packages in Slackware Linux are distributed as compressed tarballs, generally using gzip or lzma compression. These tarballs can be recognized by their suffixes, `.tgz` or `.txz`. This format includes a complete filesystem layout, as well as additional scripts to be run upon installation or removal of the software. Slackware packages do not offer dependency resolution information; this is generally viewed as allowing more flexibility and control.

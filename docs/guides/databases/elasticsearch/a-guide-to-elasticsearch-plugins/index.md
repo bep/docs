@@ -24,6 +24,7 @@ enable_h1: true
 dedicated_cpu_link: true
 tags: ["ubuntu","debian","database","java"]
 aliases: ['/databases/elasticsearch/a-guide-to-elasticsearch-plugins/']
+authors: ["Tyler Langlois"]
 ---
 
 ![banner_image](How_to_Install_and_Use_Elasticsearch_Plugins_smg.jpg)

@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Martin Heller
   link: https://twitter.com/meheller
+authors: ["Martin Heller"]
 ---
 
 ## Declaring Functions

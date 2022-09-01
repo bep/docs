@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform"]
 aliases: ['/platform/api/api-build-final-query-shortguide/']
+authors: ["Linode"]
 ---
 
 Replace the values in the command below with your chosen type, region, and image, and choose a label and secure password.

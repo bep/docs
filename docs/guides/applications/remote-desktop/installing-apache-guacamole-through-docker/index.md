@@ -15,6 +15,7 @@ h1_title: "Installing Apache Guacamole through Docker"
 enable_h1: true
 external_resources:
  - '[Apache Guacamole](https://guacamole.incubator.apache.org/)'
+authors: ["Linode"]
 ---
 
 ## Before You Begin

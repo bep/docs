@@ -9,6 +9,7 @@ aliases: ['/platform/nodebalancer/','/nodebalancers/']
 published: 2012-07-17
 title: NodeBalancers
 show_in_lists: true
+authors: ["Linode"]
 ---
 
 

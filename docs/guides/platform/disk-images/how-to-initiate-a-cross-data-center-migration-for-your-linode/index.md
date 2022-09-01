@@ -16,6 +16,7 @@ aliases: ['/platform/disk-images/how-to-initiate-a-cross-data-center-migration-f
 h1_title: How to Initiate a Cross Data Center Migration for your Linode
 title: Initiating a Cross Data Center Migration for your Linode
 enable_h1: true
+authors: ["Linode"]
 ---
 
 You can migrate your Linode across data centers using the Linode Cloud Manager. This is a self-service feature that does not require any action from Linode to initiate your migration.

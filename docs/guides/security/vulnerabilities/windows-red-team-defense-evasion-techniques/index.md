@@ -15,6 +15,7 @@ h1_title: "Windows Red Team Defense Evasion Techniques"
 enable_h1: true
 contributor:
   name: HackerSploit
+authors: ["HackerSploit"]
 ---
 
 {{< content "hackersploit-red-team-series-note-shortguide" >}}

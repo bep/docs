@@ -18,6 +18,7 @@ enable_h1: true
 external_resources:
 - '[Git](https://git-scm.com/)'
 - '[Git Branching - Basic Branching and Merging](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)'
+authors: ["Linode Community"]
 ---
 
 Git is a distributed version control system. It supports non-linear, distributed development, allowing multiple contributors to work on a project simultaneously within what are called *branches*. This guide walks you through the basics of what a branch is and how to switch between branches.

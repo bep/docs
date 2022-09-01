@@ -15,6 +15,7 @@ h1_title: "Learn to Process Text in Linux using Grep, sed, and AWK"
 enable_h1: true
 contributor:
   name: Andy Lester
+authors: ["Andy Lester"]
 ---
 
 ## The Differences Between Grep, sed, and AWK

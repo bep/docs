@@ -16,6 +16,7 @@ enable_h1: true
 contributor:
   name: Doug Hayman for NanoHertz Solutions Inc.
   link: http://nhzsolutions.com/
+authors: ["Doug Hayman for NanoHertz Solutions Inc."]
 ---
 
 ## What are SQL Transactions?

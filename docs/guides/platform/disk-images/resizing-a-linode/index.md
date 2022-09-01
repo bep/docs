@@ -13,6 +13,7 @@ modified_by:
   name: Linode
 published: 2017-02-14
 title: "Resizing a Linode"
+authors: ["Linode"]
 ---
 
 We make it easy to upgrade or downgrade your Linode by changing plans and adding additional resources. If you're expecting a temporary burst of traffic to your website, or if you're not using your Linode as much as you thought, you can temporarily or permanently resize your Linode to a different plan.

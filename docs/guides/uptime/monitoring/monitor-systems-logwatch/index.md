@@ -13,6 +13,7 @@ published: 2015-08-12
 title: Monitor System Logs with Logwatch
 tags: ["monitoring"]
 aliases: ['/uptime/monitoring/monitor-systems-logwatch/']
+authors: ["Elle Krout"]
 ---
 
 ![Monitor System Logs with Logwatch](monitor-system-logs-logwatch.jpg)

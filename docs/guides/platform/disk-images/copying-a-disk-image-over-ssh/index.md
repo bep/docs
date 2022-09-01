@@ -13,6 +13,7 @@ modified_by:
   name: Linode
 published: 2012-06-04
 title: "Copy a Disk Over SSH"
+authors: ["Linode"]
 ---
 
 ![Copy a Disk Over SSH](copying_a_disk_over_ssh_smg.png "Copy a Disk Over SSH")

@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","networking"]
 aliases: ['/platform/nodebalancer/use-dhparams-with-nodebalancer/']
+authors: ["Nathan Melehan"]
 ---
 
 <!-- How to Use Diffie-Hellman Parameters with a NodeBalancer -->

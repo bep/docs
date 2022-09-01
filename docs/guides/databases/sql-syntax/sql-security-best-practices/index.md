@@ -14,6 +14,7 @@ enable_h1: true
 contributor:
   name: Doug Hayman for NanoHertz Solutions Inc.
   link: http://nhzsolutions.com/
+authors: ["Doug Hayman for NanoHertz Solutions Inc."]
 ---
 
 SQL Server security is perhaps one of the most overlooked facets of database server maintenance. Without taking the necessary precautions, an instance of SQL Server can be ripe for abuse and failure.

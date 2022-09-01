@@ -17,6 +17,7 @@ enable_h1: true
 contributor:
   name: Martin Heller
   link: http://www.twitter.com/meheller
+authors: ["Martin Heller"]
 ---
 
 ## What is Load Balancing and Why is it Necessary?

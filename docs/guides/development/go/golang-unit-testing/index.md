@@ -15,6 +15,7 @@ enable_h1: true
 contributor:
   name: Martin Heller
   link: https://twitter.com/meheller
+authors: ["Martin Heller"]
 ---
 
 Unit testing verifies the functionality of a specific section of code in isolation. In the Go language, `go test` is the built-in command that runs unit tests, example functions, and benchmarks; does code profiling, and performs code coverage analysis. This guide provides an introduction to unit testing in Go.

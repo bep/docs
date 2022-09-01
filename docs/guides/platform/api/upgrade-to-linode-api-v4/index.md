@@ -17,6 +17,7 @@ external_resources:
  - '[Linode API Documentation](https://developers.linode.com)'
 tags: ["linode platform"]
 aliases: ['/platform/api/upgrade-to-linode-api-v4/']
+authors: ["Jared Kobos"]
 ---
 
 Version 4 of the Linode API is now in general release and it is a major improvement over previous versions. Almost any task which can be done through the Linode Manager can now be performed through the API. This guide will show you how to adapt existing code for previous API versions in order to take advantage of these new features.

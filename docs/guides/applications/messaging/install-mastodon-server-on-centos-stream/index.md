@@ -34,6 +34,7 @@ relations:
         key: install-mastodon
         keywords:
            - distribution: CentOS Stream 8
+authors: ["Nathaniel Stickman"]
 ---
 
 {{< youtube "IPSbNdBmWKE" >}}

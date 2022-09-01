@@ -14,6 +14,7 @@ modified_by:
 published: 2010-09-10
 title: Logwatch Log Monitoring
 tags: ["monitoring"]
+authors: ["Linode"]
 ---
 
 Logwatch is a utility used to audit system logs and generate reports, which can then be emailed to a system administrator for review. These reports allow administrators to monitor potential malicious activity without having to examine their logs by hand.

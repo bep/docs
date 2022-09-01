@@ -13,6 +13,7 @@ published: 2022-02-25
 title: "Creating a Compute Instance on the Linode Platform"
 h1_title: "Creating a Compute Instance"
 enable_h1: true
+authors: ["Linode"]
 ---
 
 This guide walks you through creating a Compute Instance (also frequently called a *Linode*) through the Cloud Manager. Whether this is your first time using Linode or if you're a long time user, you should carefully consider each step in the process to make sure you're getting the most of your Linode services.

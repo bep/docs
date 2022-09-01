@@ -15,6 +15,7 @@ headless: true
 show_on_rss_feed: false
 tags: ["linode platform","cloud manager"]
 aliases: ['/platform/manager/dns-manager-add-dns-records-shortguide/']
+authors: ["Linode"]
 ---
 
 After a domain has been created, you're able to add DNS records. Each type of DNS record is used for a different purpose. The applications that utilize your domain determine which DNS records you need to add.

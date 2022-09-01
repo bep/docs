@@ -14,6 +14,7 @@ published: 2022-01-14
 external_resources:
  - '[Linode API Documentation](https://developers.linode.com)'
 tags: ["linode platform"]
+authors: ["Linode"]
 ---
 
 ## In This Guide

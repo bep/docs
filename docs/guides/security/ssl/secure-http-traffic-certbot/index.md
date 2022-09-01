@@ -18,6 +18,7 @@ deprecated_link: /guides/how-to-install-certbot-on-ubuntu-18-04/
 aliases: ['/quick-answers/websites/secure-http-traffic-certbot/','/quick-answers/websites/certbot/secure-http-traffic-certbot/']
 external_resources:
   - '[Certbot Official Documentation](https://certbot.eff.org/docs/)'
+authors: ["Edward Angert"]
 ---
 
 ## What is Certbot?

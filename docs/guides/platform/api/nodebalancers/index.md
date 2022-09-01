@@ -17,6 +17,7 @@ enable_h1: true
 external_resources:
   - '[Getting Started with NodeBalancers](/docs/guides/getting-started-with-nodebalancers/)'
 tags: ["linode platform"]
+authors: ["Linode"]
 ---
 
 ![Configure NodeBalancers with the Linode API](configure-nodebalancers-with-the-linode-api.png "Configure NodeBalancers with the Linode API")

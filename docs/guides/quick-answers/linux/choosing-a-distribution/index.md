@@ -15,6 +15,7 @@ h1_title: "Choosing a Linux Distribution"
 enable_h1: true
 tags: ["linux"]
 aliases: ['/quick-answers/linux/choosing-a-distribution/']
+authors: ["Linode"]
 ---
 
 ## What is a Distribution?

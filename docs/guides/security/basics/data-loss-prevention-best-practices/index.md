@@ -14,6 +14,7 @@ enable_h1: true
 contributor:
   name: Andy Patrizio
   link: https://twitter.com/apatrizio
+authors: ["Andy Patrizio"]
 ---
 
 An organization's data is everything because it gives market and customer insight. Data tells you where the market is going, where your customers are going, and where your company is going.

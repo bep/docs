@@ -18,6 +18,7 @@ enable_h1: true
 external_resources:
 - '[Ubuntu Manual page on find](http://manpages.ubuntu.com/manpages/focal/en/man1/find.1.html)'
 - '[GNU page on find](https://www.gnu.org/software/findutils/manual/html_mono/find.html)'
+authors: ["Linode"]
 ---
 
 ![Find files in Linux using the command line](find-files-linux-command-line-title.jpg)

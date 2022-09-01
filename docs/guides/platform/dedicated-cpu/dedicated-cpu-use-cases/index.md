@@ -12,6 +12,7 @@ published: 2019-09-20
 title: Use Cases for Linode Dedicated CPU Instances
 tags: ["linode platform"]
 aliases: ['/platform/dedicated-cpu/dedicated-cpu-use-cases/']
+authors: ["Ryan Syracuse"]
 ---
 
 ## Why Dedicated CPU

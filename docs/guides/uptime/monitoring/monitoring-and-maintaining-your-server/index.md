@@ -14,6 +14,7 @@ modified_by:
   name: Linode
 published: 2012-08-22
 title: Monitoring and Maintaining Your Server
+authors: ["Linode"]
 ---
 
 ![Monitoring and Maintaining Your Server](monitor-and-maintain-your-server.png "Monitoring and Maintaining Your Server")

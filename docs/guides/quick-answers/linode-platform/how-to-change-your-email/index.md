@@ -16,6 +16,7 @@ image: L_ChangeYourEmail.png
 title: How to Change Your Email Address
 h1_title: Changing Your Email Address
 aliases: ['/quick-answers/linode-platform/how-to-change-your-email/']
+authors: ["Linode"]
 ---
 
 ## Changing Billing Email From the Cloud Manager

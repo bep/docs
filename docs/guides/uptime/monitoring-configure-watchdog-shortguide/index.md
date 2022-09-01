@@ -14,6 +14,7 @@ keywords: ["monitoring"]
 headless: true
 show_on_rss_feed: false
 aliases: ['/uptime/monitoring-configure-watchdog-shortguide/']
+authors: ["Linode"]
 ---
 
 Shutdown Watchdog, also known as *Lassie*, is a Linode Cloud Manager feature capable of automatically rebooting your Linode if it powers off unexpectedly. Lassie is not technically an availability monitoring tool, but it can help get your Linode back online fast if it's accidentally powered off.

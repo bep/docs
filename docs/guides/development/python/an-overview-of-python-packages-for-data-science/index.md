@@ -13,6 +13,7 @@ title: "An Overview of Python Packages for Data Science"
 enable_h1: true
 contributor:
   name: John Mueller
+authors: ["John Mueller"]
 ---
 
 Python is one of the most popular programming languages in the world because it provides a vast array of packages, it’s easy to learn, and it’s incredibly flexible. The data science community has adopted Python as one of its go-to programming languages, because of the many packages that help analyze and visualize large datasets. This guide discusses the strengths and use cases for the top five Python data science packages.

@@ -14,6 +14,7 @@ h1_title: "Twilio Notifications: Use Twilio and the Linode API to Monitor your L
 enable_h1: true
 contributor:
   name: John Mueller
+authors: ["John Mueller"]
 ---
 
 Each Linode account has a monthly *outbound* network transfer pool. The network transfer pool is the total amount of free outbound bandwidth that is shared between all the Linode services in your account.

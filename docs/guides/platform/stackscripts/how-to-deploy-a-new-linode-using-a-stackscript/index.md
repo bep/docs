@@ -16,6 +16,7 @@ published: 2020-04-22
 title: How to Deploy a New Linode Using a StackScript
 h1_title: Deploying a New Linode Using a StackScript
 aliases: ['/platform/stackscripts/how-to-deploy-a-new-linode-using-a-stackscript/']
+authors: ["Linode"]
 ---
 ## What are StackScripts?
 

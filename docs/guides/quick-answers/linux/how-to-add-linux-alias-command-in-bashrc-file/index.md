@@ -15,6 +15,7 @@ title: "How to Add the Linux alias Command in the .bashrc File"
 h1_title: Adding the Linux alias Command in the .bashrc File
 enable_h1: true
 tags: ["linux"]
+authors: ["Linode"]
 ---
 
 The command line terminal is a convenient and fast tool for interfacing with the Linux operating system. However, you may find yourself sending the same commands again and again while issuing instructions to your system. This may cost you a significant amount of time, especially if your commands are lengthy, hard to remember, or just repetitive. To help save time and reduce frustration, aliasing commands can be used to create customizable shortcuts.

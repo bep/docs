@@ -18,6 +18,7 @@ enable_h1: true
 external_resources:
   - '[Nextcloud Docker Image Documentation](https://github.com/nextcloud/docker)'
 aliases: ['/applications/cloud-storage/use-block-storage-volume-with-nextcloud/']
+authors: ["Jared Kobos"]
 ---
 
 ## What is Nextcloud?

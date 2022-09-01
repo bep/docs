@@ -20,6 +20,7 @@ external_resources:
  - '[Wercker Developer Documentation](http://devcenter.wercker.com/docs/home)'
 audiences: ["intermediate"]
 dedicated_cpu_link: true
+authors: ["Damaso Sanoja"]
 ---
 
 

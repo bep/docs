@@ -19,6 +19,7 @@ enable_h1: true
 contributor:
   name: Andy Lester
   link: https://twitter.com/petdance
+authors: ["Andy Lester"]
 ---
 
 AWK, named after the developers Aho, Weinberger, and Kernighan, is ideal for finding data in text files. Among its other virtues, the [AWK Programming Language](/docs/guides/introduction-to-awk/) is optimized to make this task as easy as possible.

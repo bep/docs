@@ -16,6 +16,7 @@ h1_title: cPanel Security
 enable_h1: true
 aliases: ['security/basics/securing-cpanel/']
 image: cPanelSecurity.png
+authors: ["Hackersploit"]
 ---
 
 ## What is cPanel?

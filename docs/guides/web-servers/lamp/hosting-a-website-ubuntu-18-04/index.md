@@ -15,6 +15,7 @@ published: 2012-03-13
 title: How to Host a Website on Ubuntu 18.04
 h1_title: Hosting a Website on Ubuntu 18.04
 enable_h1: true
+authors: ["Linode"]
 ---
 
 In this guide, you learn how to host a website on Ubuntu 18.04 using the LAMP stack (Linux, Apache, MySQL and PHP). First, you install the LAMP stack and then, you create or import a database. Finally, you upload files and add DNS records. By the time you reach the end of this guide, your Linode hosts one or more websites.

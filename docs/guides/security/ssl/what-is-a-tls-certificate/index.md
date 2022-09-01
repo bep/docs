@@ -17,6 +17,7 @@ tags: ['web server', 'ssl', 'security']
 contributor:
   name: Tom Henderson
   link: http://www.twitter.com/extremelabs
+authors: ["Tom Henderson"]
 ---
 
 ## Understanding the TLS Protocol

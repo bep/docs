@@ -17,6 +17,7 @@ enable_h1: true
 contributor:
   name: Steven J. Vaughan-Nichols
   link: http://www.twitter.com/sjvn
+authors: ["Steven J. Vaughan-Nichols"]
 ---
 
 [Nethogs](https://github.com/raboof/nethogs) is a free, open-source program used to track network usage. It extends the net top tool to track bandwidth by process. For example, `net top` may show that outbound traffic increased on a Linux server by protocol or subnet. But nethogs makes it easier for Linux administrators to identify which process is generating the usage spikes.

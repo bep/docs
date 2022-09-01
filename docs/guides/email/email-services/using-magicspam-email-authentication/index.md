@@ -14,6 +14,7 @@ title: "How to stop BEC and Compromised Accounts on cPanel or Plesk Server"
 h1_title: "Using MagicSpam to Secure your Email Server"
 enable_h1: true
 tags: ["email"]
+authors: ["Linode"]
 ---
 
 [MagicSpam](https://magicspam.com/) is a powerful anti-spam and email security solution for Linux systems. It not only stops inbound spam from entering mailboxes but also provides email authentication security. This prevents email accounts from being compromised and abused by threat actors.

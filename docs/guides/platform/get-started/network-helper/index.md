@@ -14,6 +14,7 @@ modified_by:
 title: "Network Helper: Auto-Configure Networking on Compute Instances"
 aliases: ['/platform/network-helper-classic-manager/','/platform/network-helper/','/platform/network-helper-new-manager/']
 image: network-helper-title-graphic.jpg
+authors: ["Linode"]
 ---
 
 ## Overview

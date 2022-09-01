@@ -18,6 +18,7 @@ enable_h1: true
 contributor:
   name: Linode
 aliases: ['/kubernetes/installing-the-linode-ccm-on-an-unmanaged-kubernetes-cluster/']
+authors: ["Linode"]
 ---
 
 The [Linode Cloud Controller Manager (CCM)](https://github.com/linode/linode-cloud-controller-manager/) provides a way for Kubernetes clusters to access additional Linode services. Linode’s CCM provides access to Linode’s load balancing service, [Linode NodeBalancers](/docs/platform/nodebalancer/).

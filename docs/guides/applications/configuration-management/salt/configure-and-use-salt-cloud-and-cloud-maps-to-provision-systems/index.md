@@ -18,6 +18,7 @@ contributor:
   name: Sergey Bulavintsev
 aliases: ['/applications/configuration-management/configure-and-use-salt-cloud-and-cloud-maps-to-provision-systems/','/applications/configuration-management/salt/configure-and-use-salt-cloud-and-cloud-maps-to-provision-systems/']
 tags: ["automation","salt"]
+authors: ["Sergey Bulavintsev"]
 ---
 
 ![Salt Cloud](SaltCloud.jpg)

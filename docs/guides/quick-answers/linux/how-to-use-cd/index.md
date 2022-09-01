@@ -16,6 +16,7 @@ h1_title: "Using the cd Command to Navigate the Terminal"
 enable_h1: true
 tags: ["linux"]
 aliases: ['/quick-answers/linux/how-to-use-cd/']
+authors: ["Linode"]
 ---
 
 ## What is cd?

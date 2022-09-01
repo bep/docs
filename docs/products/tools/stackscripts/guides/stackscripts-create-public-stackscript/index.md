@@ -4,6 +4,7 @@ author:
   email: docs@linode.com
 title: Create a Public Stackscript
 description: "How to make your StackScript public using Linode StackScripts."
+authors: ["Linode"]
 ---
 
 {{< content "stackscripts-new-account-shortguide" >}}

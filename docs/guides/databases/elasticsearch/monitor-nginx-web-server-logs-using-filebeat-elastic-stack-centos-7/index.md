@@ -22,6 +22,7 @@ enable_h1: true
 dedicated_cpu_link: true
 tags: ["analytics","database","centos","monitoring"]
 aliases: ['/databases/elasticsearch/monitor-nginx-web-server-logs-using-filebeat-elastic-stack-centos-7/']
+authors: ["Tyler Langlois"]
 ---
 ![Monitor NGINX Logs with Elastic](Monitor_NGINX_Elastic.jpg)
 

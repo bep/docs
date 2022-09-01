@@ -14,6 +14,7 @@ published: 2009-08-04
 title: "Using the Lish Console"
 tags: ["linode platform","cloud manager"]
 image: using-the-linode-shell-lish.jpg
+authors: ["Linode"]
 ---
 
 The **Lish Console**, also called the *Linode Shell*, provides direct console access to all of your Compute Instances. Through Lish, you can easily access your Compute Instance's internal Linux system and run commands, install software, or configure applications. Lish is especially useful when you are not able to connect to your server through other means, such as SSH.

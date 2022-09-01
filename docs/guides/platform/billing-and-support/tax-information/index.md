@@ -13,6 +13,7 @@ published: 2019-04-09
 title: Tax Information
 aliases: ['/platform/billing-and-support/european-union-vat-linode/','/platform/billing-and-support/european-union-vat-linode-classic-manager/','/platform/billing-and-support/tax-information/','/platform/billing-and-support/tax-information-classic-manager/']
 tags: ["linode platform"]
+authors: ["Linode"]
 ---
 
 Some countries, states, and regions require us by law to collect taxes. As such, customers located in these locations are charged the appropriate tax rate for any taxable services billed to their account. The taxes that Linode collects are listed on customer invoices (see the [Viewing Invoices and Payments](/docs/guides/manage-billing-in-cloud-manager/#viewing-invoices-and-payments) section of our Cloud Manager Billing guide).
