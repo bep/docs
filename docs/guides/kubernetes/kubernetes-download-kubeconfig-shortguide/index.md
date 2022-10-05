@@ -19,7 +19,7 @@ aliases: ['/kubernetes/kubernetes-download-kubeconfig-shortguide/']
 
 Anytime after your cluster is created you can download its *kubeconfig*. The kubeconfig is a YAML file that will allow you to use kubectl to communicate with your cluster. Here is an example kubeconfig file:
 
-{{< file "example-cluster-kubeconfig.yaml" yaml >}}
+```file {title="example-cluster-kubeconfig.yaml"}
 apiVersion: v1
 kind: Config
 preferences: {}
@@ -44,7 +44,7 @@ contexts:
   name: lke1234-ctx
 
 current-context: lke1234-ctx
-{{< /file >}}
+```
 
 This configuration file defines your cluster, users, and contexts.
 

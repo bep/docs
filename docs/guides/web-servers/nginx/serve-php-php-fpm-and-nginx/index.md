@@ -89,7 +89,7 @@ The [PHP Fast Process Manager](https://php-fpm.org/) is a [FastCGI](https://en.w
 
 1.  Again pulling from [Part 1 of our NGINX series](/docs/guides/getting-started-with-nginx-part-1-installation-and-basic-setup/#configuration-recap), we'll start with a basic Server Block for a static HTTP page being served from `/var/www/example.com`. Replace `example.com` with your site's domain or IP address, and the `root` directive with your site's root directory.
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -97,11 +97,11 @@ server {
     root           /var/www/example.com;
     index          index.html;
 }
-{{< /file >}}
+```
 
 2.  To the Server Block above, add a `location` block containing the PHP directives. You should then have:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -116,7 +116,7 @@ server {
     fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
   }
 }
-{{< /file >}}
+```
 
     This is just a bare minimum to get PHP-FPM working and you will want to configure it further for your specific needs. Some further points about the configuration above:
 
@@ -129,7 +129,7 @@ server {
 
     This only applicable if you allow users to upload or submit files to your site. Change the name of the directory from `uploads` to whatever suits your need.
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
   location ~* \.php$ {
     if ($uri !~ "^/uploads/") {
         fastcgi_pass unix:/run/php/php7.0-fpm.sock;
@@ -138,7 +138,7 @@ server {
     fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
     fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
   }
-{{< /file >}}
+```
 
 3.  Reload NGINX:
 

@@ -85,7 +85,7 @@ The following steps are for Debian based distributions. File paths and commands 
 
 5.  The configuration file should match the path above as defined in the `IncludeOptional` directive. Add another `Include` directive pointing to the rule set:
 
-    {{< file "etc/apache2/mods-available/security2.conf" >}}
+    ```file {title="etc/apache2/mods-available/security2.conf"}
 <IfModule security2_module>
         # Default Debian dir for modsecurity's persistent data
         SecDataDir /var/cache/modsecurity
@@ -97,7 +97,7 @@ The following steps are for Debian based distributions. File paths and commands 
         IncludeOptional /etc/modsecurity/*.conf
         Include /etc/modsecurity/rules/*.conf
 </IfModule>
-{{< /file >}}
+```
 
 6.  Restart Apache so that the changes will take effect:
 
@@ -108,7 +108,7 @@ OWASP CRS builds on top of ModSecurity so that existing rules can be extended.
 
 1.  Navigate to the default Apache configuration and add two additional directives, using the default configuration as an example:
 
-    {{< file "/etc/apache2/sites-available/000-default.conf" >}}
+    ```file {title="/etc/apache2/sites-available/000-default.conf"}
 <VirtualHost *:80>
     ServerAdmin webmaster@localhost
     DocumentRoot /var/www/html
@@ -119,7 +119,7 @@ OWASP CRS builds on top of ModSecurity so that existing rules can be extended.
     SecRuleEngine On
     SecRule ARGS:testparam "@contains test" "id:1234,deny,status:403,msg:'Our test rule has triggered'"
 </VirtualHost>
-{{< /file >}}
+```
 
 2.  Restart Apache then curl the index page to intentionally trigger the alarms:
 

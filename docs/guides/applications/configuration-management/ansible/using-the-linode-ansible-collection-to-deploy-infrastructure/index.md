@@ -105,9 +105,9 @@ When interfacing with the Linode Ansible collection, it is generally good practi
 
 1.  In the `development` directory, create a new empty text file called `.vault-pass` (with no file extension). Then generate a unique, complex new password (for example, by using a password manager), copy it into the new file, and save it. This password is used to encrypt and decrypt information stored with Ansible Vault:
 
-    {{< file "~/development/.vault-pass" >}}
+    ```file {title="~/development/.vault-pass"}
 <PasteYourAnsibleVaultPasswordHere>
-{{< /file >}}
+```
 
     This is an Ansible Vault *password file*. A password file provides your Vault password to Ansible Vault's encryption commands. Ansible Vault also offers other options for password management. To learn more about password management, read Ansible's [Providing Vault Passwords](https://docs.ansible.com/ansible/latest/user_guide/vault.html#providing-vault-passwords) documentation.
 
@@ -123,10 +123,10 @@ Do not check this file into version control. If this file is located in a Git re
 
 Create an Ansible configuration file called `ansible.cfg` with a text editor of your choice. Copy this snippet into the file:
 
-{{< file "~/development/ansible.cfg">}}
+```file {title="~/development/ansible.cfg"}
 [defaults]
 VAULT_PASSWORD_FILE = ./vault-pass
-{{< /file >}}
+```
 
 These lines specify the location of your password file.
 
@@ -172,7 +172,7 @@ password: !vault |
 
     Your `vars.yml` file should now resemble:
 
-    {{< file "~/development/group_vars/vars.yml">}}
+    ```file {title="~/development/group_vars/vars.yml"}
 password: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           30376134633639613832373335313062366536313334316465303462656664333064373933393831
@@ -190,7 +190,7 @@ token: !vault |
           34613532353031333731336339396233623533326130376431346462633832353432316163373833
           35316333626530643736636332323161353139306533633961376432623161626132353933373661
           36663135323664663130
-{{< /file >}}
+```
 
 ## Understanding Fully Qualified Collection Namespaces
 
@@ -238,7 +238,7 @@ This section shows how to write a playbook that leverages the Linode Ansible col
 
 1.  Create a playbook file called `deploylinode.yml` in your `~/development` directory. Copy this snippet into the file and save it:
 
-    {{< file "~/development/deploylinode.yml">}}
+    ```file {title="~/development/deploylinode.yml"}
 - name: Create Linode Instance
   hosts: localhost
   vars_files:
@@ -253,7 +253,7 @@ This section shows how to write a playbook that leverages the Linode Ansible col
         image: linode/ubuntu22.04
         root_pass: "{{ password }}"
         state: present
-{{< /file >}}
+```
 
     -   The playbook contains the `Create Linode Instance` play. When run, the control node receives the necessary instructions from Ansible and uses the Linode API to deploy infrastructure as needed.
 

@@ -80,7 +80,7 @@ Below are example configurations for the given Linux distribution. Edit the exam
 
 Networking in these distributions is managed entirely by *systemd*. See `man systemd-networkd` and `man systemd-resolved` for more information.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 [Match]
 Name=eth0
 
@@ -104,7 +104,7 @@ Address=192.168.133.234/17
 
 # Add a second IPv6 address.
 Address=2001:db8:2000:aff0::3/64
-{{< /file >}}
+```
 
 {{< note >}}
 On Container Linux, you need to rename or remove the original cloud config data so it doesn't take precedence on reboots over the eth0 configuration above. Do this with `sudo mv /var/lib/coreos-install/user_data /var/lib/coreos-install/user_data.bak`.
@@ -114,7 +114,7 @@ On Container Linux, you need to rename or remove the original cloud config data 
 
 Networking in CentOS 7 and Fedora is managed by *systemd* and *NetworkManager*. See `man systemd-networkd` and `man networkmanager` for more information. Note that NetworkManger in CentOS 7 and Fedora includes the tools `nmtui` and `nmcli` to modify network configurations. Those are additional options to set static addressing if you would prefer to not directly edit the network interface's configuration file. See `man nmtui` and `man nmcli` for more info.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 # Edit this line from "dhcp" to "none":
 BOOTPROTO=none
 
@@ -154,13 +154,13 @@ IPV6ADDR=2001:db8:2000:aff0::2/128
 
 # Add additional IPv6 addresses, separated by a space.
 IPV6ADDR_SECONDARIES="2001:db8:2000:aff0::3/64 2001:db8:2000:aff0::4/64"
-{{< /file >}}
+```
 
 ### CentOS 6
 
 Networking CentOS 6 is managed by *dhclient*. NetworkManager is not installed by default, however a static configuration for CentOS 6 differs only slightly from CentOS 7 and Fedora. See the [RHEL 6 Deployment Guide](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Deployment_Guide/ch-Network_Interfaces.html) for more information.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 # Edit this line from "dhcp" to "none":
 BOOTPROTO=none
 
@@ -202,7 +202,7 @@ IPV6ADDR=2001:db8:2000:aff0::2/64
 
 # Add additional IPv6 addresses, separated by a space.
 IPV6ADDR_SECONDARIES="2001:db8:2000:aff0::3/64 2001:db8:2000:aff0::4/64"
-{{< /file >}}
+```
 
 
 ### Debian
@@ -213,7 +213,7 @@ Though systemd-networkd and systemd-resolved are both present in Debian 8 and 9,
 
 1.  Edit your configuration file to add the appropriate information:
 
-    {{< file "/etc/network/interfaces" >}}
+    ```file {title="/etc/network/interfaces"}
 . . .
 
 # IPv4 gateway and primary address. The netmask
@@ -234,24 +234,24 @@ iface eth0 inet6 static
     address 2001:db8:2000:aff0::3/64
     autoconf 1
     acccept_ra 2
-{{< /file >}}
+```
 
 1.  Populate `resolv.conf` with DNS resolver addresses and resolv.conf options ([see man 5 resolv.conf](https://linux.die.net/man/5/resolv.conf)). Be aware that resolv.conf can only use up to three `nameserver` entries. The *domain* and *options* lines aren't necessary, but useful to have.
 
-    {{< file "/etc/resolv.conf" >}}
+    ```file {title="/etc/resolv.conf"}
 nameserver 203.0.113.1
 nameserver 2001:db8:0:123::3
 nameserver 203.0.113.3
 domain 203-0-113-0.ip.linodeusercontent.com
 options rotate
-{{< /file >}}
+```
 
 
 ### Gentoo
 
 Networking in Gentoo is managed by *netifrc*. See the [Gentoo Wiki](https://wiki.gentoo.org/wiki/Netifrc) and [Gentoo handbook](https://wiki.gentoo.org/wiki/Handbook:X86/Full/Networking) for more information.
 
-{{< file "/etc/conf.d/net" >}}
+```file {title="/etc/conf.d/net"}
 # IPv4 gateway. Not necessary to specify IPv6 gateway.
 routes_eth0="default via 198.51.100.1"
 
@@ -269,7 +269,7 @@ config_eth0="2001:db8:2000:aff0::1/64
 dns_servers_eth0="203.0.113.1
 2001:db8:0:123::2
 203.0.113.3"
-{{< /file >}}
+```
 
 
 ### OpenSUSE
@@ -278,7 +278,7 @@ Networking in OpenSUSE is managed by *wicked* and *netconfig*. In addition to di
 
 1.  Modify the interface's config file:
 
-    {{< file "/etc/sysconfig/network/ifcfg-eth0" >}}
+    ```file {title="/etc/sysconfig/network/ifcfg-eth0"}
 BOOTPROTO=dhcp
 STARTMODE=auto
 
@@ -299,25 +299,25 @@ IPV6_DEFAULTGW=fe80::1
 
 # Add additional IPv6 addresses, separated by a space.
 IPV6ADDR_SECONDARIES=2001:db8:2000:aff0::3/64 2001:db8:2000:aff0::4/64
-{{< /file >}}
+```
 
 1.  Then add your IPv4 gateway to the network routes file:
 
-    {{< file "/etc/sysconfig/network/routes" >}}
+    ```file {title="/etc/sysconfig/network/routes"}
 # Destination   Gateway                 Netmask                 Device
 default         198.51.100.1            -                       eth0
-{{< /file >}}
+```
 
 1.  Last, set your DNS resolvers and options for netconfig, which then uses this info to modify `resolv.conf`:
 
-    {{< file "/etc/sysconfig/network/config" >}}
+    ```file {title="/etc/sysconfig/network/config"}
 . . .
 NETCONFIG_DNS_STATIC_SERVERS="203.0.113.1 2001:db8:0:123::2 203.0.113.3"
 . . .
 NETCONFIG_DNS_STATIC_SEARCHLIST="203-0-113-0.ip.linodeusercontent.com"
 . . .
 NETCONFIG_DNS_RESOLVER_OPTIONS="rotate"
-{{< /file >}}
+```
 
 ### Ubuntu 18.04 and 20.04
 
@@ -336,7 +336,7 @@ If you have upgraded to Ubuntu 18.04 or later from an earlier version, you may n
 
 1.  Create the configuration file for Netplan:
 
-    {{< file "/etc/netplan/01-eth0.yaml" >}}
+    ```file {title="/etc/netplan/01-eth0.yaml"}
 # This file describes the network interfaces available on your system
 # For more information, see netplan(5).
 network:
@@ -355,7 +355,7 @@ network:
       nameservers:
         search: [203-0-113-0.ip.linodeusercontent.com]              # Search domain.
         addresses: [203.0.113.20,203.0.113.21]    # DNS Server IP addresses.
-{{< /file >}}
+```
 
 1.  Apply the changes and reboot:
 
@@ -367,7 +367,7 @@ Ubuntu 14.04 and 16.04 include [resolvconf](http://packages.ubuntu.com/xenial/re
 
 Like with Debian, systemd-networkd and systemd-resolved are both present but not enabled in Ubuntu 16.04. If you decide to enable these services to manage networking, you can not set static addresses in the file `/etc/network/interfaces` as shown below. You'll need to use the section further above for [Arch and Container Linux](/docs/guides/linux-static-ip-configuration/#arch-coreos-container-linux). For more information, see `man ifup`, `man ifdown`, `man interfaces 5`, `man systemd-networkd` and `man systemd-resolved`.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 . . .
 
 # IPv4 gateway and primary address. The netmask
@@ -394,7 +394,7 @@ iface eth0 inet6 static
 # Add a second IPv6 address.
 iface eth0 inet6 static
   address 2001:db8:2000:aff0::2/64
-{{< /file >}}
+```
 
 ## Apply Your Changes
 

@@ -27,9 +27,9 @@ aliases: ['/databases/elasticsearch/install_elasticsearch_centos/']
 
 2.  Create a yum repository configuration to use the Elastic yum repository:
 
-    {{< file "/etc/yum.repos.d/elastic.repo" ini >}}
+    ```file {title="/etc/yum.repos.d/elastic.repo"}
 [elasticsearch-6.x] name=Elastic repository for 6.x packages baseurl=https://artifacts.elastic.co/packages/6.x/yum gpgcheck=1 gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch enabled=1 autorefresh=1 type=rpm-md
-{{< /file >}}
+```
 
 3.  Update the yum cache to ensure the latest packages will be installed:
 
@@ -46,9 +46,9 @@ aliases: ['/databases/elasticsearch/install_elasticsearch_centos/']
 
 6.  Set the JVM heap size to approximately half of your server's available memory. For example, if your server has 1GB of RAM, change the Xms and Xmx values in the `/etc/elasticsearch/jvm.options` file to `512m`, and leave the other values in this file unchanged:
 
-    {{< file "/etc/elasticsearch/jvm.options" aconf >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m -Xmx512m
-{{< /file >}}
+```
 
 7.  Enable and start the `elasticsearch` service:
 

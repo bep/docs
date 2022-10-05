@@ -147,7 +147,7 @@ If you want to construct another site, just go back to ``$HOME`` folder, and iss
 
 Before testing the scaffold of your site, you need to create a user and several databases in MySQL. The "yesod" command has generated a configuration file for MySQL, which is located at ``$HOME/myblog/config/mysql.yml``. Take a look.
 
-{{< file "$HOME/myblog/config/mysql.yml" >}}
+```file {title="$HOME/myblog/config/mysql.yml"}
 Default: &defaults
   user: myblog
   password: myblog
@@ -163,7 +163,7 @@ Production:
   poolsize: 100
   <<: *defaults
 
-{{< /file >}}
+```
 
 
 Your site can be started in different environments such as Development, Testing, Staging and Production, and you can give different configurations for them. The configuration for the four different environments is given in the ``Default`` section. You can modify this section, using your own host, port, username, password, database, and so on. If you need different settings in the Production environment, for example, you can write your new settings in the ``Production`` section first, and then import the default ones by ``<<: *defaults``.
@@ -242,12 +242,12 @@ Warp is a fast http server, but it lacks some advanced features like virtual hos
 
 3.  Before starting your site, you need to modify the file ``/var/myblog/config/settings.yml``. This file has the same structure as ``mysql.yml``. There is a ``Default`` section and four other sections for various environments. We will only run ``/var/myblog`` in the ``Production`` environment, so we only need to modify the last three lines of this settings file:
 
-    {{< file "/var/myblog/config/settings.yml" >}}
+    ```file {title="/var/myblog/config/settings.yml"}
 Production:
   approot: "http://www.yoursite.com"
   <<: *defaults
 
-{{< /file >}}
+```
 
 
     Here *www.yoursite.com* should be replaced by your FQDN. You can also use other virtual host names here, like *myblog.yoursite.com*. **Just make sure that it is the same as the one that you will pass to Nginx below during Step 5.**
@@ -261,7 +261,7 @@ Production:
 
 5.  If you want your site running as a daemon, which means in a constant state of running, you can create an init.d script. We have created a simple one, here, for your reference:
 
-    {{< file "/etc/init.d/myblog" bash >}}
+    ```file {title="/etc/init.d/myblog"}
 #! /bin/sh
 ### BEGIN INIT INFO
 # Provides:          myblog
@@ -329,7 +329,7 @@ esac
 
 exit 0
 
-{{< /file >}}
+```
 
 
     Don't forget to make it executable:
@@ -350,7 +350,7 @@ exit 0
 
 Create the file ``/etc/nginx/sites-available/myblog``:
 
-{{< file "/etc/nginx/sites-available/myblog" nginx >}}
+```file {title="/etc/nginx/sites-available/myblog"}
 server {
 
     listen 80;
@@ -368,7 +368,7 @@ server {
 
 }
 
-{{< /file >}}
+```
 
 
 The ``server_name`` should be your FQDN, or the virtual host name you wrote in ``/var/myblog/config/settings.yml``. The location ``/static`` tells Nginx where to find files with url ``http://server_name/static/*``. A highly recommended optimization is to serve static files from a separate domain name, therefore bypassing the cookie transfer overhead. You can find more details on this optimization in the chapter [Deploying your Webapp of The Yesod Book](http://www.yesodweb.com/book/).

@@ -140,9 +140,9 @@ If your system is older, this file may be named `authorized_keys2`. [Consult](ht
 
 1. On a new line, add a mount directive to your `/etc/fstab` file which matches the following syntax:
 
-    {{< file "/etc/fstab" >}}
+    ```file {title="/etc/fstab"}
 example_user@192.0.2.4:/home/example_user /home/example_user/sshfs-dir  fuse.sshfs noauto,x-systemd.automount,_netdev,follow_symlinks,identityfile=/home/example_user/.ssh/id_rsa,allow_other,default_permissions,reconnect 0 0
-{{< /file >}}
+```
 
     {{< note >}}
 You will need to use `sudo` privileges to edit this file from your limited user.

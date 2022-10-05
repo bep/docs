@@ -60,7 +60,7 @@ A *standard stream* is a communication mechanism used between a computer program
 
 Bash scripts very often make use of standard input. The example script `input.sh` gets its input from a file, but if the file is not available in the expected location, it tries to read standard input (`/dev/stdin`):
 
-{{< file "input.sh" bash >}}
+```file {title="input.sh"}
 #!/bin/bash
 
 file=$1
@@ -75,7 +75,7 @@ while read -r line
 do
     echo "$line"
 done < "${file}"
-{{< /file >}}
+```
 
 * The script reads the first value passed as a command line argument, represented by `$1`. If a text file is passed, the script will read and output each line of text.
 * If a no command line argument is passed or if the file does not exist, standard input (`/dev/stdin`) is used instead. This will prompt you to enter text and will output to the terminal screen what is received as input. To signal the end of your stdin input type **CTRL+D**
@@ -115,7 +115,7 @@ done
 
 The `simple-menu.sh` script expands on the skeleton example to create a basic menu that will prompt the user for their favorite color, print out the value of any valid menu selection, and then break out of the select statement:
 
-{{< file "simple-menu.sh">}}
+```file {title="simple-menu.sh"}
 #!/bin/bash
 
 echo "Enter the number corresponding to your favorite color:"
@@ -125,7 +125,7 @@ do
     echo "Your selection is: $COLOR"
     break
 done
-{{</ file >}}
+```
 
 1. Copy and paste the contents of `simple-menu.sh` into a new file and save it.
 
@@ -148,7 +148,7 @@ Your selection is: yellow
 ### Create a Menu Using the Case Statement
 The second example script, `computing-terms.sh`, improves on the previous example script by using the `case` statement and by explicitly providing a way for the user to exit the script. By adding a `case` for each selection, the script can execute separate tasks based on what the user selects. The reserved Bash variable `PS3` is reserved for use with `select` statements to provide a custom prompt to the user. This script will prompt you to select one of a series of cloud related terms and return its corresponding definition when selected.
 
-{{< file "computing-terms.sh">}}
+```file {title="computing-terms.sh"}
 #!/bin/bash
 
 echo "This script shows you how to create select menus in your Bash scripts"
@@ -175,7 +175,7 @@ do
             echo "Please make a selection from the provided options."
     esac
 done
-{{</ file >}}
+```
 
 1. Copy and paste the contents of `computing-terms.sh` into a new file and save it.
 
@@ -202,7 +202,7 @@ You are now exiting this script.
 
 The third example, `submenu.sh`, uses all the previously covered concepts and enhances them by adding a submenu with a new series of options for the user to select. The script will read all files in the current working directory and display them to the user as selectable options. Once the user selects a file, a submenu will appear prompting the user to select an action to perform on the previously selected file. The submenu allows a user to delete a file, to display the file's contents, or to simply exit the script.
 
-{{< file "submenu.sh" bash >}}
+```file {title="submenu.sh"}
 #!/bin/bash
 
 echo "Use this script to manipulate files in your current working directory:"
@@ -245,7 +245,7 @@ do
         ;;
     esac
 done
-{{</ file >}}
+```
 
 1. Copy and paste the contents of `submenu.sh` into a new file and save it.
 
@@ -350,7 +350,7 @@ The example script below makes use of `printf` to create a readable and nicely f
 * The `%.10s` format string tells `printf` to print a string using no more than 10 characters; if the string is bigger, the string will be truncated.
 *  `\t` and `\n` are used for printing tabs and newlines, respectively.
 
-    {{< file "printf.sh" bash >}}
+    ```file {title="printf.sh"}
 #!/bin/bash
 
 for i in $( seq 1 10 )
@@ -380,7 +380,7 @@ for i in $( seq 5 10 )
 do
     printf "%.10s is %X in HEX.\n" "$i............." "$i"
 done
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `printf.sh` into a new file and save it.
 
@@ -455,7 +455,7 @@ The example script, `file-operator.sh`, takes file or directory locations as arg
 You can use `[]` and `[[]]` commands instead of using the `if` conditional statement to create file conditions. The script makes use of this format on lines 26 - 40.
 {{</ note >}}
 
-{{< file "file-operator.sh" bash >}}
+```file {title="file-operator.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -498,7 +498,7 @@ do
     [[ -r "$arg" && -d "$arg" ]] && echo "* $arg is a readable directory."
     [[ -r "$arg" && -f "$arg" ]] && echo "* $arg is a readable regular file."
 done
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `file-operator.sh` into a new file and save it.
 
@@ -539,7 +539,7 @@ This section will present a few utility scripts that can be adopted and expanded
 
 The example file, `line-by-line.sh`, expects a file passed to it as an argument. It will then read the contents of the file line by line. The `IFS` variable (internal field separator) is a built-in Bash variable that defines how Bash recognizes word boundaries when splitting words. The script sets `IFS` to the null string to preserve leading and trailing white space within your text file.
 
-{{< file "line-by-line.sh" bash >}}
+```file {title="line-by-line.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -559,7 +559,7 @@ fi
 while IFS='' read -r line || [[ -n "$line" ]]; do
     echo "$line"
 done < "${file}"
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `line-by-line.sh` into a new file and save it.
 
@@ -581,7 +581,7 @@ done < "${file}"
 
 The example bash script, `word-by-word.sh` expects a file to be passed as an argument. It will run checks to ensure an argument has been passed to the script and that it is a file. It then uses a for loop with the `cat` command to echo each word in the file to your output. The default value of the `IFS` variable separates a line into words, so in this case there is no need to change its value.
 
-{{< file "word-by-word.sh" bash >}}
+```file {title="word-by-word.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -602,7 +602,7 @@ for word in $(cat "${file}")
 do
     echo "$word"
 done
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `word-by-word.sh` into a new file and save it.
 
@@ -643,7 +643,7 @@ wood.
 
 The example bash script, `char-by-char.sh` expects a file to be passed as an argument. It will run checks to ensure an argument has been passed to the script and that it is a file. It then uses a while loop with the `read` command to echo each character in the file to your shell's output. The `-n1` flag is added to the standard `read` command in order to specify the number of characters to read at a time, which in this case is `1`.
 
-{{< file "char-by-char.sh" bash >}}
+```file {title="char-by-char.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -663,7 +663,7 @@ fi
 while read -r -n1 char; do
     echo "$char"
 done < "${file}"
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `char-by-char.sh` into a new file and save it.
 
@@ -690,7 +690,7 @@ e
 
 The bash script, `search.sh` will search a directory for files and directories that begin with the string passed as a command line argument. All matching regular files and directories will be presented as output. The script expects the search string as the first argument and a directory location as the second argument. The script uses the `find` UNIX command for searching a directory and looks for everything that begins with matched regular expression, `$string*`.
 
-{{< file "search.sh" bash >}}
+```file {title="search.sh"}
 #!/bin/bash
 
 if [[ $# -le 1 ]]
@@ -719,7 +719,7 @@ do
         echo "$i" "[File]"
     fi
 done
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `search.sh` into a new file and save it.
 
@@ -800,7 +800,7 @@ The `set` command is used to set or unset different shell options or positional 
 
 The example script, `set-example.sh`, tries to create a file at the specified path. If the file cannot be written to and created, the script will immediately exit and none of the remaining commands will be executed. In the case of a non-zero exit code, you should not expect to see the last line execute the `echo "Script is exiting" ` command.
 
-{{< file "set-example.sh" bash >}}
+```file {title="set-example.sh"}
 #!/bin/bash
 
 set -e
@@ -826,7 +826,7 @@ echo "Creating and writing to the file: " "$fpath"
 echo "Test" >> "$fpath"
 
 echo "Script is exiting"
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `set-example.sh` into a new file and save it.
 
@@ -864,7 +864,7 @@ Any output generated by the `set -x` execution trace will be preceded by a `+` c
 
 The example script below, `debug-set-example.sh`, contains identical code to the example in the previous section, however, it makes use of `set -x` in order to print out all commands before they're executed.
 
-{{< file "debug-set-example.sh" bash >}}
+```file {title="debug-set-example.sh"}
 #!/bin/bash
 
 set -xe
@@ -890,7 +890,7 @@ echo "Creating and writing to the file: " "$fpath"
 echo "Test" >> "$fpath"
 
 echo "Script is exiting"
-{{< /file >}}
+```
 
 1. Copy and paste the contents of `debug-set-example.sh` into a new file and save it.
 

@@ -91,7 +91,7 @@ The Elastic package repositories contain all of the necessary packages for this 
 
 1.  Create a yum repository configuration to use the Elastic yum repository:
 
-    {{< file "/etc/yum.repos.d/elastic.repo" ini >}}
+    ```file {title="/etc/yum.repos.d/elastic.repo"}
 [elastic-7.x]
 name=Elasticsearch repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -100,7 +100,7 @@ gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=0
 autorefresh=1
 type=rpm-md
-{{< /file >}}
+```
 
     {{< note >}}
 This repository configuration file does not enable the repository by default when using `yum` commands in order to avoid potential package conflicts with default packages. Subsequent commands in this guide use the `yum` flag `--enablerepo=elastic-7.x` whenever a package from this repository must be installed.
@@ -114,10 +114,10 @@ This repository configuration file does not enable the repository by default whe
 
 1.  Set the JVM heap size to approximately one-quarter of your server's available memory. For example, on a Linode instance with 2GB of memory, ensure that the `Xms` and `Xmx` values in the `/etc/elasticsearch/jvm.options` file are set to the following, and leave the other values in this file unchanged.
 
-    {{< file "/etc/elasticsearch/jvm.options" aconf >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m
 -Xmx512m
-{{< /file >}}
+```
 
     {{< note >}}
 By default, these options are commented out and have the following values. So, you need to uncomment the lines as well (by removing the two `#` symbols at the beginning of the line):
@@ -180,7 +180,7 @@ By default, Elasticsearch creates five shards and one replica for every index th
 
 1.  Create a temporary JSON file in your user's home folder with an *index template*. This template instructs Elasticsearch to set the number of shards to one and the number of replicas to zero for all matching index names (in this case, a wildcard `*`):
 
-    {{< file "template.json" json >}}
+    ```file {title="template.json"}
 {
   "index_patterns": ["*"],
   "template": {
@@ -193,7 +193,7 @@ By default, Elasticsearch creates five shards and one replica for every index th
   }
 }
 
-{{< /file >}}
+```
 
 
 1.  Use `curl` to create an index template with these settings that is applied to all indices created hereafter:
@@ -212,10 +212,10 @@ In order to collect Apache access logs, Logstash must be configured to watch any
 
 1.  Set the JVM heap size to approximately one quarter of your server's available memory. For example, if your server has 2GB of RAM, change the `Xms` and `Xmx` values in the `/etc/logstash/jvm.options` file to the following, and leave the other values in this file unchanged:
 
-    {{< file "/etc/logstash/jvm.options" aconf >}}
+    ```file {title="/etc/logstash/jvm.options"}
 -Xms512m
 -Xmx512m
-{{< /file >}}
+```
 
     {{< note >}}
 These options have the following values by default:
@@ -228,7 +228,7 @@ These options have the following values by default:
 
 1.  Create the following Logstash configuration:
 
-    {{< file "/etc/logstash/conf.d/apache.conf" aconf >}}
+    ```file {title="/etc/logstash/conf.d/apache.conf"}
 input {
   file {
     path => '/var/www/*/logs/access.log'
@@ -245,7 +245,7 @@ filter {
 output {
   elasticsearch { }
 }
-{{< /file >}}
+```
 
     {{< note >}}
 This example configuration assumes that your website logs are stored in the `/var/www/*/logs/access.log` file path.

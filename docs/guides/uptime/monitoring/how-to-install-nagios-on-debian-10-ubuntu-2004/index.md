@@ -78,7 +78,7 @@ This guide is written for a non-root user. Commands that require elevated privil
     - Comment out the `Require ip` line by adding a `#` to the beginning of the line. Beneath that line, add the lines shown below.
     - Under the `Files` tag, comment out the `Require all granted` line, and un-comment the `Require valid-user` line.
 
-    {{< file "/etc/nagios4/apache2.conf" >}}
+    ```file {title="/etc/nagios4/apache2.conf"}
  <DirectoryMatch (/usr/share/nagios4/htdocs|/usr/lib/cgi-bin/nagios4|/etc/nagios4/stylesheets)>
 
 # [...]
@@ -97,7 +97,7 @@ This guide is written for a non-root user. Commands that require elevated privil
         Require                     valid-user
     </Files>
   </DirectoryMatch>
-{{< /file >}}
+```
 
     - Replace `198.51.100.0` with one or more IP addresses from which you would like to access the Nagios interface, each separated by **spaces**. You can find the IP address you are making an SSH connection from by running the `who` command.
 

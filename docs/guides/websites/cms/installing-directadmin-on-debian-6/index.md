@@ -22,9 +22,9 @@ deprecated: true
 
 Edit your `/etc/hosts` file to resemble the following example. Replace "hostname" with a unique name for your server, "example.com" with your domain name, and "192.0.2.42" with your Linode's public IP address. If your Linode has two IPs assigned to it, use the first IP in the list displayed on the **Networking** tab of the Linode Cloud Manager.
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost 192.0.2.42 hostname.example.com hostname
-{{< /file >}}
+```
 
 Set your system's hostname by issuing the following commands, replacing quoted "hostname" entries with your system's short hostname:
 
@@ -33,20 +33,20 @@ Set your system's hostname by issuing the following commands, replacing quoted "
 
 Edit the `/etc/network/interfaces` file to resemble the following, replacing `192.0.2.42` with your Linode's IP address and `192.0.2.1` with its default gateway. If your Linode has two IPs assigned to it, use the first IP in the list displayed on the **Networking** tab of the Linode Cloud Manager.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 iface eth0 inet static
     address 192.0.2.42
     netmask 255.255.255.0
     gateway 192.0.2.1
-{{< /file >}}
+```
 
 If your Linode has a second IP address, edit the `/etc/network/interfaces` file to resemble the following. Replace `192.0.` with the second IP address. No gateway should be specified for this IP address, as all traffic will be properly routed through the primary IP's gateway.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 iface eth0:0 inet static
     address 203.0.113.18
     netmask 255.255.255.0
-{{< /file >}}
+```
 >
 Restart networking by issuing the following command:
 
@@ -54,9 +54,9 @@ Restart networking by issuing the following command:
 
 Edit the `/etc/resolv.conf` to resemble the following, replacing `11.11.11.11` and `22.22.22.22` with the DNS servers listed on the **Networking** tab in the Linode Cloud Manager.
 
-{{< file "/etc/resolv.conf" >}}
+```file {title="/etc/resolv.conf"}
 nameserver 11.11.11.11 nameserver 22.22.22.22 options rotate
-{{< /file >}}
+```
 
 Once you have confirmed that your networking settings have been correctly configured, issue the following command to uninstall the DHCP client, as it is no longer required:
 
@@ -116,20 +116,20 @@ After you input your answers, the install will then proceed. You should go grab 
 
 You may want to configure the DirectAdmin manager login to use SSL, either on the main port or a separate port. To configure the main port (2222) to use SSL, you'll need to edit your `/usr/local/directadmin/conf/directadmin.conf` file. You'll want to find the `SSL` parameter and change it to `1`:
 
-{{< file "/usr/local/directadmin/conf/directadmin.conf">}}
+```file {title="/usr/local/directadmin/conf/directadmin.conf"}
 ..
 SSL=1
 ...
-{{< /file >}}
+```
 
 If you would prefer to leave 2222 open as a non-SSL port and run a copy of DirectAdmin on a separate port for SSL, you'll need to find the `port` parameter and add the `ssl_port` parameter below it.
 
-{{< file "/usr/local/directadmin/conf/directadmin.conf">}}
+```file {title="/usr/local/directadmin/conf/directadmin.conf"}
 ...
 port=2222
 ssl_port=2223
 ...
-{{< /file >}}
+```
 
 You can modify the `ssl_port` value to any available port you like. Once you make your changes to the directadmin.conf file, you'll need to restart DirectAdmin for those changes to take effect:
 
@@ -145,23 +145,23 @@ If you are using a commercial SSL for your DirectAdmin manager, you can paste th
 
 If your issuer does have a CA Root Cert, you'll also need to modify your directadmin.conf file to make use of that certificate. Add the `carootcert` parameter nearby the other SSL-releated parameters.
 
-{{< file "/usr/local/directadmin/conf/directadmin.conf" >}}
+```file {title="/usr/local/directadmin/conf/directadmin.conf"}
 SSL=0
 cacert=/usr/local/directadmin/conf/cacert.pem
 cakey=/usr/local/directadmin/conf/cakey.pem
 carootcert=/usr/local/directadmin/conf/carootcert.pem
 ssl\_cipher=SSLv3
-{{< /file >}}
+```
 
 ## IPv6 with DirectAdmin
 
 DirectAdmin also has basic support for IPv6. To activate this support, you'll need to edit your directadmin.conf file again. You'll need to add this line anywhere in your directadmin.conf file:
 
-{{< file "/usr/local/directadmin/conf/directadmin.conf">}}
+```file {title="/usr/local/directadmin/conf/directadmin.conf"}
 ...
 ipv6=1
 ...
-{{< /file >}}
+```
 
 You'll then need to restart DirectAdmin for that change to take effect:
 

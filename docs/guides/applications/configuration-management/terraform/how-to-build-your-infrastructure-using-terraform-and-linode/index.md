@@ -177,7 +177,7 @@ Terraform uses a declarative approach in which configuration files specify the d
 
 1.  Create the file `linode-terraform-web.tf` in your `~/terraform` directory with the snippet below. Fill in your Linode API token, public SSH key, and desired root password where indicated. Additionally, replace the Linode provider `version` to the [latest](https://registry.terraform.io/providers/linode/linode/):
 
-    {{< file "~/terraform/linode-terraform-web.tf" aconf >}}
+    ```file {title="~/terraform/linode-terraform-web.tf"}
 terraform {
   required_providers {
     linode = {
@@ -200,7 +200,7 @@ resource "linode_instance" "terraform-web" {
         authorized_keys = [ "YOUR_PUBLIC_SSH_KEY" ]
         root_pass = "YOUR_ROOT_PASSWORD"
 }
-{{< /file >}}
+```
 
     This snippet creates a Linode 2GB labelled `Terraform-Web-Example` in a `Terraform` Linodes group. While the server's software won't be configured in this guide, we can imagine for now that the Linode acts as a webserver.
 
@@ -354,7 +354,7 @@ In production environments, your SSH key and root password should be unique for 
 
 1.  Create another file called `linode-terraform-db.tf`. Substitute in your SSH key and root password where indicated. **Do not delete** `linode-terraform-web.tf`.
 
-    {{< file "~/terraform/linode-terraform-db.tf" aconf >}}
+    ```file {title="~/terraform/linode-terraform-db.tf"}
 resource "linode_instance" "terraform-db" {
   image = "linode/centos7"
   label = "Terraform-Db-Example"
@@ -365,7 +365,7 @@ resource "linode_instance" "terraform-db" {
   authorized_keys = [ "YOUR_PUBLIC_SSH_KEY" ]
   root_pass = "YOUR_ROOT_PASSWORD"
 }
-{{< /file >}}
+```
 
     You may notice that the Terraform provider is not specified in this file as it was in `linode-terraform-web.tf`. Terraform loads into memory and concatenates all files present in the working directory which have a `.tf` extension. This means you don't need to define the provider again in new `.tf` files.
 
@@ -447,26 +447,26 @@ To solve these issues, Terraform allows you to declare variables and insert thos
 
 1.  Create a new file to define your variable names and optional default variable values. This file can have any name; for this example, use `variables.tf`:
 
-    {{< file "~/terraform/variables.tf" aconf >}}
+    ```file {title="~/terraform/variables.tf"}
 variable "token" {}
 variable "authorized_keys" {}
 variable "root_pass" {}
 variable "region" {
   default = "us-southeast"
 }
-{{< /file >}}
+```
 
 1.  Create the file `terraform.tfvars` to store your variables' values. Substitute in your API token, SSH key, and root password where indicated. **You cannot change this file's name** after creating it.
 
-    {{< file "~/terraform/terraform.tfvars" aconf >}}
+    ```file {title="~/terraform/terraform.tfvars"}
 token = "YOUR_LINODE_API_TOKEN"
 authorized_keys = "YOUR_PUBLIC_SSH_KEY"
 root_pass ="YOUR_ROOT_PASSWORD"
-{{< /file >}}
+```
 
 1.  Create a new configuration file called `linode-terraform-template.tf`:
 
-    {{< file "~/terraform/linode-terraform-template.tf" aconf >}}
+    ```file {title="~/terraform/linode-terraform-template.tf"}
 # Linode Provider definition
 terraform {
   required_providers {
@@ -504,7 +504,7 @@ resource "linode_instance" "terraform-db" {
         authorized_keys = [var.authorized_keys]
         root_pass = var.root_pass
 }
-{{< /file >}}
+```
 
 1.  Check your new deployment for errors:
 
@@ -526,7 +526,7 @@ Changing the size of your Linode forces your server to be powered off and migrat
 
 1.  Modify `linode-terraform-template.tf` and update the `type` value to `g6-standard-4` for the `terraform-db` resource.
 
-    {{< file "~/terraform/linode-terraform-template.tf" aconf >}}
+    ```file {title="~/terraform/linode-terraform-template.tf"}
 # [...]
 
 resource "linode_instance" "terraform-db" {
@@ -534,7 +534,7 @@ resource "linode_instance" "terraform-db" {
         type = "g6-standard-4"
         # [...]
 }
-{{< /file >}}
+```
 
 1.  Review the plan:
 
@@ -584,7 +584,7 @@ The module structure is flexible, so you can use as many Terraform files as need
 
 1.  Create a `main.tf` configuration file inside `modules/app-deployment/`:
 
-    {{< file "~/terraform/modules/app-deployment/main.tf" aconf >}}
+    ```file {title="~/terraform/modules/app-deployment/main.tf"}
 # Web Server
 resource "linode_instance" "terraform-web" {
         image = "linode/ubuntu18.04"
@@ -608,13 +608,13 @@ resource "linode_instance" "terraform-db" {
         authorized_keys = var.authorized_keys
         root_pass = var.root_pass
 }
-{{< /file >}}
+```
 
 1.  The configuration above reproduces the previous examples using variables. The next file contains variable definitions. Assign a default value for each variable. That value is used if you don't override it when you call the module.
 
     Substitute in your SSH key and root password where indicated:
 
-    {{< file "~/terraform/modules/app-deployment/variables.tf" aconf >}}
+    ```file {title="~/terraform/modules/app-deployment/variables.tf"}
 variable "webserver_label" {
     description = "The name for the Web Server"
     default = "default-web"
@@ -644,7 +644,7 @@ variable "root_pass" {
     description = "The default root password for the Linode server"
     default = "default-root-password"
 }
-{{< /file >}}
+```
 
 ### Working with Modules
 
@@ -657,7 +657,7 @@ Create a deployment for an imaginary client:
 
 1.  Create a `main.tf` configuration file inside `client1/` that uses your module. The module is referenced by providing the path to the module's configuration. Substitute in your API token, SSH key, and root password where indicated:
 
-    {{< file "~/terraform/client1/main.tf" aconf >}}
+    ```file {title="~/terraform/client1/main.tf"}
 # Client 1 Infrastructure
 terraform {
   required_providers {
@@ -684,7 +684,7 @@ webserver_label = "client1-web"
 dbserver_label = "client1-db"
 db_type = "g6-standard-8"
 }
-{{< /file >}}
+```
 
 1.  The file structure for your module and for `client1` should now look as follows. This structure is not mandated by Terraform, but it is useful as simple example:
 

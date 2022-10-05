@@ -32,7 +32,7 @@ WireGuard sets up standard network interfaces (such as `wg0` and `wg1`), which b
 
 Configuring WireGuard is as simple as setting up SSH. A connection is established by an exchange of public keys between server and client. Only a client that has its public key in its corresponding server configuration file is allowed to connect. A WireGuard server's configuration file resembles the following example:
 
-  {{< file "/etc/wireguard/wg0.conf" conf >}}
+  ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
 PrivateKey = <Private Key>
 Address = 10.0.0.1/24, fd86:ea04:1115::1/64
@@ -44,7 +44,7 @@ SaveConfig = true
 [Peer]
 PublicKey = <Client Public Key>
 AllowedIPs = 10.0.0.2/24, fd86:ea04:1115::0/64
-  {{< /file >}}
+  ```
 
 In this guide you will learn how to:
 
@@ -105,7 +105,7 @@ Processing triggers for libc-bin (2.24-11+deb9u4) ...
 
 1.  Create the file `/etc/wireguard/wg0.conf` and add the contents indicated below. You'll need to enter your server's private key in the `PrivateKey` field, and its private IP addresses in the `Address` field. Refer to the list below the example for more details.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
 PrivateKey = <Private Key>
 Address = 10.0.0.1/24, fd86:ea04:1115::1/64
@@ -113,7 +113,7 @@ ListenPort = 51820
 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 SaveConfig = true
-{{< /file >}}
+```
 
    - **PrivateKey** the server's private key generated in above.
 
@@ -201,11 +201,11 @@ For installation instructions on other operating systems, see the [WireGuard doc
 
 1. Once you have installed WireGuard, follow the steps in the [Configure WireGuard Server](#configure-wireguard-server) section. Replace the example configuration file with the example file below.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
 PrivateKey = <Client Private Key>
 Address = 10.0.0.2/24, fd86:ea04:1115::5/64
-    {{< /file >}}
+    ```
 
     The difference between the client and the server's configuration file, `wg0.conf`, is it contains **its own** IP addresses and does not contain the `ListenPort`, `PostUP`, `PostDown`, or `SaveConfig` values.
 
@@ -220,20 +220,20 @@ Address = 10.0.0.2/24, fd86:ea04:1115::5/64
 
 1.  Edit the `wg0.conf` file on the client to add the server's public key, public IP address, port, and allowed IPs.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Peer]
 PublicKey = <Server Public key>
 Endpoint = <Server Public IP>:51820
 AllowedIPs = 10.0.0.1/24, fd86:ea04:1115::1/64
-{{< /file >}}
+```
 
 1.  Edit the `wg0.conf` file on the server to add the client's public key and allowed IPs.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Peer]
 PublicKey = <Client Public Key>
 AllowedIPs = 10.0.0.2/24, fd86:ea04:1115::5/64
-{{< /file >}}
+```
 
 1.  Restart the `wg` service on both the server and the client:
 

@@ -52,10 +52,10 @@ First, the FreeIPA Server and Client Linodes must be prepared for the installati
 
 1. [Edit the systems hosts file](/docs/guides/using-your-systems-hosts-file/) to reflect the new hostname.
 
-  {{< file "/etc/hosts"  conf >}}
+  ```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost
 203.0.113.10 server.example.com example-hostname
-{{< /file >}}
+```
 
 1. FreeIPA requires access to the following ports for the services listed below:
 

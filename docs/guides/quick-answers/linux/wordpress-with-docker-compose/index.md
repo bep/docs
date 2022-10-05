@@ -57,7 +57,7 @@ The WordPress and MySQL images are maintained on Docker Hub by their respective 
 
 2.  Create a file named `docker-compose.yml` in this folder and add the following contents. Set your own passwords for the `WORDPRESS_DB_PASSWORD`, `MYSQL_ROOT_PASSWORD`, and `MYSQL_PASSWORD` environment options. The password entered for `WORDPRESS_DB_PASSWORD` and `MYSQL_PASSWORD` should be the same.
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3.3'
 
 services:
@@ -89,7 +89,7 @@ volumes:
     wordpress_files:
     db_data:
 
-{{< /file >}}
+```
 
 3.  From the `my_wordpress` directory, start your Docker containers:
 

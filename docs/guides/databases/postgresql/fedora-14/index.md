@@ -27,9 +27,9 @@ The [PostgreSQL](http://www.postgresql.org/) relational database system is a fas
 
 Make sure your `/etc/hosts` file has proper entries, similar to the ones shown below. Replace "12.34.56.78" with your Linode's public address, "servername" with your short hostname, and "mydomain.com" with your system's domain name.
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost 12.34.56.78 servername.mydomain.com servername
-{{< /file >}}
+```
 
 Set your system's hostname by issuing the following commands. Replace "servername" with your system's short hostname.
 
@@ -125,15 +125,15 @@ You will be asked to specify several values for the new user. To delete this use
 
 By default, PostgreSQL uses `ident` authentication. This means database connections will be granted to local system users that own or have privileges on the database being connected to. Such authentication is useful in cases where a particular system user will be running a program (local scripts, CGI/FastCGI processes owned by separate users, etc). However, you may wish to change this behavior to require passwords. To do so, edit the file `/var/lib/pgsql/data/pg_hba.conf` as root or the postgres user. Find the following line:
 
-{{< file "/var/lib/pgsql/data/pg\_hba.conf" >}}
+```file {title="/var/lib/pgsql/data/pg\_hba.conf"}
 local all all ident
-{{< /file >}}
+```
 
 Change it to the following to use password authentication:
 
-{{< file "/var/lib/pgsql/data/pg\_hba.conf" >}}
+```file {title="/var/lib/pgsql/data/pg\_hba.conf"}
 local all all md5
-{{< /file >}}
+```
 
 As root, restart the PostgreSQL service:
 

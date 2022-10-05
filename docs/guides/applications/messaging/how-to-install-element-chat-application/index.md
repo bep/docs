@@ -124,18 +124,18 @@ Synapse is the "home server" implementation of Matrix, but the two names are oft
 1. Edit the Matrix-Synapse configuration file at `/etc/matrix-synapse/homeserver.yaml` and set `enable_registration` to true.
 
         vi /etc/matrix-synapse/homeserver.yaml
-    {{< file "/etc/matrix-synapse/homeserver.yaml">}}
+    ```file {title="/etc/matrix-synapse/homeserver.yaml"}
 ...
 enable_registration: true
 ...
-{{</ file >}}
+```
 
 1. **(Optional)** To limit who can register, uncomment the `registration_shared_secret` field in the `homeserver.yaml` file. Set the value of this field to a secure password and enclose it in quotation marks. This allows users to register, provided they know the password, even when `enable_registration` is set to `false`.
-    {{< file "/etc/matrix-synapse/homeserver.yaml" >}}
+    ```file {title="/etc/matrix-synapse/homeserver.yaml"}
 ...
 registration_shared_secret: "your_password"
 ...
-    {{</ file >}}
+    ```
 1. **(Optional)** To enable additional features based on email lookups and bridging with other applications, configure an *identity server* for Element to use. You can use your own Linode, the default server at `https://matrix.org`, or a third-party service. Uncomment the `default_identity_server` entry inside the `/etc/matrix-synapse/homeserver.yaml` file and enter the address of the server. Even without an identity server, Element still functions normally and its core features are still available.
 
 1. Restart Matrix-Synapse to apply the changes, and then verify its status.
@@ -220,7 +220,7 @@ gpg: Good signature from "Riot Releases <releases@riot.im>" [unknown]
 
 1. Edit the `base_url` and `server_name` attributes in `config.json` so they reference your domain. The `base_url` value must reference the `matrix` subdomain, while `server_name` must indicate the base domain.
 
-    {{< file "/var/www/html/element.example.com/element/config.json" >}}
+    ```file {title="/var/www/html/element.example.com/element/config.json"}
 {
     "default_server_config": {
         "m.homeserver": {
@@ -232,7 +232,7 @@ gpg: Good signature from "Riot Releases <releases@riot.im>" [unknown]
         }
     },
 ...
-    {{</ file >}}
+    ```
 
 ## Install and Configure the NGINX Web Server
 
@@ -254,7 +254,7 @@ You must install [*NGINX*](https://www.nginx.com/) before using Certbot. For mor
         cd /etc/nginx/sites-available
         vi example.com
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -267,12 +267,12 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-    {{< /file >}}
+    ```
 
 1. Edit the file associated with the `element` subdomain, such as `element.example.com`, and add the following information. Use the `element` subdomain name throughout, and append the `element` directory to the end of the `root` field.
 
         vi element.example.com
-    {{< file "/etc/nginx/sites-available/element.example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/element.example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -285,12 +285,12 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-    {{< /file >}}
+    ```
 
 1. Edit the file corresponding to the `matrix` subdomain, and add the following information. Use the `matrix` subdomain name in the `server_name` and `root` variables.
 
         vi matrix.example.com
-    {{< file "/etc/nginx/sites-available/matrix.example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/matrix.example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -303,7 +303,7 @@ server {
         proxy_pass http://localhost:8008;
     }
 }
-    {{< /file >}}
+    ```
 
 1. Use the NGINX syntax checker to validate the new files.
 

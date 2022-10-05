@@ -53,10 +53,10 @@ The `-N` flag indicates not to install `salt-minion`, since this system is the S
 
 1.  Uncomment the `#interface:` line near the top of the file and replace the address placeholder with the address of your Salt master's Linode. If your Linodes are located in the same data center, you can use the Linode's private IP address.
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 # The address of the interface to bind to:
 interface: 203.0.113.0
-{{< /file >}}
+```
 
 3.  Restart Salt:
 
@@ -70,11 +70,11 @@ This step must be performed on *each* Salt minion.
 
 Uncomment `#master: salt` near the top of `/etc/salt/minion`, and replace `salt` with your Salt master's IP address:
 
-  {{< file "/etc/salt/minion" >}}
+  ```file {title="/etc/salt/minion"}
 # Set the location of the salt master server. If the master server cannot be
 # resolved, then the minion will fail to start.
 master: 203.0.113.0
-{{< /file >}}
+```
 
 ## Authenticate Minions to the Salt Master
 
@@ -100,12 +100,12 @@ minion2:  f8:41:ce:73:f8...
 
 1.  Add the Salt Master's `master.pub` fingerprint to `/etc/salt/minion`, between the single quotes:
 
-    {{< file "/etc/salt/minion" >}}
+    ```file {title="/etc/salt/minion"}
 # Fingerprint of the master public key to validate the identity of your Salt master
 # before the initial key exchange. The master fingerprint can be found by running
 # "salt-key -f master.pub" on the Salt master.
 master_finger: '4b:2a:81:79...'
-{{< /file >}}
+```
 
 2.  Restart Salt:
 

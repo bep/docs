@@ -86,7 +86,7 @@ This method will ensure that you are always running the most up-to-date version 
 
 There are a number of examples of basic applications developed using the web.py framework. The "main" application file is typically called "code.py". Consider the following, "Hello World" application:
 
-{{< file "code.py" python >}}
+```file {title="code.py"}
 import web
 
 urls = (
@@ -103,7 +103,7 @@ class hello:
 if __name__ == "__main__":
     app.run()
 
-{{< /file >}}
+```
 
 
 Save this file at `/srv/www/example.com/application/code.py` or the equivalent path depending on your virtual hosting deployment, and proceed with the deployment of the application.
@@ -122,11 +122,11 @@ Issue the following command to ensure that the required modules are enabled with
 
 WSGI requires a slight modification to your web.py application. Add the following lines to the end of the `code.py` file:
 
-{{< file "code.py" python >}}
+```file {title="code.py"}
 app = web.application(urls, globals(), autoreload=False)
 application = app.wsgifunc()
 
-{{< /file >}}
+```
 
 
 Consider the following Apache VirtualHost configuration for a `mod_wsgi` powered Web.py application:
@@ -172,7 +172,7 @@ In the above example, requests for the `example.com` domain will be handled by W
 
 The "Hello World" application above is functional, but isn't able to store or access persistent data in a database system. The following example is simple but inserts and retrieves data from a database system. Consider the following code:
 
-{{< file "code.py" python >}}
+```file {title="code.py"}
 import web
 
 urls = (
@@ -199,7 +199,7 @@ if __name__ == "__main__":
 app = web.application(urls, globals(), autoreload=False)
 application = app.wsgifunc()
 
-{{< /file >}}
+```
 
 
 This program connects to the PostgreSQL database "webpy" and looks in the table "notes" for a note that matches the text "a note." If the note is found, the program returns the text "a note is found"; otherwise, the page will return "no notes are found." Make sure there is a role, or user, in your PostgreSQL database called "webpy" with the credentials specified on the `db` line of this example.

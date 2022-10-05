@@ -48,7 +48,7 @@ This document contains specific instructions for installing version 1.2.22 of Fl
 
 Now visit `http://example.com/install.php` in your web browser, and follow the setup procedure provided by the FluxBB web based interface. During this process you will be asked to create a `config.php` file that resembles the following:
 
-{{< file "/srv/www/example.com/public\\_html/config.php" php >}}
+```file {title="/srv/www/example.com/public\\_html/config.php"}
 <?php
 
 $db_type = 'mysqli';
@@ -67,7 +67,7 @@ $cookie_seed = 'a3647cd58bd28fa9';
 
 define('PUN', 1);
 
-{{< /file >}}
+```
 
 
 When you have created this file, you will have completed the installation of FluxBB. Issue the following command to remove the setup files:

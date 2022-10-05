@@ -124,7 +124,7 @@ You can now begin to add content to your Hugo site. In this section you will add
 
     Set your desired value for `title`. Then, set the `draft` state to `false` and add your content below the `---` in Markdown syntax, if desired:
 
-    {{< file "/home/username/example-site/content/posts/my-first-post.md" >}}
+    ```file {title="/home/username/example-site/content/posts/my-first-post.md"}
 ---
 title: "My First Post"
 date: 2019-05-07T11:25:11-04:00
@@ -138,7 +138,7 @@ In Kubernetes, there are a number of objects that are abstractions of your Kuber
 - Which containerized applications are running on the cluster
 - Application resources
 - Policies that should be applied to the application
-{{</ file >}}
+```
 
     {{< disclosure-note "About front matter" >}}
 [*Front matter*](https://gohugo.io/content-management/front-matter/) is a collection of metadata about your content, and it is embedded at the top of your file within opening and closing `---` delimiters.
@@ -225,7 +225,7 @@ A Dockerfile contains the steps needed to build a Docker image. The Docker image
 The following Dockerfile uses Ubuntu to install Hugo. However, Ubuntu may not have the most up to date Hugo package. If this is the case, you could also create a Dockerfile based on Arch Linux or another Linux distribution that has a more up to date Hugo package.
     {{< /note >}}
 
-    {{< file "Dockerfile">}}
+    ```file {title="Dockerfile"}
 #Install the container's OS.
 FROM ubuntu:latest as HUGOINSTALL
 
@@ -249,7 +249,7 @@ COPY --from=HUGOINSTALL /hugo-site/public/ /usr/share/nginx/html/
 
 # The container will listen on port 80 using the TCP protocol.
 EXPOSE 80
-    {{</ file >}}
+    ```
 
 1. Add a `.dockerignore` file to your Hugo repository. It is important to ensure that your images are as small as possible to reduce the time it takes to build, pull, push, and deploy the container. The `.dockerignore` file excludes files and directories that are not necessary for the function of your container or that may contain sensitive information that you do not want to included in the image. Since the Docker image will build the static Hugo site files, you can ignore the `public/` directory. You can also exclude any Git related files and directories because they are not needed on the running container.
 
@@ -333,12 +333,12 @@ Namespaces add a layer of complexity to a cluster that may not always be necessa
 
 1. Create the manifest file for your Hugo site's namespace with the following content:
 
-      {{< file "clientx/k8s-hugo/ns-hugo-site.yaml">}}
+      ```file {title="clientx/k8s-hugo/ns-hugo-site.yaml"}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: hugo-site
-      {{</ file >}}
+      ```
 
       - The manifest file declares the version of the API in use, the kind of resource that is being defined, and metadata about the resource. All manifest files should provide this information.
       - The key-value pair `name: hugo-site` defines the namespace object's unique name.
@@ -373,7 +373,7 @@ The k8s-alpha CLI creates clusters that are pre-configured with useful Linode se
 
 1. Create the manifest file for your service with the following content.
 
-    {{< file "clientx/k8s-hugo/service-hugo.yaml">}}
+    ```file {title="clientx/k8s-hugo/service-hugo.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -387,7 +387,7 @@ spec:
     port: 80
     targetPort: 80
   type: NodePort
-    {{</ file >}}
+    ```
 
     - The `spec` key defines the Hugo site service object's desired behavior. It will create a service that exposes TCP port `80` on any pod with the `app: hugo-site` label.
     - The exposed container port is defined by the `targetPort:80` key-value pair.
@@ -413,7 +413,7 @@ A deployment is a controller that helps manage the state of your pods. The Hugo 
 
 1. Create the manifest file for your Hugo site's deployment. Copy the following contents to your file.
 
-      {{< file "clientx/k8s-hugo/deployment.yaml">}}
+      ```file {title="clientx/k8s-hugo/deployment.yaml"}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -435,7 +435,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-      {{</ file >}}
+      ```
 
       - The deployment's object `spec` states that the deployment should have 3 replica pods. This means at any given time the cluster will have 3 pods that run the Hugo site service.
       - The `template` field provides all the information needed to create actual pods.

@@ -55,7 +55,7 @@ The first step to take when creating a Terraform configuration file is to create
 
 Create a file named `nodebalancer.tf` in your Terraform project directory. You will be adding to this file throughout the guide. Add the provider blocks to the file:
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 
 terraform {
   required_providers {
@@ -69,7 +69,7 @@ terraform {
 provider "linode" {
     token = var.token
 }
-{{< /file >}}
+```
 
 This provider block uses variable interpolation to access the value of your API token. You will create input variables in a separate `variables.tf` file later in the [Define Terraform Variables](#define-terraform-variables) section of this guide. Any input variables you define within the `variables.tf` file are available from the `var` dictionary using dot notation. You will be using variable interpolation and referencing variables with dot notation throughout this guide.
 
@@ -77,7 +77,7 @@ This provider block uses variable interpolation to access the value of your API 
 
 Create a NodeBalancer resource in the `nodebalancer.tf` file:
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 ...
 
 resource "linode_nodebalancer" "example-nodebalancer" {
@@ -86,7 +86,7 @@ resource "linode_nodebalancer" "example-nodebalancer" {
 }
 
 ...
-{{< /file >}}
+```
 
 The `linode_nodebalancer` resource supplies two labels. The first label, `example-nodebalancer`, is used internally by Terraform. The second label, `examplenodebalancer`, is used to reference your NodeBalancer in tools like the Manager and the Linode CLI. The region for this NodeBalancer is supplied with the variable `region`.
 
@@ -94,7 +94,7 @@ The `linode_nodebalancer` resource supplies two labels. The first label, `exampl
 
 In addition to the NodeBalancer resource, you must supply at least one NodeBalancer Configuration resource. This resource defines ports, protocol, health checks, and session stickiness, among other options, that the NodeBalancer might use. For this example, you will create a NodeBalancer configuration for HTTP access on port 80, but you could also create one for HTTPS access on port 443 if you have [SSL/TLS certificates](/docs/guides/install-lets-encrypt-to-create-ssl-certificates/):
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 ...
 
 resource "linode_nodebalancer_config" "example-nodebalancer-config" {
@@ -112,7 +112,7 @@ resource "linode_nodebalancer_config" "example-nodebalancer-config" {
 }
 
 ...
-{{< /file >}}
+```
 
 The NodeBalancer Config resource requires a NodeBalancer ID, which is populated in the first line with the variable `linode_nodebalancer.example-nodebalancer.id`. Because the `nodebalancer_id` argument references a NodeBalancer that has not been created yet, you can use this variable as a placeholder to reference the NodeBalancer ID. Terraform will automatically know to create the NodeBalancer resource before it creates any other resources that reference it. In this way you can craft intricate infrastructure that references its own parts, without having to worry about the order the resources appear in the Terraform configuration or whether or not the resources already exist.
 
@@ -126,7 +126,7 @@ Review the [NodeBalancer Reference Guide](/docs/platform/nodebalancer/nodebalanc
 
 The third part of setting up a NodeBalancer in Terraform is creating the NodeBalancer Node resource. This resource contains information about the individual Nodes and how they pertain to the NodeBalancer and NodeBalancer Configuration resources.
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 ...
 
 resource "linode_nodebalancer_node" "example-nodebalancer-node" {
@@ -139,7 +139,7 @@ resource "linode_nodebalancer_node" "example-nodebalancer-node" {
 }
 
 ...
-{{< /file >}}
+```
 
 This resource's `count` argument will be populated with the `node_count` input variable you will define later on in this guide. The `count` argument tells Terraform that it should provision `node_count` number of Nodes.
 
@@ -151,7 +151,7 @@ Because provisioning more than one node creates a loop in the Terraform process,
 
 Now that you have the NodeBalancer configured, you need to supply it with a Linode Instance resource. This resource will allow Terraform to know which instances it needs to create to meet the demand of our NodeBalancer example.
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 ...
 
 resource "linode_instance" "example-instance" {
@@ -189,7 +189,7 @@ resource "linode_instance" "example-instance" {
 }
 
 ...
-{{< /file >}}
+```
 
 The above resource uses the same `count` argument as the NodeBalancer Node resource that was configured in the previous step. Also, the `label` argument is being sequentially incremented in a similar fashion to the NodeBalancer Node.
 
@@ -205,13 +205,13 @@ The `connection` block explains to Terraform how it should gain access to the Li
 
 The last step that you'll take in creating `nodebalancer.tf` is adding an output. Terraform will add this information to the end of it's output in the terminal. Outputs can be any information from your configuration you would like to expose. Below is an example that will display the public IP address of the NodeBalancer:
 
-{{< file "nodebalancer.tf" >}}
+```file {title="nodebalancer.tf"}
 ...
 
 output "nodebalancer_ip_address" {
     value = linode_nodebalancer.example-nodebalancer.ipv4
 }
-{{< /file >}}
+```
 
 ## Define Terraform Variables
 
@@ -219,7 +219,7 @@ You will now declare all variables required by your Terraform configuration in a
 
 1.  Create a file called `variables.tf`. This file will create the variables referenced in the configuration of your NodeBalancer and Nodes. You will supply values to the variables in another step.
 
-    {{< file "variables.tf" >}}
+    ```file {title="variables.tf"}
 variable "token" {
     description = "Your APIv4 Access Token"
 }
@@ -245,7 +245,7 @@ resource "random_string" "password" {
     lower = true
     number = true
 }
-{{< /file >}}
+```
 
     Terraform allows each variable to have its own description and default value. These variables will have their values populated through the use of a `terraform.tfvars` file that you will create in the next step. Separating the variable definitions from their values helps to keep sensitive data from entering your Terraform code, should you choose to include your code in a version control system like Git.
 
@@ -253,11 +253,11 @@ resource "random_string" "password" {
 
 1.  Create the `terraform.tfvars` file and supply values for the `token`, `region`, and `node_count` variables. This example uses the `us-east` regional datacenter, and the `node_count` is two.
 
-    {{< file "terraform.tfvars" >}}
+    ```file {title="terraform.tfvars"}
 token = "your_api_token"
 region = "us-east"
 node_count = 2
-{{< /file >}}
+```
 
     When Terraform runs, it looks for a file named `terraform.tfvars`, or files with the extension `*.auto.tfvars`, and populates the Terraform variables with those values. If your SSH key is at a file location that is different than the default value, i.e., it does not exist at `~/.ssh/id_rsa.pub`, then you will need to add that value to `terraform.tfvars`.
 

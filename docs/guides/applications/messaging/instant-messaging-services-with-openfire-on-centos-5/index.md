@@ -80,10 +80,10 @@ Install the software using `rpm` as follows:
 
 Next, edit the configuration file `/etc/openfire/openfire.xml`, inserting your Linode's public IP address in the `<interface>` section, and removing the `<!-- -->` comment markers that surround this section.
 
-{{< file "/opt/openfire/conf/openfire.xml" xml >}}
+```file {title="/opt/openfire/conf/openfire.xml"}
 <interface>12.34.56.78</interface>
 
-{{< /file >}}
+```
 
 
 Restart Openfire with the following command:

@@ -210,7 +210,7 @@ The following steps explain how you can construct a multicloud configuration con
 
 1. At the top of the file, add a `terraform` block to define the [Linode Provider](https://registry.terraform.io/providers/linode/linode/latest/docs), followed by the declaration of the Linode provider itself. Within the provider block, add the `token` declaration. See Linode’s guide on [Getting Started with the Linode API](/docs/guides/getting-started-with-the-linode-api/#get-an-access-token) to learn how to create an API token, if you have not done so already.
 
-    {{< file "~/terraform/linode-terraform.tf" >}}
+    ```file {title="~/terraform/linode-terraform.tf"}
 
 terraform {
   required_providers {
@@ -226,11 +226,11 @@ terraform {
 provider  "linode" {
   token = var.token
 }
-  {{< /file >}}
+  ```
 
 1. Define the Linode [*Resources*](https://www.terraform.io/docs/language/resources/syntax.html). In this case, you define a new Linode instance as the resource to deploy. Then, you assign values for all the required resource configurations.
 
-    {{< file "~/terraform/linode-terraform.tf" >}}
+    ```file {title="~/terraform/linode-terraform.tf"}
 
 resource  "linode_instance"  "terraform" {
   image = "linode/ubuntu20.04"
@@ -241,13 +241,13 @@ resource  "linode_instance"  "terraform" {
   authorized_keys = [ var.authorized_keys ]
   root_pass = var.root_pass
 }
-{{< /file >}}
+```
 
 1. The full `linode-terraform.tf` file, including both the `provider` and `resource` sections, is shown below.
 
     These configurations create a Linode 2GB labeled `terraform-example` and place it in the `terraform` Linodes group. You can replace the values with your own desired values. Lists of the allowable values for each of the fields, such as the `region`, are found in the [*Linode API*](/docs/api/linode-instances/).
 
-    {{< file "~/terraform/linode-terraform.tf" >}}
+    ```file {title="~/terraform/linode-terraform.tf"}
 
 terraform {
   required_providers {
@@ -274,29 +274,29 @@ resource  "linode_instance"  "terraform" {
   root_pass = var.root_pass
 }
 
-{{< /file >}}
+```
 
 1. Within the same `terraform` directory, create a second file named `variables.tf`, and declare all the variables from `linode-terraform.tf`, as shown below.
 
         vi variables.tf
 
-    {{< file "~/terraform/variables.tf">}}
+    ```file {title="~/terraform/variables.tf"}
 variable "token" {}
 variable "authorized_keys" {}
 variable "root_pass" {}
-{{< /file >}}
+```
 
 1. Create a third file in the `terraform` directory named `terraform.tfvars`. This file is to define the actual values for each variable. For the variables - `token`,  `authorized_keys`, and  `root_pass`, substitute your Linode API token, your SSH key, and a secure password for the device, respectively.
 
         vi terraform.tfvars
 
-    {{< file "~/terraform/terraform.tfvars">}}
+    ```file {title="~/terraform/terraform.tfvars"}
 
 token = "YOUR_LINODE_API_TOKEN"
 authorized_keys = "YOUR_PUBLIC_SSH_KEY"
 root_pass ="YOUR_ROOT_PASSWORD"
 
-{{< /file >}}
+```
 
     {{< note >}}
 It might also make sense to declare variables for fields where each resource has the same value. If each Linode uses the same image, define an `image` variable and assign `var.image` to the image parameter of each resource. This makes it easier to update the image information for all of the devices.
@@ -317,7 +317,7 @@ The following example demonstrates how you can configure a database table in the
 
 1. Declare the AWS provider by specifying an AWS region for the resource, along with variable references for the `aws_access_key`, and `aws_secret_key`.
 
-    {{< file "~/terraform/aws-terraform.tf" >}}
+    ```file {title="~/terraform/aws-terraform.tf"}
 # Initialize the AWS Provider
 
 provider "aws" {
@@ -325,11 +325,11 @@ provider "aws" {
   secret_key = var.aws_secret_key
   region = "eu-west-2"
 }
-  {{< /file >}}
+  ```
 
 1. Add a declaration for the AWS resource. The entire file, including the provider information, is shown below. This `aws_dynamodb_tabe` resource configures a database table in the DynamoDB service.
 
-    {{< file "~/terraform/aws-terraform.tf" >}}
+    ```file {title="~/terraform/aws-terraform.tf"}
 
 # Initialize the AWS Provider
 
@@ -356,7 +356,7 @@ resource "aws_dynamodb_table" "inventory-dynamodb-table" {
     type = "S"
   }
 }
-    {{< /file >}}
+    ```
 
 1.  Edit the `variables.tf` file, and add the new variables used in `aws-terraform.tf` to the bottom of the file, as shown below.
 
@@ -364,19 +364,19 @@ resource "aws_dynamodb_table" "inventory-dynamodb-table" {
 If a large number of variables are used throughout the configuration files, each cloud vendor should have its own variables file.
   {{< /note >}}
 
-    {{< file "~/terraform/variables.tf" >}}
+    ```file {title="~/terraform/variables.tf"}
 ...
 variable "aws_access_key" {}
 variable "aws_secret_key" {}
-  {{< /file >}}
+  ```
 
 1.  Edit the `terraform.tfvars`, and add the actual values of your AWS keys.
 
-    {{< file "~/terraform/terraform.tfvars" aconf >}}
+    ```file {title="~/terraform/terraform.tfvars"}
 ...
 aws_access_key = "YOUR_AWS_ACCESS_TOKEN"
 aws_secret_key = "YOUR_AWS_SSH_KEY"
-  {{< /file >}}
+  ```
 
 ## Initialize, Review Plan, and Execute Terraform
 
@@ -565,7 +565,7 @@ The following example illustrates how to simultaneously add a new Linode and cha
 
 1. Edit the `linode-terraform.tf` file, and add the following snippet to the end of the file. This defines a 1GB Linode running Ubuntu 20.04 as a new resource.
 
-    {{< file "~/terraform/linode-terraform.tf" aconf >}}
+    ```file {title="~/terraform/linode-terraform.tf"}
 ...
 resource "linode_instance" "terraform2-example" {
   image = "linode/ubuntu20.04"
@@ -576,11 +576,11 @@ resource "linode_instance" "terraform2-example" {
   authorized_keys = [var.authorized_keys]
   root_pass = var.root_pass
 }
-    {{< /file >}}
+    ```
 
 1. Edit the `aws-terraform.tf`, and alter one of the fields. In this case, change `AlbumTitle` to `RecordTitle`. Change the name of the `range_key` field to correspond to the new name.
 
-    {{< file "~/terraform/aws-terraform.tf" aconf >}}
+    ```file {title="~/terraform/aws-terraform.tf"}
 ...
   range_key      = "RecordTitle"
 ...
@@ -589,7 +589,7 @@ resource "linode_instance" "terraform2-example" {
     type = "S"
   }
 ...
-    {{< /file >}}
+    ```
 
 3. Execute the `terraform plan` command again.
 

@@ -91,7 +91,7 @@ These services are listed in a single Docker Compose file.
 
 1.  Create a file named `docker-compose.yml` and open it in your text editor. Paste in the contents from the following snippet. Replace `example.com` with your domain, and insert a new database password where `your_database_root_password` appears. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 services:
 
@@ -131,7 +131,7 @@ services:
     volumes:
        - /etc/letsencrypt/:/etc/letsencrypt/
        - /usr/share/nginx/html:/usr/share/nginx/html
-{{< /file >}}
+```
 
 1.  The Docker Compose file creates a few [Docker bind mounts](https://docs.docker.com/storage/bind-mounts/#choosing-the--v-or---mount-flag):
 
@@ -157,15 +157,15 @@ The Docker Compose file relies on a customized NGINX image. This image will be p
 
 1.  Create a file named `Dockerfile` in the `nginx` directory and paste in the following contents:
 
-    {{< file "nginx/Dockerfile" dockerfile >}}
+    ```file {title="nginx/Dockerfile"}
 FROM nginx:latest
 
 COPY default.conf /etc/nginx/conf.d
-{{< /file >}}
+```
 
 1.  Create a file named `default.conf` in the `nginx` directory and paste in the following contents. Replace all instances of `example.com` with your domain:
 
-    {{< file "nginx/default.conf" nginx >}}
+    ```file {title="nginx/default.conf"}
 server {
   listen 80;
   listen [::]:80;
@@ -195,7 +195,7 @@ server {
     proxy_pass http://ghost:2368;
   }
 }
-{{< /file >}}
+```
 
     This configuration will redirect all requests on HTTP to HTTPS (except for Let's Encrypt challenge requests), and all requests on HTTPS will be proxied to the Ghost service.
 

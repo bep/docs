@@ -66,7 +66,7 @@ On Debian 9 and later, run `sudo apt install dirmngr` before importing the key.
 
 1.  Create the file `/etc/mysql/conf.d/galera.cnf` on each of the Linodes with the following content. Replace the IP addresses in the `wsrep_cluster_address` section with the private IP addresses of each of the Linodes:
 
-    {{< file "/etc/mysql/conf.d/galera.cnf" ini >}}
+    ```file {title="/etc/mysql/conf.d/galera.cnf"}
 [mysqld]
 #mysql settings
 binlog_format=ROW
@@ -84,7 +84,7 @@ wsrep_cluster_address="gcomm://192.168.1.1,192.168.1.2,192.168.1.3"
 wsrep_node_address="192.168.1.1"
 wsrep_node_name="node_1"
 wsrep_sst_method=rsync
-{{< /file >}}
+```
 
 
 2.  Reboot both of your non-primary servers in the cluster to enable the new `galera.cnf` file settings.

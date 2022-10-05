@@ -123,7 +123,7 @@ This variable needs to be supplied to every Terraform `apply`, `plan`, and `dest
 
 2. Using a text editor, create the main configuration file of the cluster and name it `main.tf`. Add the following contents to the file.
 
-      {{< file "~/terraform/k8s-cluster/main.tf">}}
+      ```file {title="~/terraform/k8s-cluster/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -143,7 +143,7 @@ module "k8s" {
   region             = var.region
   nodes              = var.nodes
 }
-      {{</ file >}}
+      ```
 
     This file contains the main configuration arguments of the cluster. The only required configurations are `source` and `linode_token`. `source` calls Linode's k8s module, while the `linode_token` gives access to viewing, creating, and destroying Linode resources.
 
@@ -151,7 +151,7 @@ module "k8s" {
 
 1. Create an input variables file, named `variables.tf`, with the example content.
 
-      {{< file "~/terraform/k8s-cluster/variables.tf">}}
+      ```file {title="~/terraform/k8s-cluster/variables.tf"}
 variable "linode_token" {
   description = " Linode API token"
 }
@@ -185,16 +185,16 @@ variable "nodes" {
   description = " Linode API token"
   default     = 3
 }
-      {{</ file >}}
+      ```
 
     The example file creates input variables referenced in the main configuration file that was created. The values for those variables are assigned in a separate file in the next step. The default values of the k8s module can be overridden, as in the example file. For more details about input variables, see the [Input Variables](/docs/guides/beginners-guide-to-terraform/#input-variables) section in the [A Beginner's Guide to Terraform](/docs/guides/beginners-guide-to-terraform/).
 
 1. Create an input variables values file to provide the main configuration file with values that differ from the defaults in input variable file.
 
-      {{< file "~/terraform/k8s-cluster/terraform.tfvars">}}
+      ```file {title="~/terraform/k8s-cluster/terraform.tfvars"}
 server_type_master = "g6-standard-4"
 cluster_name = "example-cluster-2"
-      {{</ file >}}
+      ```
 
       In this example, the master node of the cluster uses a `g6-standard-4` Linode plan, instead of the default `g6-standard-2`, and the `cluster_name` is set to `example-cluster-2`, instead of `example-cluster-1`.
 

@@ -85,7 +85,7 @@ Ensure that the version number matches the farmOS version you wish to download.
 
 1.  Specify the rewrite conditions for your farmOS site's document root in Apache's configuration file using the text editor of your choice. If you installed and configured your Apache server using [LAMP stack on Ubuntu 20.04](/docs/guides/how-to-install-a-lamp-stack-on-ubuntu-20-04/) guide, the configuration file for your site is located at `/etc/apache2/sites-available/example.com.conf`.
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" conf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
     Options Indexes FollowSymLinks
     AllowOverride All
@@ -96,7 +96,7 @@ Ensure that the version number matches the farmOS version you wish to download.
       RewriteCond %{REQUEST_FILENAME} !-d
       RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </Directory>
-{{< /file >}}
+```
 
 1.  Change the ownership of your site's document root from `root` to `www-data`. This allows you to install modules and themes, and to update Drupal, without being prompted for FTP credentials.
 

@@ -45,12 +45,12 @@ Other SMTP clients can also be used for delivering Logwatch messages.
 
 3.  Edit the `/etc/postfix/main.cf` file to add your domain information, and allow for send-only mail, replacing `hostname.example.com` with your own hostname and domain:
 
-    {{< file "/etc/postfix/main.cf" aconf >}}
+    ```file {title="/etc/postfix/main.cf"}
 myhostname = hostname.example.com
 inet_interfaces = loopback-only
 
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -59,9 +59,9 @@ Both A/AAAA, and MX records will need to be set for your domain.
 
 4.  Edit `/etc/postfix/aliases` to uncomment `root` and alias it to `root@hostname.example.com`, replacing `hostname.example.com` with your own hostname and domain:
 
-    {{< file "/etc/postfix/aliases" >}}
+    ```file {title="/etc/postfix/aliases"}
 root:           root@hostname.example.com
-{{< /file >}}
+```
 
 5.  Run `newaliases` after editing the aliases list.
 
@@ -133,12 +133,12 @@ If Logwatch initially does not appear to run, within the `logwatch.conf` file, c
 
 By default, Logwatch digests will include all logs contained within `/var/log`. If any other directories contain logs, such as website directories, they can be added by including additional `LogDir` lines. For example:
 
-{{< file "/usr/share/logwatch/default.conf/logwatch.conf" >}}
+```file {title="/usr/share/logwatch/default.conf/logwatch.conf"}
 LogDir = /var/log
 LogDir = /var/www/example.com/logs
 
 
-{{< /file >}}
+```
 
 
 ### Print Logwatch Digest to Console
@@ -160,11 +160,11 @@ If using Arch, and you followed the above install instructions, Sendmail is alre
 
 2.  Change the `MailTo` address to a valid email address, or local account user. For example, to send mail to the `root` user change the line to read:
 
-    {{< file "/usr/share/logwatch/default.conf/logwatch.conf" >}}
+    ```file {title="/usr/share/logwatch/default.conf/logwatch.conf"}
 MailTo = root
 
 
-{{< /file >}}
+```
 
 
 3.  Change the `MailFrom` value to a valid email address, or to a local user. This can also be left as `Logwatch`.
@@ -202,11 +202,11 @@ Logwatch often works best when configured to run daily and send or save a report
 
 2.  Add a line for Logwatch. The following code is configured to run at 00:30 each day:
 
-    {{< file "/etc/crontab" >}}
+    ```file {title="/etc/crontab"}
 30 0  * * *          /usr/sbin/logwatch
 
 
-{{< /file >}}
+```
 
 
     For more information on adjusting your crontab scheduling, reference our guide on [Scheduling Tasks with Cron](/docs/guides/schedule-tasks-with-cron/).

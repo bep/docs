@@ -182,7 +182,7 @@ In order to get Caldera up and running, follow the procedures outlined below:
 
     Your configuration file should look similar to the code snippet below.
 
-    {{< file "conf/default.yml" >}}
+    ```file {title="conf/default.yml"}
 ability_refresh: 60
 api_key_blue: BLUEADMIN123
 api_key_red: ADMIN123
@@ -242,7 +242,7 @@ users:
   red:
     admin: admin
     red: admin
-{{< /file >}}
+```
 
     The configuration file contains all relevant information pertaining to your Caldera server, you can customize the fields based on your environmental requirements.
 

@@ -125,12 +125,12 @@ The most common usage of sed is to search for strings or patterns throughout a f
 
 When your sed programs become too big to easily fit on the command line, sed can accept sets of instructions from a program file. For example, you might have many replacements you want to make. Place them in a file named `replacements.sed`, as follows:
 
-{{< file "replacements.sed" >}}
+```file {title="replacements.sed"}
 s/I should of/I should have/;
 s/supposably/supposedly/;
 s/mute point/moot point/;
 s/one in the same/one and the same/;
-{{< /file >}}
+```
 
 Apply the changes to all your text files with the following command:
 
@@ -183,12 +183,12 @@ AWK's primary use cases are the following:
 
 The examples in this section rely on the data in the `names.txt` file below. The data contains information about cars owned by a group of different people.
 
-{{< file "names.txt" >}}
+```file {title="names.txt"}
 Vince       Lombardi    Toyota      Fordham     1913
 Betty       Ford        Chevrolet   Bennington  1918
 Harrison    Ford        Toyota      Ripon       1942
 Mike        Rowe        Ford        Towson      1962
-{{< /file >}}
+```
 
 You can use AWK to find all the people that drive a Toyota. AWK automatically breaks up each line into fields and columns using whitespaces as the delimiter. The first field is stored in variable `$1`, the second in `$2`, and so on. To search for the people who own a "Toyota", use the field stored in the `$3` variable, as follows:
 

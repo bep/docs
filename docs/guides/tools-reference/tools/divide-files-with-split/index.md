@@ -28,7 +28,7 @@ Certain options for `split` will not work by default on macOS because the GNU ve
 
 1.  Create `example.txt` in a text editor and add the following content:
 
-    {{< file "example.txt" text >}}
+    ```file {title="example.txt"}
 example line 1
 example line 2
 example line 3
@@ -39,7 +39,7 @@ example line 7
 example line 8
 example line 9
 example line 10
-{{< /file >}}
+```
 
 2.  Download the text of Moby Dick to demonstrate working with larger files:
 

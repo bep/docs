@@ -39,7 +39,7 @@ PHP is mainly used for three different purposes:
 
 PHP functions like most interpreted programming languages. It contains a rich selection of control structures and is easy to learn and use. The following code snippet demonstrates how PHP can be used to embed a "Hello, World!" fragment inside HTML.
 
-{{< file "helloworld.html" html >}}
+```file {title="helloworld.html"}
 <body>
 
     <?php
@@ -47,7 +47,7 @@ PHP functions like most interpreted programming languages. It contains a rich se
     ?>
 
 </body>
-{{< /file >}}
+```
 
 PHP code is introduced with `<?php`, and terminated with `?>`. Your PHP code can also be written as a separate file and called from an HTML page. The official PHP website offers [a simple tutorial](https://www.php.net/manual/en/tutorial.php) that introduces the basics of coding with PHP. More advanced users should consult the [Official PHP Documentation](https://www.php.net/manual/en/), which provides information on control structures, classes, and objects.
 
@@ -170,7 +170,7 @@ php8.0-fpm.service - The PHP 8.0 FastCGI Process Manager
 For information on how to add a virtual host, see the Linode guide on [How to Install Apache Web Server on Ubuntu 18.04 LTS](/docs/guides/how-to-install-apache-web-server-ubuntu-18-04/).
     {{< /note >}}
 
-    {{< file "/etc/apache2/sites-available/000-default.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/000-default.conf"}
 <VirtualHost *:80>
 ...
     <FilesMatch \.php$>
@@ -178,7 +178,7 @@ For information on how to add a virtual host, see the Linode guide on [How to In
     </FilesMatch>
 ...
 </VirtualHost>
-    {{< /file >}}
+    ```
 1. Restart the Apache service.
 
         sudo systemctl restart apache2
@@ -218,7 +218,7 @@ php8.0-fpm.service - The PHP 8.0 FastCGI Process Manager
 For more information on configuring a virtual host on NGINX, consult the Linode Guide on [How to Install and Use NGINX on Ubuntu 20.04](https://www.linode.com/docs/guides/how-to-install-and-use-nginx-on-ubuntu-20-04/).
     {{< /note >}}
 
-    {{< file "/etc/nginx/sites-available/default" aconf >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 server {
 ...
         location ~ \.php$ {
@@ -227,7 +227,7 @@ server {
         }
 ...
 }
-    {{< /file >}}
+    ```
 1. Run the NGINX syntax test to verify the new configuration is correct.
 
         sudo nginx -t
@@ -248,10 +248,10 @@ To create and display the standard "PHP Info" page, follow the below steps:
         sudo vi /var/www/html/phpinfo.php
 1. Add the following PHP code to this file.
 
-    {{< file "/var/www/html/phpinfo.php" php >}}
+    ```file {title="/var/www/html/phpinfo.php"}
 
 <?php phpinfo(); ?>
-{{< /file >}}
+```
 
 1. Access the `phpinfo.php` file using a web browser. Use either the IP address of the server or the domain name of the site, for example `<server_ip_address>/phpinfo.php`. The "PHP Info" page should be displayed. This page contains information about the version and installation, as shown in the below screenshot. The list of `.ini` files and other details might vary depending on your particular installation.
 
@@ -309,7 +309,7 @@ Zend Engine v4.0.8, Copyright (c) Zend Technologies
         sudo a2enconf php8.0-fpm
 1. Edit either the `.conf` file for the domain, if one exists, or the default Apache `.conf` file. Change the `SetHandler` parameter to `proxy:unix:/var/run/php/php8.0-fpm.sock|fcgi://localhost`.
 
-    {{< file "/etc/apache2/sites-available/000-default.conf" php >}}
+    ```file {title="/etc/apache2/sites-available/000-default.conf"}
 <VirtualHost *:80>
 ...
     <FilesMatch \.php$>
@@ -319,7 +319,7 @@ Zend Engine v4.0.8, Copyright (c) Zend Technologies
 
 ...
 </VirtualHost>
-    {{< /file >}}
+    ```
 
 1. Restart Apache and the `php8.0-fpm.service` using `systemctl`.
 

@@ -122,12 +122,12 @@ In this section, you will download and install the Chef Workstation package, whi
 
 1. Ensure that your workstation's `/etc/hosts` file maps its IP address to your Chef server's fully qualified domain name and workstation hostnames. For example:
 
-    {{< file "/etc/hosts">}}
+    ```file {title="/etc/hosts"}
 127.0.0.1 localhost
 192.0.1.0 example.com
 192.0.2.0 workstation
 ...
-    {{</ file >}}
+    ```
 
 1. Create a `.chef` subdirectory. The `.chef` subdirectory will store your [Knife](/docs/guides/beginners-guide-chef/#knife) configuration file and your `.pem` files that are used for RSA key pair authentication with the Chef server. Move into the `chef-repo` directory:
 
@@ -204,7 +204,7 @@ nothing to commit, working directory clean
 
 1.  Copy the following configuration into the `config.rb` file:
 
-    {{< file "~/chef-repo/.chef/config.rb" ruby >}}
+    ```file {title="~/chef-repo/.chef/config.rb"}
 current_dir = File.dirname(__FILE__)
 log_level                :info
 log_location             STDOUT
@@ -216,7 +216,7 @@ chef_server_url          'https://example.com/organizations/ORG_NAME'
 cache_type               'BasicFile'
 cache_options( :path => "#{ENV['HOME']}/.chef/checksums" )
 cookbook_path            ["#{current_dir}/../cookbooks"]
-{{< /file >}}
+```
 
 1.  Change the following:
 
@@ -253,13 +253,13 @@ If you encounter any `401 Unauthorized` errors ensure that your `ORGANIZATION.pe
 
 1. Update the `/etc/hosts` file on the *node* to identify the node, Chef server's domain name, and the workstation.
 
-    {{< file "/etc/hosts">}}
+    ```file {title="/etc/hosts"}
 127.0.0.1 localhost
 198.51.100.0 node-hostname
 192.0.2.0 workstation
 192.0.1.0 example.com
 ...
-    {{</ file >}}
+    ```
 
 1. From your *workstation*, navigate to your `~/chef-repo/.chef` directory:
 
@@ -287,13 +287,13 @@ If you encounter any `401 Unauthorized` errors ensure that your `ORGANIZATION.pe
 
 1. Add the bootstrapped node to your workstation's `/etc/hosts` file. Replace `node-hostname` with the hostname you just assigned to the node when it was bootstrapped:
 
-    {{< file "/etc/hosts">}}
+    ```file {title="/etc/hosts"}
 127.0.0.1 localhost
 192.0.1.0 example.com
 192.0.2.0 workstation
 198.51.100.0 node-hostname
 ...
-    {{</ file >}}
+    ```
 
 ## Download a Cookbook (Optional)
 
@@ -311,7 +311,7 @@ This section is optional, but provides instructions on downloading a cookbook to
 
 1.  Open the `default.rb` file to examine the default cookbook recipe:
 
-    {{< file "~/chef-repo/cookbooks/cron-delvalidate/recipes/default.rb" ruby >}}
+    ```file {title="~/chef-repo/cookbooks/cron-delvalidate/recipes/default.rb"}
 #
 # Cookbook Name:: cron-delvalidate
 # Recipe:: Chef-Client Cron & Delete Validation.pem
@@ -328,7 +328,7 @@ end
 file "/etc/chef/validation.pem" do
   action :delete
 end
-{{< /file >}}
+```
 
     The resource `cron "clientrun" do` defines the cron action. It is set to run the `chef-client` action (`/usr/bin/chef-client`) every hour (`*/1` with the `*/` defining that it's every hour and not 1AM daily). The `action` code denotes that Chef is *creating* a new cronjob.
 

@@ -82,7 +82,7 @@ Update Complete. ⎈Happy Helming!⎈
 
 1. Create a configuration file for Consul. The parameters need to be adjusted for your needs. You can refer to our the example configuration file below(example-consul-config.yaml) for a basic working set of options.
 
-    {{< file "example-consul-config.yaml" >}}
+    ```file {title="example-consul-config.yaml"}
 global:
   name: consul
   datacenter: dc1
@@ -98,7 +98,7 @@ connectInject:
   default: true
 controller:
   enabled: true
-    {{< /file >}}
+    ```
 
     Take a look at HashiCorp's [Consul and Kubernetes Deployment Guide](https://learn.hashicorp.com/tutorials/consul/kubernetes-deployment-guide?in=consul/kubernetes) for another example configuration, and refer to HashiCorp's [Helm Chart Configuration](https://www.consul.io/docs/k8s/helm) guide for details on available parameters.
 
@@ -129,7 +129,7 @@ Follow the steps in this section to create a couple of simple services to see th
 
 1. Create a file named `example-service-backend.yaml` for the first of your services. Add the contents of the example file below.
 
-    {{< file "example-service-backend.yaml" >}}
+    ```file {title="example-service-backend.yaml"}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -179,13 +179,13 @@ spec:
               value: '127.0.0.1:9091'
             - name: 'MESSAGE'
               value: 'This is a response from the back-end service.'
-    {{< /file >}}
+    ```
 
     The above example file creates a service and defines its deployment parameters. Take note of the `annotations` section. The `consul.hashicorp.com/connect-inject: 'true'` annotation tells Consul to inject a proxy with the service. This annotation should be included in the deployment manifest for any service you want to deploy to Kubernetes and have take part in your Consul service mesh.
 
 1. Create another file named `example-service-frontend.yaml` for the second of your services. Add the contents of the example file below.
 
-    {{< file "example-service-frontend.yaml" >}}
+    ```file {title="example-service-frontend.yaml"}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -238,7 +238,7 @@ spec:
               value: 'http://localhost:9091'
             - name: 'MESSAGE'
               value: 'This is a message from the front-end service.'
-    {{< /file >}}
+    ```
 
     This file's contents are similar to the previous file. However, it adds an additional annotation. The new annotation here — `consul.hashicorp.com/connect-service-upstreams: 'back-end-service:9091'` — tells Consul that this service has the service defined in the previous file as an upstream dependency.
 

@@ -51,10 +51,10 @@ This command will install Nagios and place the website files in `/usr/share/nagi
 
 Edit the `APACHE2_OPTS` line in your `/etc/conf.d/apache2` so that it resembles the following:
 
-{{< file "/etc/conf.d/apache2" >}}
+```file {title="/etc/conf.d/apache2"}
 APACHE2_OPTS="-D DEFAULT_VHOST -D INFO -D SSL -D SSL_DEFAULT_VHOST -D LANGUAGE -D PHP5 -D NAGIOS"
 
-{{< /file >}}
+```
 
 
 You will also need to copy the Nagios Apache config to `/etc/apache2/modules.d/`:
@@ -65,7 +65,7 @@ You will also need to copy the Nagios Apache config to `/etc/apache2/modules.d/`
 
 Begin by editing the `/etc/nagios/objects/contacts.cfg` file's email field, according to the example below:
 
-{{< file "/etc/nagios/objects/contacts.cfg" >}}
+```file {title="/etc/nagios/objects/contacts.cfg"}
 define contact{
     contact_name nagiosadmin ; Short name of user use generic-contact
     ; Inherit default values from generic-contact template (defined above)
@@ -73,7 +73,7 @@ define contact{
     email nagiosuser@example.com> ; <<***** CHANGE THIS TO YOUR EMAIL ADDRESS ******
 }
 
-{{< /file >}}
+```
 
 
 Issue the following command to create a password for the `nagiosadmin` user. You will use this password to log into the Nagios administration panel when it is configured.
@@ -114,7 +114,7 @@ Before Nagios can send alerts by email, basic mail services need to be installed
 
 When the installation process prompts you to define the type of mail setup you're running, select "Internet Site". You will also want to specify the machine specific hostname for this server during the installation process. Next, you'll need to update the path to the mail binary in the Nagios command file. Change both references from `/bin/mail` to `/usr/bin/mail`. The relevant section of this file should look like this:
 
-{{< file "/etc/nagios/objects/commands.cfg" >}}
+```file {title="/etc/nagios/objects/commands.cfg"}
 define command{
     command_name    notify-host-by-email
     command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\nHost: $HOSTNAME$\nState: $HOSTSTATE$\nAddress: $HOSTADDRESS$\nInfo: $HOSTOUTPUT$\n\nDate/Time: $LONGDATETIME$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Host Alert: $HOSTNAME$ is $HOSTSTATE$ **" $CONTACTEMAIL$
@@ -126,7 +126,7 @@ define command{
     command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
 }
 
-{{< /file >}}
+```
 
 
 In order for these changes to take effect, you will need to restart Nagios:

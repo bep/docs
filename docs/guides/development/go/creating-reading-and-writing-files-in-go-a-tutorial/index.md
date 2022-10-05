@@ -59,7 +59,7 @@ Three
 
 In order to read a file, you will need to open it first. In order to be able to open a file, it must exist at the given path and be an actual file, not a directory. The code of this section will check if *the given path* exists.
 
-{{< file "./doesItExist.go" go >}}
+```file {title="./doesItExist.go"}
 package main
 
 import (
@@ -80,7 +80,7 @@ func main() {
         fmt.Println("Path does not exist!", err)
     }
 }
-{{< /file >}}
+```
 
 All the work here is done by the powerful `os.Stat()` function. If the call to `os.Stat()` is successful, then the error value will be `nil`, which confirms that the given path exists. Notice that if the given path exists, the program generates no output according to the UNIX philosophy.
 
@@ -99,7 +99,7 @@ The fact that a path does exist does not necessarily mean that it is a regular f
 
 There exist a special function in the Go standard library, `IsRegular()`, that checks whether a path belongs to a file or not. This function is illustrated in the below example.
 
-{{< file "./isFile.go" go >}}
+```file {title="./isFile.go"}
 package main
 
 import (
@@ -125,7 +125,7 @@ func main() {
         fmt.Println(path, "is a regular file!")
     }
 }
-{{< /file >}}
+```
 
 After getting information about the mode of the file using `Mode()`, you need to call the `IsRegular()` function to determine whether the given path belongs to a regular file or not. If the path is a regular file, the output of `IsRegular()` will give you this information.
 
@@ -145,7 +145,7 @@ Most of the examples in this guide will not test whether the file that is going 
 
 Reading files in Go is a simple task. Go treats both text and binary files the same, and it is up to you to interpret the contents of a file. One of the many ways to read a file, `ReadFull()`, is presented in the `readFile.go` file below.
 
-{{< file "./readFile.go" go >}}
+```file {title="./readFile.go"}
 package main
 
 import (
@@ -177,7 +177,7 @@ func main() {
     io.WriteString(os.Stdout, string(buf))
     fmt.Println()
 }
-{{< /file >}}
+```
 
 The `io.ReadFull()` function reads from the reader of an open file and puts the data into a *byte slice* with 8 places. The `io.WriteString()` function is used for sending data to standard output (`os.Stdout`), which is also a file as far as UNIX is concerned. The read operation is executed only once. If you want to read an entire file, you will need to use a `for` loop, which is illustrated in other examples of this guide.
 
@@ -193,7 +193,7 @@ One
 
 The following code shows how you can read a text file in Go line by line.
 
-{{< file "./lByL.go" go >}}
+```file {title="./lByL.go"}
 package main
 
 import (
@@ -240,7 +240,7 @@ func main() {
         }
     }
 }
-{{< /file >}}
+```
 
 The core functionality of the program can be found in the `lineByLine()` function. After ensuring the filename can be opened, the function create a new reader using `bufio.NewReader()`. Then, the function uses that reader with `bufio.ReadString()` in order to read the input file line by line. This is accomplished by passing the *newline character* parameter to `bufio.ReadString()`. `bufio.ReadString()` will continue to read the file until that character is found. Constantly calling `bufio.ReadString()` when that parameter is the newline character results in reading the input file line by line. The `for` loop in the `main()` function exists to help to process multiple command line arguments.
 
@@ -258,7 +258,7 @@ Three
 
 The following code shows how you can read a text file word by word.
 
-{{< file "./wByW.go" go >}}
+```file {title="./wByW.go"}
 package main
 
 import (
@@ -311,7 +311,7 @@ func main() {
         }
     }
 }
-{{< /file >}}
+```
 
 The core functionality of the program can be found in the `wordByWord()` function. Initially the text file is read line by line. Then a regular expression, which is stored in the `r` variable, is used for determining the words in the current line. Those words are stored in the `words` variable. After that, a `for` loop is used for iterating over the contents of `words` and print them on the screen before continuing with the next line of the input file.
 
@@ -330,7 +330,7 @@ Three
 
 The following code shows how you can read a text file character by character.
 
-{{< file "./cByC.go" go >}}
+```file {title="./cByC.go"}
 package main
 
 import (
@@ -380,7 +380,7 @@ func main() {
         }
     }
 }
-{{< /file >}}
+```
 
 The `charByChar()` function does all the work. Once again, the input file is ready line by line. Within a `for` loop, `range` iterates over the characters of each line.
 
@@ -419,7 +419,7 @@ e
 
 In this section you will learn how to differentiate between directories and the other types of UNIX files.
 
-{{< file "./isDirectory.go" go >}}
+```file {title="./isDirectory.go"}
 package main
 
 import (
@@ -445,7 +445,7 @@ func main() {
         fmt.Println(path, "is a directory!")
     }
 }
-{{< /file >}}
+```
 
 All the work is done by the `IsDir()` function. If it is a directory, then it will return `true`.
 
@@ -460,7 +460,7 @@ Executing `isDirectory.go` will generate the following kind of output:
 
 In this section you will learn how to create a new file in Go.
 
-{{< file "./createFile.go" go >}}
+```file {title="./createFile.go"}
 package main
 
 import (
@@ -490,7 +490,7 @@ func main() {
 
     fmt.Println("File created successfully", filename)
 }
-{{< /file >}}
+```
 
 It is really important to make sure that the file you are going to create does not already exist, otherwise you might overwrite an existing file and therefore lose its data. `os.Create()` will truncate the destination file if it already exists. The `IsNotExist()` function returns `true` if a file or directory does not exist. This is indicated by the contents of the `error` variable that is passed as an argument to `IsNotExist()`. The `error` variable was returned by a previous call to `os.Stat()`.
 
@@ -505,7 +505,7 @@ File created successfully /tmp/newFile.txt
 
 In this section you will learn how to write data to a new file using `fmt.Fprintf()`.
 
-{{< file "./writeFile.go" go >}}
+```file {title="./writeFile.go"}
 package main
 
 import (
@@ -530,7 +530,7 @@ func main() {
     fmt.Fprintf(destination, "[%s]: ", filename)
     fmt.Fprintf(destination, "Using fmt.Fprintf in %s\n", filename)
 }
-{{< /file >}}
+```
 
 The use of the `fmt.Fprintf()` function for writing allows us to write formatted text to files in a way that is similar to the way the `fmt.Printf()` function works. Notice that `fmt.Fprintf()` can write to any `io.Writer` interface. Once again, remember that `os.Create()` will truncate the destination file if it already exists.
 
@@ -545,7 +545,7 @@ A successful execution of `writeFile.go` will generate no output - in this case 
 
 You will now learn how to append data to a file, which means adding data to the end of the file without deleting existing data.
 
-{{< file "./append.go" go >}}
+```file {title="./append.go"}
 package main
 
 import (
@@ -571,7 +571,7 @@ func main() {
     defer file.Close()
     fmt.Fprintf(file, "%s\n", message)
 }
-{{< /file >}}
+```
 
 The actual appending is taken care of by the `os.O_APPEND` flag of the `os.OpenFile()` function. This flag tells Go to write at the end of the file. Additionally, the `os.O_CREATE` flag will make `os.OpenFile()` create the file if it does not exist, which is pretty handy. Apart from that, the information is written to the file using `fmt.Fprintf()`.
 
@@ -590,7 +590,7 @@ Three
 
 In this section you will learn one way of creating a copy of an existing file.
 
-{{< file "./fileCopy.go" go >}}
+```file {title="./fileCopy.go"}
 package main
 
 import (
@@ -663,7 +663,7 @@ func main() {
         fmt.Printf("File copying failed: %q\n", err)
     }
 }
-{{< /file >}}
+```
 
 `fileCopy.go` allows you to set the size of the buffer that will be used during the copy process. In this Go program, the buffer is implemented using a *byte slice* named `buf`. The copy takes place in the `Copy()` function, which keeps reading the input file using the required amount of `Read()` calls, and writes it using the required amount of `Write()` calls. The `Copy()` function performs lots of tests to make sure that the source file exists and is a regular file and that the destination file does not exist.
 
@@ -678,7 +678,7 @@ Copying /tmp/data.txt to /tmp/newText
 
 In this section we will implement the core functionality of the `cat(1)` command line utility in Go. The `cat(1)` utility is used to print the contents of a file to a terminal window.
 
-{{< file "./cat.go" go >}}
+```file {title="./cat.go"}
 package main
 
 import (
@@ -718,7 +718,7 @@ func main() {
         }
     }
 }
-{{< /file >}}
+```
 
 If you execute `cat.go` without any command line arguments, then the utility will just copy from standard input to standard output using the `io.Copy(os.Stdout, os.Stdin)` statement. However, if there are command-line arguments, then the program will process them all in the same order that they were given using the `printFile()` function.
 

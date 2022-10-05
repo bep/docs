@@ -103,12 +103,12 @@ and continue by reloading lighttpd:
 
 Modify the following settings in your `/etc/lighttpd/conf-enabled/10-simple-vhost.conf` file:
 
-{{< file "/etc/lighttpd/conf-enabled/10-simple-vhost.conf" lighty >}}
+```file {title="/etc/lighttpd/conf-enabled/10-simple-vhost.conf"}
 simple-vhost.server-root = "/var/www"
 simple-vhost.default-host = "brackley.org"
 simple-vhost.document-root = "/pages/"
 
-{{< /file >}}
+```
 
 
 The `server-root` defines the base directory under which all virtual host directories are created.
@@ -180,7 +180,7 @@ Lighttpd will send CGI requests to CGI handlers on the basis of file extensions,
 
 If you install the php5-cgi package and enable mod\_fastcgi with `lighty-enable-mod fastcgi` then a default FastCGI handler will be configured in the file `/etc/lighttpd/conf-enabled/10-fastcgi.conf`. Though the handler will likely require specific customization for your use cases, it serves as an effective example:
 
-{{< file "/etc/lighttpd/conf-enabled/10-fastcgi.conf" lighty >}}
+```file {title="/etc/lighttpd/conf-enabled/10-fastcgi.conf"}
 fastcgi.server    = ( ".php" =>
         ((
                 "bin-path" => "/usr/bin/php-cgi",
@@ -198,15 +198,15 @@ fastcgi.server    = ( ".php" =>
         ))
 )
 
-{{< /file >}}
+```
 
 
 You can map more than one file extensions to a single FastCGI handler by adding the following entry to your config file:
 
-{{< file "/etc/lighttpd/conf-enabled/10-fastcgi.conf" lighty >}}
+```file {title="/etc/lighttpd/conf-enabled/10-fastcgi.conf"}
 fastcgi.map-extensions = ( ".[ALT-EXTENSION]" => ".[EXTENSION]" )
 
-{{< /file >}}
+```
 
 
 Again, mod\_fastcgi supports creating multiple handlers, and even adding multiple FastCGI back ends per-handler.

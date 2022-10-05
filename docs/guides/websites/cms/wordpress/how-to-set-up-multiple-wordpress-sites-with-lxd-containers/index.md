@@ -120,11 +120,11 @@ If you prefer to use _MariaDB_, replace `mysql-server` with `mariadb-server`.
 
 1.  By default, the `mysql-server` service is listening to the _loopback_ network interface. We change the settings so that it listens to all network interfaces. After making this change, the database is accessible by other containers. Edit the file `/etc/mysql/mysql.conf.d/mysqld.cnf` and change the `bind-address` field to the value `0.0.0.0`. To edit this file, you need to invoke `sudo` privileges with your text editor (e.g. `sudo nano /etc/mysql/mysql.conf.d/mysqld.cnf`).
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.cnf" >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.cnf"}
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
 bind-address            = 0.0.0.0
-{{</ file >}}
+```
 
     {{< note >}}
 The containers reside on a NAT network inside the VM. They do not get public IP addresses and they are not accessible from the Internet. The SQL server is only accessible to other containers and to the host server.
@@ -227,17 +227,17 @@ WordPress has a built-in _Site Health_ feature that checks for a small list of r
 
 1.  Edit the source code of WordPress in file `/var/www/html/wp-admin/setup-config.php`. Add the following line **before** line 20:
 
-    {{< file "/var/www/html/wp-admin/setup-config.php" >}}
+    ```file {title="/var/www/html/wp-admin/setup-config.php"}
 $_SERVER['HTTPS']='on';
-{{</ file >}}
+```
 
     This change ensures that the WordPress setup wizard will work behind the TLS termination proxy in the `proxy` container.
 
 1.  Edit the source code of WordPress in file `/var/www/html/wp-config-sample.php`. Add the following line **before** line 82:
 
-    {{< file "/var/www/html/wp-config-sample.php" >}}
+    ```file {title="/var/www/html/wp-config-sample.php"}
 $_SERVER['HTTPS']='on';
-{{</ file >}}
+```
 
     This change ensures that the WordPress admin page will work behind the TLS termination proxy in the `proxy` container.
 
@@ -289,7 +289,7 @@ WordPress has a built-in _Site Health_ feature that checks for a small list of r
 
 1.  Enable PHP in the web server configuration. Replace the content of the `/etc/nginx/sites-enabled/default` file with the content below. To edit this file, you need to invoke `sudo` privileges with your text editor (e.g. `sudo nano /etc/nginx/sites-enabled/default`).
 
-    {{< file "/etc/nginx/sites-enabled/default" >}}
+    ```file {title="/etc/nginx/sites-enabled/default"}
 # Default server configuration
 #
 server {
@@ -318,7 +318,7 @@ server {
                 fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
         }
 }
-{{</ file >}}
+```
 
     These changes have been made to the default configuration:
 
@@ -334,17 +334,17 @@ server {
 
 1.  Edit the source code of WordPress in file `/var/www/html/wp-admin/setup-config.php`. Add the following line **before** line 20:
 
-    {{< file "/var/www/html/wp-admin/setup-config.php" >}}
+    ```file {title="/var/www/html/wp-admin/setup-config.php"}
 $_SERVER['HTTPS']='on';
-{{</ file >}}
+```
 
     This change ensures that the WordPress setup wizard will work behind the TLS termination proxy in the `proxy` container.
 
 1.  Edit the source code of WordPress in file `/var/www/html/wp-config-sample.php`. Add the following line **before** line 82:
 
-    {{< file "/var/www/html/wp-config-sample.php" >}}
+    ```file {title="/var/www/html/wp-config-sample.php"}
 $_SERVER['HTTPS']='on';
-{{</ file >}}
+```
 
     This change ensures that the WordPress admin page will work behind the TLS termination proxy in the `proxy` container.
 

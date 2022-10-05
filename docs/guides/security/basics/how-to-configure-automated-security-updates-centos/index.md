@@ -48,7 +48,7 @@ The first step is to install the `dnf-automatic` utility package.
 
 1.  You can configure the dnf-automatic updates. The default configuration file is located at `/etc/dnf/automatic.conf`. Use the text editor of your choice to edit the configuration file:
 
-    {{< file "/etc/dnf/automatic.conf" >}}
+    ```file {title="/etc/dnf/automatic.conf"}
 [commands]
 #  What kind of upgrade to perform:
 # default                            = all available upgrades
@@ -69,7 +69,7 @@ download_updates = yes
 apply_updates = yes
 
 ...
-{{</ file>}}
+```
 
   - Change the **upgrade_type** from `default` to `security` to only receive important security updates. If you leave it at `default`, all available upgrades are applied.
   - Change the **apply_updates** field from `no` to `yes`.

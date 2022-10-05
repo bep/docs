@@ -87,7 +87,7 @@ The steps in this section will incur charges related to deploying a [1GB Linode]
 
 Create a file named `example.pkr.hcl`. The file can be stored anywhere, though you may want to create a folder called `packer` in your home directory where you can store all of your template files. Edit this file and type or paste in the following content:
 
-{{< file "~/packer/example.pkr.hcl">}}
+```file {title="~/packer/example.pkr.hcl"}
 variable "linode_api_token" {
   type    = string
   default = ""
@@ -107,7 +107,7 @@ source "linode" "example" {
 build {
   sources = ["source.linode.example"]
 }
-{{</ file >}}
+```
 
 ### Understanding Template Blocks
 
@@ -215,7 +215,7 @@ An Ansible playbook outlines the tasks and scripts to be run when provisioning a
 
 1. Create the playbook file with the following content. Replace *username* with the username you'd like to add and replace `password` with the password hash generated in the previous step.
 
-    {{< file "~/packer/limited_user_account.yml">}}
+    ```file {title="~/packer/limited_user_account.yml"}
 ---
 - hosts: all
   remote_user: root
@@ -232,7 +232,7 @@ An Ansible playbook outlines the tasks and scripts to be run when provisioning a
       lineinfile: dest=/etc/sudoers
                   regexp="{{ NORMAL_USER_NAME }} ALL"
                   line="{{ NORMAL_USER_NAME }}"
-{{</ file >}}
+```
 
     This playbook will also add the public SSH key stored on your local computer. If the public key you'd like to use is stored in a location other than `~/.ssh/id_rsa.pub`, you can update that value. Finally, the playbook adds the new system user to the `sudoers` file.
 
@@ -240,7 +240,7 @@ An Ansible playbook outlines the tasks and scripts to be run when provisioning a
 
 Edit your existing template file or create a new template file with the following content. Specifically, you'll add a `provisioner` block within the `build` block, setting `ansible` as the type of provisioner and providing the location of the playbook file you created.
 
-{{< file "~/packer/ansible-example.pkr.hcl">}}
+```file {title="~/packer/ansible-example.pkr.hcl"}
 variable "linode_api_token" {
   type    = string
   default = ""
@@ -264,7 +264,7 @@ build {
     playbook_file = "./limited_user_account.yml"
   }
 }
-{{</ file >}}
+```
 
 ### Understanding the Provisioner Block
 

@@ -81,10 +81,10 @@ By default, Apache listens on all IP addresses available to it. You must configu
 
 Begin by adding the following line to the virtual hosting configuration file:
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 NameVirtualHost 13.34.56.78:80
 
-{{< /file >}}
+```
 
 
 Be sure to replace 13.34.56.78 with your own IP address.
@@ -93,7 +93,7 @@ Be sure to replace 13.34.56.78 with your own IP address.
 
 Now you will create virtual host entries for each site that you need to host with this server. Here are two examples for sites at "example.com" and "example.com".
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 <VirtualHost 13.34.56.78:80>
      ServerAdmin username@example.com
      ServerName example.com
@@ -112,7 +112,7 @@ Now you will create virtual host entries for each site that you need to host wit
      CustomLog /srv/www/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Notes regarding this example configuration:
@@ -197,13 +197,13 @@ These usernames and passwords need not (and should not) correspond to system use
 
 In the .htaccess file for the directory that you want to protect, add the following lines:
 
-{{< file ".htaccess" apache >}}
+```file {title=".htaccess"}
 AuthUserFile /srv/www/bleddington.com/.htpasswd
 AuthType Basic
 AuthName "Advanced Choreographic Information"
 Require valid-user
 
-{{< /file >}}
+```
 
 
 Note, that the `AuthName` is presented to the user as an explanation in the authentication dialog for what they are requesting access to on the server.

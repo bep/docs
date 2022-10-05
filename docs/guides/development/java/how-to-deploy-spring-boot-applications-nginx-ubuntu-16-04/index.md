@@ -122,7 +122,7 @@ To see a full list of possible parameters for the Spring Boot CLI, run:
 
 2.  Navigate into the project directory. This example creates an endpoint to return "Hello world" in a Spring application. Add two additional imports and a new class for this mapping.
 
-    {{< file "~/hello-world/src/main/java/com/example/helloworld/HelloApplication.java" >}}
+    ```file {title="~/hello-world/src/main/java/com/example/helloworld/HelloApplication.java"}
 package com.example.helloworld;
 
 import org.springframework.boot.SpringApplication;
@@ -146,7 +146,7 @@ class Hello {
         return "Hello world";
     }
 }
-{{< /file >}}
+```
 
 3.  Build the application. This creates a new directory called `build` in the project.
 
@@ -174,7 +174,7 @@ Hello world
 
 1.  Set the Spring Boot application as a service to start on reboot:
 
-    {{< file "/etc/systemd/system/helloworld.service" >}}
+    ```file {title="/etc/systemd/system/helloworld.service"}
 [Unit]
 Description=Spring Boot HelloWorld
 After=syslog.target
@@ -191,7 +191,7 @@ SyslogIdentifier=helloworld
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 2.  Start the service:
 
@@ -206,7 +206,7 @@ Now that the Spring application is running as a service, an NGINX proxy allows o
 
 1.  Create an NGINX configuration for the reverse proxy:
 
-    {{< file "/etc/nginx/conf.d/helloworld.conf" >}}
+    ```file {title="/etc/nginx/conf.d/helloworld.conf"}
 server {
         listen 80;
         listen [::]:80;
@@ -220,7 +220,7 @@ server {
              proxy_set_header X-Forwarded-Port $server_port;
         }
 }
-{{< /file >}}
+```
 
 2.  Test the configuration to make sure there are no errors:
 

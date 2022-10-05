@@ -52,10 +52,10 @@ Issue the following commands to update your system and install the nginx web ser
 
 Edit the `/etc/rc.conf` file, adding "nginx" and "spawn-fcgi-php" to the "DEAMONS=" line as shown in the following excerpt:
 
-{{< file "/etc/rc.conf" >}}
+```file {title="/etc/rc.conf"}
 DAEMONS=(syslog-ng network netfs crond sshd ntpd nginx spawn-fcgi-php)
 
-{{< /file >}}
+```
 
 
 Since you have built spawn-fcgi-php from source, you will want to monitor its page in the Arch User Repository (AUR) so that you'll be able to recompile compile the [spawn-fcgi-php](http://aur.archlinux.org/packages.php?ID=37439) package when updates are available.
@@ -80,7 +80,7 @@ Issue the following commands to create nginx virtual host directories:
 
 Next, define your site's virtual host file:
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     server_name www.example.com example.com;
     access_log /srv/http/example.com/logs/access.log;
@@ -99,14 +99,14 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 **Important security note:** If you're planning to run applications that support file uploads (images, for example), the above configuration may expose you to a security risk by allowing arbitrary code execution. The short explanation for this behavior is that a properly crafted URI which ends in ".php", in combination with a malicious image file that actually contains valid PHP, can result in the image being processed as PHP. For more information on the specifics of this behavior, you may wish to review the information provided on [Neal Poole's blog](https://nealpoole.com/blog/2011/04/setting-up-php-fastcgi-and-nginx-dont-trust-the-tutorials-check-your-configuration/).
 
 To mitigate this issue, you may wish to modify your configuration to include a `try_files` directive. Please note that this fix requires nginx and the php-fcgi workers to reside on the same server.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 location ~ \.php$ {
     try_files $uri =404;
     include /etc/nginx/fastcgi_params;
@@ -114,11 +114,11 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/http/example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 Additionally, it's a good idea to secure any upload directories your applications may use. The following configuration excerpt demonstrates securing an "/images" directory.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
     if ($uri !~ "^/images/") {
@@ -127,7 +127,7 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/http/example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 After reviewing your configuration for potential security issues, issue the following commands to enable the site:
 
@@ -136,12 +136,12 @@ After reviewing your configuration for potential security issues, issue the foll
 
 Edit the file `/etc/nginx/conf/nginx.conf`, inserting the line `include /etc/nginx/conf/sites-enabled/*;` at the start of the `http {` block, as shown in the following file excerpt:
 
-{{< file "/etc/nginx/conf/nginx.conf" nginx >}}
+```file {title="/etc/nginx/conf/nginx.conf"}
 http {
 
     include /etc/nginx/conf/sites-enabled/*;
 
-{{< /file >}}
+```
 
 
 Issue the following command to start nginx:
@@ -152,10 +152,10 @@ Issue the following command to start nginx:
 
 Create a file called "test.php" in your site's "public\_html" directory with the following contents:
 
-{{< file "/srv/http/example.com/public\\_html/test.php" php >}}
+```file {title="/srv/http/example.com/public\\_html/test.php"}
 <?php phpinfo(); ?>
 
-{{< /file >}}
+```
 
 
 When you visit `http://www.example.com/test.php` in your browser, the standard "PHP info" output is shown. Congratulations, you've configured the nginx web server to use PHP-FastCGI for dynamic content!

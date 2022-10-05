@@ -263,7 +263,7 @@ In this example, `subversion-test` corresponds to the name of the repository, an
 
 1.  In a text editor, open `/etc/apache2/sites-available/svn.example.com.conf` and add the following content. Replace `svn.example.com` with the public IP address or FQDN of your Linode:
 
-    {{< file "/etc/apache2/sites-available/svn.example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/svn.example.com.conf"}
 <VirtualHost *:80>
   ServerAdmin svnadmin@example.com
   ServerName svn.example.com
@@ -280,13 +280,13 @@ In this example, `subversion-test` corresponds to the name of the repository, an
   </Location>
 </VirtualHost>
 
-{{< /file >}}
+```
 
     This configuration forwards all requests for `http://svn.example.com/` to `mod_dav_svn`. This will provide an overview of the most recent revision of the repository within a web browser. Note that this setup provides *unencrypted* access to your repository over `http`.
 
 2.  For a secure connection, configure Apache to [serve content with SSL](/docs/security/ssl/). Once your certificate files are in place, configure the virtual host to respond to requests on port `443` rather than `80`:
 
-    {{< file "/etc/apache2/sites-available/svn.example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/svn.example.com.conf"}
 <VirtualHost *:443>
   ServerAdmin svnadmin@example.com
   ServerName svn.example.com
@@ -307,7 +307,7 @@ In this example, `subversion-test` corresponds to the name of the repository, an
   </Location>
 </VirtualHost>
 
-{{< /file >}}
+```
 
 3.  Create the log file directory specified in the virtual host block:
 
@@ -328,7 +328,7 @@ In this example, `subversion-test` corresponds to the name of the repository, an
 
 There are two methods for specifying Subversion repositories to `mod_dav_svn`. The first is using the `SVNParentPath`. This directive is useful if you need to provide multiple repositories, located in adjacent directories. For example:
 
-{{< file "/etc/apache2/sites-available/svn.example.com.conf" apache >}}
+```file {title="/etc/apache2/sites-available/svn.example.com.conf"}
 <VirtualHost *:80>
     ServerAdmin svnadmin@example.com
     ServerName svn.example.com
@@ -344,13 +344,13 @@ There are two methods for specifying Subversion repositories to `mod_dav_svn`. T
     </Location>
 </VirtualHost>
 
-{{< /file >}}
+```
 
 All repositories located within `/srv/svn` on the file system will be accessible over HTTP at URLs that begin with `http://svn.example.com/`.
 
 As another option, you can specify multiple repositories using the `SVNPath` directive in multiple `location` blocks. In the following example, the Subversion repository located on the file system at `/srv/svn/subversion-test` will be accessible over HTTP at the URL `http://example.com/subversion-test`, while the repository at `/srv/svn/subversion-test` will be accessible at `http://example.com/subversion-test`. In this example each repository will use a separate set of user credentials.
 
-{{< file "/etc/apache2/sites-available/svn.example.com.conf" apache >}}
+```file {title="/etc/apache2/sites-available/svn.example.com.conf"}
 <VirtualHost *:80>
     ServerAdmin admin@example.com
     ServerName example.com
@@ -378,7 +378,7 @@ As another option, you can specify multiple repositories using the `SVNPath` dir
     </Location>
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 #### Provide Read-Only Access

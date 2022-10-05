@@ -67,7 +67,7 @@ Creating a Pipfile for this project…
 
 3.  Check the contents of the directory with `ls`; you will see that a `Pipfile` has been created automatically. View this file in a text editor:
 
-    {{< file "~/python-example/Pipfile" >}}
+    ```file {title="~/python-example/Pipfile"}
 [[source]]
 url = "https://pypi.python.org/simple"
 verify_ssl = true
@@ -79,7 +79,7 @@ name = "pypi"
 
 [requires]
 python_version = "3.6"
-{{< /file >}}
+```
 
 
 4.  Install Numpy. Pipenv will automatically add the dependency to the `[packages]` section in the Pipfile. In addition, Pipenv creates a file named `Pipfile.lock`, which contains a hash of the exact versions used. This ensures that when other developers install the dependencies for this project, they will all end up with exactly the same versions.
@@ -92,7 +92,7 @@ python_version = "3.6"
 
 6.  View the changes these installations have made to the Pipfile:
 
-    {{< file "Pipfile" >}}
+    ```file {title="Pipfile"}
 [[source]]
 url = "https://pypi.python.org/simple"
 verify_ssl = true
@@ -106,7 +106,7 @@ numpy = "*"
 
 [requires]
 python_version = "3.6"
-{{< /file >}}
+```
 
     Since no version was specified during when installing Numpy, the Pipfile specifies that any version (`"*"`) is acceptable. The specific version installed is recorded in `Pipfile.lock`.
 

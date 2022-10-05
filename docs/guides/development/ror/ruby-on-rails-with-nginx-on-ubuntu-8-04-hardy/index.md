@@ -29,7 +29,7 @@ Ruby on Rails is a popular rapid development web framework that allows web desig
 
 First, make sure you have the `universe` repository enabled in your `/etc/apt/sources.list` file. Your file should resemble the following:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ hardy main restricted universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ hardy main restricted universe
@@ -37,7 +37,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ hardy main restricted universe
 deb http://security.ubuntu.com/ubuntu hardy-security main restricted universe
 deb-src http://security.ubuntu.com/ubuntu hardy-security main restricted universe
 
-{{< /file >}}
+```
 
 
 If you added `universe` to the items in your list, you'll need to update your repository database:

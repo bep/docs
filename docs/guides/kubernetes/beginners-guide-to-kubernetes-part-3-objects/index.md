@@ -44,7 +44,7 @@ It is important to note that Pods are destroyed without respect to which Pod was
 
 Below is an example of a Pod manifest:
 
-{{< file "my-apache-pod.yaml" yaml >}}
+```file {title="my-apache-pod.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -55,7 +55,7 @@ spec:
   containers:
   - name: apache-container
     image: httpd
-{{</ file >}}
+```
 
 Each manifest has four necessary parts:
 
@@ -118,7 +118,7 @@ To delete the Pod, issue the `delete` command:
 
 Below is an example of a Service manifest:
 
-{{< file "my-apache-service.yaml" yaml>}}
+```file {title="my-apache-service.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -133,7 +133,7 @@ spec:
     nodePort: 30020
   selector:
     app: web
-{{</ file >}}
+```
 
 The above example Service uses the `v1` API, and its `kind` is Service. Like the Pod example in the previous section, this manifest has a name and a label. Unlike the Pod example, this spec uses the `ports` field to define the exposed port on the container (`port`), and the target port on the Pod (`targetPort`). The `type` `NodePort` unlocks the use of `nodePort` field, which allows traffic on the host Node at that port. Lastly, the `selector` field is used to target only the Pods that have been assigned the `app: web` label.
 
@@ -169,7 +169,7 @@ Linode also offers a [Container Storage Interface (CSI) driver](https://github.c
 
 Below is an example of how to create and use a Volume by creating a Pod manifest:
 
-{{< file "my-apache-pod-with-volume.yaml" yaml>}}
+```file {title="my-apache-pod-with-volume.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -185,7 +185,7 @@ spec:
     volumeMounts:
     - name: apache-storage-volume
       mountPath: /data/apache-data
-{{</ file >}}
+```
 
 A Volume has two unique aspects to its definition. In this example, the first aspect is the `volumes` block that defines the type of Volume you want to create, which in this case is a simple empty directory (`emptyDir`). The second aspect is the `volumeMounts` field within the container's `spec`. This field is given the name of the Volume you are creating and a mount path within the container.
 
@@ -200,12 +200,12 @@ Namespaces consist of alphanumeric characters, dashes (`-`), and periods (`.`).
 
 Here is an example of how to define a Namespace with a manifest:
 
-{{< file "my-namespace.yaml" yaml>}}
+```file {title="my-namespace.yaml"}
 apiVersion: v1
 kind: Namespace
 metadata:
   name: my-app
-{{</ file >}}
+```
 
 To create the Namespace, issue the `create` command:
 
@@ -213,7 +213,7 @@ To create the Namespace, issue the `create` command:
 
 Below is an example of a Pod with a Namespace:
 
-{{< file "my-apache-pod-with-namespace.yaml" yaml >}}
+```file {title="my-apache-pod-with-namespace.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -225,7 +225,7 @@ spec:
   containers:
   - name: apache-container
     image: httpd
-{{</ file >}}
+```
 
 To retrieve resources in a certain Namespace, use the `-n` flag.
 

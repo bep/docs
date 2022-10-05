@@ -187,7 +187,7 @@ Do not complete this section as the root user. Before proceeding, fully evaluate
 1.  Copy any sections below that you wish to add to your configuration, and ensure you replace the `superuser` and `password` value in brackets with your own values. Details for this file can be found in the [Configuring cqlsh From a File](https://docs.datastax.com/en/archived/cql/3.3/cql/cql_reference/cqlshUsingCqlshrc.html) guide on the [DataStax](https://www.datastax.com/) site.
 
 
-    {{< file "~/.cassandra/cqlshrc" aconf >}}
+    ```file {title="~/.cassandra/cqlshrc"}
 . . .
 
 ;; Options that are common to both COPY TO and COPY FROM
@@ -221,7 +221,7 @@ float_precision = 5
 encoding = utf8
 
 . . .
-{{< /file >}}
+```
 
 
 1.  Save and close the file.
@@ -290,11 +290,11 @@ If you receive connection errors when running `nodetool status`, you may need to
 
 1.  Search for `-Djava.rmi.server.hostname=` in the file. Uncomment this line and add your loopback address or public IP address by replacing `<public name>` at the end of the line:
 
-    {{< file "/etc/cassandra/cassandra-env.sh" bash >}}
+    ```file {title="/etc/cassandra/cassandra-env.sh"}
 . . .
 JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"
 . . .
-{{< /file >}}
+```
 
 1.  Restart Cassandra after you've finished updating the `cassandra-env.sh` file:
 

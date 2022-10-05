@@ -217,7 +217,7 @@ Vault v1.1.0 ('36aa8c8dd1936e10ebd7a4c1d412ae0e6f7900bd')
 
 3.  Create a systemd `service` file that will control how to run `vault` persistently as a system daemon.
 
-    {{< file "/etc/systemd/system/vault.service" ini >}}
+    ```file {title="/etc/systemd/system/vault.service"}
 [Unit]
 Description="a tool for managing secrets"
 Documentation=https://www.vaultproject.io/docs/
@@ -250,7 +250,7 @@ LimitNOFILE=65536
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
     These systemd service options define a number of important settings to ensure that Vault runs securely and reliably. Review the [Vault documentation](https://learn.hashicorp.com/vault/operations/ops-deployment-guide#step-3-configure-systemd) for a complete explanation of what these options achieve.
 
@@ -260,7 +260,7 @@ WantedBy=multi-user.target
 
 1.  Create a configuration file for Vault with the following contents, replacing `example.com` with the domain used in your Let's Encrypt certificates.
 
-    {{< file "/etc/vault.d/vault.hcl" aconf >}}
+    ```file {title="/etc/vault.d/vault.hcl"}
 listener "tcp" {
   address = "0.0.0.0:8200"
   tls_cert_file = "/etc/letsencrypt/live/example.com/fullchain.pem"
@@ -270,7 +270,7 @@ listener "tcp" {
 storage "file" {
   path = "/var/lib/vault"
 }
-{{< /file >}}
+```
 
     This configuration will use the Let's Encrypt certificates created in the previous steps to terminate TLS for the Vault service. This ensures that secrets will never be transmitted in plaintext. The actual storage for Vault will be on the local filesystem at `/var/lib/vault`.
 
@@ -514,11 +514,11 @@ In the case of the KV backend, Vault distinguishes operations upon the stored da
 
 1.  Create the following Vault policy file.
 
-    {{< file "policy.hcl" aconf >}}
+    ```file {title="policy.hcl"}
 path "kv/data/myservice" {
   capabilities = ["read"]
 }
-{{< /file >}}
+```
 
     This simple policy will permit any token associated with it to read the secret stored at the KV secret backend path `kv/myservice`.
 

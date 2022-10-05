@@ -99,19 +99,19 @@ The `/etc/hosts` file provides a list of IP addresses with corresponding hostnam
 
 Some applications require that the machine properly identify itself in the `/etc/hosts` file. As a result, we recommend configuring the `/etc/hosts` file shortly after deployment. Here is an example file:
 
-{{< file "/etc/hosts" py >}}
+```file {title="/etc/hosts"}
 127.0.0.1   localhost.localdomain   localhost
 103.0.113.12    username.example.com   username
-{{< /file >}}
+```
 
 
 You can specify a number of hostnames on each line separated by spaces. Every line must begin with one and only one IP address. In the above example, replace `103.0.113.12` with your machine's IP address. Consider a few additional `/etc/hosts` entries:
 
-{{< file "/etc/hosts" py >}}
+```file {title="/etc/hosts"}
 198.51.100.30   example.com
 192.168.1.1     stick.example.com
 
-{{< /file >}}
+```
 
 
 In this example, all requests for the `example.com` hostname or domain will resolve to the IP address `198.51.100.30`, which bypasses the DNS records for `example.com` and returns an alternate website.

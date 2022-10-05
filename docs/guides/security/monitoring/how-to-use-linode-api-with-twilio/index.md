@@ -130,7 +130,7 @@ This diagram depicts this interaction using pseudocode:
 
 1. Copy this snippet into the file:
 
-{{< file "linode-api-twilio.py">}}
+```file {title="linode-api-twilio.py"}
 import os
 import sys
 from linode_api4 import LinodeClient
@@ -151,7 +151,7 @@ except KeyError:
     print("TWILIO_TO_PHONE_NUMBER")
     print("LINODE_API_TOKEN")
     sys.exit(1)
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 This code imports the relevant Twilio and Linode API modules. It also imports the `os` module, which can be used to read environment variables from your terminal. The module is used by the code example to load your API tokens and Twilio phone numbers. A later section in this guide shows how to set those environment variables before running the script.
@@ -165,12 +165,12 @@ The `except KeyError` statement is executed if any of the environment variables 
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "linode-api-twilio.py">}}
+```file {title="linode-api-twilio.py"}
 # copy and paste to bottom of file:
 
 linode_client = LinodeClient(linode_api_token)
 twilio_client = Client(twilio_account_sid, twilio_auth_token)
-{{< /file >}}
+```
 
 These lines create new client objects that can interact with the Linode and Twilio APIs.
 
@@ -178,12 +178,12 @@ These lines create new client objects that can interact with the Linode and Twil
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "linode-api-twilio.py">}}
+```file {title="linode-api-twilio.py"}
 # copy and paste to bottom of file:
 
 all_support_tickets = linode_client.support.tickets()
 open_support_tickets = linode_client.support.tickets(SupportTicket.status == "open")
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 These lines query the Linode API to get a list of the support tickets on your account. The Python binding for the [Support Tickets List](/docs/api/support/#support-tickets-list) API endpoint is accessed. The documentation for this endpoint shows the `account:read_only` authorization is needed to access it. This is why the Account resource was chosen in the [Get a Linode API Token](#get-a-linode-api-token) section.
@@ -199,7 +199,7 @@ In the next section, the message contents are customized according to whether or
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "linode-api-twilio.py">}}
+```file {title="linode-api-twilio.py"}
 # copy and paste to bottom of file:
 
 if len(open_support_tickets) > 0:
@@ -220,7 +220,7 @@ elif len(all_support_tickets) > 0:
 
 else:
     message_text = 'You do not have any Linode support tickets.'
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 The code in this snippet prepares the content that is used in the text message.
@@ -238,7 +238,7 @@ The `\n` character sequence appears in the message text strings. These character
 
 1. Copy and paste the code from this snippet to the bottom of your script:
 
-    {{< file "linode-api-twilio.py">}}
+    ```file {title="linode-api-twilio.py"}
 # copy and paste to bottom of file:
 
 text = twilio_client.messages.create(
@@ -248,7 +248,7 @@ text = twilio_client.messages.create(
 )
 
 print("Twilio message created with ID: %s" % (text.sid))
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 The `create` method tells the Twilio API to create *and* immediately send a new text message:

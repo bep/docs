@@ -44,7 +44,7 @@ Terraform configurations in `.tf` files can accept values from [*input variables
 
 For example, you might have a `linode-infrastructure.tf` file within a provider block that requires an API access token. The `token` variable definition is declared inside the `.tf` file and is then interpolated inside the provider declaration with the `"${var.token}"` syntax:
 
-{{< file "linode-infrastructure.tf" >}}
+```file {title="linode-infrastructure.tf"}
 variable "token" {
   description = "Your API access token"
 }
@@ -52,19 +52,19 @@ variable "token" {
 provider "linode" {
     token = var.token
 }
-{{< /file >}}
+```
 
 Variable definitions are written in `.tf` files. In this example, it's the same file as your provider configuration, but the definition could have been in a separate `.tf` file too.
 
 {{< note >}}
 Your variable definitions can have default values assigned to them. Here's an example that encodes Linode's Newark data center as the default value for a `region` variable:
 
-{{< file "variables.tf" >}}
+```file {title="variables.tf"}
 variable "region" {
   description = "The region to deploy Linode instances in"
   default = "us-east"
 }
-{{< /file >}}
+```
 
 You can later use this variable when declaring your Linode instances.
 {{< /note >}}
@@ -75,9 +75,9 @@ The values assigned to your variables apart from default values are not included
 
 Here's an example `terraform.tfvars` which supplies a value for the `token` variable from the previous example:
 
-{{< file "terraform.tfvars" >}}
+```file {title="terraform.tfvars"}
 token = 'your-token-value'
-{{< /file >}}
+```
 
 You can then add the `terraform.tfvars` file to the `.gitignore` file and keep it out of version control. This strategy allows you to safely commit the `linode-infrastructure.tf` file.
 

@@ -152,7 +152,7 @@ This section demonstrates some common features of a Jupyter Notebook that can be
 
 2.  The demo code used in this guide is below:
 
-    {{< file "example.ipynb" py >}}
+    ```file {title="example.ipynb"}
 \begin{equation*}
 \mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
 \mathbf{i} & \mathbf{j} & \mathbf{k} \\
@@ -174,7 +174,7 @@ iris.describe()
 
 sns.pairplot(x_vars=["petal-length"], y_vars=["petal-width"], data=iris, hue="class", size=10)
 
-{{< /file >}}
+```
 
 
 3.  Inside the `_posts` folder of the Jekyll project, create a new Markdown file called `YYYY-MM-DD-example-post.md`. If the date format is incorrect, the post may not be displayed on the blog:
@@ -183,7 +183,7 @@ sns.pairplot(x_vars=["petal-length"], y_vars=["petal-width"], data=iris, hue="cl
 
 4.  The Markdown file should begin with three dashes and contain headers which provide information for Jekyll to populate the post with the appropriate page data. The date must be in the format specified. The hours, minutes, seconds, and timezone adjustment are optional:
 
-    {{< file "YYYY-MM-DD-example-post.md" yaml >}}
+    ```file {title="YYYY-MM-DD-example-post.md"}
 ---
 layout: post
 title:  "Awesome Data Visualization"
@@ -192,7 +192,7 @@ categories:
   - data
 ---
 
-{{< /file >}}
+```
 
 
 5.  Copy the contents of the Markdown file exported from Jupyter into the new post.
@@ -213,7 +213,7 @@ Tabular output in Jupyter is converted to an HTML table. This section covers how
 
 1.  In `/exampleblog/assets`, create a new file called `main.scss`. This imports the existing minima theme SCSS and adds the following:
 
-    {{< file "main.scss" css >}}
+    ```file {title="main.scss"}
 ---
 ---
 @import "minima";
@@ -246,7 +246,7 @@ table {
     table tr th :last-child, table tr td :last-child {
 margin-bottom: 0; }
 
-{{< /file >}}
+```
 
 
 2.  The HTML table will have the new styles applied.
@@ -261,9 +261,9 @@ Adding an image through Markdown requires having the images stored in the projec
 
 2.  Modify the references to images within the Markdown to the appropriate path. Wrap the path in two curly braces and double quotes.
 
-    {{< file "YYYY-MM-DD-example-post.md" >}}
+    ```file {title="YYYY-MM-DD-example-post.md"}
 ![png]({{ "/assets/images/example_notebook_5_0.png" }})
-{{< /file >}}
+```
 
 
 3.  Graphs with legends that are in a longer dimension also can be displayed.
@@ -320,30 +320,30 @@ The default theme is installed as a gem. If there is another `_layouts` or `_inc
 
 3.  Within the `_includes` directory in the minima theme, create a new `scripts.html` file. Using Liquid templating, add logic to check for a `mathjax` header in a post:
 
-      {{< file "_includes/scripts.html" html >}}
+      ```file {title="_includes/scripts.html"}
 {% if page.mathjax %}
 <script type="text/javascript" async
         src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 {% endif %}
-{{< /file >}}
+```
 
 
 4.  Add templating to `_layouts/post.html` to include `scripts.html` in posts:
 
-    {{< file "_layouts/post.html" >}}
+    ```file {title="_layouts/post.html"}
 ---
 layout: default
 ---
 
 {% include scripts.html %}
 
-{{< /file >}}
+```
 
 
 5.  Edit the header `/exampleblog/_posts/YYYY-MM-DD-example-post.md` with `mathjax: true`. Wrap the LaTeX in `$$` to create a math block. Remember to include the two lines of `---`:
 
-    {{< file "YYYY-MM-DD-example-post.md" yaml >}}
+    ```file {title="YYYY-MM-DD-example-post.md"}
 ---
 layout: post
 mathjax: true
@@ -362,7 +362,7 @@ $$
 \end{equation*}
 $$
 
-{{< /file >}}
+```
 
 
 6.  The browser should use MathJax to display output identical to a Jupyter Notebook.

@@ -105,7 +105,7 @@ NGINX will be used as a reverse proxy for your Ghost application:
 
 1.  Create a configuration file for Ghost at `/etc/nginx/sites-available/ghost`, replace `example.com` with your site's domain:
 
-    {{< file "/etc/nginx/sites-available/ghost" >}}
+    ```file {title="/etc/nginx/sites-available/ghost"}
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -123,7 +123,7 @@ server {
 
     client_max_body_size 50m;
 }
-{{</ file >}}
+```
 
 1.  Create a symlink from `sites-available` to `sites-enabled`:
 
@@ -131,7 +131,7 @@ server {
 
 1.  Update the `http` block in your NGINX config `/etc/nginx/nginx.conf` file by adding an include for the configuration file you just made, a directive for `server_names_hash_bucket_size`, and comment out the entire `server` block:
 
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 http {
 ...
     # Load modular configuration files from the /etc/nginx/conf.d directory.
@@ -148,7 +148,7 @@ http {
 #    }
 #}
 ...
-{{</ file >}}
+```
 
 1.  Open the firewall for traffic:
 

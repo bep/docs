@@ -90,7 +90,7 @@ There are different ways to set up Virtual Hosts, however we recommend the metho
 
 Now you will create virtual host entries for each site that you need to host with this server. Here are two examples for sites at "example.org" and "example.net".
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.org
      ServerName example.org
@@ -109,7 +109,7 @@ Now you will create virtual host entries for each site that you need to host wit
      CustomLog /srv/www/example.net/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Notes regarding this example configuration:
@@ -194,13 +194,13 @@ These usernames and passwords need not (and should not) correspond to system use
 
 In the .htaccess file for the directory that you want to protect, add the following lines:
 
-{{< file ".htaccess" apache >}}
+```file {title=".htaccess"}
 AuthUserFile /srv/www/example.com/.htpasswd
 AuthType Basic
 AuthName "Advanced Choreographic Information"
 Require valid-user
 
-{{< /file >}}
+```
 
 
 Note, that the `AuthName` is presented to the user as an explanation in the authentication dialog for what they are requesting access to on the server.

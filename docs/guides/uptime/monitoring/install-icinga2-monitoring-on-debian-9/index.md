@@ -51,7 +51,7 @@ This guide shows how to install and configure the latest version of Icinga 2 web
 
 To increase the load speed of your application via OPCache plugin available in PHP7, append the following OPCache settings at the bottom of the PHP configuration:
 
-{{< file "php.ini" conf >}}
+```file {title="php.ini"}
 opcache.enable=1
 opcache.enable_cli=1
 opcache.interned_strings_buffer=8
@@ -59,7 +59,7 @@ opcache.max_accelerated_files=10000
 opcache.memory_consumption=128
 opcache.save_comments=1
 opcache.revalidate_freq=1
-{{< /file >}}
+```
 
 Restart the Apache daemon to apply the new changes:
 
@@ -137,7 +137,7 @@ Install the MySQL schema required Icinga 2 database:
 
 Edit the Icinga 2 MySQL IDO configuration file and add Icinga 2 engine database credentials, as shown in the following example. Use the credentials of the first database created in the [earlier database creation step](#configure-icinga2-databases):
 
-{{< file "/etc/icinga2/features-enabled/ido-mysql.conf" conf >}}
+```file {title="/etc/icinga2/features-enabled/ido-mysql.conf"}
 library "db_ido_mysql"
 
 object IdoMysqlConnection "ido-mysql" {
@@ -146,7 +146,7 @@ object IdoMysqlConnection "ido-mysql" {
   host = "localhost",
   database = "icingadb"
 }
-{{< /file >}}
+```
 
 Save the file and restart the Icinga 2 daemon:
 
@@ -249,13 +249,13 @@ To access Icinga 2 monitoring application via HTTPS protocol, enable the Apache 
 
 Edit the Apache sites-enabled default configuration file and add the following lines after the `DocumentRoot` to enable URL rewrite rules:
 
-{{< file "/etc/apache2/sites-enabled/000-default.conf" apache >}}
+```file {title="/etc/apache2/sites-enabled/000-default.conf"}
 <Directory /var/www/html>
   Options +FollowSymlinks
   AllowOverride All
   Require all granted
 </Directory>
-{{< /file >}}
+```
 
 Restart the Apache daemon to apply the new configuration file:
 
@@ -267,13 +267,13 @@ In a local browser, visit your domain name or Linode's IP address. Because youâ€
 
 To force visitors to browse the Icinga Web 2 interface via HTTPS, create a new `.htaccess` file in your web root with the following:
 
-{{< file "/var/www/html/.htaccess" conf >}}
+```file {title="/var/www/html/.htaccess"}
 <IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteCond %{HTTPS} off
 RewriteRule (.*) https://%{SERVER_NAME}/$1 [R,L]
 </IfModule>
-{{< /file >}}
+```
 
 ## Create Firewall Rules to Enable HTTPS Traffic
 

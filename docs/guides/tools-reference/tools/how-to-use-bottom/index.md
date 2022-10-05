@@ -156,7 +156,7 @@ The configuration file is especially useful in letting you manage how the displa
 
 To help you see how this works, below is the default widget arrangement. You can find a version of this commented-out in the default configuration file, `bottom.toml`. This example also includes the brief explanation of each tag's role that is also included in the default configuration file.
 
-{{< file "~/.config/bottom/bottom.toml" >}}
+```file {title="~/.config/bottom/bottom.toml"}
 
 # Layout - layouts follow a pattern like this:
 # [[row]] represents a row in the application.
@@ -186,7 +186,7 @@ To help you see how this works, below is the default widget arrangement. You can
   [[row.child]]
     type="processes"
     default=true
-{{< /file >}}
+```
 
 You can learn more about the possible `type` values and `ratio` usage in [bottom's official documentation page on configuring layouts](https://clementtsang.github.io/bottom/0.6.3/configuration/config-file/layout/).
 

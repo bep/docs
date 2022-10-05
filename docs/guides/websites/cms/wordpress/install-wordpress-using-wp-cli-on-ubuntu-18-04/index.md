@@ -99,9 +99,9 @@ The bash completion feature of WP-CLI allows you to see all its available comman
     **Bash**
     - Open the `.bashrc`file and add the following line in the editor:
 
-        {{< file "~/.bashrc" bash >}}
+        ```file {title="~/.bashrc"}
 source /home/$USER/wp-completion.bash
-{{< /file >}}
+```
 
     - Run the following command to reload the bash profile:
 
@@ -111,11 +111,11 @@ source /home/$USER/wp-completion.bash
 
     - Open the `.zshrc`file and add the following lines in the editor:
 
-        {{< file "~/.zshrc" bash >}}
+        ```file {title="~/.zshrc"}
 autoload bashcompinit
 bashcompinit
 source /home/$USER/wp-completion.bash
-{{< /file >}}
+```
 
     - Run the following command to reload the Zsh profile:
 

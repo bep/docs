@@ -158,7 +158,7 @@ You are now ready to write the code for your Neovim plugin.
 
 This plugin focuses on doing most of the work in Lua code, so it only needs one Vim script file. Create an `example-plugin.vim` file in the `plugin` directory, and add the contents shown below.
 
-{{< file "plugin/example-plugin.vim" vim >}}
+```file {title="plugin/example-plugin.vim"}
 " Title:        Example Plugin
 " Description:  A plugin to provide an example for creating Neovim plugins.
 " Last Change:  8 November 2021
@@ -181,7 +181,7 @@ exe "lua package.path = package.path .. ';" . s:lua_rocks_deps_loc . "/lua-?/ini
 command! -nargs=0 FetchTodos lua require("example-plugin").fetch_todos()
 command! -nargs=0 InsertTodo lua require("example-plugin").insert_todo()
 command! -nargs=0 CompleteTodo lua require("example-plugin").complete_todo()
-{{< /file >}}
+```
 
 The `example-plugin.vim` file contains all the Vim script code this plugin requires.
 
@@ -191,7 +191,7 @@ This example splits the Lua functionality between three files. An `init.lua` fil
 
 1. Create an `init.lua` file in the `lua/example-plugin` directory, and add the contents shown below.
 
-    {{< file "lua/example-plugin/init.lua" lua >}}
+    ```file {title="lua/example-plugin/init.lua"}
 -- Imports the plugin's additional Lua modules.
 local fetch = require("example-plugin.fetch")
 local update = require("example-plugin.update")
@@ -208,11 +208,11 @@ M.insert_todo = update.insert_todo
 M.complete_todo = update.complete_todo
 
 return M
-    {{< /file >}}
+    ```
 
 1. Create a `fetch.lua` file in the `lua/example-plugin` directory, and add the content shown in the example file below.
 
-    {{< file "lua/example-plugin/fetch.lua" lua >}}
+    ```file {title="lua/example-plugin/fetch.lua"}
 -- Imports the module for handling SQLite.
 local sqlite = require("ljsqlite3")
 
@@ -231,11 +231,11 @@ function M.fetch_todos()
 end
 
 return M
-    {{< /file >}}
+    ```
 
 1. Create a `update.lua` file in the `lua/example-plugin` directory, and add the code in the example file.
 
-    {{< file "lua/example-plugin/update.lua" lua >}}
+    ```file {title="lua/example-plugin/update.lua"}
 -- Imports the module for handling SQLite.
 local sqlite = require("ljsqlite3")
 
@@ -284,17 +284,17 @@ function M.complete_todo()
 end
 
 return M
-    {{< /file >}}
+    ```
 
 #### Install the Plugin
 
 The final step to start using your plugin is adding it to your plugin manager. To do so, the line included in the Neovim configuration file displayed below. This line works with vim-plug and the plugin location used in the steps above. However, you need to vary the line based on the plugin manager you are using and the actual location and name of your plugin.
 
-{{< file "~/.config/nvim/init.vim" vim >}}
+```file {title="~/.config/nvim/init.vim"}
     " [...]
     Plug '~/example-plugin'
     " [...]
-{{< /file >}}
+```
 
 Either reopen Neovim or source your configuration file again, and you are ready to start using the plugin. If you want to make your plugin available to the wider Neovim community, follow the next sections.
 
@@ -320,9 +320,9 @@ Take a look at our [example Readme file](example-plugin/README) for ideas on the
 
     Following is a simple example that ignores `.DS_STORE` files:
 
-    {{< file ".gitignore" >}}
+    ```file {title=".gitignore"}
 .DS_STORE
-{{< /file >}}
+```
 
 1. Add your plugin's files for staging to your first Git commit.
 

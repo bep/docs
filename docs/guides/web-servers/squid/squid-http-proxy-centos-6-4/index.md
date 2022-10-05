@@ -52,10 +52,10 @@ This section covers the easiest way to use Squid as an HTTP proxy, using only th
 
 1.  Edit the Squid configuration file and add the following lines:
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 acl client src 12.34.56.78 # Home IP http\_access allow client
 
-{{< /file >}}
+```
 
 
   Be sure to replace **client** with a name identifying the connecting computer, and **12.34.56.78** with your local IP address. The comment `# Home IP` isn't required, but comments can be used to help identify clients.
@@ -97,11 +97,11 @@ Adding password for user user1
 
 4.  Edit the Squid configuration file and add the following lines:
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 auth_param basic program /usr/lib64/squid/ncsa_auth /etc/squid/squid_passwd
 acl ncsa_users proxy_auth REQUIRED
 http_access allow ncsa_users
-{{< /file >}}
+```
 
 5.  Once you've saved and exited the file, restart Squid:
 
@@ -111,9 +111,9 @@ http_access allow ncsa_users
 
 7.  To remove a user's access to the proxy, you must delete their entry in the `squid_passwd` file. Each user is represented in the file on a single line in the format of `user:passwordhash` :
 
-    {{< file "/etc/squid/squid\\_passwd" >}}
+    ```file {title="/etc/squid/squid\\_passwd"}
 user1:gh48gfno user2:9b83v5hd
-{{< /file >}}
+```
 
 8.  If you are using Nano, the command `Control+k` will remove the entire line where the cursor rests. Once you've saved and exited the file, restart Squid:
 
@@ -123,7 +123,7 @@ user1:gh48gfno user2:9b83v5hd
 
 In order to mask your IP address from servers you connect to, you will need to add the following lines to the Squid configuration file.
 
-{{< file "/etc/squid/squid.conf" >}}
+```file {title="/etc/squid/squid.conf"}
 forwarded_for off
 request_header_access Allow allow all
 request_header_access Authorization allow all
@@ -155,7 +155,7 @@ request_header_access User-Agent allow all
 request_header_access Cookie allow all
 request_header_access All deny all
 
-{{< /file >}}
+```
 
 
 Once you've saved and exited the file, restart Squid:

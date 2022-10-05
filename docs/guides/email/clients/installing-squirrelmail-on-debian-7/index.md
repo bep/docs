@@ -54,7 +54,7 @@ Since SquirrelMail is accessed through a web server (Apache in this example), we
 
         sudo nano /etc/apache2/sites-available/squirrelmail
 
-    {{< file "/etc/apache2/sites-available/squirrelmail" apache >}}
+    ```file {title="/etc/apache2/sites-available/squirrelmail"}
 Alias /squirrelmail /usr/share/squirrelmail
 
 <Directory /usr/share/squirrelmail>
@@ -96,7 +96,7 @@ Alias /squirrelmail /usr/share/squirrelmail
 #  </IfModule>
 #</IfModule>
 
-{{< /file >}}
+```
 
 
     {{< note >}}

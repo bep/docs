@@ -85,12 +85,12 @@ The `-b` option allows you to enter the password as the last parameter of the co
 
 The `AuthUserFile` will, when populated look something like this:
 
-{{< file "/var/www/example.com/.htpasswd" >}}
+```file {title="/var/www/example.com/.htpasswd"}
 hobby:isiA3Q4djD/.Q
 admin:{SHA}x9VvwHI6dmgk9VTE0A8o6hbCw2s=
 username:\$apr1\$vVzQJxvX\$6EyHww61nnZr6IdQv0pVx/
 
-{{< /file >}}
+```
 
 
 Each user is specified on their own line. Each line follows the form `[username]:[hash]`, where the `[hash]` is a cryptographic hash of the users' password. This provides one-way encryption and some small measure of additional security.
@@ -129,11 +129,11 @@ Require group Authorized
 
 In this example, we cite the same `AuthUserFile`, but we add an `AuthGroupFile` that specifies user groups. The group file contains a list of user groups and the usernames associated with each group. The `htgroup` file, like the `htpasswd` file, can be located anywhere on the file system. For clarity's sake, we recommend that `htgroup` be in the same directory as the `htpasswd` file. Here is an example of an `htgroup` file:
 
-{{< file "/var/www/example.com/.htgroup" >}}
+```file {title="/var/www/example.com/.htgroup"}
 Authorized: username username2
 Team: admin hobby
 
-{{< /file >}}
+```
 
 
 Given this `htgroup` file, only the users `username` and `username2` will have access to the above listed resource. The syntax of the group file follows a simple `[groupname]: [username 1] [username 2] [...]`. You can put as many usernames from your `AuthUserFile` into a group entry as you need for the particular resource.

@@ -69,14 +69,14 @@ The Django project contains one application named, `api`. Your project can conta
 
 [Flask](https://flask.palletsprojects.com/en/1.1.x/) is a popular Python API micro-framework with minimal dependencies. It boasts the ability to get an app running with just one file and a few lines of code. For example, an app with a single "Hello, world!" endpoint can be written with the following five lines of code:
 
-{{< file "myapp.py" >}}
+```file {title="myapp.py"}
 from flask import Flask
 app = Flask(__name__)
 
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
-{{</ file >}}
+```
 
 Compared to Django, Flask has much fewer out-of-the-box features. If your Flask app requires HTML templates, for example, you must configure an additional dependency. Similarly, you must configure a database integration, and create an admin interface from scratch when using Flask.
 
@@ -88,7 +88,7 @@ Flask has an immense body of documentation and video tutorials. Its large amount
 
 [FastAPI](https://fastapi.tiangolo.com/) is a newer web framework that resembles Flask. A single "Hello, world!" endpoint in FastAPI can be written with the following five lines of code:
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -96,13 +96,13 @@ app = FastAPI()
 @app.get('/')
 def hello_world():
    return {'Hello' : 'world!'}
-{{</ file >}}
+```
 
 Because it's newer and less widely used, FastAPI doesn't have the organic documentation growth around it that Flask does. It does, however, carry a few distinct operational advantages. FastAPI is built for asynchrony by default. This means developers don't have to use an async/await model when creating their endpoints. The asynchronous default behavior opens up options for building a speedy API with less overhead than Flask or Django.
 
 FastAPI relies on type hints to automatically serialize between models and JSON. As a result, this is all it takes to convert between a database model and a JSON response:
 
-{{< file "main.py">}}
+```file {title="main.py"}
 class Bird(BaseModel):
    name: str
    bird_type: str
@@ -110,7 +110,7 @@ class Bird(BaseModel):
 @app.get('/birds')
 def list_birds():
    return app.db.all()
-{{</ file >}}
+```
 
 FastAPI, like Django, provides built-in documentation with your API's endpoints where you can test out requests:
 
@@ -124,13 +124,13 @@ This framework is designed for building APIs. Web applications with user interfa
 
 [Bottle](https://bottlepy.org/docs/dev/) is the self-designated *micro-est* of the micro-frameworks. The whole library comprises one file that boasts zero dependencies besides Python itself. A "Hello, world!" implementation in Bottle can be written with the following three lines of code:
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 From bottle import run, route
 
 @route(‘/’)
 def index():
     return ('<h1>Hello, world!</h1>')
-{{</ file >}}
+```
 
 When using Bottle, anything beyond route definition requires either a from-scratch implementation or the inclusion of another dependency. This is the case for templates, database integrations, and asynchronous operations.
 

@@ -66,13 +66,13 @@ Ensure that the version number matches the Drupal 8 version you wish to download
 
 5.  Enforce [trusted hostnames](https://www.drupal.org/node/2410395) with those that users will access your site by.
 
-    {{< file "/var/www/html/example.com/public_html/sites/default/settings.php" conf >}}
+    ```file {title="/var/www/html/example.com/public_html/sites/default/settings.php"}
 $settings['trusted_host_patterns'] = array(
   '^www\.example\.com$',
   '^example\.com$',
   );
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -87,7 +87,7 @@ $settings['trusted_host_patterns'] = array(
 
 2.  Then specify the rewrite conditions for DocumentRoot in Apache's configuration file.
 
-    {{< file "/etc/apache2/apache2.conf" conf >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 <Directory /var/www/>
 Options Indexes FollowSymLinks
 AllowOverride All
@@ -100,7 +100,7 @@ Require all granted
     RewriteRule ^ index.php [L]
 </Directory>
 
-{{< /file >}}
+```
 
 
 3.  Change ownership of Apache's DocumentRoot from the system's root user to Apache. This allows you to install modules and themes, and to update Drupal, all without being prompted for FTP credentials.

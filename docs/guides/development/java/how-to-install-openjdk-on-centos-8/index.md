@@ -85,11 +85,11 @@ This section will instruct you on how to set the `JAVA_HOME` and `PATH` environm
 
 1.  Open the `~/.bashrc` startup file using the text editor of your choice and add the following definitions at the end of the file:
 
-    {{< file "~/.bashrc" sh>}}
+    ```file {title="~/.bashrc"}
 # [...]
 export JAVA_HOME=$(dirname $(dirname $(readlink -f $(which java))))
 export PATH=$PATH:$JAVA_HOME/bin
-{{< /file >}}
+```
 
     {{< note >}}
 If you are using a shell other than Bash, such as [Zsh](https://github.com/ohmyzsh/ohmyzsh), you may need to add these lines in a different startup file instead. In the case of Zsh, this would be the `~/.zshrc` file.
@@ -114,13 +114,13 @@ To test your Java installation, write a sample `HelloWorld` Java application and
 
 1.  Open a text editor and add the following lines in a file labeled `HelloWorld.java` to create a simple function that prints "Hello Java World!":
 
-    {{< file "HelloWorld.java" java >}}
+    ```file {title="HelloWorld.java"}
 public class HelloWorld {
     public static void main(String[] args) {
         System.out.println("Hello Java World!");
     }
 }
-{{< /file >}}
+```
 
 1.  Run the application using the JRE:
 

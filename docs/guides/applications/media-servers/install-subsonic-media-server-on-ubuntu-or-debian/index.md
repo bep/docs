@@ -49,7 +49,7 @@ You will need Java installed on your system to run Subsonic.
 
 3. Open `/etc/default/subsonic` in a text editor. In this file you can change the user, the port Subsonic listens on, increase the amount of memory it can use, and encrypt your streaming traffic with SSL. Change the `SUBSONIC_USER` variable to the new `subsonic` user:
 
-    {{< file "/etc/default/subsonic" >}}
+    ```file {title="/etc/default/subsonic"}
 # Type "subsonic --help" on the command line to read an
 # explanation of the different options.
 #
@@ -62,7 +62,7 @@ You will need Java installed on your system to run Subsonic.
 SUBSONIC_ARGS="--max-memory=150"
 
 SUBSONIC_USER=subsonic
-{{< /file >}}
+```
 
     {{< note >}}
 If you have a firewall set up, allow connections from the port Subsonic is listening on.

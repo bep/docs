@@ -46,14 +46,14 @@ The options object in the second argument is available as the value of the `opti
 The code below assumes that the Vue project is created by the [Vue CLI](https://cli.vuejs.org/).
 {{< /note >}}
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {}
 };
-{{< /file >}}
+```
 
-{{< file "src/main.js" js >}}
+```file {title="src/main.js"}
 import Vue from "vue";
 import App from "./App.vue";
 import Plugin from "./plugin";
@@ -65,7 +65,7 @@ Vue.config.productionTip = false;
 new Vue({
   render: h => h(App)
 }).$mount("#app");
-{{< /file >}}
+```
 
 The code above, the `plugin.js` file is a plugin that has nothing except the empty `install` function in the object that is exported as the default export:
 
@@ -73,7 +73,7 @@ The plugin is registered in the `main.js` file by calling the `Vue.use` method w
 
 With this skeleton code created, you can add something simple like a method that you can use in the component. For instance, you can add a method that can be used in the component by writing the following code:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
@@ -82,9 +82,9 @@ export default {
     };
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <p v-html="$toBold('foo')"></p>
@@ -96,7 +96,7 @@ export default {
   name: "App"
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, you added a new method to the `Vue.prototype` property, which is the `$toBold` method. We added the `$` sign in front of the method name to distinguish it from the methods that is created in components.
 
@@ -108,16 +108,16 @@ You can define global properties by attaching a property to the `Vue` parameter 
 
 For example, write the following:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
     Vue.PLUGIN_VERSION = "0.0.1";
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <p>{{getVersion()}}</p>
@@ -136,7 +136,7 @@ export default {
   }
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, you attached the `PLUGIN_VERSION` property as a property of the `Vue` object.
 
@@ -158,7 +158,7 @@ Finally, the `update` hook is called after the containing component’s VNode ha
 
 To add a directive into the plugin that can be used in the components throughout the app, write the following code:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
@@ -170,9 +170,9 @@ export default {
   }
 };
 
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <p v-highlight>foo</p>
@@ -184,7 +184,7 @@ export default {
   name: "App"
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, a new directive called `highlight` is defined in `plugins.js`.
 
@@ -192,7 +192,7 @@ Then use it in `App.vue` by adding  `v-highlight` in the component. The highligh
 
 Next, pass the values into the directive and use it as follows:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
@@ -203,9 +203,9 @@ export default {
     });
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <p v-highlight="'blue'">foo</p>
@@ -217,7 +217,7 @@ export default {
   name: "App"
 };
 </script>
-{{< /file >}}
+```
 
 The code above gets the `value` property from the `binding` parameter in the 2nd position. The `value` property's value is passed in after the equals sign in the template. Therefore, `value` is set to `blue`, so the text displays as blue rather than the default green.
 
@@ -229,7 +229,7 @@ When you declare a mixin inside a plugin, then the methods in the mixin object a
 
 You can create a mixin by calling the `Vue.mixin` method as follows:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
@@ -242,9 +242,9 @@ export default {
     });
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/components/Foo.vue" html >}}
+```file {title="src/components/Foo.vue"}
 <template>
   <div>{{name}}</div>
 </template>
@@ -259,9 +259,9 @@ export default {
   }
 };
 </script>
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <div>{{name}}</div>
@@ -284,7 +284,7 @@ export default {
   }
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, you defined the global mixin with `Vue.mixin` method. Then inside the mixin object, the `beforeMount` hook runs code to get data from an API before all components are mounted.
 
@@ -300,7 +300,7 @@ You can add a global filter to the plugin by calling the `Vue.filter` method. Th
 
 For example, define a filter in the plugin as follows:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   // eslint-disable-next-line no-unused-vars
   install(Vue, options) {
@@ -312,9 +312,9 @@ export default {
     });
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <div>{{new Date() | timeString}}</div>
@@ -326,7 +326,7 @@ export default {
   name: "App"
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, you defined a filter called 'timeString' with the function returning a time string if it is the value passed in is an instance of the `Date` object.
 
@@ -342,7 +342,7 @@ Then fetch it from the 2nd parameter of the `options` parameter.
 
 For example, pass in options and use it in the plugin as follows:
 
-{{< file "src/plugin.js" js >}}
+```file {title="src/plugin.js"}
 export default {
   install(Vue, { getDateString }) {
     Vue.filter("dateOrTimeString", val => {
@@ -357,9 +357,9 @@ export default {
     });
   }
 };
-{{< /file >}}
+```
 
-{{< file "src/main.js" js >}}
+```file {title="src/main.js"}
 import Vue from "vue";
 import App from "./App.vue";
 import Plugin from "./plugin";
@@ -371,9 +371,9 @@ Vue.config.productionTip = false;
 new Vue({
   render: h => h(App)
 }).$mount("#app");
-{{< /file >}}
+```
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
   <div id="app">
     <div>{{new Date() | dateOrTimeString}}</div>
@@ -385,7 +385,7 @@ export default {
   name: "App"
 };
 </script>
-{{< /file >}}
+```
 
 In the code above, you passed in `{ getDateString: true }` as the option object.
 

@@ -119,7 +119,7 @@ The `npm init` command creates a `package.json` file in the project's base direc
 
 The file below is an example `package.json` that results from the basic `npm install express` command (from the above section).
 
-{{< file "package.json" >}}
+```file {title="package.json"}
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -134,7 +134,7 @@ The file below is an example `package.json` that results from the basic `npm ins
     "express": "^4.17.1"
   }
 }
-{{< /file >}}
+```
 
 Notice that the `express` package is listed under `dependencies`. The `^` indicates that a package version compatible with version **4.17.1** must be installed for this project.
 
@@ -166,7 +166,7 @@ You can uninstall an NPM package with the `uninstall` command.
 
 The uninstall command updates the  `package.json` to reflect that the project no longer depends on the uninstalled package.
 
-{{< file "package.json" >}}
+```file {title="package.json"}
 {
   "name": "example-app",
   "version": "1.0.0",
@@ -178,7 +178,7 @@ The uninstall command updates the  `package.json` to reflect that the project no
   "author": "",
   "license": "ISC"
 }
-{{< /file >}}
+```
 
 ## How to Update Packages with NPM
 

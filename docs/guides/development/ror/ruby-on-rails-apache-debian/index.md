@@ -97,7 +97,7 @@ Make sure that Passenger reports the version of Ruby that you installed with RVM
 
 2.  Open `/etc/apache2/sites-available/example.com.conf` in a text editor and edit it as follows. Substitute the path to your Rails app, path to your Ruby interpreter (from the previous step), hostname or IP address, and any other information as necessary.
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <VirtualHost *:80>
     ServerName www.example.com
 
@@ -114,7 +114,7 @@ Make sure that Passenger reports the version of Ruby that you installed with RVM
         Require all granted
     </Directory>
 </VirtualHost>
-{{< /file >}}
+```
 
 
 2.  Activate the Rails site:

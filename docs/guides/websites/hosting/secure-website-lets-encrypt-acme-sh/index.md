@@ -155,14 +155,14 @@ You can now use the certificate files listed above to secure your website. The r
 
 1. Copy and paste the contents of the example file to your site's Apache virtual hosts configuration file. Replace `example.com` with your own site's domain.
 
-    {{< file "/etc/apache2/sites-available/example.conf" >}}
+    ```file {title="/etc/apache2/sites-available/example.conf"}
 <VirtualHost *:443>
     SSLEngine on
     SSLCertificateFile /root/.acme.sh/example.com/fullchain.cer
     SSLCertificateKeyFile /root/.acme.sh/example.com/example.com.key
     ...
 </VirtualHost>
-{{< /file >}}
+```
 
 1. Enable SSL for Apache:
 
@@ -182,7 +182,7 @@ You can now use the certificate files listed above to secure your website. The r
 
 1. Copy and paste the contents of the example file to your site's NGINX configuration file. Replace `example.com` with your own site's domain.
 
-    {{< file "/etc/nginx/sites-available/example.com" >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen 443 ssl;
 
@@ -190,7 +190,7 @@ server {
     ssl_certificate_key /root/.acme.sh/example.com/example.com.key;
     ...
 }
-    {{< /file >}}
+    ```
 
 1. Reload NGINX for your configuration file updates to take effect. On systemd-based distributions run the following command:
 

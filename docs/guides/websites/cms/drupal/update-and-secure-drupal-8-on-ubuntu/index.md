@@ -122,14 +122,14 @@ If `update.php` does not load or returns a 403 Forbidden error, you can try to c
 
 1.  Increase password security by adding the following to `services.yml`:
 
-    {{< file "/var/www/html/example.com/public_html/sites/default/services.yml" yaml >}}
+    ```file {title="/var/www/html/example.com/public_html/sites/default/services.yml"}
 # Increase the number of password hash iterations. Minimum = 7; Maximum = 30; Default = 16
   services:
   password:
   class: Drupal\Core\Password\PhpassHashedPassword
   arguments: [19]
 
-{{< /file >}}
+```
 
 
       {{< note >}}

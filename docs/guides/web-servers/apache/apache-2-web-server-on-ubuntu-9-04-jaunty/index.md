@@ -72,7 +72,7 @@ Each virtual host needs its own file in the `/etc/apache2/sites-available/` dire
 
 Create the virtual hosting file for example.com, located at `/etc/apache2/sites-available/example.com`, to resemble the following:
 
-{{< file "/etc/apache2/sites-available/example.com" >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin username@example.com
      ServerName example.com
@@ -81,7 +81,7 @@ Create the virtual hosting file for example.com, located at `/etc/apache2/sites-
      ErrorLog /srv/www/example.com/logs/error.log
      CustomLog /srv/www/example.com/logs/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
 If you would like to enable Perl support, then add the following lines to the `VirtualHost` entry above.
 
@@ -92,7 +92,7 @@ AddHandler cgi-script .pl
 
 Next, create the virtual hosting file for example.com, located in `/etc/apache2/sites-available/example.com`, to resemble the following:
 
-{{< file "/etc/apache2/sites-available/example.com" >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin username@example.com
      ServerName example.com
@@ -101,7 +101,7 @@ Next, create the virtual hosting file for example.com, located in `/etc/apache2/
      ErrorLog /srv/www/example.com/logs/error.log
      CustomLog /srv/www/example.com/logs/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
 You'll note that some basic options are specified for both sites, including where the files for the site will reside (under `/srv/www/`). You can add (or remove) additional configuration options, such as the Perl support, on a site-by-site basis to these files as your needs dictate.
 
@@ -216,9 +216,9 @@ These usernames and passwords need not (and should not) correspond to system use
 
 In the .htaccess file for the directory that you want to protect, add the following lines:
 
-{{< file ".htaccess" >}}
+```file {title=".htaccess"}
 AuthUserFile /srv/www/bleddington.com/.htpasswd AuthType Basic AuthName "Advanced Choreographic Information" Require valid-user
-{{< /file >}}
+```
 
 Note, that the `AuthName` is presented to the user as an explanation for what they are authenticating in the authentication dialog.
 

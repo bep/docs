@@ -29,7 +29,7 @@ This tutorial explains how to install and configure the Apache web server on Ubu
 
 Make sure your `/etc/hosts` file contains sensible values. In the example file below, you would replace "12.34.56.78" with your Linode's IP address, and "servername.example.com" with your Linode's fully qualified domain name (FQDN). It is advisable to use something unique and memorable for "servername" in this file.
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ hardy main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ hardy main restricted
@@ -46,7 +46,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ hardy-updates universe
 deb http://security.ubuntu.com/ubuntu hardy-security universe
 deb-src http://security.ubuntu.com/ubuntu hardy-security universe
 
-{{< /file >}}
+```
 
 
 ## Install Apache 2
@@ -96,11 +96,11 @@ If you're also hoping to run PHP with MySQL, then also install MySQL support:
 
 Apache supports both IP-based and name-based virtual hosting, allowing you to host multiple domains on a single server. To begin configuration, edit Apache's `ports.conf` file so the `NameVirtualHost` section resembles the following. Please be sure to replace "12.34.56.78" with your Linode's IP address.
 
-{{< file "/etc/apache2/ports.conf" apache >}}
+```file {title="/etc/apache2/ports.conf"}
 NameVirtualHost 12.34.56.78:80
 Listen 80
 
-{{< /file >}}
+```
 
 
 Next, issue the following command to disable the default Apache virtual host.
@@ -111,7 +111,7 @@ Each additional virtual host needs its own file in the `/etc/apache2/sites-avail
 
 First create example.com (`/etc/apache2/sites-available/example.com`) so that it resembles the following. Make sure to replace "12.34.56.78" with your Linode's IP address.
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin webmaster@example.com
      ServerName example.com
@@ -121,21 +121,21 @@ First create example.com (`/etc/apache2/sites-available/example.com`) so that it
      CustomLog /srv/www/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 If you would like to enable Perl support, add the following lines to the `VirtualHost` entry above.
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 Options ExecCGI
 AddHandler cgi-script .pl
 
-{{< /file >}}
+```
 
 
 Next, create example.org (`/etc/apache2/sites-available/example.org`) so that it resembles this:
 
-{{< file "/etc/apache2/sites-available/example.org" apache >}}
+```file {title="/etc/apache2/sites-available/example.org"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin webmaster@example.org
      ServerName example.org
@@ -145,7 +145,7 @@ Next, create example.org (`/etc/apache2/sites-available/example.org`) so that it
      CustomLog /srv/www/example.org/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 You'll note that some basic options are specified for both sites, including where the files for the site will reside (under `/srv/www/`). You can add (or remove) additional configuration options, such as the Perl support, on a site-by-site basis to these files as your needs dictate.

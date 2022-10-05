@@ -49,7 +49,7 @@ This guide was written with Go version 1.13.
 
 The various elements of a struct are called the *fields* of the struct. The following Go program defines and uses a new struct type called `Employee`, which is composed of an employee's first name and their employee ID. The program then instantiates this type:
 
-{{< file "employee.go" go >}}
+```file {title="employee.go"}
 package main
 
 import (
@@ -73,7 +73,7 @@ func main() {
     mihalis := Employee{"Mihalis", 1910234}
     fmt.Println(mihalis)
 }
-{{< /file >}}
+```
 
 {{< note >}}
  Structs, in particular, and Go types, in general, are usually defined outside the `main()` function in order to have a global scope and be available to the entire Go package, unless you want to clarify that a type is only useful within the current scope and is not expected to be used elsewhere in your code.
@@ -108,7 +108,7 @@ The `mihalis` variable is defined using the `:=` syntax, which infers the `Emplo
 
 Structs can be compared for equality. Two structs are equal if they have the same type and if their fields' values are equal.
 
-{{< file "employee.go" go >}}
+```file {title="employee.go"}
 package main
 
 import (
@@ -125,7 +125,7 @@ func main() {
     employee2 := Employee{"Heather", 1910234}
     fmt.Println(employee1 == employee2)
 }
-{{< /file >}}
+```
 
 The output of `employee.go` will be:
 
@@ -143,7 +143,7 @@ Structs cannot be ordered with operators like greater-than  `>` or less-than `<`
 
 You can access a specific field using the struct variable name followed by a `.` character followed by the name of the field (also referred to as *dot notation*). Given an `Employee` variable named `mihalis`, the struct's two fields can be individually accessed as `mihalis.FirstName` and `mihalis.employeeID`:
 
-{{< file "employee.go" go >}}
+```file {title="employee.go"}
 package main
 
 import (
@@ -159,7 +159,7 @@ func main() {
     mihalis := Employee{"Mihalis", 1910234}
     fmt.Println("My name is", mihalis.FirstName, "and my employee ID is", mihalis.employeeID)
 }
-{{< /file >}}
+```
 
 The output of `employee.go` will be:
 
@@ -175,16 +175,16 @@ In order to be able to use a struct and its fields outside of the Go package whe
 
 To illustrate, consider these two Go files:
 
-{{< file "employee/employee.go" go >}}
+```file {title="employee/employee.go"}
 package employee
 
 type Employee struct {
     FirstName string
     employeeID int
 }
-{{< /file >}}
+```
 
-{{< file "main.go" go >}}
+```file {title="main.go"}
 package main
 
 import (
@@ -196,7 +196,7 @@ func main() {
     mihalis := Employee{"Mihalis", 1910234}
     fmt.Println("My name is", mihalis.FirstName, "and my employee ID is", mihalis.employeeID)
 }
-{{< /file >}}
+```
 
 {{< note >}}
 In this example, `employee.go` is created within an `employee` directory.
@@ -218,7 +218,7 @@ This error reflects the fact that `employeeID` has a lowercase name and is not a
 
 By default, when a struct is assigned to a variable, it is copied. Consider this example:
 
-{{< file "employee.go" go >}}
+```file {title="employee.go"}
 package main
 
 import (
@@ -240,7 +240,7 @@ func main() {
     fmt.Println("employee1:", employee1)
     fmt.Println("employee2:", employee2)
 }
-{{< /file >}}
+```
 
 The output of `employee.go` will be:
 
@@ -258,7 +258,7 @@ The `employee2 := employee1` assignment creates a copy of `employee1` and saves 
 
 A struct can be passed to a function. By default, the struct will be copied to its function argument variable. Consider this example:
 
-{{< file "employee.go" go >}}
+```file {title="employee.go"}
 package main
 
 import (
@@ -280,7 +280,7 @@ func main() {
     ChangeEmployeeID(employee1, 1012843)
     fmt.Println(employee1)
 }
-{{< /file >}}
+```
 
 The output of `employee.go` will be:
 
@@ -297,7 +297,7 @@ Calling the `ChangeEmployeeID` function has no effect on the value of `employee`
 
 As Go supports pointers, you can create pointers to structs. The use of pointer structs is illustrated in `pointers.go`.
 
-{{< file "pointers.go" go >}}
+```file {title="pointers.go"}
 package main
 
 import (
@@ -319,7 +319,7 @@ func main() {
     fmt.Println("FirstName for employeePointer2:", employeePointer2.FirstName)
     fmt.Println("FirstName for employeePointer1:", employeePointer1.FirstName)
 }
-{{< /file >}}
+```
 
 The output of `pointers.go` will be:
 
@@ -344,7 +344,7 @@ Lines 17-20 show that creating a second pointer to a struct allows you to manipu
 
 Passing a pointer to a struct as an argument to a function will allow you to mutate that struct from inside the function scope. Consider this example:
 
-{{< file "pointers.go" go >}}
+```file {title="pointers.go"}
 package main
 
 import (
@@ -366,7 +366,7 @@ func main() {
     ChangeEmployeeID(employeePointer1, 1012843)
     fmt.Println(*employeePointer1)
 }
-{{< /file >}}
+```
 
 The output of `pointers.go` will be:
 
@@ -379,14 +379,14 @@ The output of `pointers.go` will be:
 
 Alternatively, using this code in the `main` function instead will produce identical results:
 
-{{< file "pointers.go" go >}}
+```file {title="pointers.go"}
 func main() {
     employee1 := Employee{"Nathan", 8124011}
     fmt.Println(employee1)
     ChangeEmployeeID(&employee1, 1012843)
     fmt.Println(employee1)
 }
-{{< /file >}}
+```
 
 ## Methods
 
@@ -394,7 +394,7 @@ Go *methods* allow you to associate functions with structs. A method definition 
 
 Once defined, the method can be called using dot-notation on your struct variable. Here's an example of what this looks like:
 
-{{< file "method.go" go >}}
+```file {title="method.go"}
 package main
 
 import (
@@ -414,7 +414,7 @@ func main() {
     employee1 := Employee{"Nathan", 8124011}
     employee1.PrintGreeting()
 }
-{{< /file >}}
+```
 
 The output of `method.go` will be:
 
@@ -430,7 +430,7 @@ The receiver argument is listed in parentheses, prior to the function name, and 
 
 Using a pointer as the receiver type will allow you to mutate the pointed-to struct from within the method's scope:
 
-{{< file "method.go" go >}}
+```file {title="method.go"}
 package main
 
 import (
@@ -452,7 +452,7 @@ func main() {
     employeePointer1.ChangeEmployeeID(1017193)
     fmt.Println(*employeePointer1)
 }
-{{< /file >}}
+```
 
 The output of `method.go` will be:
 
@@ -465,7 +465,7 @@ The output of `method.go` will be:
 
 You can also call a method with a pointer-type receiver on a normal non-pointer struct variable. Go will automatically convert the non-pointer struct variable to its memory location, and the struct will still be mutated within the function scope. This example will produce identical results to the one above:
 
-{{< file "method.go" go >}}
+```file {title="method.go"}
 package main
 
 import (
@@ -487,7 +487,7 @@ func main() {
     employee1.ChangeEmployeeID(1017193)
     fmt.Println(employee1)
 }
-{{< /file >}}
+```
 
 ## Creating Structs
 
@@ -497,7 +497,7 @@ In addition to the struct literal syntax used so far, there are a few other comm
 
 One common pattern for creating structs is with a "constructor" function. In Go, this is just a normal function that returns a struct, or a pointer to a struct. This example will demonstrate returning a pointer to a struct:
 
-{{< file "constructor.go" go >}}
+```file {title="constructor.go"}
 package main
 
 import (
@@ -520,7 +520,7 @@ func main() {
     employeePointer1 := NewEmployee("Nathan", 8124011)
     fmt.Println(*employeePointer1)
 }
-{{< /file >}}
+```
 
 This approach for creating new struct variables allows you to check whether the provided information is correct and valid in advance; for example, the above code checks the passed `employeeID` from lines 13 to 15. Additionally, with this approach you have a central point where struct fields are initialized, so if there is something wrong with your fields, you know exactly where to look.
 
@@ -532,9 +532,9 @@ For those of you with a C or C++ background, it is perfectly legal for a Go func
 
 Go supports the `new` keyword that allows you to allocate new objects with the following syntax:
 
-{{< file "" go >}}
+```file {title=""}
 variable := new(StructType)
-{{< /file >}}
+```
 
 `new` has these behaviors:
 
@@ -547,7 +547,7 @@ Using `new` with a struct type is similar to assigning `structType{}` to a varia
 
 The following code example explores this behavior in more depth:
 
-{{< file "new.go" go >}}
+```file {title="new.go"}
 package main
 
 import (
@@ -590,7 +590,7 @@ func main() {
     fmt.Println("telephone")
     prettyPrint(telephone)
 }
-{{< /file >}}
+```
 
 {{< note >}}
 The `prettyPrint()` function is just used for printing the contents of a struct in a readable and pleasant way with the help of the `json.MarshalIndent()` function.
@@ -630,7 +630,7 @@ telephone
 
  Structs are really handy when we have to work with JSON data. This section is going to present a simple example where a struct is used for reading a text file that contains data in the JSON format and for creating data in the JSON format.
 
-{{< file "json.go" go >}}
+```file {title="json.go"}
 package main
 
 import (
@@ -704,7 +704,7 @@ func main() {
     fmt.Println("struct saved to JSON:")
     saveToJSON(os.Stdout, myRecord)
 }
-{{< /file >}}
+```
 
 - The `loadFromJSON()` function is used for decoding the data of a JSON file according to a data structure that is given as the second argument to it.
     - We first call `json.NewDecoder()` to create a new JSON decoder variable that is associated with a file.
@@ -723,7 +723,7 @@ You will learn more about interfaces in a forthcoming guide.
 
 For the purposes of this section we are going to use a simple JSON file named `record.json` that has the following contents:
 
-{{< file "record.json" json >}}
+```file {title="record.json"}
 {
     "Name":"Mihalis",
     "Surname":"Tsoukalos",
@@ -733,7 +733,7 @@ For the purposes of this section we are going to use a simple JSON file named `r
         {"Mobile":false,"Number":"abcc-567"}
     ]
 }
-{{< /file >}}
+```
 
 Executing `json.go` and processing the data found in `record.json` will generate the following output:
 

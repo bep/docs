@@ -33,13 +33,13 @@ You will need a Personal Access Token for the Linode API to complete the steps i
 
 2.  Using a text editor, create a file to store configuration options:
 
-    {{< file "nodebalancer.json" json >}}
+    ```file {title="nodebalancer.json"}
 {
   "region": "us-central",
   "label": "nodebalancer-1",
   "client_conn_throttle": 10
 }
-{{< /file >}}
+```
 
 3.  Create a NodeBalancer by making a POST request to the `/nodebalancers` endpoint:
 
@@ -56,13 +56,13 @@ NodeBalancers are created without any configuration profiles attached. Each prof
 
 1.  Create a new configuration file:
 
-    {{< file "nodebalancer-config.json" >}}
+    ```file {title="nodebalancer-config.json"}
 {
   "label": "nodebalancer-1",
   "port": 80,
   "check": "connection"
   }
-{{< /file >}}
+```
 
 2.  Substitute the NodeBalancer's ID into the URL below:
 
@@ -83,7 +83,7 @@ Even with a working configuration profile, the NodeBalancer isn't doing anything
 
 1.  Add the following options to a new config file. Adjust the type, image, and region to suit your needs; make sure the new Linode is in the same region as your NodeBalancer and choose a secure root password.
 
-    {{< file "create-linode.json" json >}}
+    ```file {title="create-linode.json"}
 {
   "region": "us-central",
   "type": "g5-standard-2",
@@ -91,7 +91,7 @@ Even with a working configuration profile, the NodeBalancer isn't doing anything
   "root_pass": "password",
   "booted": false
 }
-{{< /file >}}
+```
 
 2.  Use the API to create a Linode:
 
@@ -105,13 +105,13 @@ Even with a working configuration profile, the NodeBalancer isn't doing anything
 
 3.  Add configuration options for adding a private IPv4 address:
 
-    {{< file "ip-address.json" json >}}
+    ```file {title="ip-address.json"}
 {
   "type": "ipv4",
   "public": false,
   "linode_id": 7449584
 }
-{{< /file >}}
+```
 
 4.  Add a private IP address to the new Linode:
 
@@ -132,12 +132,12 @@ Add the new Linodes to the NodeBalancer's nodes.
 
 1.  Add configuration options for adding nodes. Substitute the private IP address of the node into the `address` field and give each node a unique label.
 
-    {{< file "add-node.json" json >}}
+    ```file {title="add-node.json"}
 {
   "label": "node-1",
   "address": "$node-private-ip:80"
   }
-{{< /file >}}
+```
 
 2.  Use the `/nodes` endpoint to add a node:
 
@@ -184,14 +184,14 @@ Provide values for country name, common name, etc. when prompted. The Linode API
 
 2.  Edit your `nodebalancer-config.json` configuration file:
 
-    {{< file "nodebalancer-config.json" >}}
+    ```file {title="nodebalancer-config.json"}
 {
   "protocol":"https",
   "port": 443,
   "ssl_cert": <contents of MyCertificate.crt>,
   "ssl_key": <contents of MyKey.key>
 }
-{{< /file >}}
+```
 
 3.  Use a PUT request to update your NodeBalancer's configuration:
 

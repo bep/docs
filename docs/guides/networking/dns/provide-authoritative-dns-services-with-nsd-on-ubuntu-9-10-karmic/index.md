@@ -31,7 +31,7 @@ Before beginning, you should be familiar with basic [DNS terminology and records
 
 The NSD packages are included in the Ubuntu's universe repositories. Before installing NSD, edit your `/etc/apt/sources.list` file to enable the "universe" repositories by removing the hash symbol in front of the universe lines. The file should resemble the following example:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 
 
 ## main & restricted repositories deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -41,7 +41,7 @@ deb http://security.ubuntu.com/ubuntu karmic-security main restricted deb-src ht
 ## universe repositories deb http://us.archive.ubuntu.com/ubuntu/ karmic universe deb-src http://us.archive.ubuntu.com/ubuntu/ karmic universe deb http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 
 deb http://security.ubuntu.com/ubuntu karmic-security universe deb-src http://security.ubuntu.com/ubuntu karmic-security universe
-{{< /file >}}
+```
 
 When you have saved this file, issue the following command to refresh your system's package database and upgrade installed packages:
 
@@ -65,23 +65,23 @@ You will now need to configure the daemon.
 
 You will need to create the `nsd.conf` file to properly configure the NSD service as well as the DNS zones. There is an example configuration file located in `/etc/nsd3/nsd.conf` that you can uncomment directives in. You may also create your own from scratch.
 
-{{< file "/etc/nsd3/nsd.conf" >}}
+```file {title="/etc/nsd3/nsd.conf"}
 server:
 :   logfile: "/var/log/nsd.log" username: nsd
-{{< /file >}}
+```
 
 ### Host Zones with NSD
 
 You must specify at least one zone in the `/etc/nsd3/nsd.conf` file before NSD will begin serving DNS records. Refer to the following example configuration for proper syntax.
 
-{{< file "/etc/nsd3/nsd.conf" conf >}}
+```file {title="/etc/nsd3/nsd.conf"}
 zone:
 :   name: example.com zonefile: /etc/nsd3/example.com.zone
 
 zone:
 :   name: example.org zonefile: /etc/nsd3/example.org.zone
 
-{{< /file >}}
+```
 
 Once zones are added to the `nsd.conf` file, proceed to create a zone file for each DNS zone.
 
@@ -89,7 +89,7 @@ Once zones are added to the `nsd.conf` file, proceed to create a zone file for e
 
 Each domain has zone file specified in the `nsd.conf` file. The syntax of an NSD zone file is similar BIND zone files. Refer to the example zone files that follow for syntax, and modify domain names and IP addresses to reflect the needs of your deployment.
 
-{{< file "/etc/nsd3/example.com.zone" >}}
+```file {title="/etc/nsd3/example.com.zone"}
 $ORIGIN example.com. $TTL 86400
 
 @ IN SOA ns1.example.com. admin.example.com. (
@@ -101,9 +101,9 @@ NS ns1.example.com.
     MX 10 mail.example.com.
 
 ns1 IN A 11.22.33.44 ns2 IN A 22.33.44.55 www IN A 77.66.55.44 tomato IN A 77.66.55.44 mail IN A 88.77.66.55 \* IN A 77.66.55.44
-{{< /file >}}
+```
 
-{{< file "/etc/nsd3/example.org.zone" >}}
+```file {title="/etc/nsd3/example.org.zone"}
 $ORIGIN example.org. $TTL 86400
 
 @ IN SOA ns1.example.org. web-admin.example.org. (
@@ -120,7 +120,7 @@ ns1 IN A 11.22.33.44
 www IN A 44.33.22.11 paisano IN A 44.33.22.11 mail IN A 99.88.77.66
 
 pizzapie IN CNAME paisano
-{{< /file >}}
+```
 
 Rebuild the NSD database and restart the daemon with following command sequence:
 
@@ -166,9 +166,9 @@ Congratulations, you have successfully installed NSD!
 
 If you are running NSD in a low-memory environment, amending the values of the following directives in your `/etc/nsd3/nsd.conf` file will lower your memory and system resource usage.
 
-{{< file "/etc/nsd3/nsd.conf" >}}
+```file {title="/etc/nsd3/nsd.conf"}
 ip4-only: yes tcp-count: 10 server-count: 1
-{{< /file >}}
+```
 
 ## More Information
 

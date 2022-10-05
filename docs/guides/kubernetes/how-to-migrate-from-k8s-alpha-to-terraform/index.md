@@ -62,7 +62,7 @@ For more information regarding these files and directories and their contents, s
 
 1.  Open `cluster.tf` with the text editor of your choice. The contents will be similar to the following:
 
-    {{< file "cluster.tf" >}}
+    ```file {title="cluster.tf"}
 variable "server_type_node" {
   default = "g6-standard-2"
 }
@@ -95,7 +95,7 @@ module "k8s" {
 
   ssh_public_key = "${var.ssh_public_key}"
 }
-{{< /file >}}
+```
 
 1.  To scale your cluster, edit the value of the `nodes` variable. To resize the number of nodes from `3` to `5`, make the following edit and save your changes:
 
@@ -148,9 +148,9 @@ For example, your `source` variable may have a value that points to the git bran
 
 1.  Edit `cluster.tf` to prepare for the upgrade. Update the following section using the hash you copied to appear as follows:
 
-    {{< file "cluster.tf" >}}
+    ```file {title="cluster.tf"}
 source = "git::https://github.com/linode/terraform-linode-k8s.git?ref=5e68ff7beee9c36aa4a4f5599f3973f753b1cd9e"
-{{< /file >}}
+```
 
 1.  To apply these changes, re-initialize the module by running the following command:
 
@@ -182,7 +182,7 @@ Terraform will prompt you to confirm the action, and on confirmation will procee
 
 1.  Create a Terraform module file in this new directory called `cluster.tf` with your desired configuration. Replace the values for the variables `ssh_public_key` and `linode_token` with your own unique values and feel free to change the configuration values for the cluster itself. The example configuration below will create a cluster with a 4GB master, with a node pool with three 4GB Linodes, hosted in the us-east region:
 
-    {{< file "cluster.tf" >}}
+    ```file {title="cluster.tf"}
 variable "server_type_node" {
   default = "g6-standard-2"
 }
@@ -215,7 +215,7 @@ module "k8s" {
 
   ssh_public_key = "${var.ssh_public_key}"
 }
-{{< /file >}}
+```
 
 1.  Initialize and apply your new Terraform configuration:
 

@@ -87,7 +87,7 @@ The script in this section is updated in the next section to incorporate auto-fo
 
 1. Copy this snippet into the file:
 
-    {{< file "forward-last-email-to-text-message.py">}}
+    ```file {title="forward-last-email-to-text-message.py"}
 import os
 import sys
 import poplib
@@ -112,7 +112,7 @@ except KeyError:
     print("EMAIL_PASSWORD")
     print("EMAIL_SERVER")
     sys.exit(1)
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 This code imports several modules that are used later in the code:
@@ -132,11 +132,11 @@ This code imports several modules that are used later in the code:
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 twilio_client = Client(twilio_account_sid, twilio_auth_token)
-{{< /file >}}
+```
 
 This line creates a new client object that can interact with the Twilio API.
 
@@ -144,13 +144,13 @@ This line creates a new client object that can interact with the Twilio API.
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 mail = poplib.POP3_SSL(email_server)
 mail.user(email_username)
 mail.pass_(email_password)
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 - The first line [configures a secure connection](https://docs.python.org/3/library/poplib.html#poplib.POP3_SSL) to your email server.
@@ -164,7 +164,7 @@ mail.pass_(email_password)
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py" python>}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 pop_list_response, pop_list_data, pop_list_size = mail.list()
@@ -172,7 +172,7 @@ num_messages = len(pop_list_data)
 if num_messages == 0:
     print("No email retrieved by poplib.")
     sys.exit(0)
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 - Line 3 [retrieves a list of messages from the server](https://docs.python.org/3/library/poplib.html#poplib.POP3.list). The `list()` method sends the [`LIST` POP command](https://datatracker.ietf.org/doc/html/rfc1939#page-6) to the server and returns a tuple:
@@ -204,14 +204,14 @@ if num_messages == 0:
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 message_text = ""
 for i in range(num_messages):
     mail_id = num_messages - i
     pop_retr_response, pop_retr_data, pop_retr_size = mail.retr(mail_id)
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 - Line 3 initiates a string variable named `message_text`. This variable represents the contents of the text message that is sent later in the script. This string is populated with contents from a Linode Alert email in the next section.
@@ -273,7 +273,7 @@ for i in range(num_messages):
 
 Copy and paste the code from this snippet to the bottom of your script. Make sure that it is indented so that it falls inside of the for-loop of the previous section:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file, indented within for loop scope:
 
     email_as_string = b'\n'.join(pop_retr_data)
@@ -289,7 +289,7 @@ Copy and paste the code from this snippet to the bottom of your script. Make sur
             (email_subject,
             email_body)
         break
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 This section of code parses the `pop_retr_data` array returned by the `retr()` method in the previous section. The code parses this array as follows:
@@ -315,7 +315,7 @@ This section of code parses the `pop_retr_data` array returned by the `retr()` m
 
 1. Copy and paste the code from this snippet to the bottom of your script:
 
-    {{< file "forward-last-email-to-text-message.py">}}
+    ```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 mail.close()
@@ -331,7 +331,7 @@ message = twilio_client.messages.create(
 )
 
 print("Twilio message created with ID: %s" % (message.sid))
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 - Line 3 closes the connection to the email server.
@@ -475,7 +475,7 @@ If the code only checked the 60 seconds prior to the script execution time, then
 
 1. Copy this snippet into the file. Then, save the file and exit your text editor.
 
-    {{< file "autoforward-email-to-text-message.py">}}
+    ```file {title="autoforward-email-to-text-message.py"}
 import os
 import sys
 import poplib
@@ -565,7 +565,7 @@ for i in range(num_messages):
         send_message(message_text)
 
 mail.close()
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 The example code is similar to the code from the previous section. The updated lines of code are:
@@ -677,7 +677,7 @@ Follow these steps to only forward CPU usage alerts to text:
 
 1. In your `autoforward-email-to-text-message.py`, remove lines 78-87:
 
-    {{< file "autoforward-email-to-text-message.py" >}}
+    ```file {title="autoforward-email-to-text-message.py"}
 # remove the following lines:
 
 #    email_from = parsed_email['from']
@@ -690,11 +690,11 @@ Follow these steps to only forward CPU usage alerts to text:
 #            (email_subject,
 #            email_body)
 #        send_message(message_text)
-{{< /file >}}
+```
 
 1. Insert these new lines of code in the same position as the removed lines. When adding the lines, make sure they are indented so that they fall inside the scope of the for loop:
 
-    {{< file "autoforward-email-to-text-message.py">}}
+    ```file {title="autoforward-email-to-text-message.py"}
 # Insert and indent so that the lines fall inside the scope of the for loop:
 
     email_from = parsed_email['from']
@@ -708,7 +708,7 @@ Follow these steps to only forward CPU usage alerts to text:
             (email_subject,
             email_body)
         send_message(message_text)
-{{< /file >}}
+```
 
 This new code moves the `email_subject` variable assignment outside of the if statement. The if statement is updated to also check that the text `CPU Usage` is in the email subject string.
 
@@ -794,12 +794,12 @@ Received: by 0:0:0:0:0:0:0:0 with SMTP id s76abnXMy7fxR9;
 
 If you see the above error, then your email server uses a different format for its `Received` headers. To solve this issue, you need to alter the script to change how it parses the `Received` headers. The code that you need to alert is on lines 60-61 of your `autoforward-email-to-text-message.py`:
 
-{{< file "autoforward-email-to-text-message.py" python >}}
+```file {title="autoforward-email-to-text-message.py"}
 # lines 60 and 61:
 
         received_header_parts = received_header.split('\n')
         email_received_datestring = received_header_parts[-1].strip(' \t')
-{{< /file >}}
+```
 
 - The example received header spans two lines. Line 60 splits the two lines into an array of two strings.
 
@@ -813,11 +813,11 @@ Received: by 0:0:0:0:0:0:0:0 with SMTP id s76abnXMy7fxR9; Tue, 7 Dec 2021 12:45:
 
 In this scenario, the header is contained with one line, and a semicolon separates the date from the rest of the header data. You can change line 60 so that it instead uses a semicolon as the argument for the `split()` method. This is the updated line you would insert at line 60:
 
-{{< file "autoforward-email-to-text-message.py" python >}}
+```file {title="autoforward-email-to-text-message.py"}
 # replace line 60 with:
 
         received_header_parts = received_header.split(';')
-{{< /file >}}
+```
 
 ### Enable Gmail Recent Mode
 

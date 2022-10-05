@@ -95,11 +95,11 @@ This places the Docker build directory in your home directory. As a matter of go
 
 4.  Copy the following example into your Dockerfile. This creates a Dockerfile that generates a Debian image, sets the maintainer information, and simply returns "Hello, Sunshine!" when run:
 
-    {{< file "example_dockerfile" docker >}}
+    ```file {title="example_dockerfile"}
 FROM debian
 MAINTAINER Jane Doe jdoe@example.com
 CMD ["echo", "Hello, Sunshine!"]
-{{< /file >}}
+```
 
 5.  Save the Dockerfile.
 

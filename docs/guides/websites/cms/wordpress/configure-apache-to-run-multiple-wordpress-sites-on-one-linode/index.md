@@ -116,7 +116,7 @@ In this section, you will configure the Apache virtual hosts file so that a visi
 
 1.  Create a virtual hosts configuration file for `example1.com` and add the example virtual host block into `/etc/apache2/sites-available/example1.com`. Be sure to replace all instances of `example1.com` with your own domain.
 
-    {{< file "/etc/apache2/sites-available/example1.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example1.conf"}
 <VirtualHost *:80>
     # The primary domain for this host
     ServerName example1.com
@@ -147,7 +147,7 @@ In this section, you will configure the Apache virtual hosts file so that a visi
     </IfModule>
 </VirtualHost>
 
-    {{</file >}}
+    ```
 
 1.  Enable the site. This will create a symlink to the `example1.com` Apache conf file in `/etc/apache2/sites-enabled/`:
 
@@ -155,7 +155,7 @@ In this section, you will configure the Apache virtual hosts file so that a visi
 
 1. Create a virtual hosts configuration file for your second WordPress site, `example2.com`. Be sure to replace all instances of `example2.com` with your own domain.
 
-    {{< file "/etc/apache2/sites-available/example2.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example2.conf"}
 <VirtualHost *:80>
   # The primary domain for this host
   ServerName example2.com
@@ -185,7 +185,7 @@ In this section, you will configure the Apache virtual hosts file so that a visi
       Header always append X-Frame-Options SAMEORIGIN
   </IfModule>
 </VirtualHost>
-    {{</ file >}}
+    ```
 
 1. Enable the site:
 

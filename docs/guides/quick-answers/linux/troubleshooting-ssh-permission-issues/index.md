@@ -74,13 +74,13 @@ debug1: identity file /Users/username/.ssh/id_rsa type 0
 
         vi /etc/ssh/sshd_config
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 PubKeyAuthentication No
 ...
 PasswordAuthentication Yes
 ...
-    {{< /file >}}
+    ```
 
 1. If you turned off public key authentication (``PubKeyAuthentication``) in the previous step, restart the SSH daemon to apply the change.
 
@@ -104,13 +104,13 @@ This section covers the situation where the client does not have the correct pri
 
         vi /etc/ssh/sshd_config
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 PubKeyAuthentication No
 ...
 PasswordAuthentication Yes
 ...
-    {{< /file >}}
+    ```
 
 1. Restart the `sshd` service to apply the changes.
 
@@ -131,13 +131,13 @@ This situation arises because the target server does not have your public key. W
 Share only your public key. Your private key, which is usually named `id_rsa`, must always be kept secret.
     {{< /caution >}}
 
-    {{< file "/Users/<username>/.ssh/id_rsa.pub" >}}
+    ```file {title="/Users/<username>/.ssh/id_rsa.pub"}
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC3tvOQFGAnY3p1t6gv6rXEat8maN
 YghZYuAuci3Pd0gEr3MHMFwZ3NqYA87VM+HLbu9EbBjvPjuFmNkdT7yN8TJkv1Z61g
 +NJ3+aJBGHNe8MDKs69z3yNgakiI2ynT8+GDOz545fQfZdyl5oQ9IvcODz0k7yoKP9
 yQdSj8l9dCN9Zf8GBLQTbryHgaSEoinpX5SFmNkdT7yN8TJkv1Z61gpB+NJ3+aJBGH
 Jvl72P8ePqG2nIvSqHsm/4OfdJshaXHA+j6DpvSQ== user@userdevice.local
-    {{< /file >}}
+    ```
 
 1. Log in to the Linode through the [LISH Console](/docs/platform/manager/using-the-linode-shell-lish). Access the LISH Console through the [*Linode Cloud Manager*](https://cloud.linode.com/). Select the Linode to access, then click the **Launch LISH Console** link at the top right-hand side of the page.
 
@@ -177,13 +177,13 @@ If your client does not have the `scp` tool installed, copy the key to the targe
 
         vi /etc/ssh/sshd_config
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 PubKeyAuthentication Yes
 ...
 PasswordAuthentication No
 ...
-    {{< /file >}}
+    ```
 
 1. Restart the `sshd` service to apply the changes.
 

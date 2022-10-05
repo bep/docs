@@ -169,7 +169,7 @@ Although nano is used in this example, feel free to use the text editor of your 
 
 1. Use the following Apache virtual host configuration to create your reverse proxy. Replace `jellyfin.example.com` with your domain/subdomain.
 
-    {{< file "/etc/apache2/sites-available/jellyfin.example.com.conf" >}}
+    ```file {title="/etc/apache2/sites-available/jellyfin.example.com.conf"}
 <VirtualHost *:80>
     ServerName jellyfin.example.com
     ErrorLog /var/log/apache2/jellyfin-error.log
@@ -183,7 +183,7 @@ Although nano is used in this example, feel free to use the text editor of your 
     ProxyPass "/" "http://127.0.0.1:8096/"
         ProxyPassReverse "/" "http://127.0.0.1:8096/"
 </VirtualHost>
-{{< /file >}}
+```
 
 1. Enable your new website:
 

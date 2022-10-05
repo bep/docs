@@ -82,7 +82,7 @@ Ensure that the version number matches the Tomcat 9 version you wish to download
 
 1.  Create a new `systemd` service file, `/etc/systemd/system/tomcat.service`, in the text editor of your choice with the following details:
 
-      {{< file "/etc/systemd/system/tomcat.service" service >}}
+      ```file {title="/etc/systemd/system/tomcat.service"}
 [Unit]
 Description=Tomcat Server
 After=syslog.target network.target
@@ -103,7 +103,7 @@ ExecStop=/usr/local/tomcat/bin/catalina.sh stop
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 1.  Reload the `systemd` daemon to let it know about the `tomcat.service` that you created:
 
@@ -127,12 +127,12 @@ You can test your Tomcat installation by pointing your browser at your domain na
 
 1.  To use the `tomcat9-admin` web application, add the following lines to the end of your `/usr/local/tomcat/conf/tomcat-users.xml` file before the `</tomcat-users>` line, substituting your own username and secure password. If using Tomcat Admin, include both the "manager-gui" role for the manager and the "admin-gui" role for the host-manager application.
 
-    {{< file "/usr/local/tomcat/conf/tomcat-users.xml" xml >}}
+    ```file {title="/usr/local/tomcat/conf/tomcat-users.xml"}
 <role rolename="manager-gui"/>
 <role rolename="admin-gui"/>
 <user username="username" password="password" roles="manager-gui,admin-gui"/>
 
-{{< /file >}}
+```
 
     {{< note >}}
 If you are not using the web application and plan to manage your application(s) from the command line only, you should not enter these lines, because doing so may expose your server to unauthorized login attempts.
@@ -140,14 +140,14 @@ If you are not using the web application and plan to manage your application(s) 
 
 1.  For Tomcat versions 8+ the managers have been pre-configured to only allow access from the same IP of the server where it's installed. If you're trying to access it from a browser remotely, you'll need to comment out this configuration in the file `/usr/local/tomcat/webapps/manager/META-INF/context.xml`.
 
-    {{< file "/usr/local/tomcat/webapps/manager/META-INF/context.xml" xml >}}
+    ```file {title="/usr/local/tomcat/webapps/manager/META-INF/context.xml"}
 ...
 <!--
   <Valve className="org.apache.catalina.valves.RemoteAddrValve"
          allow="127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1" />
 -->
 ...
-{{</ file >}}
+```
 
 1.  Restart the Tomcat server, which will allow these changes to take effect:
 

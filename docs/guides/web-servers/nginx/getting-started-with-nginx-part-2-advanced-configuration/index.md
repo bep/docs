@@ -48,7 +48,7 @@ If you then want to disable the site *example.com*, then rename `example.com.con
 
 1.  Provided that you already have one site configuration running on NGINX, all the second site's configuration file needs is a server block inside:
 
-    {{< file "/etc/nginx/conf.d/example2.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example2.com.conf"}
 server {
     listen       80;
     listen       [::]:80;
@@ -58,7 +58,7 @@ server {
 
     root         /var/www/example2.com/;
 }
-{{< /file >}}
+```
 
 2.  Reload NGINX:
 
@@ -78,9 +78,9 @@ For more information, see the [NGINX docs](https://nginx.org/en/docs/http/ngx_ht
 
 2.  Add the `proxy_cache_path` directive to NGINX's `http` block. Make sure the file path references the folder you just created in Step 1.
 
-      {{< file "/etc/nginx/nginx.conf" nginx >}}
+      ```file {title="/etc/nginx/nginx.conf"}
 proxy_cache_path /var/www/example.com/cache/ keys_zone=one:10m max_size=500m inactive=24h use_temp_path=off;
-{{< /file >}}
+```
 
     * `keys_zone=one:10m` sets a 10 megabyte shared storage zone (simply called `one`, but you can change this for your needs) for cache keys and metadata.
 
@@ -94,12 +94,12 @@ proxy_cache_path /var/www/example.com/cache/ keys_zone=one:10m max_size=500m ina
 
     Replace *ip-address* and *port* with the URL and port of the upstream service whose files you wish to cache. For example, you would fill in `127.0.0.1:9000` if using [WordPress](https://www.nginx.com/resources/wiki/start/topics/recipes/wordpress/) or `127.0.0.1:2638` with [Ghost](https://docs.ghost.org/v1/docs/config#section-server).
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 proxy_cache one;
     location / {
     proxy_pass http://ip-address:port;
     }
-{{< /file >}}
+```
 
 4.  If you need to clear the cache, [the easiest way](http://nginx.2469901.n2.nabble.com/best-way-to-empty-nginx-cache-td3017271.html#a3017429) is with the command:
 
@@ -179,7 +179,7 @@ To summarize where we are so far:
 
 * The site's configuration file looks like this:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -198,11 +198,11 @@ server {
 
     add_header     Feature-Policy "encrypted-media 'self'; autoplay 'none'"
 }
-{{< /file >}}
+```
 
 * Here is the server's `nginx.conf` file. Again, our additions are at the bottom of the block so we know what we added:
 
-    {{< file "/etc/nginx/nginx.conf" nginx >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 user  nginx;
 worker_processes  auto;
 
@@ -243,7 +243,7 @@ http {
     proxy_cache_path    /var/www/example.com/cache/ keys_zone=one:10m inactive=60m use_temp_path=off;
     server_tokens       off;
 }
-{{< /file >}}
+```
 
 ## Part 3: Enable TLS for HTTPS Connections
 

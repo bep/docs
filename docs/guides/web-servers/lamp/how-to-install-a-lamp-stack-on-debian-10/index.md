@@ -67,7 +67,7 @@ As a best practice, you should create a backup of your Apache configuration file
     cp /etc/apache2/apache2.conf ~/apache2.conf.backup
 {{< /note >}}
 
-    {{< file "/etc/apache2/mods-available/mpm_prefork.conf" aconf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_prefork.conf"}
 # prefork MPM
 # StartServers: number of server processes to start
 # MinSpareServers: minimum number of server processes which are kept spare
@@ -85,7 +85,7 @@ As a best practice, you should create a backup of your Apache configuration file
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -132,7 +132,7 @@ There can be as many virtual hosts files as needed to support the amount of doma
 
 1.  Edit the `example.com.conf` file in `/etc/apache2/sites-available` with your text editor, replacing instances of `example.com` with your own domain URL in both the configuration file and in the file name:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
         Require all granted
 </Directory>
@@ -145,12 +145,12 @@ There can be as many virtual hosts files as needed to support the amount of doma
      CustomLog /var/www/html/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     Repeat this process for any other domains you host:
 
-    {{< file "/etc/apache2/sites-available/example.org.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.org.conf"}
 <Directory /var/www/html/example.org/public_html>
         Require all granted
 </Directory>
@@ -164,7 +164,7 @@ There can be as many virtual hosts files as needed to support the amount of doma
      CustomLog /var/www/html/example.org/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 1.  Assign ownership of `public_html` directory to the user `www-data`:
 
@@ -252,12 +252,12 @@ PHP 7.3 is the [latest version available](http://php.net/supported-versions.php)
 
 1.  Open `/etc/php/7.3/apache2/php.ini` in your text editor and edit the following values. These settings are optimized for the 2GB Linode:
 
-    {{< file "/etc/php/7.3/apache2/php.ini" ini >}}
+    ```file {title="/etc/php/7.3/apache2/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 error_log = /var/log/php/error.log
 max_input_time = 30
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -285,7 +285,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 
 1.  Paste the following code into a new file, `phptest.php`, in the `public_html` directory. Modify `webuser` and `password` to match the information entered in the [Set Up a MariaDB Database](#set-up-a-mariadb-database) section above:
 
-     {{< file "/var/www/html/example.com/public_html/phptest.php" php >}}
+     ```file {title="/var/www/html/example.com/public_html/phptest.php"}
 <html>
 <head>
 <title>PHP Test</title>
@@ -310,7 +310,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 </body>
 </html>
 
-{{< /file >}}
+```
 
 1.  Navigate to `example.com/phptest.php` from your local machine. If the components of your LAMP stack are working correctly, the browser will display a "Connected successfully" message. If not, the output will be an error message.
 

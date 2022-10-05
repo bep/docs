@@ -114,7 +114,7 @@ If you cannot find the `nginx.conf` file, run the command `sudo nginx -t`. It di
     - If you set `record` to `all`, you must configure a value for `record_path`. This is where the recordings of your streams are saved.
     - We recommend adding an authentication method so your streams cannot be hijacked. Defining a location for `on_publish` here allows you to enable password validation in a subsequent step.
 
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ...
 rtmp {
         server {
@@ -134,7 +134,7 @@ rtmp {
         }
 
    }
-    {{< /file >}}
+    ```
 
 1. Create a directory to save your streams. The directory location should match the value of `record_path`.
 
@@ -146,7 +146,7 @@ rtmp {
    - If the password you provide when you start your stream matches the password in this file, the streaming server returns an HTML code of `200` ("OK").
    - If the password is incorrect, it returns a code of `401` ("Unauthorized") and disconnects the session.
 
-    {{< file "/etc/nginx/sites-enabled/default" >}}
+    ```file {title="/etc/nginx/sites-enabled/default"}
 ...
 listen 8080;
 location /auth {
@@ -155,7 +155,7 @@ location /auth {
             }
             return 401;
 }
-    {{< /file >}}
+    ```
 1. Restart the server to apply your changes.
 
         systemctl restart nginx.service
@@ -227,7 +227,7 @@ RTMP is particularly a good choice for streaming to multiple sites at once becau
         sudo vi /etc/nginx/nginx.conf
 1. Locate the ingest information for the service you want to stream to. For example, Twitch provides a [*list of all of its ingest points*](https://stream.twitch.tv/ingests/). Find the ingest point closest to you and take note of its ingest URL. For YouTube, you can find the ingest server URL on your YouTube Studio page. Consult the documentation for your streaming service for more detailed information.
 1. Add a push notification for each service to the stream application block within the RTMP configuration. The configuration must be in the format `push rtmp://<streaming_service_ingest_url>/<stream_key>;`. The `streaming_service_ingest_url` is the ingest URL you located in the previous step. Each streaming service provides a way for you to determine your private `stream_key`. In Twitch, you can find your stream key from your dashboard, while in YouTube, it is in the same place you found the ingest server URL. This example illustrates the configuration to push to Twitch's London ingest server.
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ...
 rtmp {
         server {
@@ -238,7 +238,7 @@ rtmp {
                 }
         }
 }
-    {{< /file >}}
+    ```
 1. Add additional `push` entries for the other sites you are streaming to.
 1. Restart the server to apply your changes.
 
@@ -250,7 +250,7 @@ rtmp {
    - Change the push configuration for Twitch to `push rtmp://localhost/twitch;`.
    - Add the configuration for `application twitch` as shown below.
    - Restart the server and your stream once you are done to verify that your changes are correct.
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ...
 rtmp {
         server {
@@ -268,7 +268,7 @@ rtmp {
                 }
         }
 }
-    {{< /file >}}
+    ```
 
 {{< note >}}
 Ingest servers can change without notice. We recommend you review the specifications for your streaming service regularly.

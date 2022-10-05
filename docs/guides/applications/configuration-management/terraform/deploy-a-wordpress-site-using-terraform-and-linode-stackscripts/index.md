@@ -56,7 +56,7 @@ Terraform defines the elements of your Linode infrastructure inside of configura
 
 1. Using your preferred text editor, create a Terraform configuration file named `main.tf` to hold your resource definitions:
 
-      {{< file "~/terraform/main.tf">}}
+      ```file {title="~/terraform/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -153,7 +153,7 @@ resource "linode_domain_record" "my_wordpress_domain_apex_record" {
     record_type = var.a_record
     target = "${linode_instance.my_wordpress_linode.ip_address}"
 }
-{{</ file >}}
+```
 
     The Terraform configuration file uses an [interpolation syntax](https://www.terraform.io/docs/configuration/interpolation.html) to reference Terraform [*input variables*](https://learn.hashicorp.com/terraform/getting-started/variables.html), call Terraform's [built-in functions](https://www.terraform.io/docs/configuration/interpolation.html#built-in-functions), and reference attributes of other resources.
 
@@ -266,7 +266,7 @@ If you are not familiar with the Domain Name System (DNS), review the [DNS Recor
 
 In the `terraform` directory, create a file named `variables.tf`. This will define all the variables that were used in the `main.tf` file in the previous section. The values for these variables (aside from their default values) will be assigned in another file:
 
-{{< file "~/terraform/variables.tf" >}}
+```file {title="~/terraform/variables.tf"}
 variable "token" {
   description = "Linode API Personal Access Token"
 }
@@ -312,7 +312,7 @@ variable "a_record" {
   description = "The type of DNS record. For example, `A` records associate a domain name with an IPv4 address."
   default = "A"
 }
-    {{</ file >}}
+    ```
 
 {{< note >}}
 It is recommended to include a `description` attribute for each input variable to help document your configuration's usage. This will make it easier for anyone else to use this Terraform configuration.
@@ -334,16 +334,16 @@ Terraform will automatically load any file named `terraform.tfvars` and use its 
 
 1. Create a file named `terraform.tfvars` in your `terraform` directory to hold all non-sensitive values:
 
-    {{< file "~/terraform/terraform.tfvars">}}
+    ```file {title="~/terraform/terraform.tfvars"}
 label = "wp-linode"
 stackscript_id = "998743"
 domain = "example.com"
 soa_email = "user@email.com"
-{{</ file >}}
+```
 
 1. Create a file name `secrets.tfvars` in your `terraform` directory to hold any sensitive values:
 
-    {{< file "~/terraform/secrets.tfvars">}}
+    ```file {title="~/terraform/secrets.tfvars"}
 token = "my-linode-api4-token"
 stackscript_data = {
   "ssuser" = "username"
@@ -354,7 +354,7 @@ stackscript_data = {
   "db_password" = "another-secure-password"
   "dbuser_password" = "a-third-secure-password"
 }
-{{</ file >}}
+```
     {{< note >}}
 In Terraform 0.12, variables with map and object values will use the last value found and override previous values. This is different from previous versions of Terraform, which would merge map values instead of overriding them. For this reason the `stackscript_data` map and its values are defined in a single variable definitions file.
     {{</ note >}}

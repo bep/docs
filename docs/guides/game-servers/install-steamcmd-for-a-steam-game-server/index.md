@@ -52,7 +52,7 @@ Game servers and clients are an especially ripe target for attack. Use our [Sett
 
 1.  Create two files named `v4` and `v6` in your home directory to record your IPv4 and IPv6 firewall rules:
 
-    {{< file "~/v4" >}}
+    ```file {title="~/v4"}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -83,9 +83,9 @@ Game servers and clients are an especially ripe target for attack. Use our [Sett
 -A FORWARD -j REJECT
 
 COMMIT
-{{< /file >}}
+```
 
-    {{< file "v6" >}}
+    ```file {title="v6"}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -104,7 +104,7 @@ COMMIT
 -A FORWARD -j REJECT
 
 COMMIT
-{{< /file >}}
+```
 
     {{< note >}}
 Some Steam games require a few additional rules which can be found in our [Steam game guides](/docs/applications/game-servers/). Steam can also use multiple port ranges for various purposes, but they should only be allowed if your game(s) make use of those services. See [this](https://support.steampowered.com/kb_article.php?ref=8571-GLVN-8711) Steam Support page for more information.
@@ -209,11 +209,11 @@ Installing via the package manager allows you to more easily download updates an
 
     1.  Add the `non-free` area to the repositories in your sources list, because the `steamcmd` package is only available from this area. To do so, edit your `/etc/apt/sources.list` file and include `non-free` at the end of each `deb` and `deb-src` line, as in this snippet:
 
-        {{< file "/etc/apt/sources.list" >}}
+        ```file {title="/etc/apt/sources.list"}
 deb http://mirrors.linode.com/debian stretch main non-free
 deb-src http://mirrors.linode.com/debian stretch main non-free
 ...
-{{< /file >}}
+```
 
     1.  Add the i386 architecture, update your package list, and install `steamcmd`:
 

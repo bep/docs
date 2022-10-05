@@ -62,7 +62,7 @@ A [Pod](https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/) is a g
 
 1.  In a text editor, create `nginx.yaml` and add the following content:
 
-    {{< file "~/nginx.yaml" yaml >}}
+    ```file {title="~/nginx.yaml"}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -84,7 +84,7 @@ spec:
         image: nginx:1.13-alpine
         ports:
         - containerPort: 80
-{{< /file >}}
+```
 
     The file contains all the necessary information to specify a deployment, including the Docker image to use, number of replicas, and the container port. For more information about deployment configuration, see the [documentation.](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment)
 
@@ -224,7 +224,7 @@ You now have a deployment running three Pods of an NGINX application. In order t
 
 1.  Configure a test service:
 
-    {{< file "~/nginx-service.yaml" conf >}}
+    ```file {title="~/nginx-service.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -240,7 +240,7 @@ spec:
     name: http
   selector:
     app: nginx
-{{< /file >}}
+```
 
 2.  Create the service:
 
@@ -301,7 +301,7 @@ kube-system   Active        7h
 
 2.  Create a new file named `dev-namespace.json` for the **Development** environment:
 
-    {{< file "~/home/dev-namespace.json" conf >}}
+    ```file {title="~/home/dev-namespace.json"}
 {
   "kind": "Namespace",
   "apiVersion": "v1",
@@ -312,7 +312,7 @@ kube-system   Active        7h
     }
   }
 }
-{{< /file >}}
+```
 
 3.  Create the namespace in your cluster:
 
@@ -366,7 +366,7 @@ Any object in Kubernetes can have a label attached to it. Labels are key value p
 
 1.  Create a test deployment for this namespace. This deployment will include the `nginx` label:
 
-    {{< file "~/my-app.yaml" yaml >}}
+    ```file {title="~/my-app.yaml"}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -388,7 +388,7 @@ spec:
         image: nginx:1.12-alpine
         ports:
         - containerPort: 80
-{{< /file >}}
+```
 
 2.  Create the deployment:
 

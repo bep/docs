@@ -30,10 +30,10 @@ The [Features](https://www.gnu.org/software/make/manual/make.html#Features) and 
 
 Make starts by reading a file called *makefile* that tells it what to do. The makefile is made up of three primary components or *rules*. The *target* contains rules that describe the file(s) to be built. The *prerequisites* point to a file containing any required inputs related to the target. Finally, the *recipe* includes the actions that are to be performed by GNU Make. A typical rule resembles the following example:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 target... : prerequisite...
     recipe...
-{{< /file >}}
+```
 
 The recipe is run whenever the target does not exist or if any of its prerequisites has been modified since the last time it was built. The following list outlines some syntax elements and how GNU Make interprets them:
 
@@ -50,23 +50,23 @@ All versions of Make use `/bin/sh` as the default shell for portability purposes
 
 The file below is an example makefile for an extremely simple website:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 # everything between a hash-mark and the end of the line is ignored
 site/index.html: index.md
     pandoc -s -o site/index.html index.md
-{{< /file >}}
+```
 
 The makefile contains one rule, and Make uses the first rule it encounters in the file as the default. Now, every time `index.md` is modified, Make determines that `site/index.html` is older and re-makes it.
 
 There are two problems with the behavior outlined above. The first time you run Make in your directory it fails because there is no directory named `site`. You can fix this by adding an *order-only prerequisite*, separated from the ordinary prerequisites by a pipe (`|`). Make builds order-only prerequisites if they don't exist, but does not try to rebuild them if they are out of date. The example file below includes an order-only prerequisite for a directory named `site` (in the current working directory).
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 site/index.html: index.md | site
     pandoc -s -o site/index.html index.md
 
 site:
     mkdir -p site
-{{< /file >}}
+```
 
 {{< note >}}
 A rule with no prerequisites is run only if the target does not exist. Order-only prerequisites are not rebuilt even if they have prerequisites of their own.
@@ -74,7 +74,7 @@ A rule with no prerequisites is run only if the target does not exist. Order-onl
 
 The second issue with the original example is the following: when you add a second rule to the example file, Make does not run it. This is a problem if, for example, you wanted to add an about page to your site. Make does not run the rule unless you mention *both* targets on the command line. One way to solve this is to add another rule that depends on both pages:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 .PHONY: build
 build:: site/index.html site/about.html
 
@@ -89,7 +89,7 @@ site:
 
 build::
     echo build complete
-{{< /file >}}
+```
 
 The `.PHONY` target tells Make that `build` isn't a real file, just the name of a recipe. Even if a file called `build` gets added to the directory, Make still runs the recipe when you pass `build` as a goal on the make command line or as a prerequisite of some other target.
 
@@ -123,12 +123,12 @@ The `$` is used for variable expansion in both Make and the Shell. For this reas
 
 Another way to simplify and generalize a `makefile` is with variables. One obvious use for a variable is the list of targets. You can update your example file in the following way:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 pages = site/index.html site/about.html
 build: $(pages)
 site/%.html: %.md | site
         pandoc -s -o $@ $<
-{{< /file >}}
+```
 
 {{< note >}}
 If the parentheses around the variable name are missing, the variable name is the single character after the dollar sign. This is why most of the automatic variables used in rules, like `$@`, have single-character names.
@@ -136,13 +136,13 @@ If the parentheses around the variable name are missing, the variable name is th
 
 Make also uses variables like constants, so it's common practice to use uppercase for those variables. Use the variable `MARKDOWN` to point to the location of your Markdown processor, `/usr/bin/pandoc`. Include the `pandoc`-specific option `-s` (`--standalone`) in the variable's definition, since other Markdown processors are likely to use a different set of options.
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 MARKDOWN = /usr/bin/pandoc -s
 pages = site/index.html site/about.html
 build: $(pages)
 site/%.html: %.md | site
         $(MARKDOWN) -o $@ $<
-{{< /file >}}
+```
 
 The variable `MAKE` is a reserved variable used by Make. Make uses it to identify recursive statements in recipes that it needs to execute even if the `-n` (`--just-print`) option is set on the command line. This tells Make to print recipes without executing them. You can find more about using Make recursively in [Section 5.7](https://www.gnu.org/software/make/manual/make.html#Recursion) of the manual.
 
@@ -150,21 +150,21 @@ The variable `MAKE` is a reserved variable used by Make. Make uses it to identif
 
 You can use Make *functions* to manipulate filenames and other text. Modify the example to add `$(wildcard *.md)`, which evaluates to a list of all files in the current directory with a `.md` extension. Then use the `subst` function to replace `.md` with `.html`. Use `addprefix` to add the destination directory. The updated example resembles the following:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 pages = $(addprefix site/, $(subst .md,.html,$(wildcard *.md)))
-{{< /file >}}
+```
 
 Instead of `subst`, you can also use `basename` and `addsuffix` as demonstrated below:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 pages = $(addprefix site/, $(addsuffix .html, $(basename $(wildcard *.md))))
-{{< /file >}}
+```
 
 The `shell` function lets you use shell commands to do things that are difficult or impossible with Make's somewhat limited set of functions. However, it's better to use native-Make functionality if you can, because it's faster and often significantly more readable. The example below shows the usage of the `shell` function:
 
-{{< file "makefile" >}}
+```file {title="makefile"}
 DATE := $(shell date --rfc-3339=seconds)
-{{< /file >}}
+```
 
 You can find the complete set of Make functions in [Section 8](https://www.gnu.org/software/make/manual/make.html#Functions) of the manual.
 
@@ -180,7 +180,7 @@ You can update a website by using a bare Git repository on the same server the h
 
 If Git finds an executable file called `/hooks/post-update` in its repository, it is run whenever that website is pushed to. The command line contains the names of all the refs pushed. The example post-update hook runs `make` in the website's directory when changes are pushed:
 
-{{< file "website.git/hooks/post-update" bash >}}
+```file {title="website.git/hooks/post-update"}
 #!/bin/bash
 # this hook is written assuming that `website.git` and `website` are
 # siblings, i.e. both are subdirectories of the same parent.
@@ -195,7 +195,7 @@ for ref in $*; do
         [[ -f ../website/makefile ]] && make -C ../website build
     fi
 done
-{{< /file >}}
+```
 
 The `-C` option in both Git and Make tells them to change to the indicated directory. Building on the server means that derived files, some of which can be large, don't have to be under Git control.
 
@@ -203,7 +203,7 @@ The `-C` option in both Git and Make tells them to change to the indicated direc
 
 If you're supporting more than one static site and builder on your server, you can use Make to give them all a uniform command-line interface. The example below contains a simple set of recipes for a Jekyll site. The site can be deployed by pushing either to GitHub Pages, or to a staging server that uses the hook shown in the previous section. The corresponding remotes are called `github` and `staging`.
 
-{{< file "website.git/hooks/post-update" bash >}}
+```file {title="website.git/hooks/post-update"}
 serve:                       # run a local server for initial testing
     jekyll serve
 
@@ -221,7 +221,7 @@ prod:
     git tag -a -m "pushed to production $$(date)"
     git push github production
     git checkout main
-{{< /file >}}
+```
 
 The recipe for `prod` automates all of the Git housekeeping around making a release. GitHub builds Jekyll pages and serves them automatically. The `staging` recipe uses the hook in the previous section to build a copy of the site on your Linode for further testing. This guide covers only a few of GNU Make's potential uses and features. Make's combination of declarative rules, filename and string-processing functions, and Shell scripting make it a versatile addition to any programmer's or system administrator's toolkit.
 

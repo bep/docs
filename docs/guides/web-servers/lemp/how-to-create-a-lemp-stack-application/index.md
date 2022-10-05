@@ -168,17 +168,17 @@ If you see this page, the nginx web server is successfully installed and working
 
 2.  With the default NGINX configuration verified, update it to enable PHP. Edit the file located at `/etc/nginx/sites-enable/default` and change this section:
 
-    {{< file "/etc/nginx/sites-enabled/default" nginx >}}
+    ```file {title="/etc/nginx/sites-enabled/default"}
 location / {
         # First attempt to serve request as file, then
         # as directory, then fall back to displaying a 404.
         try_files $uri $uri/ =404;
 }
-{{< /file >}}
+```
 
     To become:
 
-    {{< file "/etc/nginx/sites-enabled/default" nginx >}}
+    ```file {title="/etc/nginx/sites-enabled/default"}
 location / {
        # First attempt to serve request as file, then
        # as directory, then fall back to displaying a 404.
@@ -188,7 +188,7 @@ location ~ \.php {
        include snippets/fastcgi-php.conf;
        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;
 }
-{{< /file >}}
+```
 
 3.  Back at the Linux command line, activate this new configuration with:
 
@@ -196,11 +196,11 @@ location ~ \.php {
 
 4.  Next, ensure that NGINX communicates with PHP by creating the file `/var/www/html/php-test.php` with contents:
 
-    {{< file "/var/www/html/php-test.php" php >}}
+    ```file {title="/var/www/html/php-test.php"}
 <?php
 phpinfo();
 ?>
-{{< /file >}}
+```
 
 5.  Now direct your browser to `http://$LEMP_HOST/php-test.php`.
 
@@ -285,7 +285,7 @@ A polished application uses tighter security privileges, but this sample applica
 
 Create `/var/www/html/event.php` with the following content:
 
-{{< file "/var/www/html/event.php" php >}}
+```file {title="/var/www/html/event.php"}
 <?php
     $connection = new mysqli("127.0.0.1", "automation", "abc123", "model_application");
     $client_ip = $_SERVER['REMOTE_ADDR'];
@@ -296,7 +296,7 @@ VALUES(INET_ATON('$client_ip'))";
     $connection->query($query);
     echo 'Your request has successfully created one database record.';
 ?>
-{{< /file >}}
+```
 
 ### Verify Operation of the Application
 

@@ -164,14 +164,14 @@ Actions can be cancelled in MC by pressing the **ESC** key twice.
 
     Press **F9**, followed by **l** (L), then select the **SFTP link** menu entry. In the dialog box titled **SFTP to machine** enter `sftp://example@203.0.113.0`. Replace `example` with the username you have created on the remote machine and `203.0.113.1` with the IP address of your server. This will work only if the server at the other end accepts password logins. If you're logging in with SSH keys, then you'll first need to create and/or edit `~/.ssh/config`. It could look something like this:
 
-    {{< file "~/.ssh/config" aconf >}}
+    ```file {title="~/.ssh/config"}
 Host sftp_server
     HostName 203.0.113.1
     Port 22
     User your_user
     IdentityFile ~/.ssh/id_rsa
 
-{{< /file >}}
+```
 
 
     You can choose whatever you want as the **Host** value, it's only an identifier. **IdentityFile** is the path to your private SSH key.

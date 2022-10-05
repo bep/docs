@@ -87,7 +87,7 @@ Remember to perform these steps in a Lish or Glish session:
 
 2.  Open `/etc/update-manager/release-upgrades` and verify that the `Prompt` value is set to `lts`:
 
-    {{< file "/etc/update-manager/release-upgrades" >}}
+    ```file {title="/etc/update-manager/release-upgrades"}
 # Default behavior for the release upgrader.
 
 [DEFAULT]
@@ -106,7 +106,7 @@ Remember to perform these steps in a Lish or Glish session:
 #           determine if a newer release is available.
 Prompt=lts
 
-{{< /file >}}
+```
 
 
 3.  You're now ready to begin the upgrade to Ubuntu 16.04 LTS:

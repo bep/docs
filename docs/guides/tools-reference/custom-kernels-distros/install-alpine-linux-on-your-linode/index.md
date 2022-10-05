@@ -127,21 +127,21 @@ In this section, we will modify critical system files. It is recommended that yo
 
 1.  Configure your filesystem table (*fstab*), entering a single hard tab between each column. This file specifies how each disk is initialized or mounted into the overall filesystem:
 
-    {{< file "/alpine/etc/fstab" >}}
+    ```file {title="/alpine/etc/fstab"}
 /dev/sdb    /       ext4    defaults,noatime    0   0
 /dev/sda    /boot   ext4    defaults,noatime    0   1
 /dev/sdc    swap    swap    defaults    0   0
 
-{{< /file >}}
+```
 
 
 2.  Uncomment the line below to enable a serial console output. This gives you visibility over Lish when booting the installed system.
 
-    {{< file "/alpine/etc/inittab" >}}
+    ```file {title="/alpine/etc/inittab"}
 # Put a getty on the serial port
 ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100
 
-{{< /file >}}
+```
 
 
 3.  Create the GRUB 2 boot configuration directory:
@@ -150,7 +150,7 @@ ttyS0::respawn:/sbin/getty -L ttyS0 115200 vt100
 
     Create a new file, `grub.cfg` within this directory, and add the following contents. This file specifies configuration options for GRUB 2 to use during the boot process:
 
-    {{< file "/alpine/boot/grub/grub.cfg" >}}
+    ```file {title="/alpine/boot/grub/grub.cfg"}
 set root=(hd0)
 set default="Alpine Linux"
 set timeout=0
@@ -160,7 +160,7 @@ menuentry "Alpine Linux" {
     initrd /initramfs-vanilla
 }
 
-{{< /file >}}
+```
 
 
 4.  Create a `mkinitfs` directory:
@@ -169,10 +169,10 @@ menuentry "Alpine Linux" {
 
     Create a new file, `mkinitfs.conf`, within this directory and add the following contents. This file specifies options for building the initial RAM file system (*initramfs*):
 
-    {{< file "/alpine/etc/mkinitfs/mkinitfs.conf" >}}
+    ```file {title="/alpine/etc/mkinitfs/mkinitfs.conf"}
 features="ata ide scsi virtio base ext4"
 
-{{< /file >}}
+```
 
 
 5.  Copy the recovery system's `resolv.conf` file into `/alpine/etc`. Optionally, you can fill in your own choice of DNS resolvers.

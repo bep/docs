@@ -76,13 +76,13 @@ The Silver Searcher can be integrated with Vim via the [`ack.vim`](https://githu
 
 Once you have the plugin installed, add the following line somewhere in your `.vimrc` file after invoking the plugin:
 
-{{< file "~/.vimrc" vim >}}
+```file {title="~/.vimrc"}
 " [...]
 
 let g:ackprg = 'ag --vimgrep'
 
 " [...]
-{{< /file >}}
+```
 
 You can then use the Silver Searcher in Vim via the `:Ack` command. Simply provide your search options, pattern, and directory like you would when using the `ag` command from the command line.
 

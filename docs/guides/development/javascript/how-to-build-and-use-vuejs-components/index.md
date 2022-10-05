@@ -45,7 +45,7 @@ You can [download all of the example files for this guide here](how-to-build-and
 
 In your text editor on your computer, create a new file called `ratingcounter.html`. Then, paste in the content from this snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -56,7 +56,7 @@ var app = new Vue({
   el: '#app'
 })
 </script>
-{{< /file >}}
+```
 
 As this will be a simple VueJS application, the first thing we have to do is include the VueJS library in our document.
 
@@ -76,7 +76,7 @@ The component we’ll be developing is a simple reusable rating counter that wil
 
 In your `ratingcounter.html`, update the second `<script>` section (currently on lines 6-10 of your file) to include the `Vue.component()` function from lines 7-18 of this snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -100,7 +100,7 @@ var app = new Vue({
   el: '#app'
 })
 </script>
-{{< /file >}}
+```
 
 Let's go through each part of the component:
 
@@ -126,13 +126,13 @@ At this point, we’ve built our first component, but it won't be visible yet if
 
 Let's try the new component out. In your `ratingcounter.html`, update the `app` div as follows:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <div id="app">
    <rating-counter></rating-counter>
    <rating-counter></rating-counter>
    <rating-counter></rating-counter>
 </div>
-{{< /file >}}
+```
 
 This will render three rating counters which work independently from one another:
 
@@ -146,7 +146,7 @@ Awesome. Let's say however that we need to pass arguments from the parent applic
 
 1. In `ratingcounter.html`, update your `Vue.component()` declaration as follows:
 
-    {{< file "ratingcounter" html >}}
+    ```file {title="ratingcounter"}
 Vue.component('rating-counter', {
     props: ['title'],
     data() {
@@ -161,7 +161,7 @@ Vue.component('rating-counter', {
                     <button v-on:click="count++">Thumbs Up</button>
                 </div>`
 })
-{{< /file >}}
+```
 
     The `props` option has been added on line 2 of this snippet, and you can access its values from the template with the mustache syntax, just like a regular data parameter. In line 9 of this snippet, the reference to `{{ title }}` has been added to the template.
 
@@ -169,13 +169,13 @@ Vue.component('rating-counter', {
 
     In your `ratingcounter.html`, update the `app` div as follows:
 
-    {{< file "ratingcounter.html" >}}
+    ```file {title="ratingcounter.html"}
 <div id="app">
    <rating-counter title="Rating 1"></rating-counter>
    <rating-counter title="Rating 2"></rating-counter>
    <rating-counter title="Rating 3"></rating-counter>
 </div>
-{{< /file >}}
+```
 
 1. If you reload the file in your browser, you'll now see a title rendered for each component instance. Voila:
 
@@ -187,7 +187,7 @@ Just as a Vue component can keep track of data used in that component, the Vue a
 
 Replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -224,7 +224,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 Load the file in your browser and start clicking the buttons. You'll now see a label at the top of the page that counts up the total from each of your components:
 
@@ -251,7 +251,7 @@ Let's break down the updated parts of the file:
 
 Replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -288,7 +288,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 When loaded in a browser, the page should appear identical to the example in the previous section.
 
@@ -328,7 +328,7 @@ The most important feature of slots might be the ability to use components withi
 
 Replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -382,7 +382,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 We've created another component called `rating-title` to illustrate slot nesting. This component will wrap a title that you set inside a pair of `<h1>` tags:
 
@@ -404,7 +404,7 @@ To allow even more structure, you can use multiple slots in a template by using 
 
 Replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -458,7 +458,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 When loaded in a browser, the file will look like:
 
@@ -474,7 +474,7 @@ When loaded in a browser, the file will look like:
 
 For an example of how this works, replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -501,7 +501,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 When loaded in a browser, the file will look like:
 
@@ -523,7 +523,7 @@ How about if you want to pass a parameter with the event? We've got you covered.
 
 For an example of how this works, replace the contents of your `ratingcounter.html` with the following snippet:
 
-{{< file "ratingcounter.html" html >}}
+```file {title="ratingcounter.html"}
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 
 <div id="app">
@@ -552,7 +552,7 @@ new Vue({
     }
 })
 </script>
-{{< /file >}}
+```
 
 When loaded in a browser, the file will look like:
 

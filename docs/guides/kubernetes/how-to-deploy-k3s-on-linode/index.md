@@ -153,7 +153,7 @@ Here, you will test your K3s cluster with a simple NGINX website deployment.
 
 1.  On your K3s Server Linode, create a manifest file labeled `nginx.yaml`, open it with a text editor, and add the following text that describes a single-instance deployment of NGINX that is exposed to the public using a K3s service load balancer:
 
-    {{< file "nginx.yaml" >}}
+    ```file {title="nginx.yaml"}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -191,7 +191,7 @@ spec:
     app: nginx
   type: LoadBalancer
 
-{{< /file >}}
+```
 
 1.  Save and close the `nginx.yaml` file.
 

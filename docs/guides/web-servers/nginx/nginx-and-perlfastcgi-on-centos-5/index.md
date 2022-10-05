@@ -72,16 +72,16 @@ Issue the following commands to create virtual hosting directories:
 
 Add the following lines to your `/etc/nginx/nginx.conf` file, immediately after the line for `include /etc/nginx/conf.d/*.conf`:
 
-{{< file "/etc/nginx/nginx.conf" >}}
+```file {title="/etc/nginx/nginx.conf"}
 # Load virtual host configuration files.
 include /etc/nginx/sites-enabled/*;
 
-{{< /file >}}
+```
 
 
 Next, you'll need to define the site's virtual host file:
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -102,7 +102,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Issue the following commands to enable the site:
@@ -117,7 +117,7 @@ You may wish to create a test HTML page under `/srv/www/www.example.com/public_h
 
 First create the FastCGI wrapper script (credit: [Denis S. Filimonov](http://www.ruby-forum.com/topic/145858)) at `/usr/bin/fastcgi-wrapper.pl` with the following contents:
 
-{{< file "/usr/bin/fastcgi-wrapper.pl" perl >}}
+```file {title="/usr/bin/fastcgi-wrapper.pl"}
 #!/usr/bin/perl
 
 use FCGI;
@@ -218,12 +218,12 @@ sub request_loop {
         }
 }
 
-{{< /file >}}
+```
 
 
 Then create an init script to control the FastCGI process that matches the one shown below:
 
-{{< file "/etc/rc.d/init.d/perl-fastcgi" bash >}}
+```file {title="/etc/rc.d/init.d/perl-fastcgi"}
 #!/bin/sh
 #
 # nginx – this script starts and stops the nginx daemon
@@ -321,7 +321,7 @@ case "$1" in
         exit 2
     esac
 
-{{< /file >}}
+```
 
 
 Next issue the following commands to make the scripts executable and set the perl-fastcgi process to start on boot:
@@ -336,7 +336,7 @@ Next issue the following commands to make the scripts executable and set the per
 
 Create a file called "test.pl" in your site's "public\_html" directory with the following contents:
 
-{{< file "/srv/www/www.example.com/public\\_html/test.pl" perl >}}
+```file {title="/srv/www/www.example.com/public\\_html/test.pl"}
 #!/usr/bin/perl
 
 print "Content-type:text/html\n\n";
@@ -352,7 +352,7 @@ foreach $key (sort(keys %ENV)) {
 
 print "</body></html>";
 
-{{< /file >}}
+```
 
 
 Make the script executable by issuing the following command:

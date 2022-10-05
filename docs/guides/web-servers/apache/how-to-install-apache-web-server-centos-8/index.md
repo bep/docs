@@ -86,7 +86,7 @@ The Prefork Module is ideal for single threaded applications. It's a single pare
 
 1.  Add the following section to the `/etc/httpd/conf/httpd.conf` file in your text editor and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/httpd/conf/httpd.conf" aconf >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 <IfModule prefork.c>
         StartServers              5
         MinSpareServers           5
@@ -94,11 +94,11 @@ The Prefork Module is ideal for single threaded applications. It's a single pare
         MaxRequestWorkers         150
         MaxConnectionsPerChild    0
 </IfModule>
-{{</ file >}}
+```
 
 1.  On CentOS 8, the *event module* is enabled by default. Disable it, and enable the *prefork module* edit the `/etc/httpd/conf.modules.d/00-mpm.conf` file. Comment out the line for the event module and uncomment the line for the prefork module:
 
-    {{< file "/etc/httpd/conf.modules.d/00-mpm.conf" aconf>}}
+    ```file {title="/etc/httpd/conf.modules.d/00-mpm.conf"}
 # Select the MPM module which should be used by uncommenting exactly
 # one of the following LoadModule lines.  See the httpd.conf(5) man
 # page for more information on changing the MPM.
@@ -122,7 +122,7 @@ LoadModule mpm_prefork_module modules/mod_mpm_prefork.so
 # See: http://httpd.apache.org/docs/2.4/mod/event.html
 #
 #LoadModule mpm_event_module modules/mod_mpm_event.so
-{{</ file >}}
+```
 
 1.  Restart Apache:
 
@@ -134,7 +134,7 @@ The Worker Module is a hybrid Prefork, multi-threaded, multi-processor module. I
 
 1.  Add the following section to the `/etc/httpd/conf/httpd.conf` file in your text editor and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/httpd/conf/httpd.conf" conf >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 <IfModule worker.c>
         StartServers             2
         MinSpareThreads          25
@@ -144,11 +144,11 @@ The Worker Module is a hybrid Prefork, multi-threaded, multi-processor module. I
         MaxRequestWorkers        150
         MaxConnectionsPerChild   0
 </IfModule>
-{{</ file >}}
+```
 
 1.  On CentOS 8, the *event module* is enabled by default. Disable it, and enable the *worker module* edit the `/etc/httpd/conf.modules.d/00-mpm.conf` file. Comment out the line for the event module and uncomment the line for the worker module:
 
-    {{< file "/etc/httpd/conf.modules.d/00-mpm.conf" aconf>}}
+    ```file {title="/etc/httpd/conf.modules.d/00-mpm.conf"}
 # Select the MPM module which should be used by uncommenting exactly
 # one of the following LoadModule lines.  See the httpd.conf(5) man
 # page for more information on changing the MPM.
@@ -172,7 +172,7 @@ LoadModule mpm_worker_module modules/mod_mpm_worker.so
 # See: http://httpd.apache.org/docs/2.4/mod/event.html
 #
 #LoadModule mpm_event_module modules/mod_mpm_event.so
-{{</ file >}}
+```
 
 1.  Restart Apache:
 
@@ -184,7 +184,7 @@ The Event Module is similar to the Worker Module except each thread has a dedica
 
 1.  If you choose to keep the *event module* enabled, open `/etc/httpd/conf/httpd.conf` in your text editor, add this section to the end, and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/httpd/conf/httpd.conf" aconf >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 <IfModule event.c>
         StartServers             2
         MinSpareThreads          25
@@ -194,11 +194,11 @@ The Event Module is similar to the Worker Module except each thread has a dedica
         MaxRequestWorkers        150
         MaxConnectionsPerChild   0
 </IfModule>
-{{</ file >}}
+```
 
 1.  Be sure the *event module* is enabled. Edit the `/etc/httpd/conf.modules.d/00-mpm.conf` file. Comment out the lines for the prefork and worker modules and uncomment the line for the event module:
 
-    {{< file "/etc/httpd/conf.modules.d/00-mpm.conf" aconf>}}
+    ```file {title="/etc/httpd/conf.modules.d/00-mpm.conf"}
 # Select the MPM module which should be used by uncommenting exactly
 # one of the following LoadModule lines.  See the httpd.conf(5) man
 # page for more information on changing the MPM.
@@ -222,7 +222,7 @@ The Event Module is similar to the Worker Module except each thread has a dedica
 # See: http://httpd.apache.org/docs/2.4/mod/event.html
 #
 LoadModule mpm_event_module modules/mod_mpm_event.so
-{{</ file >}}
+```
 
 1.  Restart Apache:
 
@@ -239,13 +239,13 @@ Apache supports *name-based virtual hosting*, which allows you to host multiple 
 
 1.  Edit the `/etc/httpd/conf/httpd.conf` configuration file to tell Apache to look at these new directories for virtual hosts. Add the following line:
 
-    {{< file "/etc/httpd/conf/httpd.conf" aconf >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 IncludeOptional sites-enabled/*.conf
-{{</ file >}}
+```
 
 1.  Create an `example.com.conf` file in `/etc/httpd/sites-available` with your text editor, replacing instances of `example.com` with your own domain URL in both the configuration file and in the file name:
 
-    {{< file "/etc/httpd/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/httpd/sites-available/example.com.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.com
      ServerName example.com
@@ -254,7 +254,7 @@ IncludeOptional sites-enabled/*.conf
      ErrorLog /var/www/example.com/logs/error.log
      CustomLog /var/www/example.com/logs/access.log combined
 </VirtualHost>
-{{</ file >}}
+```
 
     Repeat this process for any other domains you host.
 
@@ -277,7 +277,7 @@ IncludeOptional sites-enabled/*.conf
 
 1.  Create a simple page for your `index.html`.
 
-    {{< file "/var/www/example.com/public_html/index.html" html >}}
+    ```file {title="/var/www/example.com/public_html/index.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -287,7 +287,7 @@ IncludeOptional sites-enabled/*.conf
         <h1>Hello World! This is my sample website with Apache on CentOS!</h1>
     </body>
 </html>
-{{</ file >}}
+```
 
 1.  Configure SELinux policies on the log directory for each virtual host. This will allow Apache to create and write to the log files. The `restorecon` command applies this setting and persists after a reboot:
 

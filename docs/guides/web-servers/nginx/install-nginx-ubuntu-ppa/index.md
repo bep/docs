@@ -21,9 +21,9 @@ These steps install NGINX Mainline on Ubuntu from NGINX Inc's official repositor
 
 1.  Open `/etc/apt/sources.list` in a text editor and add the following line to the bottom. Replace `CODENAME` in this example with the codename of your Ubuntu release. For example, for Ubuntu 18.04, named Bionic Beaver, insert `bionic` in place of `CODENAME` below:
 
-    {{< file "/etc/apt/sources.list" >}}
+    ```file {title="/etc/apt/sources.list"}
 deb http://nginx.org/packages/mainline/ubuntu/ CODENAME nginx
-{{< /file >}}
+```
 
 2.  Import the repository's package signing key and add it to `apt`:
 

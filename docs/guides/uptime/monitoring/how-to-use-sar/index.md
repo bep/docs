@@ -39,7 +39,7 @@ The open-source sar program is frequently used, but it's not included in most Li
 
 1. Sar must be enabled before it can begin to collect data. Using your preferred text editor, open the `/etc/default/sysstat` configuration file, and change the value of `ENABLED` to `true`.
 
-    {{< file "/etc/default/sysstat" >}}
+    ```file {title="/etc/default/sysstat"}
 #
 # Default settings for /etc/init.d/sysstat, /etc/cron.d/sysstat
 # and /etc/cron.daily/sysstat files
@@ -49,7 +49,7 @@ The open-source sar program is frequently used, but it's not included in most Li
 # are "true" and "false". Please do not put other values, they
 # will be overwritten by debconf!
 ENABLED="true"
-{{</ file >}}
+```
 
 
 1. Other sar configuration data is kept in the files `/etc/cron.d/sysstat` and `/etc/sysstat/sysstat`. The defaults should work well for you, but at some point you may want to change them. You can modify these files to update your settings. View your current sar settings to verify that the default values work for your desired configuration:
@@ -60,7 +60,7 @@ ENABLED="true"
 
     A typical `/etc/cron.d/sysstat` file resembles the following example:
 
-    {{< file "/etc/cron.d/sysstat" >}}
+    ```file {title="/etc/cron.d/sysstat"}
 # The first element of the path is a directory where the debian-sa1
 # script is located
 PATH=/usr/lib/sysstat:/usr/sbin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -70,15 +70,15 @@ PATH=/usr/lib/sysstat:/usr/sbin:/usr/sbin:/usr/bin:/sbin:/bin
 
 # Additional run at 23:59 to rotate the statistics file
 59 23 * * * root command -v debian-sa1 > /dev/null && debian-sa1 60 2
-{{</ file >}}
+```
 
     The most commonly modified variable is the frequency setting for how often sar runs. It is controlled by the line:
 
-    {{< file "/etc/cron.d/sysstat" >}}
+    ```file {title="/etc/cron.d/sysstat"}
 ...
 5-55/10 * * * * root command -v debian-sa1 > /dev/null && debian-sa1 1 1
 ...
-{{</ file >}}
+```
 
     By default, the `debian-sa1` script runs every 10 minutes and collects sar data for historical reference. This data is written to the `/var/log/sysstat/saXX` file, where `XX` is the day of the month. For example, if today is the 24th day of the month, `sa1` writes the sar data to `/var/log/sysstat/sa24`. To change the logging frequency to one minute, change `5-55/10` to `5-55/1`. To make it 2 minutes, change it to `5/55/2`, and so on.
 

@@ -101,12 +101,12 @@ You will be required to set up a **main** configuration file titled `tinc.conf` 
 
 1.  Let's start with the application server's file:
 
-    {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = appserver
 Device = /dev/net/tun
 AddressFamily = ipv4
 
-{{< /file >}}
+```
 
     * `Name` - This is a daemon-specific name within the VPN. It should be unique.
     * `Device` - Determines the virtual network to use. Tinc will automatically detect what kind of device you are using.
@@ -114,13 +114,13 @@ AddressFamily = ipv4
 
 2.  Now you need to generate the database server's configuration file:
 
-    {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = dbserver
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = appserver
 
-{{< /file >}}
+```
 
     `ConnectTo` - This value points to the tinc daemon you want to connect. When it's not present (like in the previous file), tinc enters listening mode and waits for connections.
 
@@ -130,20 +130,20 @@ You can customize tinc behavior with many other parameters in the configuration 
 
 3.  Create the **hosts** configuration file. Because tinc is built using a peer-to-peer model each node needs to communicate with the others. The basic host file for the application server is:
 
-    {{< file "/etc/tinc/linodeVPN/hosts/appserver" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/hosts/appserver"}
 Address = 11.11.11.11
 Subnet = 192.168.100.209
 
-{{< /file >}}
+```
 
 
 4.  Similarly, create a host file for Database Server:
 
-    {{< file "/etc/tinc/linodeVPN/hosts/dbserver" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/hosts/dbserver"}
 Address = 22.22.22.22
 Subnet = 192.168.100.130
 
-{{< /file >}}
+```
 
 
 5.  Add the public key of each node. tinc can create the key pair using the following command:
@@ -166,46 +166,46 @@ Control scripts are responsible for setting up virtual interfaces on each server
 
 1.  From the application server, create the following file to enable the tinc interface:
 
-    {{< file "/etc/tinc/linodeVPN/tinc-up" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-up"}
 #!/bin/sh
 ip link set $INTERFACE up
 ip addr add 192.168.100.209 dev $INTERFACE
 ip route add 192.168.100.0/24 dev $INTERFACE
 
-{{< /file >}}
+```
 
 
     Create a script to disable the interface:
 
-    {{< file "/etc/tinc/linodeVPN/tinc-down" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-down"}
 #!/bin/sh
 ip route del 192.168.100.0/24 dev $INTERFACE
 ip addr del 192.168.100.209 dev $INTERFACE
 ip link set $INTERFACE down
 
-{{< /file >}}
+```
 
 
 2.  Create a similar set of scripts on the database server:
 
-    {{< file "/etc/tinc/linodeVPN/tinc-up" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-up"}
 #!/bin/sh
 ip link set $INTERFACE up
 ip addr add 192.168.100.130 dev $INTERFACE
 ip route add 192.168.100.0/24 dev $INTERFACE
 
-{{< /file >}}
+```
 
 
     Add a shutdown script:
 
-    {{< file "/etc/tinc/linodeVPN/tinc-down" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-down"}
 #!/bin/sh
 ip route del 192.168.100.0/24 dev $INTERFACE
 ip addr del 192.168.100.130 dev $INTERFACE
 ip link set $INTERFACE down
 
-{{< /file >}}
+```
 
 
 3.  After creating the control scripts, you will need to change the permissions on both servers:
@@ -216,7 +216,7 @@ ip link set $INTERFACE down
 
 In order to run tinc as a service on startup, you'll need to set up a systemd unit file for each server. Edit the following file on both the application and database servers.
 
-{{< file "/etc/systemd/system/tinc.service" >}}
+```file {title="/etc/systemd/system/tinc.service"}
 [Unit]
 Description=Tinc net linodeVPN
 After=network.target
@@ -233,7 +233,7 @@ RestartSec=60
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 {{< note >}}
@@ -308,23 +308,23 @@ The cheat sheet for this topology is:
 
 2.  The main configuration file for this instance would be:
 
-    {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = webserver
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = appserver
 ConnectTo = dbserver
 
-{{< /file >}}
+```
 
 
 3.  Edit the host file:
 
-    {{< file "/etc/tinc/linodeVPN/hosts/webserver" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/hosts/webserver"}
 Address = 33.33.33.33
 Subnet = 192.168.100.140
 
-{{< /file >}}
+```
 
 
 4.  This time increase the security level on the encryption keys:
@@ -337,23 +337,23 @@ Subnet = 192.168.100.140
 
 6.  Add control scripts:
 
-    {{< file "/etc/tinc/linodeVPN/tinc-up" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-up"}
 #!/bin/sh
 ip link set $INTERFACE up
 ip addr add 192.168.100.140 dev $INTERFACE
 ip route add 192.168.100.0/24 dev $INTERFACE
 
-{{< /file >}}
+```
 
 
 
-    {{< file "/etc/tinc/linodeVPN/tinc-down" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc-down"}
 #!/bin/sh
 ip route del 192.168.100.0/24 dev $INTERFACE
 ip addr del 192.168.100.140 dev $INTERFACE
 ip link set $INTERFACE down
 
-{{< /file >}}
+```
 
 
 7.  Change permissions:
@@ -362,7 +362,7 @@ ip link set $INTERFACE down
 
 8.  The systemd unit file on this server will be identical to the previous servers:
 
-    {{< file "/etc/systemd/system/tinc.service" aconf >}}
+    ```file {title="/etc/systemd/system/tinc.service"}
 [Unit]
 Description=Tinc net linodeVPN
 After=network.target
@@ -379,7 +379,7 @@ RestartSec=60
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 9.  The last step is to interchange host files between all nodes. You will need to copy the application and database server's host files to the web server, and web server's host file to the application and database servers.
@@ -405,23 +405,23 @@ WantedBy=multi-user.target
 
 10.  Finally, modify the `tinc.conf` file on `appserver` and `dbserver`. The new configuration files need to tell tinc to look for other nodes:
 
-    {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = appserver
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = dbserver
 ConnectTo = webserver
 
-{{< /file >}}
+```
 
-    {{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+    ```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = dbserver
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = appserver
 ConnectTo = webserver
 
-{{< /file >}}
+```
 
 11.  Now you can start the tinc service on the webserver:
 
@@ -452,40 +452,40 @@ The configuration file `tinc.conf` on Linodes 1, 2, and 3 should point only to L
 
 **Linode1:**
 
-{{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = linode1
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
 
-{{< /file >}}
+```
 
 
 **Linode2:**
 
-{{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = linode2
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
 
-{{< /file >}}
+```
 
 
 **Linode3:**
 
-{{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = linode3
 Device = /dev/net/tun
 AddressFamily = ipv4
 ConnectTo = linodeHQ
 
-{{< /file >}}
+```
 
 
 **The central server:**
 
-{{< file "/etc/tinc/linodeVPN/tinc.conf" aconf >}}
+```file {title="/etc/tinc/linodeVPN/tinc.conf"}
 Name = linodeHQ
 Device = /dev/net/tun
 AddressFamily = ipv4
@@ -493,5 +493,5 @@ ConnectTo = linode1
 ConnectTo = linode2
 ConnectTo = linode3
 
-{{< /file >}}
+```
 

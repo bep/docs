@@ -191,7 +191,7 @@ Do not complete this section as the root user. Before proceeding, fully evaluate
 You can find a sample file containing all the configuration options in the example `/etc/cassandra/conf/cqlshrc.sample` file.
     {{</ note >}}
 
-    {{< file "~/.cassandra/cqlshrc" aconf >}}
+    ```file {title="~/.cassandra/cqlshrc"}
 
 ;; Options that are common to both COPY TO and COPY FROM
 
@@ -223,7 +223,7 @@ float_precision = 5
 ;; The encoding used for characters
 encoding = utf8
 
-{{< /file >}}
+```
 
 
 1.  Save and close the file.
@@ -292,11 +292,11 @@ If you receive connection errors when running `nodetool status`, you may need to
 
 1.  Search for `-Djava.rmi.server.hostname=` in the file. Uncomment this line and add your loopback address or public IP address by replacing `<public name>` at the end of the line:
 
-    {{< file "/etc/cassandra/conf/cassandra-env.sh" bash >}}
+    ```file {title="/etc/cassandra/conf/cassandra-env.sh"}
 . . .
 JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"
 . . .
-{{< /file >}}
+```
 
 1.  Restart Cassandra after you've finished updating the `cassandra-env.sh` file:
 

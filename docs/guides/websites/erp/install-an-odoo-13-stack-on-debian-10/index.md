@@ -141,10 +141,10 @@ Linode can configure your new private address for you through the [Network Helpe
 
 - **PostgreSQL database server**:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.1.1       postgresql.yourdomain.com   postgresql
 192.0.2.2       odoo.yourdomain.com       odoo
-{{< /file >}}
+```
 
     {{< note >}}
 Use the public or private IP address of your **Odoo application server** on the second line of the above file snippet.
@@ -152,10 +152,10 @@ Use the public or private IP address of your **Odoo application server** on the 
 
 - **Odoo 13 application server**:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.1.1       odoo.yourdomain.com       odoo
 192.0.2.3       postgresql.yourdomain.com   postgresql
-{{< /file >}}
+```
 
     {{< note >}}
 Use the public or private IP address of your **PostgreSQL database server** on the second line of the above file snippet.
@@ -192,9 +192,9 @@ The options used are described below:
 
 1. Edit the `pg_hba.conf` file to allow PostgreSQL Linode to communicate with the Odoo Linode server. Add the following line to the file:
 
-    {{< file "/etc/postgresql/11/main/pg_hba.conf" conf >}}
+    ```file {title="/etc/postgresql/11/main/pg_hba.conf"}
 host    all             odoo             odoo.yourdomain.com            md5
-{{< /file >}}
+```
 
 This line grants the `odoo` user the rights connect to `all` databases within this server.
 
@@ -210,10 +210,10 @@ The settings in the `pg_hba.conf` file are:
 
 Edit `postgresql.conf` to allow the database server to listen to remote connections:
 
-{{< file "/etc/postgresql/11/main/postgresql.conf" conf >}}
+```file {title="/etc/postgresql/11/main/postgresql.conf"}
 #From CONNECTIONS AND AUTHENTICATION Section
 listen_addresses = '*'
-{{< /file >}}
+```
 
 The `listen_addresses` setting lists the IP addresses to listen on. The `'*'` wildcard means that the server listens to all IP addresses. You can limit this to only include the IP addresses that you consider safe.
 
@@ -323,7 +323,7 @@ Let's review the virtual environment creation:
 
 1. Modify the configuration file. The complete file should look similar to the following, depending on your deployment needs:
 
-    {{< file "/etc/odoo-server.conf" conf >}}
+    ```file {title="/etc/odoo-server.conf"}
 [options]
 admin_passwd = admin
 db_host = postgresql.yourdomain.com
@@ -332,7 +332,7 @@ db_user = odoo
 db_password = odoo_password
 addons_path = /opt/odoo/addons
 xmlrpc_port = 8069
-{{< /file >}}
+```
 
 * `admin_passwd`: The password that allows administrative operations within Odoo GUI. Be sure to change `admin` to something more secure.
 * `db_host`: The **postgresql** FQDN.
@@ -346,7 +346,7 @@ xmlrpc_port = 8069
 
 Create a systemd unit called `odoo-server` to allow your application to behave as a service. Create a new file at `/lib/systemd/system/odoo-server.service` and add the following, replace `/home/<user>` with the directory where you setup your virtual Python environment:
 
-{{< file "/lib/systemd/system/odoo-server.service" shell >}}
+```file {title="/lib/systemd/system/odoo-server.service"}
 [Unit]
 Description=Odoo Open Source ERP and CRM
 
@@ -362,7 +362,7 @@ StandardOutput=journal+console
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 ### Change File Ownership and Permissions
 
@@ -469,12 +469,12 @@ Our [Use NGINX as a Reverse Proxy](/docs/guides/use-nginx-reverse-proxy/) guide 
 
 If you proceed with setting up the reverse proxy, you should also add these lines to your `/etc/odoo-server.conf` Odoo server configuration file:
 
-{{< file "/etc/odoo-server.conf" >}}
+```file {title="/etc/odoo-server.conf"}
 ; Append directly below the other lines in the file:
 proxy_mode = True
 xmlrpc_interface = 127.0.0.1
 netrpc_interface = 127.0.0.1
-{{< /file >}}
+```
 
 These lines ensure the Odoo server that's running on port 8069 only responds on localhost. As well, the `proxy_mode` directive makes the Odoo server compatible with your web server reverse proxy.
 

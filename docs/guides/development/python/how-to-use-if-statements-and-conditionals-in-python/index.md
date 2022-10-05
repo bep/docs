@@ -95,14 +95,14 @@ When the Python interpreter encounters the `if` keyword, it evaluates the `boole
 
 The examples in this section demonstrate how to use the Python `if` command. The value of `temperature` is initially set to `75`. Inside the `if` statement, Python analyzes the Boolean expression, `temperature > 65` and decides it is `True`. Because the expression is `True`, Python executes the code block, which consists of two `print` statements. If the code block required more instructions, they would also be indented.
 
-{{< file "if_temp1.py" python >}}
+```file {title="if_temp1.py"}
 temperature = 75
 print("The temperature is: ", temperature)
 if temperature > 65:
     print("This is a nice day.")
     print("You should go outside.")
 print("End of program")
-{{< /file >}}
+```
 
     python3 if_temp1.py
 
@@ -115,13 +115,13 @@ End of program
 
 The second example illustrates what happens when the conditional is `False`. The value of `temperature` is now only `55`, so the conditional expression evaluates to `False`. The conditional statement is not satisfied, the code block is not executed, and the statement about the nice day is not printed. The control flow passes directly to the final line of the program, which prints `End of program`.
 
-{{< file "if_temp2.py" python >}}
+```file {title="if_temp2.py"}
 temperature = 55
 print("The temperature is: ", temperature)
 if temperature > 65:
     print("This is a nice day.")
 print("End of program")
-{{< /file >}}
+```
 
     python3 if_temp2.py
 
@@ -138,12 +138,12 @@ Python evaluates the entire expression, including the `not` operator, to determi
 
 In this example, the `if not` conditional is only true when `officer` is not set to `Detective`. The comparison `officer == "Detective"` is `False`. `not(officer == "Detective")` is therefore `True`. Python runs the code block and prints the line `the detective is not here`.
 
-{{< file "ifnot1.py" python >}}
+```file {title="ifnot1.py"}
 officer = "Constable"
 if not(officer == "Detective"):
     print("The detective is not here.")
 print("End of program")
-{{< /file >}}
+```
 
     python3 ifnot1.py
 
@@ -154,12 +154,12 @@ End of program
 
 In this case, `officer` is set to `detective`. `officer == "Detective"` is `True` and `not(officer == "Detective")` is `False`. Python does not run the code block, and `End of program` is printed.
 
-{{< file "ifnot2.py" python >}}
+```file {title="ifnot2.py"}
 officer = "Detective"
 if not(officer == "Detective"):
     print("The detective is not here.")
 print("End of program")
-{{< /file >}}
+```
 
     python3 ifnot2.py
 
@@ -173,13 +173,13 @@ A conditional can be built up into a complex compound expression involving sever
 
 In this example, the code block associated with the `if` statement is only executed if two conditions are both true. The program uses a logical `and` expression to verify both expressions are `True`. Brackets are used to pre-calculate both inputs for the `and` operator. The line `This is a nice day and the detective is not here` is only printed when both prerequisites are satisfied. If either condition is `False`, the line is not printed.
 
-{{< file "if_and.py" python >}}
+```file {title="if_and.py"}
 temperature = 75
 officer = "Constable"
 if (temperature > 65) and (not(officer == "Detective")):
     print("This is a nice day and the detective is not here.")
 print("End of program")
-{{< /file >}}
+```
 
     python3 if_and.py
 
@@ -205,7 +205,7 @@ The Python interpreter evaluates the `boolean_expression` associated with the `i
 
 The following example modifies the original `if_temp2.py` file to add an `else` clause. If the value of `temperature` satisfies the conditional clause, the `if` code block is executed. However, if `temperature` falls too low, the conditional statement becomes `False`. In this case, an alternative statement about colder weather is printed. In this example, `temperature` is only `55`. The conditional statement `temperature > 65` is not satisfied, so the control flow falls through to the `else` block. Python prints the line `The weather is too cold"`.
 
-{{< file "ifelse_temp.py" python >}}
+```file {title="ifelse_temp.py"}
 temperature = 55
 print("The temperature is: ", temperature)
 if temperature > 65:
@@ -213,7 +213,7 @@ if temperature > 65:
 else:
     print("The weather is too cold")
 print("End of program")
-{{< /file >}}
+```
 
     python3 ifelse_temp.py
 
@@ -246,7 +246,7 @@ The `ifelse_temp.py` file from the previous section can be modified to include a
 
 In the first example, a `temperature` of `55` fails the first conditional test because it is less than `65`. However, being greater than `50`, it satisfies the `elif` conditional. Therefore, the line `This is an okay day` is printed.
 
-{{< file "ifelif_temp.py" python >}}
+```file {title="ifelif_temp.py"}
 temperature = 55
 print("The temperature is: ", temperature)
 if temperature > 65:
@@ -256,7 +256,7 @@ elif temperature > 50:
 else:
     print("The weather is too cold")
 print("End of program")
-{{< /file >}}
+```
 
     python3 ifelif_temp.py
 
@@ -268,7 +268,7 @@ End of program
 
 In a follow-up run, the temperature is set to `40`. Now both the `if` and `elif` conditionals evaluate to `False`. The control flow falls through to the `else` code block, where `The weather is too cold` is printed.
 
-{{< file "ifelif2_temp.py" python >}}
+```file {title="ifelif2_temp.py"}
 temperature = 40
 print("The temperature is: ", temperature)
 if temperature > 65:
@@ -278,7 +278,7 @@ elif temperature > 50:
 else:
     print("The weather is too cold")
 print("End of program")
-{{< /file >}}
+```
 
     python3 ifelif2_temp.py
 

@@ -79,7 +79,7 @@ By default, forwarding is disabled on most Linux systems. To configure Linux as 
 
 1.  Find the line corresponding with the type of forwarding you wish to enable, uncomment it, and set the value to `1`. Alternatively, you can add the lines anywhere in the file.
 
-    {{< file "/etc/sysctl.conf" >}}
+    ```file {title="/etc/sysctl.conf"}
 ...
 ## Configure IPv4 forwarding
 net.ipv4.ip_forward = 1
@@ -87,7 +87,7 @@ net.ipv4.ip_forward = 1
 ## Configure IPv6 forwarding
 net.ipv6.conf.all.forwarding = 1
 ...
-{{</ file >}}
+```
 
 1.  After the changes have been saved, apply the changes by running the following command or by rebooting the machine.
 
@@ -145,12 +145,12 @@ The last step is to manually adjust the network configuration settings for each 
 
 1.  Within this file, adjust the parameter that defines the gateway for the VLAN interface. The value should be set to the IP address assigned to the *router's* VLAN interface, such as `10.0.2.1` if you've used the example in this guide. For a system running [ifupdown](/docs/guides/ifupdown/) on Debian 10, you can add the gateway parameter in the location shown in the example below.
 
-    {{< file "/etc/network/interfaces" >}}
+    ```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet static
     address 10.0.2.2/24
     gateway 10.0.2.1
-{{</ file >}}
+```
 
 1.  After those settings have been saved, restart the Compute Instance or run the corresponding command to apply the changes. Continuing to use [ifupdown](/docs/guides/ifupdown/) as an example, run the command below to apply the new network configuration settings.
 

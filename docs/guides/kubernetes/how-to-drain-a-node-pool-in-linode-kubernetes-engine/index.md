@@ -53,7 +53,7 @@ If you remove the resources afterward, you are only billed for the hour(s) that 
 
 1.  Create a *Persistent Volume Claim* (PVC) that consumes a Block Storage Volume. To create a PVC, create a manifest file with the following YAML:
 
-    {{< file "pvc.yaml" yaml >}}
+    ```file {title="pvc.yaml"}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -65,7 +65,7 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: linode-block-storage-retain
-{{</ file >}}
+```
 
     {{< note >}}
   To retain the Block Storage Volume and its data, even after the associated PVC is deleted, use the `linode-block-storage-retain` StorageClass. If, instead, you prefer to have the Block Storage Volume and its data deleted along with its PVC, use the `linode-block-storage` StorageClass. For more information, see the [Delete a Persistent Volume Claim](/docs/kubernetes/deploy-volumes-with-the-linode-block-storage-csi-driver/#delete-a-persistent-volume-claim).
@@ -91,7 +91,7 @@ spec:
 
 1.  Create a manifest file for the new Pod using the following YAML, where `application` is using local storage at `$MOUNTPATH`, `pvc-test` is a Persistent Volume Claim at `$CSIVolumePath`:
 
-      {{< file "new-pod.yaml" yaml >}}
+      ```file {title="new-pod.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -111,7 +111,7 @@ metadata:
         mountPath: $MOUNTPATH
       - name: pvc-test
         mountPath: $CSIVolumePath
-{{</ file >}}
+```
 
 1.  Create a new Pod named `new-pod`:
 

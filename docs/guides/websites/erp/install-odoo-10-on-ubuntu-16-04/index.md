@@ -154,7 +154,7 @@ While wkhtmltopdf version 0.12.2.4 is available in the official Ubuntu 16.04 rep
 
 2.  Next, modify the configuration file. The complete file should look similar to this, depending on your deployment needs:
 
-    {{< file "/etc/odoo-server.conf" conf >}}
+    ```file {title="/etc/odoo-server.conf"}
 [options]
 admin_passwd = admin
 db_host = False
@@ -166,7 +166,7 @@ addons_path = /opt/odoo/addons
 ;logfile = /var/log/odoo/odoo-server.log
 xmlrpc_port = 8069
 
-{{< /file >}}
+```
 
 *  `admin_passwd = admin` - This is the password that allows database operations. Be sure to change `admin` to something more secure.
 *  `db_host = False` - Unless you plan to connect to a different database server address, leave this line untouched.
@@ -185,7 +185,7 @@ As explained in the [Configure Logs](#configure-logs) section, you have many opt
 
 Create a systemd unit called `odoo-server` to allow your application to behave as a service. Create a new file at `/lib/systemd/system/odoo-server.service` and add the following contents:
 
-{{< file "/lib/systemd/system/odoo-server.service" shell >}}
+```file {title="/lib/systemd/system/odoo-server.service"}
 [Unit]
 Description=Odoo Open Source ERP and CRM
 Requires=postgresql.service
@@ -204,7 +204,7 @@ StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 The most relevant line in this file is `StandardOutput=journal+console`. As configured in the example above, Odoo logs will be completely managed by the system journal (Option 2 in the [Configure Logs](#configure-logs) section). If you want a separate log file, omit that line and configure `odoo-server.conf` accordingly, specifying the location of your log file. Remember that `journald` will always capture main Odoo service activity (service start, stop, reboot, errors), using a separate log file will only exclude journal "info" messages like webserver messages, rendering engine, etc.
@@ -334,7 +334,7 @@ The advantage of using the same server is that all dependencies have already bee
 
 2.  Modify the configuration file. There are several small changes from the previous installation, including the inclusion of `logfile` and a specified communication port:
 
-    {{< file "/etc/odoo-server-te.conf" conf >}}
+    ```file {title="/etc/odoo-server-te.conf"}
 [options]
 admin_passwd = admin
 db_host = False
@@ -345,12 +345,12 @@ addons_path = /opt/odoo-te/addons
 logfile = /var/log/odoo-te/odoo-server-te.log
 xmlrpc_port = 8080
 
-{{< /file >}}
+```
 
 
 3.  Create a systemd unit for the Odoo testing environment. This allows you to run it as an independent service:
 
-    {{< file "/lib/systemd/system/odoo-server-te.service" shell >}}
+    ```file {title="/lib/systemd/system/odoo-server-te.service"}
 [Unit]
 Description=Odoo Open Source ERP and CRM (Test Env)
 Requires=postgresql.service
@@ -368,7 +368,7 @@ WorkingDirectory=/opt/odoo-te/
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 ### Change File Ownership and Permissions

@@ -119,7 +119,7 @@ quit
 
 3.  Open the new example.com configuration file in your text editor. Create a configuration file with the example content. Replace *example.com* with your domain in both the file name and in the contents of the file:
 
-    {{< file "/etc/nginx/sites-available/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com.conf"}
 server {
     listen         80;
     listen         [::]:80;
@@ -138,7 +138,7 @@ server {
       fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
     }
 }
-{{< /file >}}
+```
 
     Here's a breakdown of the `server` block above:
 
@@ -191,7 +191,7 @@ If you configured UFW on your server, enable the firewall to allow web traffic.
 
 4.  Create a test page to verify NGINX can render PHP and connect to the MariaDB database. Replace the `"testuser"` and `"password"` fields with the MariaDB credentials you created above.
 
-    {{< file "/var/www/html/example.com/public_html/test.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/test.php"}
 <html>
 <head>
     <h2>LEMP Stack Test</h2>
@@ -216,7 +216,7 @@ If you configured UFW on your server, enable the firewall to allow web traffic.
 </body>
 </html>
 
-{{< /file >}}
+```
 
 5.  Go to `http://example.com/test.php` in a web browser. It should report that *You have connected successfully*.
 

@@ -80,7 +80,7 @@ It is important not to overextend this practice. Too many small, single-method c
 
 In the example below, the `City` class stores information about a city, including its latitude, longitude, and time zone. This information is all related, so it satisfies the single-responsibility principle. However, to make it quick and easy to print the city details, the designer adds a `print` method to the class. Unfortunately, this method has to know everything about the default printer and how to set it up.
 
-{{< file "city.py" python >}}
+```file {title="city.py"}
 
 class City:
 def __init__(self, latitude, longitude, country, timezone, population):
@@ -91,13 +91,13 @@ def printToFile(self, file):
 
 def printToStdOut(self, method):
 # Print using `print` function
-{{< /file >}}
+```
 
 At first, the class might not seem too diffuse. However, any time a new print method is added or updated, the class must change. It also has to change if the default file is changed, if new formatting characteristics are required, or if logging is required. The `City` class should not know anything about printing. In fact, this violates the Single-Responsibility Principle. Changes to either the print specification or the city specification necessitate changes to the `City` class.
 
 To solve this issue, move the print functions to their own `Printer` class. The `print` function in `City` becomes a wrapper to the actual functions in `Printer`. (Another solution is to have the client collect the city data and pass it to the `print` method of a `Printer` object). A real-world class for printing would be much more detailed and include a more sophisticated interface. However, this example demonstrates how both classes now have a single core responsibility. Changes to the printing mechanism only affect the `Printer` class. Changes to the city definition can only affect the `City` class. The city information is printed using the `print` method from the `Printer` object's interface.
 
-{{< file "city.py" python >}}
+```file {title="city.py"}
 
 class City:
 def __init__(self, latitude, longitude, country, timezone, population):
@@ -112,9 +112,9 @@ def print(self, file, method):
     cityString = self.getCityAttributesString()
     ptr = Printer(file, method)
     rc = ptr.print(cityString)
-{{< /file >}}
+```
 
-{{< file "printer.py" python >}}
+```file {title="printer.py"}
 
 class Printer:
 def __init__(self, file, method):
@@ -128,7 +128,7 @@ def printToFile(self, data):
 
 def printToStdOut(self, data):
     # Print using `print` function
-{{< /file >}}
+```
 
 ### Open-Closed Principle
 
@@ -148,7 +148,7 @@ Although this goal is definitely worth striving for, it might be difficult to al
 
 As an example, assume the specification of the `Printer` class from the last example has to change. The user can now choose between regular and fancy printing. It might seem easy and trivial to add a new parameter to the `print` method and add some conditional logic to the code. With the change, the class might read like the following:
 
-{{< file "printer.py" python >}}
+```file {title="printer.py"}
 
 class Printer:
 def __init__(self, file, method):
@@ -163,11 +163,11 @@ def printToFile(self, city):
 
 def printToStdOut(self, city):
     # Print using `print` function
-{{< /file >}}
+```
 
 Unfortunately, the interface has to change to accept the new parameter. This might also affect other functions using this code. One way to fix this is to create a wrapper function named `fancyPrint`. This function can implement the new functionality and then either call the original `print` function or invoke a newly-created function for the actual printing.
 
-{{< file "printer.py" python >}}
+```file {title="printer.py"}
 
 class Printer:
 def __init__(self, file, method):
@@ -184,7 +184,7 @@ def printToFile(self, city):
 
 def printToStdOut(self, city):
     # Print using `print` function
-{{< /file >}}
+```
 
 Unlike some of the guidelines, the Open-Closed Principle can usually be satisfied using a variety of approaches. Another alternative is to have a `FancyPrinter` class that extends `Printer` and implements its own `print` function. Unfortunately, overriding too much behavior from a parent class can also cause problems. `fancyPrint` could also be added to `fancyPrinter` rather than the base class, but this means it is not available to other subclasses derived from `Printer`. Factors including the degree of difference between "fancy printing" and regular printing and whether other subclasses might use this function could influence this decision.
 
@@ -218,7 +218,7 @@ Some advantages of following the Liskov substitution principle include the follo
 
 A violation of the `City` class from the first section occurs when the class is extended through the `CityAntipode` subclass. The antipode is the point on the globe directly opposite the actual city. At first glance, it might make sense for this to be a subclass. It has a latitude and longitude, for instance. And it is possible, although not easy, to figure out its time zone. However, it does not necessarily belong to any country. It does not have a population. So the implementation would have to override the base class constructor to set these values to an empty string. It might have to override the `setCountry` function to silently return a positive result without changing the value.
 
-{{< file "cityAntipode.py" python >}}
+```file {title="cityAntipode.py"}
 
 class CityAntipode(City):
 def __init__(self, latitude, longitude, country, timezone, population):
@@ -231,18 +231,18 @@ def __init__(self, latitude, longitude, country, timezone, population):
 def setCountry(self, country)
     # do not set the country. Return True to signal everything is okay.
     return True
-{{< /file >}}
+```
 
 This might appear to be a satisfactory inheritance model. But the problems with it are obvious. A different list might process the list of `City` objects, extracting each country and passing it to a function named `getCountryPhoneCode`. It expects each `City` object to be part of a valid country and is not validating the string. Meanwhile, `getCountryPhoneCode` requires client validation of the country beforehand. This design might lead to a bug or even a crash.
 
 A better example is to realize an antipode is not a city and this class should not extend the `City` class. It overrides and eliminates too much of the information and functionality from the base class. It should be its own class. An independent class would exclude the `country` and `population` variables and would not allow clients to set or get these items. The following code represents a stronger class definition.
 
-{{< file "antipode.py" python >}}
+```file {title="antipode.py"}
 
 class Antipode:
 def __init__(self, latitude, longitude, timezone):
     # Initialize the object
-{{< /file >}}
+```
 
 ### Interface Segregation Principle
 
@@ -270,7 +270,7 @@ Fortunately, this is one of the easier problems to avoid. Interface segregation 
 
 Consider how this class might be constructed in the following example:
 
-{{< file "livingOrganism.py" python >}}
+```file {title="livingOrganism.py"}
 
 class LivingOrganism:
 def __init__(self, genus, species, color, weight, offspring, fruit):
@@ -281,7 +281,7 @@ def run(self, speed)
 
 def plant(self, soil)
     model the organism as being planted
-{{< /file >}}
+```
 
 This interface has several obvious problems. An animal does not get planted, while a tree cannot run. `Offspring` is not typically a valid concept for wild plants.
 
@@ -307,7 +307,7 @@ Some of the advantages of designing code using the Dependency Inversion principl
 
 In general, code designed using the other four principles should satisfy this principle with no additional changes. However, it is possible to believe the code is properly decoupled when the implementation is still far too concrete. The following application contains a `ShareFile` class to transfer a file to another device. The class creates an `FTPConnect` object and sets up parameters for an FTP connection. This violates the Dependency Inversion Principle and the idea that a class should be decoupled from the specific lower-level details. The actual file transfer could be handled by SFTP, FTPS, HTTPS, or something else. If it changes, the `ShareFile` class has to change too.
 
-{{< file "shareFile.py" python >}}
+```file {title="shareFile.py"}
 
 class ShareFile:
 def __init__(self, filename, destination):
@@ -316,11 +316,11 @@ def __init__(self, filename, destination):
 def sendFile(self)
     ftpConn = FTPConnect(self.destination)
     rc = ftpConn.SendFile(self.filename)
-{{< /file >}}
+```
 
 A better approach is to create a `Connect` object and let it decide how to handle the transfer.
 
-{{< file "shareFile.py" python >}}
+```file {title="shareFile.py"}
 
 class ShareFile:
 def __init__(self, filename, destination):
@@ -329,7 +329,7 @@ def __init__(self, filename, destination):
 def sendFile(self)
     conn = Connect(self.destination)
     rc = conn.SendFile(self.filename)
-{{< /file >}}
+```
 
 ## Conclusion
 

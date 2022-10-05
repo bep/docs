@@ -84,7 +84,7 @@ This guide sets up the following flow of events:
 
 1.   Create a site configuration file for Gatsby. Replace `example.com` in the file name and in the file's contents with your domain name:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx>}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen       80;
     server_name  example.com;
@@ -96,7 +96,7 @@ server {
         index  index.html index.htm;
     }
 }
-{{</ file >}}
+```
 
     {{< note >}}
 Replace all future instances of `example.com` in this guide with your domain name.
@@ -196,11 +196,11 @@ You can now view gatsby-starter-hello-world in the browser.
 
 1.  Open the `src/pages/index.js` file in your text editor, add new text between the `<div>` tags, and save your change:
 
-    {{< file "src/pages/index.js" javascript >}}
+    ```file {title="src/pages/index.js"}
 import React from "react"
 
 export default () => <div>Hello world and universe!</div>
-{{</ file  >}}
+```
 
 1.   Navigate back to your browser window, where the updated text should automatically appear on the page.
 
@@ -290,11 +290,11 @@ You can add a `netlify.toml` [configuration file](https://www.netlify.com/docs/n
 
 1.  On your computer, edit your `src/pages/index.js` and update the message displayed:
 
-    {{< file "src/pages/index.js" javascript >}}
+    ```file {title="src/pages/index.js"}
 import React from "react"
 
 export default () => <div>Hello world, universe, and multiverse!</div>
-{{</ file  >}}
+```
 
 1.  Commit those changes:
 
@@ -357,14 +357,14 @@ Make sure you commit changes at logical intervals as you modify the files in you
 
 1.  Open your `.travis.yml` file in a text editor and add the following lines:
 
-    {{< file "~/example-site/.travis.yml" yml>}}
+    ```file {title="~/example-site/.travis.yml"}
 language: node_js
 node_js:
   - '10.0'
 
 dist: trusty
 sudo: false
-{{</ file >}}
+```
 
     This configuration specifies that the build's virtual environment should be Ubuntu 14.04 ([also known as *trusty*](https://wiki.ubuntu.com/Releases)). `sudo: false` indicates that the virtual environment should be a container, and not a full virtual machine. [Other environments](https://docs.travis-ci.com/user/reference/overview/) are available.
 
@@ -374,7 +374,7 @@ sudo: false
 
     No tests are listed by default in your starter's `package.json`, so open the file with your editor and add a `test` line to the `scripts` section:
 
-    {{< file "package.json" json >}}
+    ```file {title="package.json"}
 {
   "name": "gatsby-starter-hello-world",
   "description": "Gatsby hello world starter",
@@ -390,7 +390,7 @@ sudo: false
     "gatsby-link": "^1.6.46"
   }
 }
-{{</ file >}}
+```
 
     This entry is just a stub to illustrate where tests are declared. For more information on how to test your Gatsby project, review the [unit testing documentation](https://gatsbyjs.org/docs/unit-testing/) on Gatsby's website. [Jest](https://jestjs.io) is the testing framework recommended by Gatsby.
 
@@ -467,11 +467,11 @@ The private key will also need to be encrypted, as the key file will live in you
 
 1.  Add the location of the `gatsby-deploy` file to your project's `.gitignore` file. **This will ensure that you do not accidentally commit the secret key to your central repository:**
 
-    {{< file ".gitignore" git >}}
+    ```file {title=".gitignore"}
 # Other .gitignore instructions
 # [...]
 scripts/gatsby-deploy
-{{</ file >}}
+```
 
 1.  Encrypt your private key using the Travis CLI:
 
@@ -487,11 +487,11 @@ scripts/gatsby-deploy
 
 1.  The `--add` flag from the previous command also told the Travis CLI to add a few new lines to your `.travis.yml` file. These lines decrypt your private key and should look similar to the following snippet:
 
-    {{< file ".travis.yml" yml >}}
+    ```file {title=".travis.yml"}
 before_install:
 - openssl aes-256-cbc -K $encrypted_9e3557de08a3_key -iv $encrypted_9e3557de08a3_iv
   -in gatsby-deploy.enc -out gatsby-deploy -d
-{{< /file >}}
+```
 
     {{< disclosure-note "About the openssl command and Travis build variables" >}}
 The second line (starting with `-in gatsby-deploy.enc`) is a continuation of the first line, and `-in` is an option passed to the `openssl` command. This line is not its own item in the `before_install` list.
@@ -504,15 +504,15 @@ The `openssl` command accepts the encrypted `gatsby-deploy.enc` file and uses tw
 
 1.  Edit the lines previously added by the `travis encrypt-file` command so that `gatsby-deploy.enc` and `gatsby-deploy` are prefixed with your `scripts/` directory:
 
-    {{< file ".travis.yml" yml >}}
+    ```file {title=".travis.yml"}
 before_install:
 - openssl aes-256-cbc -K $encrypted_9e3557de08a3_key -iv $encrypted_9e3557de08a3_iv
   -in scripts/gatsby-deploy.enc -out scripts/gatsby-deploy -d
-{{< /file >}}
+```
 
 1.  Continue preparing the SSH agent in your build environment by adding the following lines to the `before_install` step, after the `openssl` command. Be sure to replace `192.0.2.2` with your Linode's IP address:
 
-    {{< file "~/example-site/.travis.yml" yml>}}
+    ```file {title="~/example-site/.travis.yml"}
 before_install:
 - openssl aes-256-cbc -K $encrypted_9e3557de08a3_key -iv $encrypted_9e3557de08a3_iv
   -in scripts/gatsby-deploy.enc -out scripts/gatsby-deploy -d
@@ -521,11 +521,11 @@ before_install:
 - chmod 600 ~/.ssh/gatsby-deploy
 - ssh-add ~/.ssh/gatsby-deploy
 - echo -e "Host 192.0.2.2\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
-{{</ file >}}
+```
 
 1.  Travis CI can add entries to the build environment's `~/.ssh/known_hosts` prior to deploying your site. Insert the following `addons` step prior to the `before_install` step in your `.travis.yml`. Replace `192.0.2.2` with your Linode's IP address:
 
-    {{< file "~/example-site/.travis.yml" yml>}}
+    ```file {title="~/example-site/.travis.yml"}
 # [...]
 dist: trusty
 sudo: false
@@ -536,7 +536,7 @@ addons:
 
 before_install:
 # [...]
-{{</ file >}}
+```
 
 1.  From your local computer, upload your Travis environment's public key to the home directory of your limited Linux user on your Linode. Replace `example_user` with your Linode's user and `192.0.2.2` with your Linode's IP address:
 
@@ -551,14 +551,14 @@ before_install:
 
 1.  Update your `.travis.yml` to include a `deploy` step. This section will be executed when a pull request is merged into the *master* branch. Add the following lines below the `before_install` step, at the end of the file:
 
-    {{< file "~/example-site/.travis.yml" yml>}}
+    ```file {title="~/example-site/.travis.yml"}
 deploy:
 - provider: script
   skip_cleanup: true
   script: bash scripts/deploy.sh
   on:
     branch: master
-{{</ file >}}
+```
 
     The instructions for pushing your site to your Linode will be defined in a `deploy.sh` script that you will create.
 
@@ -566,7 +566,7 @@ deploy:
 
 The complete and final version of your `.travis.yml` file should resemble the following:
 
-{{< file "~/example-site/.travis.yml" yml>}}
+```file {title="~/example-site/.travis.yml"}
 language: node_js
 node_js:
 - "10.0"
@@ -593,7 +593,7 @@ deploy:
   script: bash scripts/deploy.sh
   on:
     branch: master
-{{</ file >}}
+```
 
 {{< /disclosure-note >}}
 
@@ -604,7 +604,7 @@ deploy:
 
 1.  Open your `deploy.sh` file in your text editor and add the following lines. Replace all instances of `example_user` with your Linode's user, and replace `192.0.2.2` with your Linode's IP:
 
-    {{< file "scripts/deploy.sh" bash >}}
+    ```file {title="scripts/deploy.sh"}
 #!/bin/bash
 set -x
 
@@ -626,7 +626,7 @@ git add . && git commit -m "Gatsby build"
 
 # Push all changes to the Linode production server
 git push -f production HEAD:refs/heads/master
-{{</ file >}}
+```
 
     The deploy script builds the Gatsby static files (which are placed inside the `public` directory inside your repository) and pushes them to your Linode. Specifically, this script:
 
@@ -645,11 +645,11 @@ Remember that because these instructions are executed in an isolated virtual env
 
     Open your new `prodignore` file, remove the `public` line, and save the change:
 
-    {{< file "scripts/prodignore" git >}}
+    ```file {title="scripts/prodignore"}
 .cache/
 public # Remove this line
 yarn-error.log
-{{</ file >}}
+```
 
     The `deploy.sh` script you created includes a line that will copy this `scripts/prodignore` file into your repository's root `.gitgnore`, which will then allow the script to commit the `public` directory.
 
@@ -681,10 +681,10 @@ In the previous section you completed the configuration for the Travis deploymen
 
 1.  Add the following lines to the `post-receive` file. Replace `example.com` with your domain name, and replace `example_user` with your Linode's user:
 
-    {{< file "hooks/post-receive" bash >}}
+    ```file {title="hooks/post-receive"}
 #!/bin/sh
 git --work-tree=/usr/share/nginx/html/example.com --git-dir=/home/example_user/gatsbybare.git checkout -f
-{{</ file >}}
+```
 
     This script will check out the files from your Linode repository's *master* branch into your document root folder.
 

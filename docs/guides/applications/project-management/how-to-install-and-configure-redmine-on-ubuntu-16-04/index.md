@@ -107,7 +107,7 @@ Passenger has now installed NGINX with Passenger compiled in. You have to config
 
 1.  Uncomment the `include /etc/nginx/passenger.conf;` line in `/etc/nginx/nginx.conf`. Edit your config file to resemble the one below:
 
-    {{< file "/etc/nginx/nginx.conf" aconf >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ##
 # Phusion Passenger config
 ##
@@ -122,7 +122,7 @@ include /etc/nginx/passenger.conf;
 
 include /etc/nginx/conf.d/*.conf;
 
-{{< /file >}}
+```
 
 
 2.  Copy the default nginx site configuration file. The working configuration file in this guide will be `/etc/nginx/sites-available/default`:
@@ -131,24 +131,24 @@ include /etc/nginx/conf.d/*.conf;
 
 3.  Change the `root` directory for the website, and add additional Passenger configurations. To do this, add these lines to the `server{}` block of the file:
 
-    {{< file "/etc/nginx/sites-available/default" aconf >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 root /data/redmine/redmine/public;
 passenger_enabled on;
 client_max_body_size 10m;
 
-{{< /file >}}
+```
 
 
 4.  In the same file, comment out the `#location` section:
 
-    {{< file "/etc/ningx/site-available/default" aconf >}}
+    ```file {title="/etc/ningx/site-available/default"}
 #location / {
 # First attempt to serve request as file, then
 # as directory, then fall back to displaying a 404.
     #try_files $uri $uri/ =404;
 #}
 
-{{< /file >}}
+```
 
 
 5.  Change the permissions for `/var/www`:

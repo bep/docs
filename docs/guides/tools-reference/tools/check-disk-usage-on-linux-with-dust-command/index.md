@@ -108,9 +108,9 @@ cargo 1.51.0
 
 1. Add the following line to the end of the file.
 
-    {{< file "~/.bashrc" >}}
+    ```file {title="~/.bashrc"}
 export PATH=$PATH:$HOME/.cargo/bin
-    {{< /file >}}
+    ```
 
 1. Source the `.bashrc` file to apply the changes.
 

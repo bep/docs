@@ -76,7 +76,7 @@ The last part of this section shows how to run the script manually to deliver a 
 
 1.  Copy this snippet into the file:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 import os
 import sys
 from linode_api4 import LinodeClient
@@ -96,7 +96,7 @@ except KeyError:
     print("TWILIO_TO_PHONE_NUMBER")
     print("LINODE_API_TOKEN")
     sys.exit(1)
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 This code imports the relevant Linode and Twilio API modules. It also imports the `os` module, which can be used to read environment variables from your terminal. The module is used by the code example to load your API tokens and Twilio phone numbers. A later section in this guide shows how to set those environment variables before running the script.
@@ -110,12 +110,12 @@ The `except KeyError` statement is executed if any of the environment variables 
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "transfer-pool-notification-twilio.py">}}
+```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 linode_client = LinodeClient(linode_api_token)
 twilio_client = Client(twilio_account_sid, twilio_auth_token)
-{{< /file >}}
+```
 
 These lines create new client objects that can interact with the Linode and Twilio APIs.
 
@@ -123,12 +123,12 @@ These lines create new client objects that can interact with the Linode and Twil
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "transfer-pool-notification-twilio.py">}}
+```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 account_network_transfer = linode_client.account.transfer()
 pool_used_ratio = account_network_transfer.used/account_network_transfer.quota
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 The first line queries the Linode API to get an object that contains information about your account's network transfer pool for the current month. The Python binding for the [Network Utilization View](/docs/api/account/#network-utilization-view) endpoint is accessed. The documentation for this endpoint shows the `account:read_only` authorization is needed to access it. This is why the Account resource was specified in the [Before You Begin](#get-a-linode-api-token) section.
@@ -150,7 +150,7 @@ These properties and the computed `pool_used_ratio` are included in the text mes
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "transfer-pool-notification-twilio.py">}}
+```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 summary_text = "Linode network transfer pool statistics"
@@ -164,7 +164,7 @@ transfer_statistics_text = 'Used: %sGB\n' \
     round(pool_used_ratio * 100, 4))
 
 message_text = ('%s:\n\n%s' % (summary_text, transfer_statistics_text))
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 The code in this snippet prepares the content that is used in the text message.
@@ -182,7 +182,7 @@ The `\n` character sequence appears in the message text strings. These character
 
 1. Copy and paste the code from this snippet to the bottom of your script:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 message = twilio_client.messages.create(
@@ -192,7 +192,7 @@ message = twilio_client.messages.create(
 )
 
 print("Twilio message created with ID: %s" % (message.sid))
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 The `create` method tells the Twilio API to create *and* immediately send a new text message:
@@ -326,7 +326,7 @@ The cron job sends you a periodic message with your network transfer statistics,
 
 1. In your `transfer-pool-notification-twilio.py`, remove lines 27-45:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 # remove the following lines:
 
 # summary_text = "Linode network transfer pool statistics"
@@ -348,11 +348,11 @@ The cron job sends you a periodic message with your network transfer statistics,
 # )
 #
 # print("Twilio message created with ID: %s" % (message.sid))
-{{< /file >}}
+```
 
 1. Then, copy and paste these new lines of code to the file:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 def send_message(message_text):
@@ -381,7 +381,7 @@ if pool_used_ratio > USAGE_NOTIFICATION_THRESHOLD_RATIO:
     message_text = ('%s:\n\n%s' % (summary_text, transfer_statistics_text))
 
     send_message(message_text)
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 - Lines 3-10: To make the code a bit more readable, the create message request for the Twilio API is wrapped inside a new function called `send_message`. This function accepts the message body text that should be sent.
@@ -431,7 +431,7 @@ The cron job now uses a threshold ratio and only sends a text message if you hav
 
 1. In your `transfer-pool-notification-twilio.py`, remove lines 38-52:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 # remove the following lines:
 
 # if pool_used_ratio > USAGE_NOTIFICATION_THRESHOLD_RATIO:
@@ -449,11 +449,11 @@ The cron job now uses a threshold ratio and only sends a text message if you hav
 #     message_text = ('%s:\n\n%s' % (summary_text, transfer_statistics_text))
 #
 #     send_message(message_text)
-{{< /file >}}
+```
 
 1. Then, copy and paste these new lines of code to the file:
 
-    {{< file "transfer-pool-notification-twilio.py">}}
+    ```file {title="transfer-pool-notification-twilio.py"}
 # copy and paste to bottom of file:
 
 OVERAGE_NOTIFICATION_THRESHOLD_RATIO = 1
@@ -494,7 +494,7 @@ elif pool_used_ratio > USAGE_NOTIFICATION_THRESHOLD_RATIO:
     message_text = ('%s:\n\n%s' % (summary_text, transfer_statistics_text))
 
     send_message(message_text)
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 - Line 3 defines a new overage notification threshold ratio and sets it to `1` (representing 100% of your transfer pool size).

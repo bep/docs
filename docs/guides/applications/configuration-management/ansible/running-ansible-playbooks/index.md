@@ -137,10 +137,10 @@ Ansible uses the sshpass helper program for SSH authentication. This program is 
 
 1. Disable host key checking.  Open the `/etc/ansible/ansible.cfg` configuration file in a text editor of your choice, uncomment the following line, and save your changes.
 
-    {{< file "/etc/ansible/ansible.cfg" ini >}}
+    ```file {title="/etc/ansible/ansible.cfg"}
 #host_key_checking = False
 
-{{< /file >}}
+```
 
 #### Create the Inventory File
 
@@ -148,11 +148,11 @@ In order to target your Linode in a Playbook, you will need to add it to your An
 
 1. Edit your inventory file to create the `webserver` group and to add your Linode to the group. Open the `/etc/ansible/hosts` file in your preferred text editor and add the following information. Replace `192.0.2.0` with your Linode's IP address.
 
-    {{< file "/etc/ansible/hosts" ini >}}
+    ```file {title="/etc/ansible/hosts"}
 [webserver]
 192.0.2.0
 
-{{< /file >}}
+```
 
 #### Create the Limited User Account Playbook
 
@@ -162,7 +162,7 @@ You are now ready to create the Limited User Account Playbook. This Playbook wil
     * `yourusername` with the user name you would like to create on the Linode
     * `$6$rounds=656000$W.dSl` with the password hash you create in the [Create a Password Hash](#create-a-password-has) section of the guide.
 
-        {{< file "limited_user_account.yml" yaml >}}
+        ```file {title="limited_user_account.yml"}
 ---
 - hosts: webserver
   remote_user: root
@@ -181,7 +181,7 @@ You are now ready to create the Limited User Account Playbook. This Playbook wil
                   line="{{ NORMAL_USER_NAME }} ALL=(ALL) ALL"
                   state=present
 
-    {{< /file >}}
+    ```
 
     * The first two lines of the file tells Ansible to target the `webserver` group of hosts in the inventory file and to execute the remote host tasks as the `root` user.
     * The `vars` section creates the `NORMAL_USER_NAME` that can be reused throughout the Playbook. Ansible also allows you to create and use variables in separate files, instead of directly in your Playbook. For a deeper dive into the many ways you can use variables with Ansible, see Ansible's official documentation on [Using Variables](https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html#defining-variables-in-files).
@@ -204,7 +204,7 @@ This next Playbook will take care of some common server setup tasks, such as set
       * `web01` with the hostname you would like to set for your Linode.
       * If you have a domain name you would like to set up, replace `www.example.com` with it.
 
-        {{< file "common_server_setup.yml" yaml >}}
+        ```file {title="common_server_setup.yml"}
 ---
 - hosts: webserver
   remote_user: yourusername
@@ -227,7 +227,7 @@ This next Playbook will take care of some common server setup tasks, such as set
       with_items: "{{ groups['linode'] }}"
     - name: Update packages
       apt: update_cache=yes upgrade=dist
-          {{< /file >}}
+          ```
 
           * The first task in this Playbook uses the `command` module to set the Linode's timezone to UTC time.
           * The second task uses the `hostname` module to set your system's hostname.
@@ -261,7 +261,7 @@ You are now ready to create the `setup_webserver.yml` Playbook that will get you
 In order to avoid using plain text passwords in your Playbooks, you can use [Ansible-Vault](https://docs.ansible.com/ansible/latest/user_guide/vault.html#encrypt-string-for-use-in-yaml) and variables to encrypt sensitive data. You can consult the [How to use the Linode Ansible Module to Deploy Linodes](/docs/guides/deploy-linodes-using-ansible/) guide to view an example that makes use of this feature.
         {{</ note >}}
 
-        {{< file "setup_webserver.yml" yaml >}}
+        ```file {title="setup_webserver.yml"}
 ---
 - hosts: webserver
   remote_user: yourusername
@@ -294,7 +294,7 @@ In order to avoid using plain text passwords in your Playbooks, you can use [Ans
                   password='$6$rounds=656000$W.dSl'
                   priv=*.*:ALL state=present
 
-      {{< /file >}}
+      ```
 
       * The first task handles installing Apache, MySQL, and PHP.
       * The next task ensures that Apache and MySQL remaining running after a system reboot. This task makes use of a [loop](https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html) to populate the value of the `service` name.

@@ -56,13 +56,13 @@ Each setting in Redis is controlled using a configuration directive. A directive
 
 The file below includes an example configuration directive. This example is taken from a configuration directive used in the first of our guides in this series on Redis — [Connecting to Redis and Using Redis Databases](/docs/guides/how-to-connect-to-redis/):
 
-{{< file "/etc/redis/redis.conf" >}}
+```file {title="/etc/redis/redis.conf"}
 # [...]
 
 user example-user +@all allkeys on >password
 
 # [...]
-{{< /file >}}
+```
 
 This directive uses the keyword `user` to start defining a Redis user. The keyword is then followed by a series of arguments defining the username and a series of ACL (security) rules, including the user's password.
 

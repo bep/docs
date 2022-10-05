@@ -36,7 +36,7 @@ Once access has been gained, using a text editor of your choice, edit the '/etc/
 
     sudo nano /etc/gitlab/gitlab.rb
 
-{{< file "/etc/gitlab/gitlab.rb" config >}}
+```file {title="/etc/gitlab/gitlab.rb"}
 gitlab_rails['backup_upload_connection'] = {
   'provider' => 'AWS',
   'region' => 'us-east-1',
@@ -45,7 +45,7 @@ gitlab_rails['backup_upload_connection'] = {
   'aws_secret_access_key' =>YOUR_SECRET_KEY,
 }
 gitlab_rails['backup_upload_remote_directory'] = 'bucketname'
-{{< /file >}}
+```
 
 The following chart will explain each configuration settings in additional detail:
 

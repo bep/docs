@@ -209,14 +209,14 @@ tls.key:  1704 bytes
 
 By default, Kubernetes does not expose Services with TLS termination over HTTPS. In order to use `https` you'll need to instruct the Service to use the correct port using the required annotations. You can add the following code snippet to a Service file to enable TLS termination on your NodeBalancers:
 
-{{< file "example-service.yaml" yaml >}}
+```file {title="example-service.yaml"}
 ...
 metadata:
   annotations:
     service.beta.kubernetes.io/linode-loadbalancer-default-protocol: http
     service.beta.kubernetes.io/linode-loadbalancer-port-443: '{ "tls-secret-name": "example-secret", "protocol": "https" }'
 ...
-{{</ file >}}
+```
 
 - The `service.beta.kubernetes.io/linode-loadbalancer-default-protocol` annotation configures the NodeBalancer's default protocol.
 
@@ -224,7 +224,7 @@ metadata:
 
 If you have multiple Secrets and ports for different environments (testing, staging, etc.), you can define more than one secret and port pair:
 
-{{< file "example-service.yaml" yaml >}}
+```file {title="example-service.yaml"}
 ...
 metadata:
   annotations:
@@ -232,7 +232,7 @@ metadata:
     service.beta.kubernetes.io/linode-loadbalancer-port-443: '{ "tls-secret-name": "example-secret", "protocol": "https" }'
     service.beta.kubernetes.io/linode-loadbalancer-port-8443: '{ "tls-secret-name": "example-secret-staging", "protocol": "https" }'
 ...
-{{</ file >}}
+```
 
 ### Configuring Session Affinity for Cluster Pods
 

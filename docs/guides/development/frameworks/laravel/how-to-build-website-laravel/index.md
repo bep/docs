@@ -120,7 +120,7 @@ This section shows you how to start working with Laravel's *controllers* and *vi
 
 1. This example builds a website with a **Home** page and an **About** page. Create the routes for each by opening the routes file — `~/example-app/routes/web.php` — and add the following contents:
 
-    {{< file "~/example-app/routes/web.php" >}}
+    ```file {title="~/example-app/routes/web.php"}
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -133,13 +133,13 @@ Route::redirect('/', '/home');
 Route::get('/home', [HomeController::class, 'index']);
 
 Route::get('/about', [AboutController::class, 'index']);
-    {{< /file >}}
+    ```
 
     First, this imports the controllers—`HomeController` and `AboutController` that get created in the next two steps. Then, it routes requests to the `/home` and `/about` URLs to their respective controllers. It also includes a route to redirect traffic from the base URL (`/`) to the `/home` URL.
 
 1. Create the Home controller by creating an `~/example-app/app/Http/Controllers/HomeController.php` file and giving it the contents shown below:
 
-    {{< file "~/example-app/app/Http/Controllers/HomeController.php" >}}
+    ```file {title="~/example-app/app/Http/Controllers/HomeController.php"}
 <?php
 
 namespace App\Http\Controllers;
@@ -153,13 +153,13 @@ class HomeController extends Controller
         return view('home', ['title' => 'Home Page']);
     }
 }
-    {{< /file >}}
+    ```
 
     This controller simply renders the Home page view and feeds a `title` parameter into it.
 
 1. Do the same for the About controller. In this case, the new file is `~/example-app/app/Http/Controllers/AboutController.php`. This controller serves the same function as the Home controller, however, it renders the about page view instead.
 
-    {{< file "~/example-app/app/Http/Controllers/AboutController.php" >}}
+    ```file {title="~/example-app/app/Http/Controllers/AboutController.php"}
 <?php
 
 namespace App\Http\Controllers;
@@ -173,7 +173,7 @@ class AboutController extends Controller
         return view('about', ['title' => 'About Page']);
     }
 }
-    {{< /file >}}
+    ```
 
 1. This example's views share a navigation menu, so the website can use a layout template to reduce duplicate code. Create the layout template as `~/example-app/resources/views/layouts/master.blade.php`, and give it the contents shown in the example below.
 
@@ -183,7 +183,7 @@ Before creating your layout template, you need to create the `layouts` subdirect
     mkdir ~/example-app/resources/views/layouts
 {{< /note >}}
 
-    {{< file "~/example-app/resources/views/layouts/master.blade.php" >}}
+    ```file {title="~/example-app/resources/views/layouts/master.blade.php"}
 <html>
     <head>
         @if ($title)
@@ -200,27 +200,27 @@ Before creating your layout template, you need to create the `layouts` subdirect
         </div>
     </body>
 </html>
-    {{< /file >}}
+    ```
 
 1. Now, to create the views themselves. Create a `~/example-app/resources/views/home.blade.php` file and a `~/example-app/resources/views/about.blade.php` file. Add the contents of the example files below:
 
-    {{< file "~/example-app/resources/views/home.blade.php" >}}
+    ```file {title="~/example-app/resources/views/home.blade.php"}
 @extends('layouts.master')
 
 @section('content')
         <h1>{{ $title }}</h1>
         <p>This is the home page for an example Laravel web application.</p>
 @endsection
-    {{< /file >}}
+    ```
 
-    {{< file "~/example-app/resources/views/about.blade.php" >}}
+    ```file {title="~/example-app/resources/views/about.blade.php"}
 @extends('layouts.master')
 
 @section('content')
         <h1>{{ $title }}</h1>
         <p>This is the about page for an example Laravel web application.</p>
 @endsection
-    {{< /file >}}
+    ```
 
     Each of these view templates first declares that it extends the `master` layout template. This lets each work within the layout, reducing the amount of code you have to rewrite and making sure the pages are consistent. Each view defines its main contents as being part of the `content` section, which was defined in the `master` layout.
 
@@ -256,7 +256,7 @@ These steps assume your application has the same location and name as given in t
 
 1. Create an NGINX configuration file for the website, and add the contents shown below. Replace `example.com` with your server's domain name.
 
-    {{< file "/etc/nginx/sites-available/example-app" >}}
+    ```file {title="/etc/nginx/sites-available/example-app"}
 server {
     listen 80;
     server_name example.com;
@@ -288,7 +288,7 @@ server {
         deny all;
     }
 }
-    {{< /file >}}
+    ```
 
 1. Create a symbolic link of the configuration file in the NGINX `sites-enabled` directory. You can also remove the `default` site configuration from this directory.
 

@@ -82,7 +82,7 @@ The Knife command-line tool is the primary way that a workstation communicates t
 
 The Knife command-line tool is configured with the `knife.rb` file:
 
-{{< file "~/chef-repo/.chef/knife.rb" ruby >}}
+```file {title="~/chef-repo/.chef/knife.rb"}
 log_level                :info
 log_location             STDOUT
 node_name                'username'
@@ -92,7 +92,7 @@ validation_key           '~/chef-repo/.chef/shortname.pem'
 chef_server_url          'https://123.45.67.89/organizations/shortname'
 syntax_check_cache_path  '~/chef-repo/.chef/syntax_check_cache'
 cookbook_path [ '~/chef-repo/cookbooks' ]
-{{< /file >}}
+```
 
 
 The default `knife.rb` file is defined with the following properties:
@@ -145,18 +145,18 @@ Environments are defined in `chef-repo/environments` and saved as Ruby or JSON f
 
 As a Ruby file:
 
-{{< file "chef-repo/environments/environame.rb" ruby >}}
+```file {title="chef-repo/environments/environame.rb"}
 name "environmentname"
 description "environment_description"
 cookbook_versions  "cookbook" => "cookbook_version"
 default_attributes "node" => { "attribute" => [ "value", "value", "etc." ] }
 override_attributes "node" => { "attribute" => [ "value", "value", "etc." ] }
-{{< /file >}}
+```
 
 
 As a JSON:
 
-{{< file "chef-repo/environments/environame.json" json >}}
+```file {title="chef-repo/environments/environame.json"}
 {
   "name": "environmentname",
   "description": "a description of the environment",
@@ -171,7 +171,7 @@ As a JSON:
   "override_attributes": {
 
   }
-{{< /file >}}
+```
 
 
 All nodes are set to the "default" environment upon bootstrap. To change what environment a node is in, edit `/etc/chef/client.rb` on the nodes.
@@ -190,7 +190,7 @@ Recipes are written in Ruby and contain information about everything needing to 
 
 The example recipe below is part of Chef's [Vim cookbook](https://github.com/chef-cookbooks/vim). It dictates the required Vim package based on a node's Linux distribution:
 
-{{< file "~/chef-repo/cookbooks/vim/packages.rb" >}}
+```file {title="~/chef-repo/cookbooks/vim/packages.rb"}
 ...
 
 vim_base_pkgs = value_for_platform_family(
@@ -202,7 +202,7 @@ vim_base_pkgs = value_for_platform_family(
 package vim_base_pkgs
 
 package node['vim']['extra_packages'] unless node['vim']['extra_packages'].empty?
-{{</ file >}}
+```
 
 
 ### Attributes

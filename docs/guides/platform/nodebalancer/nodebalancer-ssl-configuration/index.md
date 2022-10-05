@@ -104,7 +104,7 @@ Depending on your distribution, this file's location may vary. For example, it c
 
 2.  Edit the Apache virtual host configuration file to establish the rewrite rules necessary to redirect all incoming traffic from port 80/HTTP back to the NodeBalancer on port 443/HTTPS:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <VirtualHost *:80>
 
      RewriteEngine    On
@@ -113,7 +113,7 @@ Depending on your distribution, this file's location may vary. For example, it c
      LogLevel alert rewrite:trace4  # Adjust log verbosity as required. ex. 1-8
  </VirtualHost>
 
-{{< /file >}}
+```
 
 
     The rewrite configuration shown above is specific to Apache 2.4 or later. This means that logging gets recorded to Apache's `error.log` file. To view only the records specific to `mod_rewrite`, you can pipe the log file through grep:
@@ -122,11 +122,11 @@ Depending on your distribution, this file's location may vary. For example, it c
 
     If you are using Apache 2.2, then you will need to replace the `LogLevel alert rewrite:trace` directive with the following:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 RewriteLog       /var/log/apache2/rewrite.log
 RewriteLogLevel  5  # Adjust log verbosity as required. ex. 1-9
 
-{{< /file >}}
+```
 
 
     {{< caution >}}
@@ -147,7 +147,7 @@ On Red Hat-based distributions, change the `Rewritelog` path to `/var/log/httpd/
 
 1.  Edit the Nginx server block configuration file to establish the rewrite rules to redirect all incoming traffic from port 80/HTTP back to the NodeBalancer on port 443/HTTPS:
 
-    {{< file "/etc/nginx/sites-available/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com.conf"}
 server {
     listen   80;
     server_name example.com;
@@ -163,7 +163,7 @@ server {
         }
     }
 
-{{< /file >}}
+```
 
 
     In the above configuration, be sure to replace the values of `server_name` and `root` with your actual domain and document root, respectively.

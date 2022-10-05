@@ -38,15 +38,15 @@ The first command should show your short hostname, and the second should show yo
 
 Next, edit your `/etc/hosts` file to resemble the following example, replacing "titan" with your chosen hostname, "example.com" with your system's domain name, and "12.34.56.78" with your Linode's IP address.
 
-{{< file "/etc/hosts" apache >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost 12.34.56.78 titan.example.com titan
-{{< /file >}}
+```
 
 If you have IPv6 enabled on your Linode, you will also want to add an entry for your IPv6 address, as shown in this example:
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost 12.34.56.78 titan.example.com titan 2600:3c01::a123:b456:c789:d012 titan.example.com titan
-{{< /file >}}
+```
 
 The value you assign as your system's FQDN should have an "A" record in DNS pointing to your Linode's IPv4 address. For Linodes with IPv6 enabled, you should also set up a "AAAA" record in DNS pointing to your Linode's IPv6 address. For more information on configuring DNS, please see our guide on [configuring DNS with the Linode Manager](/docs/dns-guides/configuring-dns-with-the-linode-manager).
 
@@ -79,9 +79,9 @@ By default, Apache listens on all available IP addresses. While this may be idea
 
 Begin by replacing the existing `NameVirtualHost` line in the `/etc/apache2/vhosts.d/00_default_vhost.conf` so that it reads:
 
-{{< file "/etc/apache2/vhosts.d/00\_default\_vhost.conf" >}}
+```file {title="/etc/apache2/vhosts.d/00\_default\_vhost.conf"}
 NameVirtualHost 12.34.56.78:80
-{{< /file >}}
+```
 
 Be sure to replace "12.34.56.78" with your Linode's public IP address.
 
@@ -89,7 +89,7 @@ There are numerous ways to configure virtual hosts, but we recommend that you do
 
 Now we will create virtual host entries for each site that we need to host with this server. We'll want to replace the existing `VirtualHost` blocks with ones that resemble the following.
 
-{{< file "/etc/apache2/vhosts.d/example.conf" apache >}}
+```file {title="/etc/apache2/vhosts.d/example.conf"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin username@example.com
      ServerName example.com
@@ -99,7 +99,7 @@ Now we will create virtual host entries for each site that we need to host with 
      CustomLog /srv/www/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 `ErrorLog` and `CustomLog` entries are suggested for more fine-grained logging, but are not required. If they are defined (as shown above), the `logs` directories must be created before you restart Apache.
@@ -178,9 +178,9 @@ Gentoo includes portage scripts for installing PHP from the terminal. Issue the 
 
 Before we can use PHP with Apache, we'll need to add the `-D PHP5` option in the `APACHE2_OPTS` setting in the `/etc/conf.d/apache2` file, if it isn't already set. This line should now resemble:
 
-{{< file "/etc/conf.d/apache2" >}}
+```file {title="/etc/conf.d/apache2"}
 APACHE2_OPTS="-D DEFAULT_VHOST -D INFO -D LANGUAGE -D SSL -D SSL_DEFAULT_VHOST -D PHP5"
-{{< /file >}}
+```
 
 Now, restart Apache with the following command:
 
@@ -190,7 +190,7 @@ Once PHP is installed and enabled, we'll need to tune the configuration file loc
 
 Make sure that the following values are set, and relevant lines are uncommented (comments are lines beginning with a semi-colon (`;` character)):
 
-{{< file "/etc/php/apache2-php5.5/php.ini" >}}
+```file {title="/etc/php/apache2-php5.5/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 display_errors = Off
 log_errors = On
@@ -198,6 +198,6 @@ error_log = /var/log/php.log
 max_execution_time = 300
 memory_limit = 64M
 register_globals = Off
-{{< /file >}}
+```
 
 If you decide to use PHP via the CGI interface later, you'll need to edit the `/etc/php/cgi-php5/php.ini` file.

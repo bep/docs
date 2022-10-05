@@ -144,11 +144,11 @@ File execution in web applications is a potentially dangerous vulnerability that
 
 You can disable file execution by typing in the following code and saving it in an `.htaccess` file in the `/var/www/wordpress/wp-content/uploads/` directory:
 
-{{< file "/var/www/wordpress/wp-content/uploads/.htaccess" >}}
+```file {title="/var/www/wordpress/wp-content/uploads/.htaccess"}
 <Files *.php>
 deny from all
 </Files>
-{{</ file >}}
+```
 
 ## Disabling Directory Browsing
 
@@ -162,8 +162,8 @@ To disable directory browsing, create an `.htaccess` file in your site’s root 
 If an `.htaccess` file already exists you do not need to create a new one, simply add the following line to the file.
 {{</ note >}}
 
-{{< file ".htaccess" >}}
+```file {title=".htaccess"}
 Options -Indexes
-{{</ file >}}
+```
 
 After you have created or edited the `.htaccess` file, save the file and restart your web server.

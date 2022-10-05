@@ -52,7 +52,7 @@ To use SELinux on CentOS or Fedora, you must use the distribution-supplied *upst
 
     If you prefer to edit the file manually, it should look like this:
 
-    {{< file "/etc/selinux/config" aconf >}}
+    ```file {title="/etc/selinux/config"}
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #     enforcing - SELinux security policy is enforced.
@@ -65,7 +65,7 @@ SELINUX=enforcing
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
 
-{{< /file >}}
+```
 
 
 4.  Reboot your Linode. During the bootup process, SELinux may need to run a relabeling of the filesystem. It will handle this automatically and when it's done, it'll reboot the system. If you do not have Lassie enabled, the Linode will shut down and you will need to manually reboot in the Linode Manager.

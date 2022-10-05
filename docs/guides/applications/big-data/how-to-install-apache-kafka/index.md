@@ -129,10 +129,10 @@ gpg: Good signature from "Bill Bejeck (CODE SIGNING KEY) <bbejeck@apache.org>" [
 Kafka can be launched directly from the command line. You must launch the Zookeeper module before running Kafka.
 
 1. Review the settings contained in the `kafka_2.13-2.7.0/config/server.properties` file within your Kafka directory. For now, the default settings are fine. But we recommend you set the `delete.topic.enable` attribute to `true` at the end of the file. This allows you to delete any topics you might create during testing.
-    {{< file "/home/kafka/kafka_2.13-2.7.0/config/server.properties" >}}
+    ```file {title="/home/kafka/kafka_2.13-2.7.0/config/server.properties"}
 ...
 delete.topic.enable = true
-    {{< /file >}}
+    ```
 1. Change to the Kafka home directory and start Zookeeper.
 
         cd /home/kafka/kafka_2.13-2.7.0/
@@ -227,7 +227,7 @@ Kafka Streams is a library for performing real-time transformations and analysis
 
 You can use the `WordCountDemo` Java application included with Kafka Streams to run a quick demo. `WordCountDemo` consumes `streams-plaintext-input` events. It parses and processes the lines, and stores the words and counts in a table. The updated word counts are converted to a stream of events and sent to the `streams-plaintext-input` topic. The entire file is included below.
 
-{{< file "WordCountDemo.java" java >}}
+```file {title="WordCountDemo.java"}
 // Serializers/deserializers (serde) for String and Long types
 final Serde<String> stringSerde = Serdes.String();
 final Serde<Long> longSerde = Serdes.Long();
@@ -252,7 +252,7 @@ KTable<String, Long> wordCounts = textLines
 
 // Store the running counts as a changelog stream to the output topic.
 wordCounts.toStream().to("streams-wordcount-output", Produced.with(Serdes.String(), Serdes.Long()));
-{{< /file >}}
+```
 
 1. Create a topic on the Kafka cluster to store the sample word count data.
 
@@ -311,7 +311,7 @@ Until now, you have been starting Zookeeper and Kafka from the command line insi
 
 1. Edit the file and add the following information. Use the location of your Kafka directory in the path names.
 
-    {{< file "/etc/systemd/system/zookeeper.service" >}}
+    ```file {title="/etc/systemd/system/zookeeper.service"}
 [Unit]
 Description=Apache Zookeeper Server
 Requires=network.target remote-fs.target
@@ -326,7 +326,7 @@ Restart=on-abnormal
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 1. Create a second file for the Kafka server called `/etc/systemd/system/kafka.service`.
 
@@ -334,7 +334,7 @@ WantedBy=multi-user.target
 
 1. Edit the file and add the following information. Verify the full path to your Java application and enter it as the `JAVA_HOME` path.
 
-    {{< file "/etc/systemd/system/kafka.service" >}}
+    ```file {title="/etc/systemd/system/kafka.service"}
 [Unit]
 Description=Apache Kafka Server
 Requires=zookeeper.service
@@ -350,7 +350,7 @@ Restart=on-abnormal
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 1. Reload the `systemd` daemon and start both applications.
 

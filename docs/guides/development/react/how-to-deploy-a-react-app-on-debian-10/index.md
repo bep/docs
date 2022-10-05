@@ -99,7 +99,7 @@ In this section, you will update your web server configuration to ensure that it
 
     >  Modify the `DocumentRoot` in your virtual host file with the path to your site's web root.
 
-    >  {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    >  ```file {title="/etc/apache2/sites-available/example.com.conf"}
   <VirtualHost *:80>
       ServerAdmin webmaster@example.com
       ServerName example.com
@@ -108,13 +108,13 @@ In this section, you will update your web server configuration to ensure that it
       ErrorLog /var/www/example.com/logs/error.log
       CustomLog /var/www/example.com/logs/access.log combined
   </VirtualHost>
-  {{< /file >}}
+  ```
 
     >  **NGINX**
 
     >  Modify the `root` parameter with the path to your site's web root.
 
-    >  {{< file "/etc/nginx/sites-available.example.com" nginx >}}
+    >  ```file {title="/etc/nginx/sites-available.example.com"}
   server {
       listen 80;
       listen [::]:80;
@@ -123,7 +123,7 @@ In this section, you will update your web server configuration to ensure that it
       index index.html index.htm;
 
   }
-  {{< /file >}}
+  ```
 
 1.  Restart the web server to apply the changes.
 
@@ -162,7 +162,7 @@ If you already have a React App that you would like to deploy to your Linode, yo
   - `example.com` with your Linode's fully qualified domain name (FQDN) or public IP address.
   - `/var/www/example.com/` with the location of your site's web root. This is where all of your React app's local `build/` files will be copied to on the remote server.
 
-    {{< file "~/my-app/deploy.sh" bash >}}
+    ```file {title="~/my-app/deploy.sh"}
 #!/bin/sh
 
 echo "Switching to branch master"
@@ -174,7 +174,7 @@ npm run build
 echo "Deploying files to server"
 rsync -avP build/ example_user@example.com:/var/www/example.com/
 echo "Deployment complete"
-{{< /file >}}
+```
 
     This script will check out the `master` branch of your project on Git, build the app using `npm run build`, and then sync the build files to the remote Linode using Rsync. If your React app was not built with `create-react-app`, the build command may be different and the built files may be stored in a different directory (such as `dist`). Modify the script accordingly.
 

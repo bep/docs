@@ -238,10 +238,10 @@ PostgreSQL uses _peer authentication_ by default. This means database connection
 Commands in this section should be run as the postgres Linux user unless otherwise specified.
 
 1.  Edit the `/etc/postgresql/9.5/main/pg_hba.conf` file, under the # "local" is for Unix domain socket connections only header:
-{{< file "/etc/postgresql/9.5/main/pg_hba.conf" plaintext >}}
+```file {title="/etc/postgresql/9.5/main/pg_hba.conf"}
 #"local" is for Unix domain socket connections only
 local    all        all             peer
-{{< /file >}}
+```
 
 1.  Replace "peer" with "md5" on this line to activate password authentication using an MD5 hash.
 

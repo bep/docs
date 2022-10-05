@@ -61,7 +61,7 @@ Firewalld is the default iptables controller in CentOS 7+ and Fedora. See our [g
 
 2.  Create a firewalld service file for Terraria:
 
-    {{< file "/etc/firewalld/services/terraria.xml" aconf >}}
+    ```file {title="/etc/firewalld/services/terraria.xml"}
 <?xml version="1.0" encoding="utf-8"?>
 <service>
   <short>Terraria</short>
@@ -69,7 +69,7 @@ Firewalld is the default iptables controller in CentOS 7+ and Fedora. See our [g
   <port protocol="tcp" port="7777"/>
 </service>
 
-{{< /file >}}
+```
 
 
 3.  Enable the firewalld service, reload firewalld and verify that the Terraria service is being used:
@@ -149,12 +149,12 @@ Before you install Terraria, be sure the version you download is the same as the
 
 The options below will automatically create and serve the world `MyWorld` when the game server starts up. Note that you should change `MyWorld` to a world name of your choice.
 
-{{< file "/home/example_user/1423/Linux/serverconfig.txt" ini >}}
+```file {title="/home/example_user/1423/Linux/serverconfig.txt"}
 world=/srv/terraria/Worlds/MyWorld.wld
 autocreate=1
 worldname=MyWorld
 worldpath=/srv/terraria/Worlds
-{{< /file >}}
+```
 
 
 ## Managing the Terraria Service
@@ -179,7 +179,7 @@ It's useful to have an automated way to start, stop, and bring up Terraria on bo
 
 Create the following file to define the `terraria` systemd service, replacing `example_user` with your limited username:
 
-{{< file "/etc/systemd/system/terraria.service" ini >}}
+```file {title="/etc/systemd/system/terraria.service"}
 [Unit]
 Description=server daemon for terraria
 
@@ -193,7 +193,7 @@ ExecStop=/usr/local/bin/terrariad exit
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 *   **ExecStart** instructs systemd to spawn a screen session containing the 64-bit `TerrariaServer` binary, which starts the daemon. `KillMode=none` is used to ensure that systemd does not prematurely kill the server before it has had a chance to save and shut down gracefully.
@@ -213,7 +213,7 @@ The Terraria administration script needs two primary functions:
 
 1.  Create a `terrariad` file, enter the following script, then save and close:
 
-    {{< file "/usr/local/bin/terrariad" >}}
+    ```file {title="/usr/local/bin/terrariad"}
 #!/usr/bin/env bash
 
 send="`printf \"$*\r\"`"
@@ -228,7 +228,7 @@ then
 else
     su - root -c "$cmd"
 fi
-{{< /file >}}
+```
 
 
 2.  Verify that you can execute the script:

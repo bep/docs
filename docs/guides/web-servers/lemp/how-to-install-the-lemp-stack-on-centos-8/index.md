@@ -105,7 +105,7 @@ quit
 
 1.  Change the default `user` in `/etc/php-fpm.d/www.conf` from `apache` to `nginx`:
 
-    {{< file "/etc/php-fpm.d/www.conf" conf >}}
+    ```file {title="/etc/php-fpm.d/www.conf"}
 …
 ; RPM: apache user chosen to provide access to the same directories as httpd
 user = nginx
@@ -113,7 +113,7 @@ user = nginx
 group = nginx
 …
 
-{{< /file >}}
+```
 
 1.  Tell PHP to only accept URIs for files that actually exist on the server. This mitigates a security vulnerability where the PHP interpreter can be tricked into allowing arbitrary code execution if the requested `.php` file is not present in the filesystem. See [this tutorial](https://www.nginx.com/resources/wiki/start/topics/tutorials/config_pitfalls/?highlight=pitfalls#passing-uncontrolled-requests-to-php) for more information about this vulnerability.
 
@@ -136,7 +136,7 @@ group = nginx
 
 3.  Update the document root location of the web content in `/etc/nginx/nginx.conf` file.
 
-    {{< file "/etc/nginx/nginx.conf" nginx >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 server {
     listen       80;
     listen       [::]:80;
@@ -157,11 +157,11 @@ server {
         location = /50x.html {
     }
 
-{{< /file >}}
+```
 
 3.  Create a `example.com.conf` configuration file for your domain in `etc/nginx/conf.d` directory. Replace *example.com* with your domain in the contents of the file:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
     server {
     listen         80;
     listen         [::]:80;
@@ -180,7 +180,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 ## Configure FirewallD
 
@@ -217,7 +217,7 @@ cockpit dhcpv6-client ssh
 
 4.  Create a test page to verify NGINX can render PHP and connect to the MariaDB database. Replace the `"testuser"` and `"password"` fields with the MariaDB credentials you created above.
 
-    {{< file "/var/www/html/example.com/public_html/test.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/test.php"}
 <html>
 <head>
     <h2>LEMP Stack Test</h2>
@@ -242,7 +242,7 @@ cockpit dhcpv6-client ssh
 </body>
 </html>
 
-{{< /file >}}
+```
 
 5.  Go to `http://example.com/test.php` in a web browser. It should report that *You have connected successfully*.
 

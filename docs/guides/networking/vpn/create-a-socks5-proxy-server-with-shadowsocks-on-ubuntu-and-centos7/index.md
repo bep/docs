@@ -129,7 +129,7 @@ Shadowsocks libev is a lightweight, purely C-based proxy implementation for embe
 
 1. Create the Shadowsocks configuration file located at `/etc/shadowsocks/shadowsocks.json`. Paste the contents listed below into the file, noting the instructions in the [shadowsocks.json Breakdown](#shadowsocks-json-breakdown) table for each property. Follow these instructions to determine the value you should set for each property.
 
-    {{< file "/etc/shadowsocks/shadowsocks.json" json >}}
+    ```file {title="/etc/shadowsocks/shadowsocks.json"}
 {
     "server":"your_public_IP_address",
     "server_port":8388,
@@ -138,7 +138,7 @@ Shadowsocks libev is a lightweight, purely C-based proxy implementation for embe
     "method":"aes-256-gcm",
     "fast_open": true
 }
-{{< /file >}}
+```
 
 ### shadowsocks.json Breakdown
 
@@ -162,7 +162,7 @@ Apply the following optimizations to the system kernel to provide for a smooth r
 These settings provide the optimal kernel configuration for Shadowsocks. If you have previously configured the system kernel settings for any reason, make sure no conflicts exist.
 {{< /caution >}}
 
-    {{< file "/etc/sysctl.d/local.conf" >}}
+    ```file {title="/etc/sysctl.d/local.conf"}
 # max open files
 fs.file-max = 51200
 # max read buffer
@@ -206,7 +206,7 @@ net.ipv4.tcp_congestion_control = hybla
 # for low-latency network, use cubic instead
 net.ipv4.tcp_congestion_control = cubic
 
-{{< /file >}}
+```
 
 1.  Apply optimizations:
 
@@ -218,7 +218,7 @@ The Shadowsocks systemd service allows the daemon to automatically start on syst
 
 1. Create a systemd file with the following content:
 
-    {{< file "/etc/systemd/system/shadowsocks.service" sh >}}
+    ```file {title="/etc/systemd/system/shadowsocks.service"}
 [Unit]
 Description=Shadowsocks proxy server
 
@@ -232,7 +232,7 @@ ExecStop=/usr/local/bin/ss-server -c /etc/shadowsocks/shadowsocks.json -a shadow
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 1.  Enable and start `shadowsocks.service`:
 

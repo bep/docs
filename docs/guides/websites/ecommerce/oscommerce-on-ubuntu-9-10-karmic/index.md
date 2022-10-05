@@ -30,7 +30,7 @@ Before installing osCommerce we assume that you have followed our [Setting Up an
 
 Before installing osCommerce, we must ensure that the `universe` repositories are enabled on your system. Your `/etc/apt/sources.list` should resemble the following (you may have to uncomment or add the `universe` lines:)
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -47,7 +47,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 deb http://security.ubuntu.com/ubuntu karmic-security universe
 deb-src http://security.ubuntu.com/ubuntu karmic-security universe
 
-{{< /file >}}
+```
 
 
 If you had to enable new repositories, issue the following command to update your package lists:
@@ -108,7 +108,7 @@ From here you can begin customizing your store. The default index page will give
 
 You may want to install a commercial SSL certificate on your store to encrypt the data sent from your customer to your server. After [Obtaining a Commercial SSL Certificate](/docs/security/ssl/obtaining-a-commercial-ssl-certificate), you'll need to make a couple of changes to your `includes/configure.php` file. Below is an example section from that file that highlights the changes you need to make:
 
-{{< file "/srv/www/example.com/public\\_html/includes/configure.php" php >}}
+```file {title="/srv/www/example.com/public\\_html/includes/configure.php"}
 // Define the webserver and path parameters
 // * DIR_FS_* = Filesystem directories (local/physical)
 // * DIR_WS_* = Webserver directories (virtual/URL)
@@ -122,7 +122,7 @@ define('HTTPS_COOKIE_PATH', '/');
 define('DIR_WS_HTTP_CATALOG', '/');
 define('DIR_WS_HTTPS_CATALOG', '/');
 
-{{< /file >}}
+```
 
 
 It should be noted that in this example, the certificate was issued without the `www` qualifier. Your specific requirements may require tweaking.

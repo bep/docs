@@ -50,7 +50,7 @@ To enable the .htaccess file, you must update your website's [Virtual Hosts](/do
 
 1.  After the VirtualHost block (</VirtualHost>) add the `AllowOverride All` directive as shown below:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 ....
 </VirtualHost>
 <Directory /var/www/html/example.com/public_html>
@@ -59,7 +59,7 @@ To enable the .htaccess file, you must update your website's [Virtual Hosts](/do
     Require all granted
 </Directory>
 
-{{< /file >}}
+```
 
 1.  Save the file, then restart apache:
 
@@ -85,10 +85,10 @@ CMS systems such as [WordPress](/docs/guides/how-to-install-wordpress-ubuntu-200
 
 1. Using your preferred text editor, open your .htaccess file and add the following configuration:
 
-    {{< file "/var/www/html/example.com/public_html/.htaccess" >}}
+    ```file {title="/var/www/html/example.com/public_html/.htaccess"}
 Options -Indexes
 
-{{< /file >}}
+```
 
 1.  Now, navigate to your site and view the **Forbidden** message that appears. In order to access the different areas of your site, you are now required to specifically indicate the file or directory path.
 
@@ -109,7 +109,7 @@ Subdirectories inherit settings from a parent directory's .htaccess file. A pare
 
 1.  Delete the `Options -Indexes` line from the previous section (if applicable) and add the following lines to block the target IP addresses:
 
-    {{< file "/var/www/html/example.com/public_html" >}}
+    ```file {title="/var/www/html/example.com/public_html"}
 order allow,deny
 
 # Denies the IP 192.0.2.9
@@ -118,7 +118,7 @@ deny from 192.0.2.9
 # Denies all IP's from 192.0.2.0 through 192.0.2.255
 deny from 192.0.2
 
-{{< /file >}}
+```
 
 ### Allow IPs with htaccess File
 
@@ -126,7 +126,7 @@ deny from 192.0.2
 
 1.  Add the following lines to deny all IPs except for the specific IP and pool of IPs mentioned in the command:
 
-    {{< file "/var/www/html/example.com/public_html" >}}
+    ```file {title="/var/www/html/example.com/public_html"}
 order deny,allow
 
 # Denies all IP's
@@ -138,7 +138,7 @@ allow from 192.0.2.9
 # Allows all IP's from 192.0.2.0 through 192.0.2.255
 allow from 192.0.2
 
-{{< /file >}}
+```
 
 ## Configure Redirects with htaccess
 
@@ -155,7 +155,7 @@ Ensure that your website has a landing page. In the following steps, replace eac
 
 1.  Add some basic content to the test html file:
 
-    {{< file "/var/www/html/example.com/public_html/test1/index.html" >}}
+    ```file {title="/var/www/html/example.com/public_html/test1/index.html"}
 <!doctype html>
 <html>
   <body>
@@ -163,14 +163,14 @@ Ensure that your website has a landing page. In the following steps, replace eac
   </body>
 </html>
 
-{{< /file >}}
+```
 
 1.  Open the .htaccess file in your project's root directory. Remove all existing configurations in this file and add the following line:
 
-    {{< file "/var/www/html/example.com/public_html/.htaccess" >}}
+    ```file {title="/var/www/html/example.com/public_html/.htaccess"}
 Redirect 301 /main.html /test1/index.html
 
-{{< /file >}}
+```
 
 The first parameter after the 'Redirect' command is the HTTP status code. Specifying a status code is helpful for letting the browser know that the page has been moved to a new location. If you leave this parameter blank, it defaults to a 302 code indicating that the redirect is temporary. Specifying 301 makes it clear that the page at the requested location has permanently moved to a new location.
 
@@ -184,14 +184,14 @@ When a visitor attempts to access a page or resource that doesn't exist (for exa
 
 1.  The configuration below redirects all requests for nonexistent documents to a page in the project root directory called `404.html`. Open the `.htaccess` file and add the following line:
 
-    {{< file "/var/www/html/example.com/public_html/.htaccess" >}}
+    ```file {title="/var/www/html/example.com/public_html/.htaccess"}
 ErrorDocument 404 /404.html
 
-{{< /file >}}
+```
 
 1.  Create the `404.html` file:
 
-    {{< file "/var/www/html/example.com/public_html/404.html" >}}
+    ```file {title="/var/www/html/example.com/public_html/404.html"}
 <!doctype html>
 <html>
   <body>
@@ -199,6 +199,6 @@ ErrorDocument 404 /404.html
   </body>
 </html>
 
-{{< /file >}}
+```
 
 1.  In a browser, navigate to a page that does not exist, such as `www.example.com/doesnotexist.html`. The 404 message should be displayed.

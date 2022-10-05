@@ -214,7 +214,7 @@ The `^` symbol in front of the version number for the package tells Composer wha
 
 1. To integrate the new classes into a project, use the `autoload.php` script that Composer automatically generated. It can be included in any PHP file using the instruction `require __DIR__ . '/vendor/autoload.php';`. Below is a sample `random.php` file that uses the auto-loader and the new package.
 
-    {{< file "random_num/random.php" php >}}
+    ```file {title="random_num/random.php"}
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
@@ -224,7 +224,7 @@ $generator = $factory->getLowStrengthGenerator();
 
 print $generator->generateString(32);
 print "\n ";
-    {{< /file >}}
+    ```
 
 1.  To verify that the new `random.php` program is working correctly, run it from the command line. This program uses the `getLowStrengthGenerator` function to generate a 32-character string. This is suitable for a one-time token but is not strong enough for a cryptographic key.
 

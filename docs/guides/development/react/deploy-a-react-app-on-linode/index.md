@@ -69,7 +69,7 @@ The steps in this section should be performed on your Linode.
 
     Modify the `DocumentRoot` in your virtual host file:
 
-    {{< file "/etc/apache2/sites-available/mydomain.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/mydomain.com.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@mydomain.com
      ServerName mydomain.com
@@ -78,13 +78,13 @@ The steps in this section should be performed on your Linode.
      ErrorLog /var/www/mydomain.com/logs/error.log
      CustomLog /var/www/mydomain.com/logs/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
     **NGINX**
 
     Modify the line starting with `root` in the server block for your site:
 
-    {{< file "/etc/nginx/conf.d/myapp.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/myapp.conf"}
 server {
     listen 80;
     listen [::]:80;
@@ -93,7 +93,7 @@ server {
         index index.html index.htm;
 
 }
-{{< /file >}}
+```
 
 2.  Restart the web server to apply the changes. Use whichever command applies to your web server:
 
@@ -110,7 +110,7 @@ server {
 
 2.  Using a text editor, create a deployment script called `deploy` in your app's root directory. Replace `exampleuser` with the username of your limited user account, and `mydomain.com` with your Linode's FQDN or public IP address.
 
-    {{< file "~/myapp/deploy" bash >}}
+    ```file {title="~/myapp/deploy"}
 #!/bin/sh
 
 echo "Switching to branch master"
@@ -122,7 +122,7 @@ npm run build
 echo "Deploying files to server"
 rsync -avP build/ exampleuser@mydomain.com:/var/www/mydomain.com/
 echo "Deployment complete"
-{{< /file >}}
+```
 
     This script will check out the master branch of your project on Git, build the app using `npm run build`, and then sync the build files to the remote Linode using Rsync. If your React app was not built with `create-react-app`, the build command may be different and the built files may be stored in a different directory (such as `dist`). Modify the script accordingly.
 

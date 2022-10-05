@@ -70,7 +70,7 @@ There are a number of additional databases that are supported from SQLite to Pos
 
 2.  Create a new NGINX configuration file with the settings below setting `server_name` with your FDQN or public IP address:
 
-    {{< file "/etc/nginx/conf.d/metabase.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/metabase.conf"}
 server {
         listen 80;
         listen [::]:80;
@@ -85,7 +85,7 @@ server {
              proxy_set_header Connection "Upgrade";
         }
 }
-{{< /file >}}
+```
 
 3.  Verify there are no issues with the configuration:
 
@@ -143,14 +143,14 @@ data_load_time_diff
 
 1.  Create a new text file containing the environment variables for Metabase:
 
-    {{< file "metabase-env" >}}
+    ```file {title="metabase-env"}
 export MB_DB_TYPE=mysql
 export MB_DB_DBNAME=employees
 export MB_DB_PORT=3306
 export MB_DB_USER=metabase_user
 export MB_DB_PASS=password
 export MB_DB_HOST=localhost
-{{< /file >}}
+```
 
 2.  Load these environment variables:
 
@@ -166,7 +166,7 @@ export MB_DB_HOST=localhost
 
 1.  Create a systemd configuration file to ensure Metabase runs on start up. `ExecStart=` should set to the JDK path from above. Be sure to replace `User` with your Unix username:
 
-    {{< file "/etc/systemd/system/metabase.service" conf >}}
+    ```file {title="/etc/systemd/system/metabase.service"}
 [Unit]
 Description=Metabase server
 After=syslog.target
@@ -183,7 +183,7 @@ SyslogIdentifier=metabase
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 2.  Apply the changes:
 

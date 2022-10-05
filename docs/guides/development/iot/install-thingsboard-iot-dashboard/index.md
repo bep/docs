@@ -71,7 +71,7 @@ ThingsBoard runs on Java 8, and the Oracle JDK is recommended.
 
 3.  Open `/etc/thingsboard/conf/thingsboard.yml` in a text editor and comment out the `HSQLDB DAO Configuration` section:
 
-    {{< file "/etc/thingsboard/conf/thingsboard.yml" yaml >}}
+    ```file {title="/etc/thingsboard/conf/thingsboard.yml"}
 # HSQLDB DAO Configuration
 #spring:
 #  data:
@@ -87,11 +87,11 @@ ThingsBoard runs on Java 8, and the Oracle JDK is recommended.
 #    url: "${SPRING_DATASOURCE_URL:jdbc:hsqldb:file:${SQL_DATA_FOLDER:/tmp}/thingsboardDb;sql.enforce_size=false}"
 #    username: "${SPRING_DATASOURCE_USERNAME:sa}"
 #    password: "${SPRING_DATASOURCE_PASSWORD:}"
-{{< /file >}}
+```
 
 4.  In the same section, uncomment the PostgreSQL configuration block. Replace `thingsboard` in the username and password fields with the username and password of your `thingsboard` user:
 
-    {{< file "/etc/thingsboard/conf/thingsboard.yml" yaml >}}
+    ```file {title="/etc/thingsboard/conf/thingsboard.yml"}
 # PostgreSQL DAO Configuration
 spring:
   data:
@@ -107,7 +107,7 @@ spring:
     url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/thingsboard}"
     username: "${SPRING_DATASOURCE_USERNAME:thingsboard}"
     password: "${SPRING_DATASOURCE_PASSWORD:thingsboard}"
-{{< /file >}}
+```
 
 5.  Run this installation script:
 
@@ -128,7 +128,7 @@ ThingsBoard listens on `localhost:8080`, by default. For security purposes, it's
 
 2.  Create `/etc/nginx/conf.d/thingsboard.conf` with a text editor and edit it to match the example below. Replace `example.com` with the public IP address or FQDN of your Linode.
 
-    {{< file "/etc/nginx/conf.d/thingsboard.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/thingsboard.conf"}
 server {
     listen 80;
     listen [::]:80;
@@ -144,7 +144,7 @@ server {
         proxy_set_header Host $host;
     }
 }
-{{< /file >}}
+```
 
 3.  Restart NGINX:
 
@@ -174,7 +174,7 @@ The following steps assume that you have terminal access to a Raspberry Pi, and 
 
 1.  Using a text editor, create `thingsboard.py` in a directory of your choice. Add the following content, using the API key copied to your clipboard in the previous section:
 
-    {{< file "thingsboard.py" python >}}
+    ```file {title="thingsboard.py"}
 #!/usr/bin/env python
 
 import json
@@ -202,7 +202,7 @@ while True:
     #r = requests.post(thingsboard_url, data=json.dumps(data))
     print(str(data))
     sleep(5)
-{{< /file >}}
+```
 
 2.  Test the script by running it from the command line:
 
@@ -220,7 +220,7 @@ while True:
 
 3.  If the script is working correctly, remove the `print` statement and uncomment the `r = requests.post()` line. Also increase the `sleep()` time interval:
 
-    {{< file "thingsboard.py" python >}}
+    ```file {title="thingsboard.py"}
 while True:
     data['temperature'] = sense.get_temperature()
     data['pressure']    = sense.get_pressure()
@@ -228,7 +228,7 @@ while True:
 
     r = requests.post(thingsboard_url, data=json.dumps(data))
     sleep(60)
-{{< /file >}}
+```
 
 ### Create a Systemd Service
 
@@ -241,7 +241,7 @@ You should now be able to run the script from the command line to transmit tempe
 
 2.  Create a service file to run the Python script as a service:
 
-    {{< file "/lib/systemd/system/thingsdata.service" conf >}}
+    ```file {title="/lib/systemd/system/thingsdata.service"}
 [Unit]
 Description=Push telemetry data from Sense HAT to ThingsBoard.
 
@@ -251,7 +251,7 @@ ExecStart=/usr/bin/thingsboard.py
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 3.  Enable and start the service:
 
@@ -270,13 +270,13 @@ Skip this section if you are using a Raspberry Pi.
 
 1.  Create a sample JSON file with dummy data:
 
-    {{< file "dummy_data.json" json >}}
+    ```file {title="dummy_data.json"}
 {
   "temperature": 38,
   "humidity": 50,
   "pressure": 1100
 }
-{{< /file >}}
+```
 
 2.  Use `curl` to send a POST request to the ThingsBoard server:
 

@@ -152,17 +152,17 @@ Git submodules allow you to include one Git repository within another, each main
 
 1.  Open the `first_post.md` file in the text editor of your choosing. You see a few lines of *[front matter](https://gohugo.io/content-management/front-matter/)*, a format Hugo uses for extensible metadata, at the top of the file:
 
-    {{< file "lke-example/content/posts/first_post.md" md >}}
+    ```file {title="lke-example/content/posts/first_post.md"}
 ---
 title: "First_post"
 date: 2019-07-29T14:22:04-04:00
 draft: false
 ---
-{{</ file >}}
+```
 
     Change the `title` to your desired value, and change `draft` to `false`. Then, add some example [Markdown text](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) to the bottom of the file, like the example below:
 
-    {{< file "lke-example/content/posts/first_post.md" md >}}
+    ```file {title="lke-example/content/posts/first_post.md"}
 ---
 title: "First Post About LKE Clusters"
 date: 2019-07-29T14:22:04-04:00
@@ -176,7 +176,7 @@ Linode Kubernetes Engine (LKE) clusters are:
 - Fast
 - Affordable
 - Scalable
-{{</ file >}}
+```
 
 1.  You can preview your changes by starting the local Hugo server:
 
@@ -236,7 +236,7 @@ In this section you create a Docker container for your static site, which you th
 
 1.  Add the following contents to the `Dockerfile`. Each command has accompanying comments that describe their function:
 
-    {{< file "lke-example/Dockerfile" >}}
+    ```file {title="lke-example/Dockerfile"}
 # Install the latest Debian operating system.
 FROM alpine:3.12.0 as HUGO
 
@@ -259,18 +259,18 @@ COPY --from=HUGO /static-site/public/ /usr/share/nginx/html/
 
 # Instruct the container to listen for requests on port 80 (HTTP).
 EXPOSE 80
-{{</ file >}}
+```
 
     Save the Dockerfile and return to the command prompt.
 
 1.  Create a new text file named `.dockerignore` in your Hugo static site folder and add the following lines:
 
-    {{< file "lke-example/.dockerignore" >}}
+    ```file {title="lke-example/.dockerignore"}
 public/
 .git/
 .gitmodules/
 .gitignore
-{{</ file >}}
+```
 
     {{< note >}}
 This file, similar to the `.gitignore` file you created in the previous section, allows you to ignore certain files within the working directory that you want to leave out of the container. Because you want the container to be the smallest size possible, the `.dockerignore` file includes the `public/` folder and some hidden folders that Git creates.
@@ -359,7 +359,7 @@ In this section, you create a [Deployment](/docs/guides/kubernetes-reference/#de
 
 1.  In the text editor of your choice, create a new [YAML](https://yaml.org/) manifest file for your Deployment. Name the file `static-site-deployment.yaml`, save it to your `manifests` directory, and enter the contents of this snippet:
 
-    {{< file "manifests/static-site-deployment.yaml" yaml >}}
+    ```file {title="manifests/static-site-deployment.yaml"}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -382,7 +382,7 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 80
-{{</ file >}}
+```
 
     - In this example the number of replica Pods is set to `3` on **line 8**. This value can be changed to meet the needs of your website.
     - The `spec.containers.image` field on **line 19** should be changed to match the name of the container image you pushed to Docker Hub. Be sure to include the proper version tag at the end of the container name.
@@ -417,7 +417,7 @@ The NodeBalancer's creation is controlled through the [Linode Cloud Controller M
 
 1.  Name the file `static-site-service.yaml`, save it to your `manifests` directory, and enter the contents of this snippet:
 
-    {{< file "manifests/static-site-service.yaml" yaml >}}
+    ```file {title="manifests/static-site-service.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -436,7 +436,7 @@ spec:
   selector:
     app: static-site
   sessionAffinity: None
-{{</ file >}}
+```
 
 1.  Once you've created your Service manifest file, you can apply it to the LKE cluster:
 

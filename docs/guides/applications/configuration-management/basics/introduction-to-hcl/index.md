@@ -30,7 +30,7 @@ This guide provides an introduction to HCL syntax, some commonly used HCL termin
 
 HCL's configuration syntax is easy to read and write. It was created to have a more clearly visible and defined structure when compared to other well-known configuration languages, such as  YAML.
 
-{{< file "~/terraform/main.tf">}}
+```file {title="~/terraform/main.tf"}
 # Linode provider block. Installs Linode plugin.
 terraform {
   required_providers {
@@ -58,7 +58,7 @@ resource "linode_instance" "example_linode" {
     authorized_keys = [ "my-key" ]
     root_pass = "example-password"
 }
-{{</ file >}}
+```
 
 {{< note >}}
 You should not include sensitive data in the resource declarations. For more information about secrets management, see [Secrets Management with Terraform](/docs/guides/secrets-management-with-terraform/).
@@ -92,11 +92,11 @@ In Terraform, a *provider* is used to interact with an Infrastructure as a Servi
 
 To configure Linode as the provider, you need to include a block which specifies Linode as the provider and sets your Linode API token in one of the `.tf` files:
 
-{{< file "~/terraform/terraform.tf" >}}
+```file {title="~/terraform/terraform.tf"}
 provider "linode" {
     token = "my-token"
 }
-{{</ file >}}
+```
 
 After you declare the provider, you can configure resources available from the provider.
 
@@ -110,7 +110,7 @@ A Terraform *resource* is any component of the infrastructure that can be manage
 
 Resources are declared with a resource block in a `.tf` configuration file. This example block deploys a 2GB Linode instance located in the US East data center from an Ubuntu 18.04 image. Values are also provided for the Linode's label, public SSH key, and root password:
 
-{{< file "~/terraform/main.tf" >}}
+```file {title="~/terraform/main.tf"}
 resource "linode_instance" "WordPress" {
     image = "linode/ubuntu18.04"
     label = "WPServer"
@@ -119,7 +119,7 @@ resource "linode_instance" "WordPress" {
     authorized_keys = [ "example-key" ]
     root_pass = "example-root-pass"
 }
-{{</ file >}}
+```
 
 HCL-specific [meta-parameters](https://www.terraform.io/docs/configuration/resources.html#meta-parameters) are available to all resources and are independent of the provider. Meta-parameters allow you to customize the lifecycle behavior of the resource, define the number of resources to create, or protect certain resources from being destroyed. See Terraform's [Resource Configuration](https://www.terraform.io/docs/configuration/resources.html) documentation for more information on meta-parameters.
 
@@ -137,11 +137,11 @@ The only universally required configuration for all module blocks is the `source
 
 This example creates an instance of a module named *linode-module-example* and provides a relative path as the location of the module's source code:
 
-{{< file "~/terraform/main.tf" >}}
+```file {title="~/terraform/main.tf"}
 module "linode-module-example" {
     source = "/modules/linode-module-example"
 }
-{{</ file >}}
+```
 
 Authoring modules involves defining resource requirements and parameterizing configurations using [input variables](#input-variables), variable files, and outputs. To learn how to write Terraform modules, see [Create a Terraform Module](/docs/guides/create-terraform-module/).
 
@@ -157,7 +157,7 @@ You can define *input variables* to serve as Terraform configuration parameters.
 
 ### Variable Declaration Example
 
-{{< file "~/terraform/variables.tf" >}}
+```file {title="~/terraform/variables.tf"}
 variable "token" {
   description = "This is your Linode APIv4 Token."
 }
@@ -166,7 +166,7 @@ variable "region" {
     description: "This is the location where the Linode instance is deployed."
     default = "us-east"
 }
-{{</ file >}}
+```
 
 Two input variables named *token* and *region* are defined, respectively. The `region` variable defines a *default* value. Both variables default to *type = "string"*, because a type is not explicitly declared.
 
@@ -174,10 +174,10 @@ Two input variables named *token* and *region* are defined, respectively. The `r
 
 Variable values can be specified in `.tfvars` files. These files use the same syntax as Terraform configuration files:
 
-{{< file "~/terraform/terraform.tfvars" >}}
+```file {title="~/terraform/terraform.tfvars"}
 token = "my-token"
 region = "us-west"
-{{</ file >}}
+```
 
 Terraform automatically loads values from filenames which match `terraform.tfvars` or `*.auto.tfvars`. If you store values in a file with another name, you need to specify that file with the `-var-file` option when running `terraform apply`. The `-var-file` option can be invoked multiple times:
 
@@ -197,7 +197,7 @@ Environment variables can only assign values to variables of `type = "string"`
 
 You can call existing input variables in the configuration file using Terraform's interpolation syntax. Observe the value of the *region* parameter:
 
-{{< file "~/terraform/main.tf" >}}
+```file {title="~/terraform/main.tf"}
 resource "linode_instance" "WordPress" {
     image = "linode/ubuntu18.04"
     label = "WPServer"
@@ -206,7 +206,7 @@ resource "linode_instance" "WordPress" {
     authorized_keys = [ "example-key" ]
     root_pass = "example-root-pass"
 }
-{{</ file >}}
+```
 
 {{< note >}}
 If a variable value is not provided in any of the ways discussed above, and the variable is called in a resource configuration, Terraform prompts you for the value when you run `terraform apply`.
@@ -218,21 +218,21 @@ For more information on variables, see Terraform's [Input Variables](https://www
 
 HCL supports the [interpolation](https://en.wikipedia.org/wiki/String_interpolation) of values. Interpolations are wrapped in an opening `${` and a closing `}`. Input variable names are prefixed with `var.`:
 
-{{< file "~/terraform/terraform.tf" >}}
+```file {title="~/terraform/terraform.tf"}
 provider "linode" {
     token = "${var.token}"
 }
-{{</ file >}}
+```
 
 Interpolation syntax is powerful and enables you to reference attributes of other resources, call built-in functions, and use conditionals and templates.
 
 The configuration of this resource uses a conditional to provide a value for the `tags` parameter:
 
-{{< file "~/terraform/terraform.tf" >}}
+```file {title="~/terraform/terraform.tf"}
 resource "linode_instance" "web" {
     tags = ["${var.env == "production" ? var.prod_subnet : var.dev_subnet}"]
 }
-{{< /file >}}
+```
 
 If the `env` variable has the value *production*, then the `prod_subnet` variable is used. If not, then the variable `dev_subent` is used.
 
@@ -240,12 +240,12 @@ If the `env` variable has the value *production*, then the `prod_subnet` variabl
 
 Terraform has built-in computational functions that perform a variety of operations, including reading files, concatenating lists, encrypting or creating a checksum of an object, and searching and replacing.
 
-{{< file "~/terraform/terraform.tf" >}}
+```file {title="~/terraform/terraform.tf"}
 resource "linode_sshkey" "main_key" {
     label = "foo"
     ssh_key = "${chomp(file("~/.ssh/id_rsa.pub"))}"
 }
-{{</ file >}}
+```
 
 In this example, `ssh_key = "${chomp(file("~/.ssh/id_rsa.pub"))}"` uses Terraform’s built-in function `file()` to provide a local file path to the public SSH key’s location. The `chomp()` function removes trailing new lines from the SSH key. Observe that the nested functions are wrapped in opening `${` and closing `}` to indicate that the value should be interpolated.
 

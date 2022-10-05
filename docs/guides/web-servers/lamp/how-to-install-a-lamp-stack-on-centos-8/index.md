@@ -69,7 +69,7 @@ As a best practice, you should create a backup of your Apache configuration file
     cp /etc/httpd/conf/httpd.conf ~/httpd.conf.backup
 {{< /note >}}
 
-    {{< file "/etc/httpd/conf.modules.d/httpd-mpm.conf" aconf >}}
+    ```file {title="/etc/httpd/conf.modules.d/httpd-mpm.conf"}
 KeepAlive Off
 
 <IfModule prefork.c>
@@ -79,7 +79,7 @@ KeepAlive Off
     MaxClients          200
     MaxRequestsPerChild 4500
 </IfModule>
-{{< /file >}}
+```
 
 ### Configure Name-based Virtual Hosts
 
@@ -95,9 +95,9 @@ There are different ways to set up virtual hosts; however, the method below is r
 
 1.  Edit Apache's configuration file to let it know to look for virtual host files in the `/etc/httpd/sites-enabled` directory. Add the example line to the bottom of your `httpd.conf` file:
 
-    {{< file "/etc/httpd/conf/httpd.conf" apache>}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 IncludeOptional sites-enabled/*.conf
-{{</ file >}}
+```
 
 1.  Navigate to your `/var/www/html/example.com` directory if you are not already there:
 
@@ -105,7 +105,7 @@ IncludeOptional sites-enabled/*.conf
 
 1.  Using your preferred text editor create a virtual hosts file. Copy the basic settings in the example below and paste them into the file. Replace all instances of `example.com` with your domain name:
 
-    {{< file "/etc/httpd/sites-available/example.com.conf" apache>}}
+    ```file {title="/etc/httpd/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
     Require all granted
 </Directory>
@@ -116,7 +116,7 @@ IncludeOptional sites-enabled/*.conf
     ErrorLog /var/www/html/example.com/logs/error.log
     CustomLog /var/www/html/example.com/logs/access.log combined
 </VirtualHost>
-{{</ file>}}
+```
 
 1.  Create a symbolic link from your virtual hosts file in the `sites-available` directory to the `sites-enabled` directory. Replace `example.com.conf` with the name of your own virtual hosts file.
 
@@ -251,12 +251,12 @@ With Apache and MariaDB installed, you are now ready to move on to installing PH
 
 2.  Edit `/etc/php.ini` for better error messages and logs, and upgraded performance. These modifications provide a good starting point for a **Linode 2GB**:
 
-    {{< file "/etc/php.ini" ini >}}
+    ```file {title="/etc/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 error_log = /var/log/php/error.log
 max_input_time = 30
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -285,7 +285,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 
 1.  Paste the following code into a new file, `phptest.php`, in the `public_html` directory. Modify `webuser` and `password` to match the information entered in the [Create a MariaDB Database](#create-a-mariadb-database) section above:
 
-    {{< file "/var/www/html/example.com/public_html/phptest.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/phptest.php"}
 <html>
 <head>
 <title>PHP Test</title>
@@ -310,7 +310,7 @@ In this section, you'll create a test page that shows whether Apache can render 
     </body>
 </html>
 
-    {{< /file >}}
+    ```
 
 1.  Navigate to `example.com/phptest.php` from your local machine. If the components of your LAMP stack are working correctly, the browser will display a "Connected successfully" message. If not, the output will be an error message.
 

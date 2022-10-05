@@ -70,7 +70,7 @@ This guide will run PrestaShop on a modified LAMP stack using MariaDB instead of
 
 2. Edit the configuration file. Uncomment the `ServerName` line, replace `example.com` with your Linode's domain name or IP address, and edit the remaining lines as follows:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 . . .
 ServerName example.com
 
@@ -78,7 +78,7 @@ ServerAdmin webmaster@example.com
 DocumentRoot /var/www/html/example.com
 . . .
 
-{{< /file >}}
+```
 
 
 3. Create the directory for our website files:
@@ -100,12 +100,12 @@ PrestaShop can make use of `.htaccess` files. This allows it to automatically ad
 
 1.  Edit the config file to enable .htaccess overrides:
 
-  {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+  ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com>
     AllowOverride All
 </Directory>
 
-{{< /file >}}
+```
 
 
 ## Install TLS (SSL) Certificate to Encrypt Website Traffic
@@ -253,12 +253,12 @@ You can also use:
 
 5. Open `/etc/php/7.0/apache2/php.ini` in a text editor and look for the following three settings:
 
-    {{< file "/etc/php/7.0/apache2/php.ini" >}}
+    ```file {title="/etc/php/7.0/apache2/php.ini"}
 memory_limit = 128M
 upload_max_filesize = 2M
 max_execution_time = 30
 
-{{< /file >}}
+```
 
 
     Change `upload_max_filesize` to 10M to enable uploading of larger images. The other two settings don't need to be changed at this point, but if your site's memory usage increases or you install a plug-in whose scripts run slowly, you may want to consider increasing `memory_limit` or `max_execution_time`, respectively.

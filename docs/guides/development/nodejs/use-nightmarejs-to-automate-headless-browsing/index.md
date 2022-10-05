@@ -95,7 +95,7 @@ Nightmare.js is an NPM module, so it can be imported from within a Node.js scrip
 
 2. Create `linode.js` inside the automation directory and add the following:
 
-    {{< file "~/automation/linode.js" javascript >}}
+    ```file {title="~/automation/linode.js"}
 const Nightmare = require('nightmare');
 const nightmare = Nightmare({show: true});
 
@@ -129,7 +129,7 @@ nightmare
             console.log(e);
     });
 
-{{< /file >}}
+```
 
 
 3.  Run the script:
@@ -160,7 +160,7 @@ For more information about using Cron, see our [Schedule Tasks with Cron](/docs/
 
 2.  Add the following line to the end of the file:
 
-    {{< file "crontab" cron >}}
+    ```file {title="crontab"}
 0 * * * * cd ~/automation && xvfb-run node linode.js >> data_$(date +\%Y_\%m_\%d_\%I_\%M_\%p).txt
 
-{{< /file >}}
+```

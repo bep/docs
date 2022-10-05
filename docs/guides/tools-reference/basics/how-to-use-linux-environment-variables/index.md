@@ -81,7 +81,7 @@ Follow the steps below to view your system's values for the environment variable
 
 1.  Create a new file named `variables.sh` and include the contents of the example file.
 
-    {{< file "~/variables.sh" >}}
+    ```file {title="~/variables.sh"}
 #! /bin/sh
 
 echo 'The current logged-in User is:' $USER
@@ -89,7 +89,7 @@ echo 'Home directory of the current user is:' $HOME
 echo 'Pathname of the current user'"'"'s shell is:' $SHELL
 echo 'The Present Working Directory is:' $PWD
 echo 'Users unique identifier is:' $UID
-{{< /file >}}
+```
 
 1.  Make the script executable using the following command:
 
@@ -206,17 +206,17 @@ Use the `SHELL` environment variable to check which shell you are using:
 
 Edit the user's `.bashrc` file located in their home directory and add a line that exports the environment variable that you want to persist. The example line appends the user's `/home/username/example-directory` to the `PATH` variable.
 
-{{< file "~/.bashrc" >}}
+```file {title="~/.bashrc"}
 export PATH=$PATH:$HOME/example-directory
-{{< /file >}}
+```
 
 **Set a persistent environment variable for all system users:**
 
 Create a new shell script file (`.sh`) in the `/etc/profile.d` directory. Add a line to your example file that exports the environment variable that you want to persist across all system users.
 
-{{< file "/etc/profile.d/custom.sh">}}
+```file {title="/etc/profile.d/custom.sh"}
 export EXAMPLE_VARIABLE='example value'
-{{< /file >}}
+```
 
 {{< note >}}
 You can also add environment variables to the `/etc/profile` or the `/etc/bashrc` files. However, your variables may not persist after upgrades to your shell package.
@@ -228,11 +228,11 @@ In application development, you can use environment variables to distinguish bet
 
 Create a `.sh` file to store your app's configuration values as environment variables. You can store the file in the `/etc/profile.d/` directory to make the configurations available to all system users. The `APP_ENV` variable can then act as a switch in your application code.
 
-{{< file "/etc/profile.d/app-config-vars.sh" >}}
+```file {title="/etc/profile.d/app-config-vars.sh"}
 export APP_ENV="TEST"
 export APP_TEST_API="https://api.test.example.com/v1/customers"
 export APP_PROD_API="https://api.example.com/v1/customers"
-{{</ file >}}
+```
 
 {{< note >}}
 Ensure you reload your system's `profile` file to give your terminal session access to your new environment variables:

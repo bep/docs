@@ -122,19 +122,19 @@ This downloads the latest version of BungeeCord. You can find older versions for
 
 3.  Edit the following block of the configuration, in order to add existing Spigot servers:
 
-    {{< file "config.yml" yaml >}}
+    ```file {title="config.yml"}
 servers:
   lobby:
     address: localhost:25565
     restricted: false
     motd: 'Just another BungeeCord - Forced Host'
 
-{{< /file >}}
+```
 
 
     For the servers that are specified as examples in the introduction, it would look like:
 
-    {{< file "config.yml" yaml >}}
+    ```file {title="config.yml"}
 servers:
   lobby:
     address: 203.0.113.112:25565
@@ -145,7 +145,7 @@ servers:
  restricted: false
  motd: 'Just another BungeeCord - Forced Host'
 
-{{< /file >}}
+```
 
 
     Each server block has a label: In the case of the example, `lobby` or `games`. These can be any word you want, but it's important that they are descriptive, because they are used by the players to change servers.
@@ -162,12 +162,12 @@ servers:
 
 1.  Create the file:
 
-    {{< file "/home/bungeecord/bungeestart.sh" shell >}}
+    ```file {title="/home/bungeecord/bungeestart.sh"}
 #!/bin/bash
 
 screen -dmS "bungeecord" java -jar BungeeCord.jar
 
-{{< /file >}}
+```
 
 
 2.  Run `chmod +x bungeestart.sh`, to make the file executable.
@@ -208,7 +208,7 @@ To connect with other players and for the servers to securely identify a playerâ
 By enabling IP forwarding, we can identify a playerâ€™s IP address.
 
 The first step to enable IP forwarding is to locate the `config.yml`, and ensure that you followed all steps and that `ip_forward` is set to `true`.
-  {{< file "config.yml" yaml >}}
+  ```file {title="config.yml"}
 servers:
   lobby:
     address: localhost:25565
@@ -220,14 +220,14 @@ servers:
         motd: 'Just another BungeeCord - Forced Host'
     ip_forward : true
 
-{{< /file >}}
+```
 
 Next, ensure that in your spigot.yml file you have set bungeecord to true
-{{< file "config.yml" yaml >}}
+```file {title="config.yml"}
     bungeecord : true
     player-shuffle : 0
 
-{{< /file >}}
+```
 
 After, you set the right values for bungeecord and ip_forward, restart the Spigot servers to enable IP forwarding.
 

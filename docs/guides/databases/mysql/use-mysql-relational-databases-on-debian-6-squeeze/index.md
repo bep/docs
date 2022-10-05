@@ -48,7 +48,7 @@ The MySQL server package will be installed on your server, along with dependenci
 
 By default, MySQL makes some assumptions about your server environment with respect to memory. To configure MySQL more conservatively, you'll need to edit some settings in the configuration file (`/etc/mysql/my.cnf`) as follows:
 
-{{< file "/etc/mysql/my.cnf" ini >}}
+```file {title="/etc/mysql/my.cnf"}
 key_buffer = 16M
 max_allowed_packet = 1M
 thread_stack = 128K
@@ -56,7 +56,7 @@ table_cache = 4
 sort_buffer = 64K
 net_buffer_length = 2K
 
-{{< /file >}}
+```
 
 
 Issue the following command to restart MySQL after making configuration changes:

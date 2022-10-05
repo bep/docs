@@ -42,7 +42,7 @@ The first command should show your short hostname, and the second should show yo
 
 Edit your `/etc/apt/sources.list` file to enable the "universe" repositories by removing the hash symbol in front of the universe lines. The file should resemble the following example:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ lucid main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ lucid main restricted
@@ -60,7 +60,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ lucid-updates universe
 deb http://security.ubuntu.com/ubuntu lucid-security universe
 deb-src http://security.ubuntu.com/ubuntu lucid-security universe
 
-{{< /file >}}
+```
 
 
 When you have saved this file, issue the following command to refresh your system's package database:
@@ -104,7 +104,7 @@ You may also choose to put these configuration directives within a virtual hosti
 
 The configuration file for the CGI executable of PHP is located at `/etc/php5/cgi/php.ini`. You can modify this file to suit the needs of your deployment.
 
-{{< file "/etc/php5/cgi/php.ini" ini >}}
+```file {title="/etc/php5/cgi/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 display_errors = Off
 log_errors = On
@@ -113,7 +113,7 @@ max_execution_time = 30
 memory_limit = 64M
 register_globals = Off
 
-{{< /file >}}
+```
 
 
 If you need support for MySQL in PHP, then you must install the php5-mysql package with the following command:

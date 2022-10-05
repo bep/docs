@@ -44,23 +44,23 @@ Configuration drift occurs when there are untracked changes to a system configur
 
 1.  On your Salt master, create a state file to manage the NGINX configuration file:
 
-    {{< file "/srv/salt/nginx_conf.sls" yaml >}}
+    ```file {title="/srv/salt/nginx_conf.sls"}
 /etc/nginx/nginx.conf:
   file.managed:
     - source:
       - salt://files/nginx.conf
     - makedirs: True
-{{< /file >}}
+```
 
     There are two file paths in this `.sls` file. The first file path is the path to your managed file on your minion. The second, under `source` and prefixed with `salt://`, points to the file path on your master. `salt://` is a convenience file path that maps to `/srv/salt`.
 
 1.  On your Salt master, create a top file if it does not already exist and add your `nginx_conf.sls`:
 
-    {{< file "/srv/salt/top.sls" yaml >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - nginx_conf
-{{< /file >}}
+```
 
 1.  Apply a highstate from your Salt master to run the `nginx_conf.sls` state on your minions.
 
@@ -70,7 +70,7 @@ base:
 
 1.  In order to be notified when a file changes, you will need the Python `pyinotify` package. Create a Salt state that will handle installing the `pyinotify` package on your minions:
 
-    {{< file "/srv/salt/packages.sls" >}}
+    ```file {title="/srv/salt/packages.sls"}
 python-pip:
   pkg.installed
 
@@ -78,7 +78,7 @@ pyinotify:
   pip.installed:
     - require:
       - pkg: python-pip
-        {{</ file >}}
+        ```
 
     {{< note >}}
 The inotify beacon only works on OSes that have inotify kernel support. Currently this excludes FreeBSD, macOS, and Windows.
@@ -91,7 +91,7 @@ The inotify beacon only works on OSes that have inotify kernel support. Currentl
 
 1.  Now create a beacon that will emit an event every time the `nginx.conf` file changes on your minion. Create the `/etc/salt/minion.d/beacons.conf` file and add the following lines:
 
-    {{< file "/etc/salt/minion.d/beacons.conf" yaml >}}
+    ```file {title="/etc/salt/minion.d/beacons.conf"}
 beacons:
   inotify:
     - files:
@@ -99,27 +99,27 @@ beacons:
           mask:
             - modify
     - disable_during_state_run: True
-{{< /file >}}
+```
 
 1.  To apply this beacon to your minions, create a new `file.managed` Salt state:
 
-    {{< file "/srv/salt/beacons.sls" >}}
+    ```file {title="/srv/salt/beacons.sls"}
 /etc/salt/minion.d/beacons.conf:
   file.managed:
     - source:
       - salt://files/minion.d/beacons.conf
     - makedirs: True
-    {{</ file >}}
+    ```
 
 1.  Add the new `packages` and `beacons` states to your Salt master's top file:
 
-    {{< file "/srv/salt/top.sls" yaml >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - nginx_conf
     - packages
     - beacons
-{{< /file >}}
+```
 
 1.  Apply a highstate from your Salt master to implement these changes on your minions:
 
@@ -156,23 +156,23 @@ salt/beacon/salt-minion/inotify//etc/nginx/nginx.conf	{
 
 2.  Then create a reactor state file in the `/srv/reactor` directory and include the following:
 
-    {{< file "/srv/reactor/nginx_conf_reactor.sls" yaml >}}
+    ```file {title="/srv/reactor/nginx_conf_reactor.sls"}
 /etc/nginx/nginx.conf:
   local.state.apply:
     - tgt: {{ data['id'] }}
     - arg:
       - nginx_conf
-{{< /file >}}
+```
 
     The file path in the first line is simply the name of the reactor, and can be whatever you choose. The `tgt`, or target, is the Salt minion that will receive the highstate. In this case, the information passed to the reactor from the beacon event is used to programmatically choose the right Salt minion ID. This information is available as the `data` dictionary. The `arg`, or argument, is the name of the Salt state file that was created to manage the `nginx.conf` file.
 
 1.  On your Salt master, create a `reactor.conf` file and include the new reactor state file:
 
-    {{< file "/etc/salt/master.d/reactor.conf" yaml >}}
+    ```file {title="/etc/salt/master.d/reactor.conf"}
 reactor:
   - 'salt/beacon/*/inotify//etc/nginx/nginx.conf':
     - /srv/reactor/nginx_conf_reactor.sls
-{{< /file >}}
+```
 
     This `reactor.conf` file is essentially a list of event names matched to reactor state files. In this example we've used a glob (*) in the event name instead of specifying a specific minion ID, (which means that any change to a `nginx.conf`on any minion will trigger the reactor), but you might find a specific minion ID better suits your needs.
 
@@ -202,13 +202,13 @@ Salt comes with a number of system monitoring beacons. In this example we will m
 
 1.  On your Salt master, open or create the `/srv/salt/files/minion.d/beacons.conf` file and add the following lines. If you already have a `beacons.conf` file from the previous example, leave out the `beacons:` line, but ensure that rest of the configuration is indented two spaces:
 
-    {{< file "/srv/salt/files/minion.d/beacons.conf" yaml >}}
+    ```file {title="/srv/salt/files/minion.d/beacons.conf"}
 beacons:
   memusage:
     beacon.present:
       - percent: 15%
       - interval: 15
-{{< /file >}}
+```
 
     In this example we've left the memory usage percentage low to ensure the beacon event will fire, and the event interval set to 15 seconds. In a production environment you should change these to more sane values.
 
@@ -240,7 +240,7 @@ salt/beacon/salt-minion/memusage/	{
 
 1.  Then create a reactor state file and add the following lines, making sure to change the `channel`, `api_key`, and `from_name` keys to reflect your desired values. The `api_key` is the OAuth token you copied down in step 3 of the [Configure Your Slack App](#configure-your-slack-app) section:
 
-    {{< file "/srv/reactor/memusage.sls" yaml >}}
+    ```file {title="/srv/reactor/memusage.sls"}
 Send memusage to Slack:
   local.slack.post_message:
     - tgt: {{ data['id'] }}
@@ -249,17 +249,17 @@ Send memusage to Slack:
         api_key: "xoxp-451607817121-453578458246..."
         message: "{{ data['id'] }} has hit a memory usage threshold: {{ data['memusage'] }}%."
         from_name: "Memusage Bot"
-{{< /file >}}
+```
 
     We're using the `data` dictionary provided to the reactor from the memusage event to populate the minion ID and the memory usage.
 
 1.  Open or create the `reactor.conf` file. If you already have a `reactor.conf` file from the previous example, leave out the `reactor:` line, but ensure that rest of the configuration is indented two spaces:
 
-    {{< file "/etc/salt/master.d/reactor.conf" yaml >}}
+    ```file {title="/etc/salt/master.d/reactor.conf"}
 reactor:
   - 'salt/beacon/*/memusage/':
     - '/srv/reactor/memusage.sls'
-{{< /file >}}
+```
 
     In this example we've used a glob (*) in the event name instead of specifying a specific minion ID, (which means that any memusage event will trigger the reactor), but you might find a specific minion ID better suits your needs.
 

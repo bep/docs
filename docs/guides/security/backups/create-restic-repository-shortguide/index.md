@@ -64,10 +64,10 @@ The examples in this section use the Nano text editor. Refer to the [Nano Text E
 
     Copy and paste the example file's content and replace `your-key`, and `your-secret` with your own Object Storage account's access key credentials.
 
-    {{< file "/root/restic_params" >}}
+    ```file {title="/root/restic_params"}
 export AWS_ACCESS_KEY_ID=your-key
 export AWS_SECRET_ACCESS_KEY=your-secret
-{{< /file >}}
+```
 
     {{< note >}}
 Whenever you want to use Restic, import this file using the command below or include it in your user's login script:
@@ -81,9 +81,9 @@ Whenever you want to use Restic, import this file using the command below or inc
 
     Enter your Restic password and save the file.
 
-    {{< file "/root/restic_pw" >}}
+    ```file {title="/root/restic_pw"}
 YourPasswordGoesHere
-{{< /file >}}
+```
 
     {{< note >}}
 You can pass your password filename to Restic using the `-p` flag:

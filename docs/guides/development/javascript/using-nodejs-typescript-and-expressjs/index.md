@@ -47,7 +47,7 @@ If you do not have Node.js and the node version manager (nvm) installed on your 
 
     Your directory should now have a `package.json` file with the following contents:
 
-    {{< file "package.json" >}}
+    ```file {title="package.json"}
 {
   "name": "typescript-nodejs",
   "version": "1.0.0",
@@ -60,7 +60,7 @@ If you do not have Node.js and the node version manager (nvm) installed on your 
   "author": "",
   "license": "ISC"
 }
-    {{< /file >}}
+    ```
 
    This file provides information about the web server that you can update later. The most important entry is `"main": "index.js"`. This defines the name of the main JavaScript file used to create the web server.
 
@@ -68,11 +68,11 @@ If you do not have Node.js and the node version manager (nvm) installed on your 
 
 1. To avoid error messages in the next section of this guide, update the `package.json` file's `description` key as follows:
 
-    {{< file "package.json" >}}
+    ```file {title="package.json"}
    ...
    "description": "This is a test web server.",
    ...
-    {{< /file >}}
+    ```
 
     {{< note >}}
 There is also a field defined in the `package.json` file called the `repository` field. You don't have to provide a value for this field if you don’t have a repository configured to store your code.
@@ -131,7 +131,7 @@ At this point, you should have all requirements and dependencies installed in yo
 
     The `tsconfig.json` file is created with the following content:
 
-    {{< file "tsconfig.json" >}}
+    ```file {title="tsconfig.json"}
 {
     "compilerOptions":{
         /*Language and Environment*/
@@ -156,7 +156,7 @@ At this point, you should have all requirements and dependencies installed in yo
         //"outDir": "./",
     }
 }
-    {{< /file >}}
+    ```
 
     {{< note >}}
 When the `tsconfig.json` file is created, several options are commented out. You can leave the settings as they are, but for more complex project, you can uncomment the necessary settings.
@@ -178,7 +178,7 @@ Now that your development environment is completely configured, you’re ready t
 
 1. Ensure you are still in the `typescript-nodejs` directory. Create a new file named `index.ts` and add the following code to the file.
 
-    {{< file "index.ts" >}}
+    ```file {title="index.ts"}
 import express from 'express';
 
 const app = express();
@@ -190,7 +190,7 @@ app.get('/', (req, res) => {
 app.listen(3000, () => {
     console.log('The application is listening on port 3000!');
 })
-    {{< /file >}}
+    ```
 
     The web server implementation is very basic, however, it provides a foundation to help you build something more complex. The above code imports `express` and instantiates a copy of `express()` as the `app` constant. This constant can be used to interact with your application.
 

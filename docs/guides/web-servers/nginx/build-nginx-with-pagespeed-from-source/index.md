@@ -157,7 +157,7 @@ NGINX can be controlled either by creating a systemd service or by calling the b
 
 1.  In a text editor, create `/lib/systemd/system/nginx.service` and add the following unit file from [the NGINX wiki](https://www.nginx.com/resources/wiki/start/topics/examples/systemd/):
 
-    {{< file "/lib/systemd/system/nginx.service" >}}
+    ```file {title="/lib/systemd/system/nginx.service"}
 [Unit]
 Description=The NGINX HTTP and reverse proxy server
 After=syslog.target network.target remote-fs.target nss-lookup.target
@@ -173,7 +173,7 @@ PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 2.  Enable NGINX to start on boot and start the server:
 
@@ -224,7 +224,7 @@ You can use NGINX's binary to control the process directly without making a star
 
     Create a configuration file for your site with a basic server block inside:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen       80;
     listen       [::]:80;
@@ -235,7 +235,7 @@ server {
     root         /var/www/example.com/;
 
 }
-{{< /file >}}
+```
 
 3. Ensure that the firewall allows access to the nginx service. If you configured the firewall with `ufw` then do the following:
 
@@ -283,7 +283,7 @@ Nginx HTTP (v6)            ALLOW       Anywhere (v6)
 
 2.  Add the PageSpeed directives to your site configuration's `server` block as shown below.
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
 
       ...
@@ -300,7 +300,7 @@ server {
     location ~ "^/ngx_pagespeed_beacon$" { }
 
     }
-{{< /file >}}
+```
 
     {{< note >}}
 `RewriteLevel OptimizeForBandwidth` is a [safer choice](https://www.modpagespeed.com/doc/optimize-for-bandwidth) than the default CoreFilters rewrite level.

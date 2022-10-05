@@ -32,7 +32,7 @@ The examples in this guide rely on the code created in the [CRUD Read Operations
 
 FastAPI provides automatic documentation that follows the [OpenAPI specification](https://swagger.io/specification/). In our [CRUD Write Operations: Use FastAPI to Write an API](/docs/guides/crud-read-operations-use-fastapi-to-write-an-api/#create-the-view-programming-language-endpoint) guide, you write a List Programming Languages endpoint with the annotation, `@app.get('/programming_languages')` as seen in the following example:
 
-{{< file "main.py">}}
+```file {title="main.py"}
 @app.get('/programming_languages')
 def list_programming_languages(before_year: int = 30000, after_year: int = 0):
    qualifying_data = list(
@@ -43,7 +43,7 @@ def list_programming_languages(before_year: int = 30000, after_year: int = 0):
    )
    return {"programming_languages" : qualifying_data }
 
-{{< /file >}}
+```
 
 If you run the example code above and visit `localhost:8000/docs`, you see the documentation displayed as shown below:
 
@@ -91,7 +91,7 @@ The [OpenAPI Swagger Specification](https://swagger.io/specification/) (OpenAPI 
 
 To begin overriding the default documentation, import the `get_openapi` function at the top of the file that declares the app. For example:
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 from fastapi import FastAPI
 from fastapi.openapi.utils import get_openapi
 
@@ -107,7 +107,7 @@ def my_schema():
    app.openapi_schema = openapi_schema
    return app.openapi_schema
 
-{{< /file >}}
+```
 
 This function uses the `get_openapi` function imported earlier to set a new title, version, and description for the documentation. Reboot the app to see the changes.
 
@@ -115,7 +115,7 @@ This function uses the `get_openapi` function imported earlier to set a new titl
 
 Once a developer has obtained the schema object from `get_openapi`, they can directly modify the documentation object as seen in the following example:
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 def my_schema():
    openapi_schema = get_openapi(
        title="The Amazing Programming Language Info API",
@@ -141,7 +141,7 @@ def my_schema():
    return app.openapi_schema
 
 app.openapi = my_schema
-{{< /file >}}
+```
 
 The changes produce a more detailed set of documentation.
 
@@ -151,7 +151,7 @@ Unfortunately, the `title` and `version` arguments to `get_openapi` are required
 
 Extracting two local variables reduces the opportunity for error.
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 def my_schema():
    DOCS_TITLE = "The Amazing Programming Language Info API"
    DOCS_VERSION = "1.0"
@@ -179,7 +179,7 @@ def my_schema():
    return app.openapi_schema
 
 app.openapi = my_schema
-{{< /file >}}
+```
 
 ## Override the Default Route Documentation
 
@@ -196,14 +196,14 @@ Each of the four attributes documents a different thing:
 
 Refer to the JSON object at the `/openapi.json` route or to the [OpenAPI Swagger Specification](https://swagger.io/specification/) to learn which attributes can be modified on an object. For example, you can update a field as `deprecated`, as show below:
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 def my_schema():
 …
 #insert this line below the other code in this function, immediately before the attribute assignment and return value
     openapi_schema["paths"]["/programming_languages"]["get"]["parameters"]["deprecated"] = True
         app.openapi_schema = openapi_schema
         return app.openapi_schema
-{{< /file >}}
+```
 
 To view the result visit the `localhost:8000/docs` page. The attribute is displayed as "*deprecated*".
 
@@ -213,7 +213,7 @@ To view the result visit the `localhost:8000/docs` page. The attribute is displa
 
 Finally, to keep the docs page loading quickly, cache the documentation object so it doesn't need to be recreated each time the app loads.
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 def my_schema():
 
    #Insert these two lines at the beginning of the function
@@ -221,6 +221,6 @@ def my_schema():
        return app.openapi_schema
    …
 
-{{< /file >}}
+```
 
 The Swagger Documentation, plus a function override, make it possible to customize FastAPI documentation. No FastAPI tutorial would be complete without an explanation of how to provide detailed, complete documentation. The framework allows you to change the `title` and `description`, add `contact` information and other notes.  You can even add or change details for each route, and model. The Swagger docs provide visibility into the OpenAPI schema, and a glance at `/openapi.json` reveals the structure of the default documentation object. From there, a few lines of dictionary assignments allows you to create documentation to help users learn about all the capabilities of your API.

@@ -54,7 +54,7 @@ Currently, the best way to install NGINX on Debian 10 is to use the version incl
 
 1.  You can add your site's files in your `/var/www/example.com` directory. Create an index file with a simple "Hello World" example. Using the text editor of your choice, create a new file, `/var/www/example.com/index.html`. Replace `example.com` with your website’s domain name or your Linode’s public IP address.
 
-    {{< file "/var/www/example.com/index.html" html >}}
+    ```file {title="/var/www/example.com/index.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,7 +66,7 @@ Currently, the best way to install NGINX on Debian 10 is to use the version incl
         </header>
     </body>
 </html>
-{{</ file >}}
+```
 
 ## Configure NGINX
 
@@ -78,7 +78,7 @@ NGINX site-specific configuration files are kept in `/etc/nginx/sites-available`
 
 1.  Create a configuration file for your site in the text editor of your choice. Replace `example.com` in the `server_name` directive with your site's domain name or IP address:
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -91,7 +91,7 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-{{< /file >}}
+```
 
 1.   Set up a new symlink to the `/etc/nginx/sites-enabled/` directory to enable your configuration:
 

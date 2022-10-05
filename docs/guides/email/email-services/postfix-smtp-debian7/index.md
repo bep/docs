@@ -83,9 +83,9 @@ Your system is now ready to install Postfix.
 
 1. Once the installation is complete, open the `/etc/postfix/main.cf` file using your preferred text editor. Edit the file to add your Linode's FQDN to the **myhostname** configuration, if it is not already configured, and save your changes.
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 myhostname = fqdn.example.com
-{{< /file >}}
+```
 
 ### Configuring SMTP Usernames and Passwords
 
@@ -102,11 +102,11 @@ First, open or create the `/etc/postfix/sasl_passwd` file:
 
 1. Add the example line to your `sasl_passwd` file and replace `username` and `password` with your SMTP provider credentials.
 
-    {{< file "/etc/postfix/sasl_passwd" >}}
+    ```file {title="/etc/postfix/sasl_passwd"}
 
     [mail.isp.example] username:password
 
-{{</ file >}}
+```
 
 1. Create a Hash database file for Postfix using the `postmap` command. This command creates a new file named `sasl_passwd.db` in the `/etc/postfix/` directory.
 
@@ -133,16 +133,16 @@ Refer to the [Postfix Configuration with Mandrill, and SendGrid](/docs/guides/po
 
 1. Update the `relayhost` configuration with your external SMTP relay host. Replace `mail.isp.example` with your provider's information. If you specified a non-default TCP port in the `sasl_passwd` file, then use the same port when configuring the relay host. The example uses `587` as its port number.
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 # specify SMTP relay host
 relayhost = [mail.isp.example]:587
 
-{{< /file >}}
+```
 
 
 1. Add the end of the file, add the example file's parameters to enable authentication and save the changes you made to your `main.cf` file.
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 
 # enable SASL authentication
 smtp_sasl_auth_enable = yes
@@ -155,7 +155,7 @@ smtp_use_tls = yes
 # where to find CA certificates
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 
-{{< /file >}}
+```
 
 1. Restart Postfix to enable your configurations:
 
@@ -191,15 +191,15 @@ This section shows you settings for some popular mail services you can use as ex
 
 1.  Open your `/etc/postfix/sasl_passwd` file and replace `USERNAME` and `API_KEY` with your own Mandrill credentials and save your changes.
 
-    {{< file "/etc/postfix/sasl_passwd" >}}
+    ```file {title="/etc/postfix/sasl_passwd"}
 [smtp.mandrillapp.com]:587 USERNAME:API_KEY
-{{</ file >}}
+```
 
 1.   Open your /etc/postfix/main.cf file and add the Mandrill relay host information included in the example file.
 
-        {{< file "/etc/postfix/main.cf" >}}
+        ```file {title="/etc/postfix/main.cf"}
 relayhost = [smtp.mandrillapp.com]:587
-{{</ file >}}
+```
 
 1.  Create a hash database file for Postfix using the `postmap` command:
 
@@ -213,15 +213,15 @@ relayhost = [smtp.mandrillapp.com]:587
 
 1. Open your `/etc/postfix/sasl_passwd` file and replace `USERNAME` and `PASSWORD` with your own SendGrid credentials and save your changes.
 
-    {{< file "/etc/postfix/sasl_passwd" >}}
+    ```file {title="/etc/postfix/sasl_passwd"}
 [smtp.sendgrid.net]:587 USERNAME:PASSWORD
-{{< /file >}}
+```
 
 1.   Open your /etc/postfix/main.cf file and add the SendGrid relay host information included in the example file.
 
-        {{< file "/etc/postfix/main.cf" >}}
+        ```file {title="/etc/postfix/main.cf"}
 relayhost = [smtp.sendgrid.net]:587
-{{< /file >}}
+```
 
 1.  Create a hash database file for Postfix using the `postmap` command:
 

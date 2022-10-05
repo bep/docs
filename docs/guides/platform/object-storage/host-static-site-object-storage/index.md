@@ -145,7 +145,7 @@ Hugo has many [available themes](https://themes.gohugo.io/) that can be installe
 
     Set your desired value for `title`. Then, set the `draft` state to `false` and add your content below the `---` in Markdown syntax, if desired:
 
-    {{< file "/home/username/example-site/content/posts/my-first-post.md" >}}
+    ```file {title="/home/username/example-site/content/posts/my-first-post.md"}
 ---
 title: "My First Post"
 date: 2019-04-11T11:25:11-04:00
@@ -160,7 +160,7 @@ There are many benefits to using a static site generator. Here is a list of a fe
 - You don't need to worry about running a web server like Apache or NGINX.
 - Static website performance is typically very fast.
 - Use Git to version control your static website's content.
-{{</ file >}}
+```
 
     {{< disclosure-note "About front matter" >}}
 [*Front matter*](https://gohugo.io/content-management/front-matter/) is a collection of metadata about your content, and it is embedded at the top of your file within opening and closing `---` delimiters.
@@ -275,9 +275,9 @@ Error document:   404.html
     - This is because there is a hardcoded value for this in the `.s3cfg` configuration file that creates this string.
     - You can change this by editing this file in a text editor and change the line for `website_endpoint` to the following:
 
-        {{< file ".s3cfg" text >}}
+        ```file {title=".s3cfg"}
 website_endpoint = http://%(bucket)s.website-us-east-1.linodeobjects.com
-{{</ file >}}
+```
 
     - Change `us-east-1` to match the region where your bucket is hosted.
 

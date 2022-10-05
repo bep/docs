@@ -97,11 +97,11 @@ Enable the Border Gateway Protocol (BGP) daemon on your system.
 
 1. Using a text editor of your choice, enable the `bgpd` daemon by updating its value to `yes` in `/etc/frr/daemons` (the FRR daemons configuration file):
 
-      {{< file "/etc/frr/daemons" >}}
+      ```file {title="/etc/frr/daemons"}
 # The watchfrr and zebra daemons are always started.
 #
 bgpd=yes
-{{</ file >}}
+```
 
 1. Restart the FRR service:
 
@@ -120,7 +120,7 @@ With FRR installed, you can now apply the required configurations to enable Elas
 
 1.  The template below includes the FRR configuration. Ensure you replace any instances of `[ELASTIC_IP]`, `[HOSTNAME]`, `[ROLE]`, and `[DEFAULT_GW_IPV4]` as outlined above. Store the template with your replaced values somewhere that you can easily access later. In the next step, you copy the contents of the template and paste them into the [VTY interactive shell](https://docs.frrouting.org/en/latest/vtysh.html).
 
-      {{< file "~/elastic.conf">}}
+      ```file {title="~/elastic.conf"}
 hostname [HOSTNAME]
 
 router bgp 65045
@@ -139,7 +139,7 @@ route-map primary permit 10
 set large-community 63949:1:1
 route-map secondary permit 10
 set large-community 63949:1:2
-{{</ file >}}
+```
 
 1.  Run the VTY shell:
 

@@ -71,13 +71,13 @@ Note that NGINX cannot be disabled in older versions of GitLab Community Edition
 
 1.  To unbundle NGINX from GitLab, we'll need to disable the version included in the Omnibus package. Add the following lines to `/etc/gitlab/gitlab.rb`:
 
-    {{< file "/etc/gitlab/gitlab.rb" >}}
+    ```file {title="/etc/gitlab/gitlab.rb"}
 # Unbundle NGINX from Omnibus GitLab
 nginx['enable'] = false
 # Set your NGINX's username
 web_server['external_users'] = ['www-data']
 
-{{< /file >}}
+```
 
 
 2.  Reconfigure GitLab to apply the changes:
@@ -102,10 +102,10 @@ Now that GitLab's bundled NGINX has been disabled, the next step is to install a
 
 3.  Add Passenger's APT repository by adding the following lines to `/etc/apt/sources.list.d/passenger.list`:
 
-    {{< file "/etc/apt/sources.list.d/passenger.list" >}}
+    ```file {title="/etc/apt/sources.list.d/passenger.list"}
 deb https://oss-binaries.phusionpassenger.com/apt/passenger trusty main
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -122,10 +122,10 @@ If you're using Ubuntu 16.04, replace `trusty` with `xenial` in the above comman
 
 6.  Enable the new Passenger module by uncommenting the `include /etc/nginx/passenger.conf;` line from the `/etc/nginx/nginx.conf` file:
 
-    {{< file "/etc/nginx/nginx.conf" aconf >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 include /etc/nginx/passenger.conf;
 
-{{< /file >}}
+```
 
 
 4.  Finally, restart NGINX. On Ubuntu 14.04:
@@ -148,7 +148,7 @@ In this section, we'll create a new virtual host to serve GitLab. Since we've un
 
 2.  Edit your new virtual host file to match the following, replacing `example.com` with your own hostname:
 
-    {{< file "/etc/nginx/sites-available/example.com" >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 upstream gitlab {
     server unix:/var/opt/gitlab/gitlab-rails/sockets/gitlab.socket;
 }
@@ -176,7 +176,7 @@ upstream gitlab {
     }
 }
 
-{{< /file >}}
+```
 
 
 3.  Enable your new virtual host by symbolically linking it to `sites-enabled` (change `example.com`):

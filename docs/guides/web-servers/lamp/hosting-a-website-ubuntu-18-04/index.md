@@ -60,7 +60,7 @@ These guidelines are designed to optimize Apache for a **Linode 2GB**, but you c
 
 1.  Add this section to the end of the file:
 
-    {{< file "/etc/apache2/apache2.conf" apache >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 KeepAlive Off
 
    ...
@@ -72,7 +72,7 @@ KeepAlive Off
        MaxClients 200
        MaxRequestsPerChild 4500
    </IfModule>
-{{< /file >}}
+```
 
 1.  Save the changes to Apache's configuration file. If you are using `nano`, do this by pressing **CTRL+X** and then **Y**. Press **ENTER** to confirm.
 
@@ -153,7 +153,7 @@ You should *not* be logged in as `root` while executing these commands. To learn
 
 1.  Create a configuration file for your virtual host. Copy the basic settings in the following example and paste it into the virtual host file you just created. Replace all instances of `example.com` with your domain name:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 # domain: example.com
 # public: /var/www/html/example.com/public_html/
 
@@ -171,7 +171,7 @@ You should *not* be logged in as `root` while executing these commands. To learn
   ErrorLog  /var/www/html/example.com/log/error.log
   CustomLog /var/www/html/example.com/log/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
 1.  Save the changes to the virtual host configuration file by typing **CTRL+X** and then type **Y**. Press **ENTER** to confirm.
 
@@ -233,14 +233,14 @@ If you have a Linode larger than 2GB, modify these values while carefully watchi
 
 1.  Add the following values:
 
-    {{< file "/etc/mysql/my.cnf" aconf >}}
+    ```file {title="/etc/mysql/my.cnf"}
 [mysqld]
 max_allowed_packet = 1M
 thread_stack = 128K
 max_connections = 75
 table_open_cache = 32M
 key_buffer_size = 32M
-{{< /file >}}
+```
 
 1.  Save the changes to MySQL's configuration file by typing **CTRL+X**, then typing **Y**, and finally hitting **ENTER** to save.
 
@@ -319,7 +319,7 @@ If you have a Linode larger than 2GB, increase the memory limit to a larger valu
 
 1.  Verify that the following values are set. All of the lines listed below should be uncommented. Be sure to remove any semicolons (`;`) at the beginning of the lines:
 
-    {{< file "/etc/php/7.0/apache2/php.ini" ini >}}
+    ```file {title="/etc/php/7.0/apache2/php.ini"}
 max_execution_time = 30
 memory_limit = 128M
 error_reporting = E_ALL & ~E_DEPRECATED & ~E_STRICT
@@ -327,7 +327,7 @@ display_errors = Off
 log_errors = On
 error_log = /var/log/php/php_errors.log
 
-{{< /file >}}
+```
 
     {{< note >}}
 The 128M setting for `memory_limit` is a general guideline. While this value should be sufficient for most websites, larger websites and some web applications may require 256 megabytes or more.
@@ -375,7 +375,7 @@ In this guide so far, you have used `example.com.conf` to host our website `exam
 
 1.  Replace the contents of this file with the following example or, alternatively, adjust the existing file as needed.
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 # domain: example2.com
 # public: /var/www/html/example2.com/public_html/
 
@@ -393,7 +393,7 @@ In this guide so far, you have used `example.com.conf` to host our website `exam
   ErrorLog  /var/www/html/example2.com/log/error.log
   CustomLog /var/www/html/example2.com/log/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
 1.  Place the new website's files under the directory you've defined above. The example uses `/var/www/html/example2.com/public_html/`.
 

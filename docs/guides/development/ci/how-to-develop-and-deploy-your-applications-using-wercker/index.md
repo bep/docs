@@ -88,7 +88,7 @@ This example demonstrates how to use Wercker to update the source code on a remo
 
 Create a `wercker.yml` file in the root of the `jClocksGMT` directory and paste in the content below. Replace `192.0.2.0` with the public IP address of your Linode, and update the last line to use the correct username and file path. All indentation in the `wercker.yml` must be with spaces, not tabs.
 
-{{< file "/path/to/jClocksGMT/wercker.yml" yaml >}}
+```file {title="/path/to/jClocksGMT/wercker.yml"}
 box: debian
 # Build definition
 build:
@@ -110,7 +110,7 @@ build:
         code: |
           ssh username@<Linode IP or hostname> git -C /path/to/jClocksGMT pull
 
-{{< /file >}}
+```
 
 
 Whenever a Wercker run is triggered (by a push to the repository), Wercker will load a Docker image and run the steps specified from that image. This is why all commands to be run on your Linode are prefaced with an `ssh` command. In this case, the `wercker.yml` file contains the following steps:
@@ -138,7 +138,7 @@ This example demonstrates a more complicated pipeline with both `build` and `dep
 
 2.  Create the `wercker.yml` file in the same directory:
 
-    {{< file "/path/to/example/wercker.yml" yaml >}}
+    ```file {title="/path/to/example/wercker.yml"}
 box: google/golang
 
 build:
@@ -193,7 +193,7 @@ linode:
             ssh username@192.0.2.0 docker tag <docker-username>/myapp:latest <docker-username>/myapp:current
             ssh username@192.0.2.0 docker rmi <docker-username>/myapp:latest
 
-{{< /file >}}
+```
 
 
 There are three pipelines in this configuration:
@@ -243,7 +243,7 @@ This last example introduces the **Wercker CLI**. This tool requires that Docker
 
     A `wercker.yml` file should already be present:
 
-    {{< file "/path/to/getting-started-golang/wercker.yml" yaml >}}
+    ```file {title="/path/to/getting-started-golang/wercker.yml"}
 box:
 id: golang
 ports:
@@ -277,7 +277,7 @@ build:
     code: |
       go test ./...
 
-{{< /file >}}
+```
 
 
     Only two pipelines are defined in this `yml` file: `dev` and `build`. Note that in this example, Port `5000` is exposed.

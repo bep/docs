@@ -136,11 +136,11 @@ Earlier versions of Apache have a different file and directory structure. The ma
     {{< /note >}}
 1. Edit this file and add the `h2` and `h2c` protocols to the "Protocols" definition. Apache tries to negotiate the protocols in the order they are listed. Placing `h2` first prioritizes HTTP/2 over HTTP/1.1.
 
-    {{< file "/etc/apache2/mods-available/http2.conf" aconf >}}
+    ```file {title="/etc/apache2/mods-available/http2.conf"}
     ...
     Protocols h2 h2c http/1.1
     ...
-    {{< /file >}}
+    ```
     {{< note >}}
 HTTP/2 support is typically configured on a system-wide basis. If you only want to enable HTTP/2 for one site, add the `h2 h2c` protocols to the virtual server entry for the site instead. For more information about Apache, see Linode's [Apache Configuration Basics](/docs/web-servers/apache-tips-and-tricks/apache-configuration-basics) guide.
     {{< /note >}}

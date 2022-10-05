@@ -73,7 +73,7 @@ Similar to events in inotify, the Python implementation will be through an `Even
 
 Below is the full script used in this guide. The `EventProcessor` class contain methods that print out the monitored file or directory will along with the corresponding `inotify` event. This guide will breakdown the code into smaller bits.
 
-{{< file "notify_me.py" python >}}
+```file {title="notify_me.py"}
 import os
 import pyinotify
 
@@ -113,25 +113,25 @@ event_notifier = pyinotify.Notifier(watch_manager, EventProcessor())
 watch_this = os.path.abspath("notification_dir")
 watch_manager.add_watch(watch_this, pyinotify.ALL_EVENTS)
 event_notifier.loop()
-{{< /file >}}
+```
 
 ### Create a Watch Manager
 
 Create `notify_me.py` in a text editor.
 
-{{< file "~/notify_me.py" python >}}
+```file {title="~/notify_me.py"}
 import pyinotify
 
 watch_manager = pyinotify.WatchManager()
-{{< /file >}}
+```
 
 ### Create an Event Notifier
 
 Instantiate the `Notifier` class with an instance of `WatchManager` as the first argument and a `ProcessEvent` subclass instance as the second argument.
 
-{{< file "notify_me.py" python >}}
+```file {title="notify_me.py"}
 event_notifier = pyinotify.Notifier(watch_manager, EventProcessor())
-{{< /file >}}
+```
 
 ### Add a Watch
 
@@ -141,20 +141,20 @@ event_notifier = pyinotify.Notifier(watch_manager, EventProcessor())
 
 2.  Add this directory to our file system notification system. Call `add_watch()` on the watch manager instance `watch_manager`.
 
-    {{< file "notify_me.py" python >}}
+    ```file {title="notify_me.py"}
 import os
 
 watch_this = os.path.abspath("notification_dir")
 watch_manager.add_watch(watch_this, pyinotify.ALL_EVENTS)
-{{< /file >}}
+```
 
 ## Start the Watch
 
 By looping the `Notifier` object, the directory can be monitored continuously. This loop method takes [additional parameters](http://seb.dbzteam.org/pyinotify/pyinotify.Notifier-class.html#loop), callback and daemonize, which calls a function after each iteration and daemonizes the thread respectively.
 
-{{< file "notify_me.py" python >}}
+```file {title="notify_me.py"}
 event_notifier.loop()
-{{< /file >}}
+```
 
 ## Test Notification Script
 
@@ -217,13 +217,13 @@ The call to `loop()` is blocking the current process in this example. Anything a
 
     We can deploy our file system notifier in a different thread. It is not necessary to create a new thread explicitly. Use the `ThreadedNotifier` class instead of `Notifier` and call `event_notifier.start()` to start event processing:
 
-    {{< file "notify_me.py" python >}}
+    ```file {title="notify_me.py"}
 event_notifier = pyinotify.ThreadedNotifier(watch_manager, EventProcessor())
 
 watch_this = os.path.abspath("notification_dir")
 watch_manager.add_watch(watch_this, pyinotify.ALL_EVENTS)
 event_notifier.start()
-{{< /file >}}
+```
 
  -  **AsyncNotifier**
 

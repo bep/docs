@@ -124,7 +124,7 @@ You also need to modify the URL values in your Supabase instance's configuration
 
 This example uses a remote IP address of `192.0.2.0` for the server and assumes Supabase's default ports:
 
-{{< file ".env" conf >}}
+```file {title=".env"}
 # [...]
 ## General
 SITE_URL=http://192.0.2.0:3000
@@ -139,7 +139,7 @@ API_EXTERNAL_URL=http://192.0.2.0:8000
 
 STUDIO_PORT=3000
 PUBLIC_REST_URL=http://192.0.2.0:8000/rest/v1/ # replace if you intend to use Studio outside of localhost
-{{< /file >}}
+```
 
 Similar changes need to be made again should you alter the server address or the instance's ports. That is the case with the steps for implementing a reverse proxy server as shown further on in this tutorial.
 
@@ -191,18 +191,18 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJzZXJ2aWNlX3JvbGUiLAo
 
 4. Open the `.env` file in your `supabase/docker` directory. Replace the values for `POSTGRES_PASSWORD`, `JWT_SECRET`, `ANON_KEY`, and `SERVICE_ROLE_KEY` with your `examplePassword1`, `examplePassword2`, `exampleJWT1`, and `exampleJWT2`, respectively:
 
-    {{< file ".env" >}}
+    ```file {title=".env"}
 # [...]
 POSTGRES_PASSWORD=examplePassword1
 JWT_SECRET=examplePassword2
 ANON_KEY=exampleJWT1
 SERVICE_ROLE_KEY=exampleJWT2
 # [...]
-{{< /file >}}
+```
 
 5. Open the Kong configuration file, which is located at `volumes/api/kong.yml` in the `supabase/docker` directory. Find the `consumers` section of the file, and replace the `key` values under the `anon` and `service_role` usernames with your `exampleJWT1` and `exampleJWT2`, respectively:
 
-    {{< file "volumes/api/kong.yml" yml >}}
+    ```file {title="volumes/api/kong.yml"}
 consumers:
 - username: anon
   keyauth_credentials:
@@ -210,7 +210,7 @@ consumers:
 - username: service_role
   keyauth_credentials:
   - key: exampleJWT2
-{{< /file >}}
+```
 
 6. Restart your Supabase instance for these changes to take effect:
 
@@ -229,7 +229,7 @@ Moreover, using NGINX gives a solution for applying SSL certification to your en
 
 2. Open the NGINX configuration file that you located/created as part of the above step. For this and following examples, the location is presumed to be `/etc/nginx/sites-available/default`, but know that your location may be different. Remove the configuration file's default contents, and replace them with the following contents. Be sure to replace the example IP address `192.0.2.0` with your server's IP address and `example.com` with your domain.
 
-    {{< file "/etc/nginx/sites-available/default" conf >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 map $http_upgrade $connection_upgrade {
     default upgrade;
     '' close;
@@ -279,7 +279,7 @@ server {
         proxy_set_header Upgrade $http_upgrade;
     }
 }
-    {{< /file >}}
+    ```
 
 3. Restart the NGINX service, which you can typically do with:
 
@@ -325,7 +325,7 @@ With an SSL certificate, your instance's traffic gets encrypted and secured over
 
     Be sure to replace the `ssl_certificate` and `ssl_certificate_key` values here with the locations of the `fullchain.pem` and `privkey.pem` files created by Certbot. And replace the `example.com` in the `server_name` with your domain name:
 
-    {{< file "/etc/nginx/sites-available/default" conf >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 # [...]
 server {
     listen      80;
@@ -341,7 +341,7 @@ server {
     ssl_certificate /etc/letsencrypt/live/example.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
 # [...]
-    {{< /file >}}
+    ```
 
 4. Restart NGINX:
 

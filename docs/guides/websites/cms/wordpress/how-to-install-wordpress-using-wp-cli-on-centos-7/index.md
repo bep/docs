@@ -115,9 +115,9 @@ The bash completion feature of WP-CLI allows you to see all its available comman
     **Bash**
     - Open the `.bashrc` file and add the following line to the bottom of the file:
 
-        {{< file "~/.bashrc" bash >}}
+        ```file {title="~/.bashrc"}
 source /home/$USER/wp-completion.bash
-{{< /file >}}
+```
 
     - Run the following command to reload the bash profile:
 
@@ -127,11 +127,11 @@ source /home/$USER/wp-completion.bash
 
     - Open the `.zshrc`file and add the following line to the bottom of the file:
 
-        {{< file "~/.zshrc" bash >}}
+        ```file {title="~/.zshrc"}
 autoload bashcompinit
 bashcompinit
 source /home/$USER/wp-completion.bash
-{{< /file >}}
+```
 
     - Run the following command to reload the Zsh profile:
 
@@ -331,9 +331,9 @@ You will need to configure Apache so that you can access your WordPress site fro
 
 1. Edit Apache's configuration file to let it know to look for virtual host files in the `/etc/httpd/sites-enabled` directory. Add the example line to the bottom of your `httpd.conf` file:
 
-      {{< file "/etc/httpd/conf/httpd.conf" apache>}}
+      ```file {title="/etc/httpd/conf/httpd.conf"}
 IncludeOptional sites-enabled/*.conf
-      {{</ file >}}
+      ```
 
 1. Navigate to your `/var/www/html/example.com` directory if you are not already there:
 
@@ -345,7 +345,7 @@ IncludeOptional sites-enabled/*.conf
 
 1. Create a configuration for your virtual host. Copy the basic settings in the example below and paste them into the virtual host file you just created. Replace all instances of `example.com` with your domain name:
 
-    {{< file "/etc/httpd/sites-availabe/example.com.conf" apache>}}
+    ```file {title="/etc/httpd/sites-availabe/example.com.conf"}
 <Directory /var/www/html/>
     Require all granted
 </Directory>
@@ -360,7 +360,7 @@ IncludeOptional sites-enabled/*.conf
       deny from all
     </files>
 </VirtualHost>
-    {{</ file>}}
+    ```
 
 1.  Save the changes to the virtual host configuration file by pressing **CTRL+X** and then pressing **Y**. Press **ENTER** to confirm.
 

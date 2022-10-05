@@ -118,7 +118,7 @@ The CentOS 7 installation already includes a backup file located at `/etc/cassan
 
 More information on this file can be found by following the *Cassandra .yaml Configuration File Overview* link in the "External Resources" section.
 
-{{< file "/etc/cassandra/conf/cassandra.yaml" yaml >}}
+```file {title="/etc/cassandra/conf/cassandra.yaml"}
 . . .
 authenticator: org.apache.cassandra.auth.PasswordAuthenticator
 authorizer: org.apache.cassandra.auth.CassandraAuthorizer
@@ -126,7 +126,7 @@ role_manager: CassandraRoleManager
 roles_validity_in_ms: 0
 permissions_validity_in_ms: 0
 . . .
-{{< /file >}}
+```
 
 After editing the file restart Cassandra.
 
@@ -170,7 +170,7 @@ Since your Cassandra username and password can be stored here in plaintext, this
 CentOS 7 users can find a sample file containing all the configuration options at `/etc/cassandra/conf/cqlshrc.sample`.
 {{< /note >}}
 
-    {{< file "~/.cassandra/cqlshrc" aconf >}}
+    ```file {title="~/.cassandra/cqlshrc"}
 . . .
 ;; Options that are common to both COPY TO and COPY FROM
 
@@ -202,7 +202,7 @@ float_precision = 5
 ;; The encoding used for characters
 encoding = utf8
 . . .
-{{< /file >}}
+```
 
 
 3.  Save and close the file. Update the file and directory with the following permissions:
@@ -240,11 +240,11 @@ If you receive connection errors when running `nodetool status`, you may need to
 
 1.  Search for `-Djava.rmi.server.hostname=` in the file. Uncomment this line and add your loopback address or public IP address by replacing `<public name>` at the end of the line:
 
-    {{< file "/etc/cassandra/conf/cassandra-env.sh" bash >}}
+    ```file {title="/etc/cassandra/conf/cassandra-env.sh"}
 . . .
 JVM_OPTS="$JVM_OPTS -Djava.rmi.server.hostname=<public name>"
 . . .
-{{< /file >}}
+```
 
 1.  Restart Cassandra after you've finished updating the `cassandra-env.sh` file:
 

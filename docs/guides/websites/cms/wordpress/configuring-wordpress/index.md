@@ -101,21 +101,21 @@ By default, PHP restricts web uploads to two megabytes. But you can configure PH
 
 1. Find the `upload_max_filesize` variable in the file and modify its value as needed. If you cannot find the variable, you can add it.
 
-    {{< file "php.ini" >}}
+    ```file {title="php.ini"}
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
 upload_max_filesize = 8M
-    {{< /file >}}
+    ```
 
 1. Do the same for the `post_max_size` variable. Its default value may be different than the default for `upload_max_filesize`, but you can make both variables the same value when adjusting them.
 
-    {{< file "php.ini" >}}
+    ```file {title="php.ini"}
 ; Maximum size of POST data that PHP will accept.
 ; Its value may be 0 to disable the limit. It is ignored if POST data reading
 ; is disabled through enable_post_data_reading.
 ; http://php.net/post-max-size
 post_max_size = 8M
-    {{< /file >}}
+    ```
 
 1. Restart PHP.
 
@@ -155,7 +155,7 @@ Permalinks — a combination of "permanent" and "hyperlink" — provide your pag
 
 1. Find the `Directory` section that identifies your website's root directory, and modify it as follows:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 
 # [...]
 
@@ -166,7 +166,7 @@ Permalinks — a combination of "permanent" and "hyperlink" — provide your pag
 </Directory>
 
 # [...]
-    {{< /file >}}
+    ```
 
 1. Restart Apache to have the changes take effect.
 
@@ -178,12 +178,12 @@ Permalinks — a combination of "permanent" and "hyperlink" — provide your pag
 
 1. Find the `location /` block, and modify it as follows:
 
-    {{< file "/etc/nginx/sites-available/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com.conf"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ /index.php?$args;
 }
-    {{< /file >}}
+    ```
 
 1. Restart NGINX to have the changes take effect.
 

@@ -226,7 +226,7 @@ You can find a short configuration example below that focuses on some key kinds 
 
 - Second, several modules require basic configuration before they display in Glances. `folders` and `ports` are two such modules. Below, both get configurations identifying what should be monitored, as well as some additional controls for the monitoring.
 
-{{< file "~/.config/glances/glances.conf" toml >}}
+```file {title="~/.config/glances/glances.conf"}
 [global]
 refresh=10
 check_update=True
@@ -246,7 +246,7 @@ port_default_gateway=True
 port_1_host=google.com
 port_1_port=80
 port_1_description=Google
-{{< /file >}}
+```
 
 ## Conclusion
 

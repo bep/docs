@@ -62,7 +62,7 @@ HAProxy is included in the package management systems of most Linux distribution
 
 1.  Review the default configuration file at `/etc/haproxy/haproxy.cfg`, which is created automatically during installation. This file defines a standard setup without any load balancing:
 
-    {{< file "/etc/haproxy/haproxy.cfg" aconf >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -101,7 +101,7 @@ defaults
     errorfile 503 /etc/haproxy/errors/503.http
     errorfile 504 /etc/haproxy/errors/504.http
 
-{{< /file >}}
+```
 
 
     The `global` section defines system level parameters such as file locations and the user and group under which HAProxy is executed. In most cases you will not need to change anything in this section. The user **haproxy** and group **haproxy** are both created during installation.
@@ -122,13 +122,13 @@ When you configure load balancing using HAProxy, there are two types of nodes wh
 
 1.  Open `/etc/haproxy/haproxy.cfg` in a text editor and append the configuration for the front end:
 
-    {{< file "/etc/haproxy/haproxy.cfg" aconf >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 frontend haproxynode
     bind *:80
     mode http
     default_backend backendnodes
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -139,7 +139,7 @@ Throughout this guide, replace `203.0.113.2` with the IP address of your fronten
 
 2.  Add the back end configuration:
 
-    {{< file "/etc/haproxy/haproxy.cfg" aconf >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 backend backendnodes
     balance roundrobin
     option forwardfor
@@ -149,7 +149,7 @@ backend backendnodes
     server node1 192.168.1.3:8080 check
     server node2 192.168.1.4:8080 check
 
-{{< /file >}}
+```
 
 
     This defines **backendnodes** and specifies several configuration options:
@@ -163,7 +163,7 @@ backend backendnodes
 
 3.  Add the optional stats node to the configuration:
 
-    {{< file "/etc/haproxy/haproxy.cfg" aconf >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 listen stats
     bind :32700
     stats enable
@@ -171,14 +171,14 @@ listen stats
     stats hide-version
     stats auth someuser:password
 
-{{< /file >}}
+```
 
 
     The HAProxy stats node will listen on port 32700 for connections and is configured to hide the version of HAProxy as well as to require a  password login. Replace `password` with a more secure password. In addition, it is recommended to disable stats login in production.
 
 4.  Here is the complete configuration file after modifications:
 
-    {{< file "/etc/haproxy/haproxy.cfg" aconf >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 global
     log /dev/log    local0
     log /dev/log    local1 notice
@@ -238,7 +238,7 @@ listen stats
     stats hide-version
     stats auth someuser:password
 
-{{< /file >}}
+```
 
 
 ## Running and Monitoring

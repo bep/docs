@@ -66,7 +66,7 @@ You may also want to back up your configuration files (usually located in `/etc/
 
 1.  Edit your `sources.list` file to change all instances of the current codename to the new release codename. The example of upgrading from Debian 8 (Jessie) to Debian 9 (Stretch) is used below, so `jessie` is changed to `stretch` (or, alternatively from `jessie` to `stable`).
 
-    {{< file "/etc/apt/sources.list" >}}
+    ```file {title="/etc/apt/sources.list"}
 deb http://mirrors.linode.com/debian stretch main
 deb-src http://mirrors.linode.com/debian stretch main
 
@@ -76,7 +76,7 @@ deb-src http://mirrors.linode.com/debian-security/ stretch/updates main
 # stretch-updates, previously known as 'volatile'
 deb http://mirrors.linode.com/debian stretch-updates main
 deb-src http://mirrors.linode.com/debian stretch-updates main
-{{< /file >}}
+```
 
     {{< note >}}
 Ensure any third party repositories are also tracking `stretch`. You will need to check with the maintainers of each package to ensure that their own repositories have been updated.
@@ -138,7 +138,7 @@ When upgrading from Debian 8 to 9, you may experience problems because of a dupl
 
 1.  Comment out `port = anyport` in `/etc/fail2ban/jail.local` (around line 155). The block should look similar to below:
 
-    {{< file "/etc/fail2ban/jail.local" >}}
+    ```file {title="/etc/fail2ban/jail.local"}
 [pam-generic]
 
 enabled  = false
@@ -150,7 +150,7 @@ banaction = iptables-allports
 #port     = anyport
 logpath  = /var/log/auth.log
 maxretry = 6
-{{< /file >}}
+```
 
 1.  Tell `dpkg` to reconfigure anything necessary:
 

@@ -89,12 +89,12 @@ If you prefer not to install the bundled packages via Tasksel, you can instead i
 
     Open the `apache2.conf` Apache config file and adjust the `KeepAlive` setting:
 
-    {{< file "/etc/apache2/apache2.conf" aconf >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 KeepAlive On
 MaxKeepAliveRequests 50
 KeepAliveTimeout 5
 
-{{< /file >}}
+```
 
     {{< note >}}
 The `MaxKeepAliveRequests` setting controls the maximum number of requests during a persistent connection. 50 is a conservative amount; you may need to set this number higher depending on your use-case. The `KeepAliveTimeout` setting controls how long the server waits (measured in seconds) for new requests from already connected clients. Setting this to 5 will avoid wasting RAM.
@@ -102,7 +102,7 @@ The `MaxKeepAliveRequests` setting controls the maximum number of requests durin
 
 1.  The default *multi-processing module* (MPM) is the **prefork** module. `mpm_prefork` is the module that is compatible with most systems. Open the `mpm_prefork.conf` file located in `/etc/apache2/mods-available` and edit the configuration. Below are the suggested values for a **2GB Linode**:
 
-    {{< file "/etc/apache2/mods-available/mpm_prefork.conf" aconf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_prefork.conf"}
 <IfModule mpm_prefork_module>
         StartServers            4
         MinSpareServers         3
@@ -110,7 +110,7 @@ The `MaxKeepAliveRequests` setting controls the maximum number of requests durin
         MaxRequestWorkers       200
         MaxConnectionsPerChild  10000
 </IfModule>
-{{< /file >}}
+```
 
 1.  Enable the firewall to allow web traffic. This guide lists the commands to enable web traffic if you configured UFW on your server.
 
@@ -144,7 +144,7 @@ You can set up virtual hosts several ways, and the following steps outline the r
 
 1.  Open the new `example.com` configuration file in your text editor. Uncomment the `ServerName` option and update it with your domain. Enter the document root path and log directories as shown below, and add a `Directory` block before `<VirtualHost>`:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
         Require all granted
 </Directory>
@@ -159,7 +159,7 @@ You can set up virtual hosts several ways, and the following steps outline the r
 
 </VirtualHost>
 
-{{< /file >}}
+```
 
     {{< note >}}
 The file example above has all comment sections removed for brevity. Keep or remove the commented areas as you see fit.
@@ -240,11 +240,11 @@ quit
 
 1.  Edit the configuration file located in `/etc/php/7.4/apache2/php.ini` to enable more descriptive errors, logging, and better performance. The following modifications provide a good starting point:
 
-    {{< file "/etc/php/7.4/apache2/php.ini" ini >}}
+    ```file {title="/etc/php/7.4/apache2/php.ini"}
 error_reporting = E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR
 max_input_time = 30
 error_log = /var/log/php/error.log
-{{< /file >}}
+```
 
     {{< note >}}
 The beginning of the `php.ini` file contains examples commented out with a semicolon (**;**), which disables these directives. Ensure that the lines you modify in this step follow the examples section and are uncommented.
@@ -269,7 +269,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 
 1.  Paste the following code into a new file, `phptest.php`, in the `public_html` directory. Modify `webuser` and `password` to match the information entered in the **Create a MySQL Database** section above:
 
-    {{< file "/var/www/html/example.com/public_html/phptest.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/phptest.php"}
 <html>
 <head>
     <title>PHP Test</title>
@@ -294,7 +294,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 </body>
 </html>
 
-{{< /file >}}
+```
 
 1.  Navigate to `example.com/phptest.php` from your local machine. If the components of your LAMP stack are working correctly, the browser will display a "Connected successfully" message. If not, the output will be an error message.
 

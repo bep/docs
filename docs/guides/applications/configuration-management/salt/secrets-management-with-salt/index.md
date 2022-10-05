@@ -44,17 +44,17 @@ Pillar data is kept in `.sls` files which are written in the same YAML syntax as
 
 For example, let's say your minion runs an application which accesses the [Linode API](https://developers.linode.com/api/v4). This example pillar file records your API token in a variable called `linode_api_token`:
 
-{{< file "/srv/pillar/app_secrets.sls" >}}
+```file {title="/srv/pillar/app_secrets.sls"}
 linode_api_token: YOUR_API_TOKEN
-{{< /file >}}
+```
 
 As with state files, a top file (separate from your states’ top file) maps pillar data to minions. This example top file maps your `app_secrets` pillar data to your app server:
 
-{{< file "/srv/pillar/top.sls" >}}
+```file {title="/srv/pillar/top.sls"}
 base:
   'appserver':
     - app_secrets
-{{< /file >}}
+```
 
 {{< note >}}
 You may want to create a `pillar.example` file (like those provided by Salt formulas) that lists all the known variable keys for your pillar but does not contain the actual secrets. If you check this file into your version control, other users that clone your states' repository can duplicate this example pillar file and more quickly set up their own deployments.
@@ -66,12 +66,12 @@ To inject pillar data into your states, use Salt's Jinja template syntax. While 
 
 This example state embeds the API token in a file on your Linode; the data is accessed through the `pillar` dictionary:
 
-{{< file "/srv/salt/setup_app.sls" >}}
+```file {title="/srv/salt/setup_app.sls"}
 api_token:
   file.managed:
     - name: /var/your_app/api_token
     - contents: {{ pillar['linode_api_token'] }}
-{{< /file >}}
+```
 
 {{< caution >}}
 There are times when pillar data could show up in the output that Salt generates, like when `file.managed` displays diffs of a modified file. To avoid displaying these diffs, you can set `file.managed`'s `show_diff` flag to false.
@@ -91,12 +91,12 @@ Another way to keep sensitive values out of version control is to use environmen
 
 The environment variable is referenced by a Salt state file through the `salt['environ.get']('ENVIRONMENT_VARIABLE_NAME')` syntax. The previous `setup_app` example state can be adapted to use an environment variable as follows:
 
-{{< file "/srv/salt/setup_app.sls" >}}
+```file {title="/srv/salt/setup_app.sls"}
 api_token:
   file.managed:
     - name: /var/your_app/api_token
     - contents: {{ salt['environ.get']('LINODE_API_TOKEN') }}
-{{< /file >}}
+```
 
 As with the previous pillar example, you'll want to keep `file.managed`'s diffs from appearing on screen when dealing with sensitive information by setting `show_diff: false`. For more information, see [Using Environment Variables in SLS Modules](https://docs.saltproject.io/en/latest/topics/tutorials/states_pt3.html#using-environment-variables-in-sls-modules).
 

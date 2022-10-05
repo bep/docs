@@ -178,13 +178,13 @@ Following the example below, you will add your three Linodes to the `/etc/ansibl
 
 1. Add your nodes to the default inventory file. Replace `203.0.113.0` and `203.0.113.1` with the public IP address or domain name of each of your nodes.
 
-    {{< file "/etc/ansible/hosts" ini >}}
+    ```file {title="/etc/ansible/hosts"}
 [nginx]
 203.0.113.0
 
 [wordpress]
 203.0.113.1
-    {{< /file >}}
+    ```
 
     Each bracketed label denotes an Ansible [group](http://docs.ansible.com/ansible/latest/intro_inventory.html#hosts-and-groups). Grouping your nodes by function will make it easier to run commands against the correct set of nodes.
 

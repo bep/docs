@@ -63,7 +63,7 @@ The instructions here must be executed on each Cassandra node to be clustered. A
     | `auto_bootstrap` | Add this property anywhere in the file. If you have yet to add data to your nodes - that is, you would start with a fresh cluster - set this to "false." If your node(s) already contains data, **do not** add this property. |
     | `num_tokens` | This property defines the proportion of data stored on each node. For nodes with equal hardware capabilities, this number should be set equally between them so the data is more likely to be evenly distributed. The default value of 256 is likely to ensure equal data distribution. For more information on this topic, see the "How data is distributed across a cluster" link in the "External Resources" section. |
 
-    {{< file "/etc/cassandra/conf/cassandra.yaml" >}}
+    ```file {title="/etc/cassandra/conf/cassandra.yaml"}
 cluster_name: '[Your Cluster Name]'
 listen_address: [public_ip_address]
 rpc_address: [public_ip_address]
@@ -74,16 +74,16 @@ parameters:
   - seeds: "[node1_ip_address],[node2_ip_address]"
 endpoint_snitch: GossipingPropertyFileSnitch
 auto_bootstrap: false
-{{< /file >}}
+```
 
 3.  Edit the `cassandra-rackdc.properties` file. Assign each node the same data center and rack name:
 
-    {{< file "/etc/cassandra/conf/cassandra-rackdc.properties" >}}
+    ```file {title="/etc/cassandra/conf/cassandra-rackdc.properties"}
 # These properties are used with GossipingPropertyFileSnitch and will
 # indicate the rack and dc for this node
 dc=DC1
 rack=RACK1
-{{< /file >}}
+```
 
 ## Edit Firewall Settings
 
@@ -132,7 +132,7 @@ Setting up encryption between nodes offers additional security and protects the 
 
 2. Create a configuration file for openssl to help automate the certificate creation process. Copy the contents below into a new file called `rootCAcert.conf`. Replace the values for `examplePassword`, `US`, `WA`, `Seattle` with your specific information:
 
-    {{< file "~/.keystore/rootCAcert.conf" aconf >}}
+    ```file {title="~/.keystore/rootCAcert.conf"}
 [ req ]
 distinguished_name     = req_distinguished_name
 prompt                 = no
@@ -146,7 +146,7 @@ L                      = Seattle
 OU                     = Cluster_Name
 CN                     = Cluster_Name_MasterCA
 
-{{< /file >}}
+```
 
 3.  Create the public and private key files.
 
@@ -208,7 +208,7 @@ Use the `-i` option if your destination server requires a certificate to login.
 
 Edit the `cassandra.yaml` file on each node to match the following. Replace text in [brackets] with the indicated information.
 
-{{< file "/etc/cassandra/conf/cassandra.yaml" yaml >}}
+```file {title="/etc/cassandra/conf/cassandra.yaml"}
 server_encryption_options:
     internode_encryption: all
     keystore: /etc/cassandra/conf/[keystore_file.jks]
@@ -222,7 +222,7 @@ server_encryption_options:
     cipher_suites: [TLS_RSA_WITH_AES_128_CBC_SHA,TLS_RSA_WITH_AES_256_CBC_SHA]
     require_client_auth: true
 
-{{< /file >}}
+```
 
 
 You may want to configure the `internode_encryption` setting to better meet the needs of your specific environment. A breakdown of available values are shown below:

@@ -84,10 +84,10 @@ Any Ubuntu-specific commands will then have to be amended for the proper distrib
 
 1.  Update `/etc/puppet/puppet.conf` and add the `dns_alt_names` line to the section `[main]`, replacing `puppet.example.com` with your own FQDN:
 
-    {{< file "/etc/puppet/puppet.conf" >}}
+    ```file {title="/etc/puppet/puppet.conf"}
 [main]
 dns_alt_names=puppet,puppet.example.com
-{{< /file >}}
+```
 
 
 2.  Start the Puppet master:
@@ -124,17 +124,17 @@ If you're on a Red Hat system other than CentOS 7, skip this step.
 
 1.  Modify your Puppet Agent's host file to resolve the Puppet master IP as `puppet`:
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 198.51.100.0    puppet
-{{< /file >}}
+```
 
 
 2.  Add the `server` value to the `[main]` section of the node's `puppet.conf` file, replacing `puppet.example.com` with the FQDN of your Puppet master:
 
-    {{< file "/etc/puppet/puppet.conf" conf >}}
+    ```file {title="/etc/puppet/puppet.conf"}
 [main]
 server=puppet.example.com
-{{< /file >}}
+```
 
 
 3.  Restart the Puppet service:
@@ -190,7 +190,7 @@ This is not meant to provide a basis for a fully-hardened server, and is intende
 
 4.  Within the `init.pp` file, define a limited user to use instead of `root`, replacing all instances of `username` with your chosen username:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
 
   user { 'username':
@@ -203,14 +203,14 @@ class accounts {
 
 }
 
-{{< /file >}}
+```
 
 
     The `init.pp` file initially defines the `accounts` class. It then calls for the `user` resource, where a `username` is defined. The `ensure` value is set to ensure that the user exists (is present). The `home` value should be set to the user's home directory path. `shell` defines the shell type, in this instance the bash shell. `managehome` notes that the home directory should be created. Finally, `gid` sets the primary group for the user.
 
 5.  Although the primary group is set to share the username, the group itself has not been created. Save and exit `init.pp`. Then, create a new file called `groups.pp` and add the following contents. This file will be used to create the user's group. Again, replace `username` with your chosen username:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/groups.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/groups.pp"}
 class accounts::groups {
 
   group { 'username':
@@ -219,24 +219,24 @@ class accounts::groups {
 
 }
 
-{{< /file >}}
+```
 
 
      Include this file by adding `include groups` to the `init.pp` file, within the `accounts` class:
 
-     {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+     ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
 
   include groups
   ...
 }
 
-{{< /file >}}
+```
 
 
 6.  This user should have privileges so that administrative tasks can be performed. Because we have agent nodes on both Debian- and Red Hat-based systems, the new user needs to be in the `sudo` group on Debian systems, and the `wheel` group on Red Hat systems. This value can be set dynamically through the use of a selector and *facter*, a program included in Puppet that keeps track of information, or *facts*, about every server. Add a selector statement to the top of the `init.pp` file within the accounts class brackets, defining the two options:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
 
   $rootgroup = $osfamily ? {
@@ -250,7 +250,7 @@ class accounts {
 
 }
 
-{{< /file >}}
+```
 
 
     This command sequence tells Puppet that within the *accounts* module the variable `$rootgroup` should evaluate, using facter, the operating system family (`$osfamily`), and if the value returned is `Debian`, to set the `$rootgroup` value to `sudo`. If the value returned is `RedHat`, this same value should be set to `wheel`; otherwise, the `default` value will output a warning that the distribution selected is not supported by this module.
@@ -261,7 +261,7 @@ The `user` definition will include the `$rootgroup`, and the Puppet Configuratio
 
 7.  Add the `groups` value to the user resource, calling to the `$rootgroup` variable defined in the previous step:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 user { 'username':
   ensure      => present,
   home        => '/home/username',
@@ -271,7 +271,7 @@ user { 'username':
   groups      => "$rootgroup",
 }
 
-{{< /file >}}
+```
 
 
     The value `"$rootgroup"` is enclosed in double quotes (") instead of single quotes (') because it is a variable. Any value enclosed within single quotes will be added as typed in your module; anything enclosed in double quotes can accept variables.
@@ -282,7 +282,7 @@ user { 'username':
 
     You will be prompted to enter your password and confirm. A hashed password will be output. This should then be copied and added to the `user` resource:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
 
   user { 'username':
@@ -297,7 +297,7 @@ class accounts {
 
 }
 
-{{< /file >}}
+```
 
 
     {{< caution >}}
@@ -314,10 +314,10 @@ The hashed password **must** be included in single quotes (').
 
         cd ../examples
 
-    {{< file "/etc/puppet/modules/accounts/examples/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/examples/init.pp"}
 include accounts
 
-{{< /file >}}
+```
 
 
     After adding this line, save and exit the file.
@@ -360,17 +360,17 @@ Although a new user has successfully been added to the Puppet master, the accoun
 
 3.  Open the file with `sudo`, and set the `PermitRootLogin` value to `no`:
 
-    {{< file "/etc/puppet/modules/accounts/files/sshd_config" aconf >}}
+    ```file {title="/etc/puppet/modules/accounts/files/sshd_config"}
 PermitRootLogin no
 
-{{< /file >}}
+```
 
 
 4.  Navigate back to the `manifests` directory and, using `sudo`, create a file called `ssh.pp`. Use the `file` resource to replace the default configuration file with the one managed by Puppet:
 
         cd ../manifests
 
-    {{< file "/etc/puppet/modules/accounts/manifests/ssh.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/ssh.pp"}
 class accounts::ssh {
 
   file { '/etc/ssh/sshd_config':
@@ -380,7 +380,7 @@ class accounts::ssh {
 
 }
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -389,7 +389,7 @@ The `file` directory is omitted from the `source` line because the `files` folde
 
 5.  Create a second resource to restart the SSH service and set it to run whenever `sshd_config` is changed. This will also require a selector statement because the SSH service is called `ssh` on Debian systems and `sshd` on Red Hat:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/ssh.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/ssh.pp"}
 class accounts::ssh {
 
 $sshname = $osfamily ? {
@@ -409,24 +409,24 @@ $sshname = $osfamily ? {
   }
 }
 
-{{< /file >}}
+```
 
 
 6.  Include the `ssh` class within `init.pp`:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
   include groups
   include ssh
 
 ...
 
-{{< /file >}}
+```
 
 
     Your complete `init.pp` will look similar to this:
 
-    {{< file "/etc/puppet/modules/accounts/manifests/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/accounts/manifests/init.pp"}
 class accounts {
     include groups
     include ssh
@@ -449,7 +449,7 @@ class accounts {
 
 }
 
-{{< /file >}}
+```
 
 
 7.  Run the Puppet parser, then navigate to the `examples` directory to test and run `puppet apply`:
@@ -498,7 +498,7 @@ CentOS 7 uses firewalld by default as a controller for iptables. Be sure firewal
 
 3.  Create a file titled `pre.pp`, which will contain all basic networking rules that should be run first:
 
-    {{< file "/etc/puppet/modules/firewall/manifests/pre.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/firewall/manifests/pre.pp"}
 class firewall::pre {
 
   Firewall {
@@ -555,14 +555,14 @@ class firewall::pre {
 
 }
 
-{{< /file >}}
+```
 
 
     Each rule is explained via commented text. More information can also be found on the [Puppet Forge Firewall](https://forge.puppet.com/puppetlabs/firewall) page.
 
 4.  In the same directory create `post.pp`, which will run any firewall rules that need to be input last:
 
-    {{< file "/etc/puppet/modules/firewall/manifests/post.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/firewall/manifests/post.pp"}
 class firewall::post {
 
   firewall { '999 drop all':
@@ -573,7 +573,7 @@ class firewall::post {
 
 }
 
-{{< /file >}}
+```
 
 
     These rules will direct the system to drop all inbound traffic that is not already permitted in the firewall.
@@ -591,7 +591,7 @@ class firewall::post {
 
 7.  Within `examples`, create an `init.pp` file to test the firewall on the Puppet master:
 
-    {{< file "/etc/puppet/modules/firewall/examples/init.pp" puppet >}}
+    ```file {title="/etc/puppet/modules/firewall/examples/init.pp"}
 resources { 'firewall':
   purge => true,
 }
@@ -609,7 +609,7 @@ firewall { '200 Allow Puppet Master':
   action        => 'accept',
 }
 
-{{< /file >}}
+```
 
 
     This code block ensures that `pre.pp` and `post.pp` run properly, and adds a firewall rule to the Puppet master to allow nodes to access it.
@@ -662,7 +662,7 @@ Now that the `accounts` and `firewall` modules have been created, tested, and ru
 
 3.  Create the file `site.pp` to define which nodes will take what modules. Replace `ubuntuagent.example.com` and `centosagent.example.com` with the FQDNs of your agent nodes:
 
-    {{< file "/etc/puppet/manifests/site.pp" puppet >}}
+    ```file {title="/etc/puppet/manifests/site.pp"}
 node 'ubuntuagent.example.com' {
   include accounts
 
@@ -695,7 +695,7 @@ node 'centosagent.example.com' {
 
 }
 
-{{< /file >}}
+```
 
 
     This includes the `accounts` module and uses the same firewall settings as above to ensure that the firewall rules are applied properly.

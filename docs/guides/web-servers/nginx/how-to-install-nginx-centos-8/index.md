@@ -65,7 +65,7 @@ Currently, the best way to install NGINX on CentOS 8 is to use the version inclu
 
 1.  You can add your site's files in your `/var/www/example.com` directory. Create an index file with a simple "Hello World" example. Using the text editor of your choice, create a new file, `/var/www/example.com/index.html`. Replace `example.com` with your website’s domain name or your Linode’s public IP address.
 
-    {{< file "/var/www/example.com/index.html" html >}}
+    ```file {title="/var/www/example.com/index.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -77,7 +77,7 @@ Currently, the best way to install NGINX on CentOS 8 is to use the version inclu
         </header>
     </body>
 </html>
-{{</ file >}}
+```
 
 ## Configure NGINX
 
@@ -89,7 +89,7 @@ NGINX site-specific configuration files are kept in `/etc/nginx/sites-available`
 
 1.  Create your site's configuration file in the text editor of your choice. Replace `example.com` in the `server_name` directive with your site's domain name or IP address and `/var/www/example.com` in the `root` directive with your own root directory's location.
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -102,7 +102,7 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-{{< /file >}}
+```
 
 1.   Set up a new symlink to the `/etc/nginx/sites-enabled/` directory to enable your configuration:
 
@@ -110,7 +110,7 @@ server {
 
 1. Update the NGINX configuration file, `/etc/nginx/nginx.conf`, to add an `include` directive to the `/etc/nginx/sites-enabled/*` directory. This `include` must be within your configuration files' `http` block. Place the `include` directive below the `include /etc/nginx/conf.d/*.conf;` line.
 
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ...
 http {
 ...
@@ -118,7 +118,7 @@ http {
     include /etc/nginx/sites-enabled/*;
 ...
 }
-{{</ file >}}
+```
 
 1.  Open the firewall for traffic:
 

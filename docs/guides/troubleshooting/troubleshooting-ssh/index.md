@@ -145,9 +145,9 @@ This error indicates that another service on your system is already using the sa
 
 1.  Open `/etc/ssh/sshd_config` in your editor. Search for a line in this file that declares the port for SSH:
 
-    {{< file "/etc/ssh/sshd_config" >}}
+    ```file {title="/etc/ssh/sshd_config"}
 #Port 22
-{{< /file >}}
+```
 
 1.  Uncomment this line and provide a different number.
 

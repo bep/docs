@@ -64,11 +64,11 @@ Issue the following command to download an init script to manage the uWSGI proce
 
 Create an `/etc/conf.d/uwsgi` file to specify specific settings for your Python application. The `MODULE` specifies the name of the Python module that contains your `wsgi` specification. Consider the following example:
 
-{{< file "/etc/conf.d/uwsgi" bash >}}
+```file {title="/etc/conf.d/uwsgi"}
 PYTHONPATH=/srv/www/example.com/application
 MODULE=wsgi_configuration_module
 
-{{< /file >}}
+```
 
 
 Issue the following sequence of commands to prepare the new init script and log files:

@@ -101,7 +101,7 @@ The server in this example dynamically serves some cachable content — in this 
 
     To do this quickly, you can create the example script to download ten images from the Library of Congress source listed above. Place the shell script in your project directory, and edit the file to change `example-user` to your username on the server.
 
-    {{< file "download_cat_images.sh">}}
+    ```file {title="download_cat_images.sh"}
 #!/bin/sh
 
 wget=/usr/bin/wget
@@ -120,7 +120,7 @@ $wget "https://tile.loc.gov/storage-services/service/pnp/ds/04000/04037v.jpg" -O
 $wget "https://tile.loc.gov/storage-services/service/pnp/cph/3b00000/3b06000/3b06200/3b06249r.jpg" -O "${TARGET_DIRECTORY}/cat-8.jpg"
 $wget "https://tile.loc.gov/storage-services/service/pnp/pga/05000/05046v.jpg" -O "${TARGET_DIRECTORY}/cat-9.jpg"
 $wget "https://tile.loc.gov/storage-services/service/pnp/cph/3c20000/3c20000/3c20400/3c20459v.jpg" -O "${TARGET_DIRECTORY}/cat-10.jpg"
-    {{< /file >}}
+    ```
 
     Then, execute the following commands:
 
@@ -140,7 +140,7 @@ $wget "https://tile.loc.gov/storage-services/service/pnp/cph/3c20000/3c20000/3c2
 
 1. Create the following JavaScript file. This creates an Express JS server that serves both the cat images and the application's static files.
 
-    {{< file "server.js" >}}
+    ```file {title="server.js"}
 // Import and initialize Express JS, setting it to use port **3000**.
 const express = require('express');
 const app = express();
@@ -176,7 +176,7 @@ function serveImage(res, timeout) {
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 })
-    {{< /file >}}
+    ```
 
 1. Initialize the Node.js project.
 
@@ -196,7 +196,7 @@ app.listen(port, () => {
 
 1. Create an `index.html` file with the following contents. Store the file in the `public` directory.
 
-    {{< file "public/index.html" >}}
+    ```file {title="public/index.html"}
 <!doctype html>
 
 <html>
@@ -211,20 +211,20 @@ app.listen(port, () => {
     <script src="./main.js"></script>
 </body>
 </html>
-    {{< /file >}}
+    ```
 
 1. Create a `main.js` file in the `public` directory. Add the contents shown below, which have this file register and initialize the service worker.
 
-    {{< file "public/main.js" >}}
+    ```file {title="public/main.js"}
 navigator.serviceWorker.register('service-worker.js', {scope: "./"});
 navigator.serviceWorker.ready.then(console.log('Service Worker is running.'));
-    {{< /file >}}
+    ```
 
 ### Create the Service Worker
 
 1. Create a `service-worker.js` file, also in the `public` directory, and add the following contents. You can look through the comments in the code to get an idea of what each part is doing.
 
-    {{< file "public/service-worker.js" >}}
+    ```file {title="public/service-worker.js"}
 const CACHE = 'cat-image-cache'
 
 // Add content to the cache when the service worker is installed.
@@ -264,7 +264,7 @@ function updateCache(request) {
         });
     });
 }
-    {{< /file >}}
+    ```
 
 ### Run the Application
 

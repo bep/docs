@@ -83,7 +83,7 @@ Configure the `rpm` repository for `yum` and related packaging tools.
 
 1.  Create a yum repository configuration to use the Elastic yum repository:
 
-    {{< file "/etc/yum.repos.d/elasticsearch.repo" ini >}}
+    ```file {title="/etc/yum.repos.d/elasticsearch.repo"}
 [elasticsearch-6.x]
 name=Elastic repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -92,7 +92,7 @@ gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
 autorefresh=1
 type=rpm-md
-    {{< /file >}}
+    ```
 
 1.  Update the `yum` cache to ensure any new packages become available:
 
@@ -114,10 +114,10 @@ In order to properly discover and capture container metrics, each component of t
 
 In the file `/etc/elasticsearch/jvm.options` two values that begin with `-Xm` should be uncommented. These settings instruct the JVM to allocate a specific amount of memory. The recommend value for these settings is 50% of the available system RAM. For example, on a system with 1G of RAM, these settings should be:
 
-{{< file "/etc/elasticsearch/jvm.options" yml >}}
+```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m
 -Xmx512m
-{{< /file >}}
+```
 
 1.  Before starting Elasticsearch, install some necessary plugins to process geoip and user-agent data.
 
@@ -166,29 +166,29 @@ Use the `docker` input to enable Filebeat to capture started containers dynamica
 
 1.  Add the following near the top of the Filebeat configuration file to instruct the `filebeat` daemon to capture Docker container logs. These lines should be entered under the configuration key `filebeat.inputs`:
 
-    {{< file "/etc/filebeat/filebeat.yml" yml >}}
+    ```file {title="/etc/filebeat/filebeat.yml"}
 filebeat.inputs:
 - type: docker
   containers.ids:
   - '*'
   processors:
   - add_docker_metadata: ~
-{{< /file >}}
+```
 
 1.  Uncomment the following line and change its value to `true`, which will permit Filebeat to create associated Kibana dashboards for captured container logs:
 
-    {{< file "/etc/filebeat/filebeat.yml" yml >}}
+    ```file {title="/etc/filebeat/filebeat.yml"}
 setup.dashboards.enabled: true
-{{< /file >}}
+```
 
 1.  Finally, add the following `autodiscover` configuration to the end of the `filebeat.yml` file:
 
-    {{< file "/etc/filebeat/filebeat.yml" yml >}}
+    ```file {title="/etc/filebeat/filebeat.yml"}
 filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
-{{< /file >}}
+```
 
 1.  Enable the `nginx` module, which will be used later in this tutorial:
 
@@ -209,9 +209,9 @@ Like Filebeat, configure Metricbeat similarly to dynamically discover running co
 
 1.  Uncomment the following line and change its value to `true`, which will permit Metricbeat to create associated Kibana dashboards for captured container logs:
 
-    {{< file "/etc/metricbeat/metricbeat.yml" yml >}}
+    ```file {title="/etc/metricbeat/metricbeat.yml"}
 setup.dashboards.enabled: true
-{{< /file >}}
+```
 
 1.  The remainder of the configuration file will instruct Metricbeat to send logs to the locally-running Elasticsearch instance, which can be left unchanged. Metricbeat can now be started:
 

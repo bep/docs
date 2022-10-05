@@ -111,7 +111,7 @@ The plugin needs some initial setup, including creating its directories and its 
 
 1. Create a new `example-plugin.vim` file in the `plugin` directory, and add the contents in the `example-plugin.vim` file.
 
-    {{< file "plugin/example-plugin.vim" vim >}}
+    ```file {title="plugin/example-plugin.vim"}
 " Title:        Example Plugin
 " Description:  A plugin to provide an example for creating Vim plugins.
 " Last Change:  8 November 2021
@@ -129,7 +129,7 @@ let g:loaded_example-plugin = 1
 command! -nargs=0 DisplayTime call example-plugin#DisplayTime()
 command! -nargs=0 DefineWord call example-plugin#DefineWord()
 command! -nargs=0 AspellCheck call example-plugin#AspellCheck()
-    {{< /file >}}
+    ```
 
 1. Create a new `example-plugin.vim` file in the `autoload` directory. This is the file that gets loaded whenever one of your plugin's commands gets called:
 
@@ -141,7 +141,7 @@ The following three sections show you how to add functions to your Vim plugin. E
 
 Add a `DisplayTime` function to the `example-plugin.vim` file in the `autoload` directory. This function echoes the date and time. It also allows the user to optionally provide a flag indicating whether they want to see date (`d`) or time (`t`) only.
 
-{{< file "autoload/example-plugin.vim" vim >}}
+```file {title="autoload/example-plugin.vim"}
 function! example-plugin#DisplayTime(...)
     if a:0 > 0 && (a:1 == "d" || a:1 == "t")
         if a:1 == "d"
@@ -153,7 +153,7 @@ function! example-plugin#DisplayTime(...)
         echo strftime("%b %d %H:%M")
     endif
 endfunction
-    {{< /file >}}
+    ```
 
 #### Using an Interpreter
 
@@ -163,7 +163,7 @@ endfunction
 
 1. Add the Python code and the Vim `DefineWord` function to the `example-plugin.vim` file in the `autoload` directory. The Python code gives your plugin a function to fetch English word definitions from [Wiktionary](https://en.wiktionary.org/wiki/Wiktionary:Main_Page). The Vim function gets the word under the user's cursor and passes that to the Python function.
 
-    {{< file "autoload/example-plugin.vim" vim >}}
+    ```file {title="autoload/example-plugin.vim"}
 " [...]
 
 " Starts a section for Python 3 code.
@@ -201,7 +201,7 @@ function! example-plugin#DefineWord()
     let cursorWord = expand('<cword>')
     python3 get_word_definitions(vim.eval('cursorWord'))
 endfunction
-    {{< /file >}}
+    ```
 
 #### Using a Command-line Program
 
@@ -217,7 +217,7 @@ endfunction
 
 1. Add an `AspellCheck` function to the `example-plugin.vim` file in the `autoload` directory. The `system` function used here allows the plugin to execute commands on the system's command line. You could, alternatively, use the `exec` function along with the `!` symbol to run system commands.
 
-    {{< file "autoload/example-plugin.vim" vim >}}
+    ```file {title="autoload/example-plugin.vim"}
 " [...]
 
 function! example-plugin#AspellCheck()
@@ -227,17 +227,17 @@ function! example-plugin#AspellCheck()
     let aspellSuggestions = substitute(aspellSuggestions, ", ", "\n", "g")
     echo aspellSuggestions
 endfunction
-    {{< /file >}}
+    ```
 
 #### Install the Plugin
 
 The final step to start using your plugin is adding it to your plugin manager. To do so, add a line like the one below to your plugin configuration in your Vim configuration file. This line works with vim-plug and the plugin location used in the steps above. However, you need to vary the line based on the plugin manager you are using and the actual location and name of your plugin.
 
-{{< file "~/.vimrc" vim >}}
+```file {title="~/.vimrc"}
     " [...]
     Plug '~/example-plugin'
     " [...]
-{{< /file >}}
+```
 
 Either reopen Vim or source your configuration file again, and you are ready to start using the plugin. If you want to make your plugin available to the wider Vim community, follow the next sections.
 
@@ -263,9 +263,9 @@ Take a look at our [example README file](example-plugin/README) for ideas on the
 
     Here is a simple example that ignores `.DS_STORE` files:
 
-    {{< file ".gitignore" >}}
+    ```file {title=".gitignore"}
 .DS_STORE
-{{< /file >}}
+```
 
 1. Add your plugin's files for staging to your first Git commit.
 

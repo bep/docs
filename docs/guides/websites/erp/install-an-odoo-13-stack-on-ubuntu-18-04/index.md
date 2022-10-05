@@ -87,22 +87,22 @@ In order to simplify communication between Linodes, set hostnames for each serve
 
 - PostgreSQL server:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 127.0.1.1       postgresql.yourdomain.com   postgresql
 
 10.1.3.10       odoo.yourdomain.com       odoo
 
-{{< /file >}}
+```
 
 - Odoo 13 server:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 127.0.1.1       odoo.yourdomain.com       odoo
 
 10.1.1.10       postgresql.yourdomain.com   postgresql
-{{< /file >}}
+```
 
 FQDNs are used throughout this guide whenever possible to avoid confusion.
 
@@ -135,9 +135,9 @@ The options used are described below:
 
 1. Edit the `pg_hba.conf` file to allow PostgreSQL Linode to communicate with the Odoo Linode server. Add the following line to the file:
 
-    {{< file "/etc/postgresql/10/main/pg_hba.conf" conf >}}
+    ```file {title="/etc/postgresql/10/main/pg_hba.conf"}
 host    all             odoo             odoo.yourdomain.com            md5
-{{< /file >}}
+```
 
 This line grants the `odoo` user the rights connect to `all` databases within this server.
 
@@ -153,10 +153,10 @@ The settings in the `pg_hba.conf` file are:
 
 Edit `postgresql.conf` to allow the database server listening to remote connections:
 
-{{< file "/etc/postgresql/10/main/postgresql.conf" conf >}}
+```file {title="/etc/postgresql/10/main/postgresql.conf"}
 #From CONNECTIONS AND AUTHENTICATION Section
 listen_addresses = '*'
-{{< /file >}}
+```
 
 These settings are:
 
@@ -267,7 +267,7 @@ Let's review the virtual environment creation:
 
 2. Modify the configuration file. The complete file should look similar to the following, depending on your deployment needs:
 
-    {{< file "/etc/odoo-server.conf" conf >}}
+    ```file {title="/etc/odoo-server.conf"}
 [options]
 admin_passwd = admin
 db_host = postgresql.yourdomain.com
@@ -276,7 +276,7 @@ db_user = odoo
 db_password = odoo_password
 addons_path = /opt/odoo/addons
 xmlrpc_port = 8069
-{{< /file >}}
+```
 
 * `admin_passwd`: The password that allows administrative operations within Odoo GUI. Be sure to change `admin` to something more secure.
 * `db_host`: The **postgresql** FQDN.
@@ -290,7 +290,7 @@ xmlrpc_port = 8069
 
 Create a systemd unit called `odoo-server` to allow your application to behave as a service. Create a new file at `/lib/systemd/system/odoo-server.service` and add the following, replace `/home/<user>` with the directory where you setup your virtual Python environment:
 
-{{< file "/lib/systemd/system/odoo-server.service" shell >}}
+```file {title="/lib/systemd/system/odoo-server.service"}
 [Unit]
 Description=Odoo Open Source ERP and CRM
 
@@ -306,7 +306,7 @@ StandardOutput=journal+console
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 ### Change File Ownership and Permissions
 

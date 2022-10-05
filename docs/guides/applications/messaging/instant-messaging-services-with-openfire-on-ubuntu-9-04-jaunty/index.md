@@ -33,7 +33,7 @@ Openfire requires a Java runtime engine (JRE). This tutorial uses the version pr
 
 Examine your `/etc/apt/sources.list` file to make sure you have the `multiverse` repository enabled. You can use an editor like `nano` to edit configuration files through the shell; you would issue the command `nano /etc/apt/sources.list` to edit this one. Please consult the [nano manual page](http://www.nano-editor.org/dist/v1.2/nano.1.html) for information on using the editor. Your file should look similar to the following.
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ jaunty main restricted multiverse
 deb-src http://us.archive.ubuntu.com/ubuntu/ jaunty main restricted multiverse
@@ -50,7 +50,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ jaunty-updates universe
 deb http://security.ubuntu.com/ubuntu jaunty-security universe
 deb-src http://security.ubuntu.com/ubuntu jaunty-security universe
 
-{{< /file >}}
+```
 
 
 If you had to add the `multiverse` repositories to your sources, issue the following command to update your package database:
@@ -93,10 +93,10 @@ Install the software using `dpkg` as follows:
 
 Next, edit the configuration file `/etc/openfire/openfire.xml`, inserting your Linode's public IP address in the `<interface>` section, and removing the `<!-- -->` comment markers that surround this section.
 
-{{< file "/etc/openfire/openfire.xml" xml >}}
+```file {title="/etc/openfire/openfire.xml"}
 <interface>12.34.56.78</interface>
 
-{{< /file >}}
+```
 
 
 Restart Openfire with the following command:

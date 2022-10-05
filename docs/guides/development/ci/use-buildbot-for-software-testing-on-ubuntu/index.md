@@ -98,48 +98,48 @@ Buildbot has a number of concepts that are represented in the master build confi
 
 1.  Update the following line in the `master.cfg` file and replace `pass` with the randomly-generated password:
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 ...
 # The 'workers' list defines the set of recognized workers. Each element is
 # a Worker object, specifying a unique worker name and password.  The same
 # worker name and password must be configured on the worker.
 c['workers'] = [worker.Worker("example-worker", "pass")]
 ...
-    {{</ file >}}
+    ```
 
 1.  Uncomment the `c[title]` and the `c[titleURL]` lines. If desired, change the name of the Buildbot installation by updating the value of ``c[title]``. Replace the `c[titleURL]` value with the URL of your Buildbot instance. In the example, the URL value is replaced with `example.com`.
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 ...
 c['title'] = "My CI"
 c['titleURL'] = "https://example.com"
 ...
-    {{</ file >}}
+    ```
 
 1.  Uncomment the `c['buildbotURL']` line and replace the URL value with the your Buildbot instance's URL:
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 ...
 c['buildbotURL'] = "https://example.com/"
 ...
-    {{</ file >}}
+    ```
 
     These options assume that you will use a custom domain secured with Let's Encrypt certificates from `certbot` as outlined in the [Before You Begin](/docs/development/ci/use-buildbot-for-software-testing-on-ubuntu/#before-you-begin) section of this guide.
 
 1.  Uncomment the web interface configuration lines and keep the default options:
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 ...
 c['www'] = dict(port=8010,
                 plugins=dict(waterfall_view={}, console_view={}, grid_view={}))
 ...
-    {{</ file >}}
+    ```
 
 1.  By default, Buildbot does not require people to authenticate in order to access control features in the web UI. To secure Buildbot, you will need to configure an authentication plugin.
 
     Configure users for the Buildbot master web interface. Add the following lines below the web interface configuration lines and replace the `myusername` and `password` values with the ones you would like to use.
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 ...
 c['www'] = dict(port=8010,
                 plugins=dict(waterfall_view={}, console_view={}, grid_view={}))
@@ -155,7 +155,7 @@ c['www']['authz'] = util.Authz(
 )
 c['www']['auth'] = util.UserPasswordAuth([('myusername','password')])
 ...
-    {{</ file >}}
+    ```
 
 1.  Buildbot supports building repositories based on GitHub activity. This is done with a GitHub webhook. Generate a random string to serve as a webhook secret token to validate payloads.
 
@@ -164,13 +164,13 @@ c['www']['auth'] = util.UserPasswordAuth([('myusername','password')])
 
 1.  Configure Buildbot to recognize GitHub webhooks as a change source. Add the following snippet to the end of the `master.cfg` file and replace `webhook secret` with the random string generated in the previous step.
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 c['www']['change_hook_dialects'] = {
     'github': {
         'secret': 'webhook_secret',
     }
 }
-    {{</ file >}}
+    ```
 
 1.  Finally, start the Buildbot master. This command will start the Buildbot process and persist it across reboots.
 
@@ -186,7 +186,7 @@ Now that NGINX is installed, configure NGINX to talk to the local Buildbot port.
 
 1.  Create your site's NGINX configuration file. Ensure that you replace the configuration file's name `example.com.conf` with your domain name. Replace all instances of `example.com` with your Buildbot instance's URL.
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" conf >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
   # Enable SSL and http2
   listen 443 ssl http2 default_server;
@@ -235,7 +235,7 @@ server {
       proxy_read_timeout 6000s;
   }
 }
-{{< /file >}}
+```
 
 1. Disable NGINX's default configuration file:
 
@@ -346,7 +346,7 @@ Because the worker has already been configured and connected to the Buildbot mas
 
 1. Add the following lines to the end of the `/var/lib/buildbot/masters/ci/master.cfg` file to define the custom build. Ensure you replace `my-username` and `my-git-repo-name` with the values for your own GitHub fork of the `linode/docs` repository and `example-worker` with the name of your Buildbot instance's worker:
 
-    {{< file "/var/lib/buildbot/masters/ci/master.cfg" python  >}}
+    ```file {title="/var/lib/buildbot/masters/ci/master.cfg"}
 docs_blueberry_test = util.BuildFactory()
 # Clone the repository
 docs_blueberry_test.addStep(
@@ -370,7 +370,7 @@ c['builders'].append(
     util.BuilderConfig(name="linode-docs",
       workernames=["example-worker"],
       factory=docs_blueberry_test))
-    {{< /file >}}
+    ```
 
     The configuration code does the following:
 
@@ -383,12 +383,12 @@ c['builders'].append(
 
 1.  Define a simple scheduler to build any branch that is pushed to the GitHub repository. Add the following lines to the end of the `master.cfg` file:
 
-    {{< file "~/buildbox-master/master/master.cfg" python  >}}
+    ```file {title="~/buildbox-master/master/master.cfg"}
     ...
 c['schedulers'].append(schedulers.AnyBranchScheduler(
     name="build-docs",
     builderNames=["linode-docs"]))
-    {{< /file >}}
+    ```
 
     This code instructs the Buildbot master to create a scheduler that builds any branch for the `linode-docs` builder. This scheduler will be invoked by the change hook defined for GitHub, which is triggered by the GitHub webhook configured in the GitHub interface.
 

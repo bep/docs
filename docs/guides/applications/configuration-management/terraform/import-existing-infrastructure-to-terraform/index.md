@@ -80,13 +80,13 @@ When importing your infrastructure to Terraform, failure to accurately provide y
 The example resource block defines `example_label` as the label. This can be changed to any value you prefer. This label is used to reference your Linode resource configuration within Terraform. It does not have to be the same label originally assigned to the Linode when it was created outside of Terraform.
 {{</ note >}}
 
-    {{< file "linode_import.tf" >}}
+    ```file {title="linode_import.tf"}
 provider "linode" {
     token = "your_API_access_token"
 }
 
 resource "linode_instance" "example_label" {}
-{{< /file >}}
+```
 
 ### Import Your Linode to Terraform
 
@@ -220,7 +220,7 @@ As mentioned in the [Terraform's Import Command](#terraforms-import-command) sec
 
 1. Fill in the configuration values for the `linode_instance` resource block. In the example below, the necessary values were collected from the output of the `terraform show` command applied in Step 2 of the [Import Your Linode to Terraform](#import-your-linode-to-terraform) section. The file's comments indicate the corresponding keys used to determine the values for the `linode_instance` configuration block.
 
-    {{< file "linode_instance_import.tf" >}}
+    ```file {title="linode_instance_import.tf"}
 provider "linode" {
     token = "a12b3c4e..."
 }
@@ -251,7 +251,7 @@ resource "linode_instance" "example_label" {
         size = "512"                 #disk.1.size
     }
 }
-{{</ file >}}
+```
 
     {{< note >}}
 If your Linode uses more than two disks (for instance, if you have attached a [Block Storage Volume](/docs/products/storage/block-storage/)), you need to add those disks to your Linode resource configuration block. In order to add a disk, you must add the disk to the `devices` stanza and create an additional `disk` stanza.
@@ -311,13 +311,13 @@ If you have more than one [configuration profile](/docs/guides/linode-configurat
 
 1. Ensure you are in your [Terraform project directory](/docs/guides/how-to-build-your-infrastructure-using-terraform-and-linode/#install-terraform). Create a Terraform configuration file to manage the domain you import in the next section. Your file can be named anything you like, but must end in `.tf`. Add a Linode provider block with your API access token and an empty `linode_domain` resource configuration block to the file:
 
-    {{< file "domain_import.tf" >}}
+    ```file {title="domain_import.tf"}
 provider "linode" {
     token = "Your API Token"
 }
 
 resource "linode_domain" "example_label" {}
-{{< /file >}}
+```
 
 ### Import Your Domain to Terraform
 
@@ -367,7 +367,7 @@ As mentioned in the [Terraform’s Import Command](#terraforms-import-command) s
 
 1. Fill in the configuration values for the `linode_domain` resource block. The necessary values for the example resource configuration file were collected from the output of the `terraform show` command applied in Step 2 of the [Import Your Domain to Terraform](#import-your-domain-to-terraform) section.
 
-    {{< file "linode_domain_example.tf" >}}
+    ```file {title="linode_domain_example.tf"}
 provider "linode" {
     token = "1a2b3c..."
 }
@@ -377,7 +377,7 @@ resource "linode_domain" "example_label" {
     soa_email = "webmaster@import-example.com"
     type = "master"
 }
-    {{< /file >}}
+    ```
 
     {{< note >}}
   If your Domain `type` is `slave` then you need to include a `master_ips` key with values set to the IP addresses that represent the Master DNS for your domain.
@@ -445,13 +445,13 @@ Due to the way the Linode API accesses domain records, you need to provide both 
 
 1. Ensure you are in your [Terraform project directory](/docs/guides/how-to-build-your-infrastructure-using-terraform-and-linode/#install-terraform). Create a Terraform configuration file to manage the domain record you import in the next section. Your file can be named anything you like, but must end in `.tf`. Add a Linode provider block with your API access token and an empty `linode_domain_record` resource configuration block to the file:
 
-    {{< file "domain_record_import.tf" >}}
+    ```file {title="domain_record_import.tf"}
 provider "linode" {
     token = "Your API Token"
 }
 
 resource "linode_domain_record" "example_label" {}
-{{< /file >}}
+```
 
 ### Import Your Domain Record to Terraform
 
@@ -499,7 +499,7 @@ As mentioned in the [Terraform’s Import Command](#terraforms-import-command) s
 
 1. Fill in the configuration values for the `linode_domain_record` resource block. The necessary values for the example resource configuration file were collected from the output of the `terraform show` command applied in Step 2 of the [Import Your Domain Record to Terraform](#import-your-domain-record-to-terraform) section.
 
-    {{< file "domain_record_import.tf" >}}
+    ```file {title="domain_record_import.tf"}
 provider "linode" {
     token = "1a2b3c..."
 }
@@ -514,7 +514,7 @@ resource "linode_domain_record" "example_label" {
     priority = 10
     weight = 5
 }
-    {{< /file >}}
+    ```
 
 1. Check for errors in your configuration by running the `plan` command:
 
@@ -555,13 +555,13 @@ resource "linode_domain_record" "example_label" {
 
 1. Ensure you are in your Terraform project directory. Create a Terraform configuration file to manage the Block Storage Volume you import in the next section. Your file can be named anything you like, but must end in `.tf`. Add a Linode provider block with your API access token and an empty `linode_volume` resource configuration block to the file:
 
-    {{< file "linode_volume_example.tf" >}}
+    ```file {title="linode_volume_example.tf"}
 provider "linode" {
     token = "Your API Token"
 }
 
 resource "linode_volume" "example_label" {}
-{{< /file >}}
+```
 
 ### Import Your Volume to Terraform
 
@@ -610,7 +610,7 @@ As mentioned in the [Terraform’s Import Command](#terraforms-import-command) s
 
 1. Fill in the configuration values for the `linode_volume` resource block. The necessary values for the example resource configuration file were collected from the output of the `terraform show` command applied in Step 2 of the [Import Your Volume to Terraform](#import-your-volume-to-terraform) section:
 
-    {{< file "linode_volume_example.tf" >}}
+    ```file {title="linode_volume_example.tf"}
 provider "linode" {
     token = "1a2b3c..."
 }
@@ -620,7 +620,7 @@ resource "linode_volume" "example_label" {
     region = "us-east"
     size = "20"
 }
-    {{< /file >}}
+    ```
 
     {{< note >}}
 Though it is not required, it's a good idea to include a configuration for the size of the volume. This allows it to be managed more easily should you ever choose to expand the Volume. It is not possible to reduce the size of a volume.
@@ -715,7 +715,7 @@ Configuring [Linode NodeBalancers](/docs/guides/getting-started-with-nodebalance
 
     Add a Linode provider block with your API access token and empty `linode_nodebalancer`, `linode_nodebalancer_config`, and `linode_nodebalancer_node` resource configuration blocks to the file. Be sure to give the resources appropriate labels. These labels are used to reference the resources locally within Terraform:
 
-    {{< file "linode_nodebalancer_example.tf" >}}
+    ```file {title="linode_nodebalancer_example.tf"}
 provider "linode" {
     token = "Your API Token"
 }
@@ -725,7 +725,7 @@ resource "linode_nodebalancer" "example_nodebalancer_label" {}
 resource "linode_nodebalancer_config" "example_nodebalancer_config_label" {}
 
 resource "linode_nodebalancer_node" "example_nodebalancer_node_label" {}
-{{< /file >}}
+```
 
     If you have more than one NodeBalancer Configuration, you will need to supply multiple `linode_nodebalancer_config` resource blocks with different labels. The same is true for each NodeBalancer Node requiring an additional `linode_nodebalancer_node` block.
 
@@ -850,7 +850,7 @@ As mentioned in the [Terraform’s Import Command](#terraforms-import-command) s
 
 1. Fill in the configuration values for all three NodeBalancer resource configuration blocks. The necessary values for the example resource configuration file were collected from the output of the `terraform show` command applied in Step 4 of the [Import Your NodeBalancer, NodeBalancer Configuration, and NodeBalancer Nodes to Terraform](#import-your-nodebalancer-nodebalancer-configuration-and-nodebalancer-nodes-to-terraform) section:
 
-    {{< file "linode_nodebalancer_example.tf" >}}
+    ```file {title="linode_nodebalancer_example.tf"}
 provider "linode" {
     token = "1a2b3c..."
 }
@@ -870,7 +870,7 @@ resource "linode_nodebalancer_node" "nodebalancer_node_import" {
     nodebalancer_id = "40721"
     config_id = "35876"
 }
-    {{< /file >}}
+    ```
 
 1. Check for errors in your configuration by running the `plan` command:
 

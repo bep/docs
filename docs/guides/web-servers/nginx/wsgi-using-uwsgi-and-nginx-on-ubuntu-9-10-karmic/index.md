@@ -84,16 +84,16 @@ Issue the following command to download an init script to manage the uWSGI proce
 
 Create an `/etc/default/uwsgi` file to specify specific settings for your Python application. The `MODULE` specifies the name of the Python module that contains your `wsgi` specification. Consider the following example:
 
-{{< file "/etc/default/uwsgi" bash >}}
+```file {title="/etc/default/uwsgi"}
 PYTHONPATH=/srv/www/example.com/application
 MODULE=wsgi_configuration_module
 
-{{< /file >}}
+```
 
 
 If you want to deploy a "Hello World" application, insert the following code into the `/srv/www/example.com/application/wsgi_configuration_module.py` file:
 
-{{< file "/srv/www/example.com/application/wsgi\\_configuration\\_module.py" python >}}
+```file {title="/srv/www/example.com/application/wsgi\\_configuration\\_module.py"}
 import os
 import sys
 
@@ -111,7 +111,7 @@ def application(environ, start_response):
 
     return [output]
 
-{{< /file >}}
+```
 
 
 Issue the following commands to make this init script executable, ensure that uWSGI is restarted following the next reboot sequence, and start the service:

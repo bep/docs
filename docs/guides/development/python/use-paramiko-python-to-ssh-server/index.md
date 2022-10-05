@@ -47,7 +47,7 @@ If your system is [configured to use Anaconda](/docs/guides/how-to-install-anaco
 
 This section shows you how to authenticate to a remote server with a username and password. To begin, create a new file named `first_experiment.py` and add the contents of the example file. Ensure that you update the file with your own Linode's details. Replace the values for `YOUR_IP_ADDRESS`, `YOUR_LIMITED_USER_ACCOUNT`, and `YOUR_PASSWORD`. Use the [Find Your Linode's IP Address](/docs/guides/find-your-linodes-ip-address/) guide, if needed.
 
-{{< file "password_login.py" >}}
+```file {title="password_login.py"}
 import paramiko
 
 command = "df"
@@ -65,7 +65,7 @@ client.connect(host, username=username, password=password)
 _stdin, _stdout,_stderr = client.exec_command("df")
 print(_stdout.read().decode())
 client.close()
-{{< /file >}}
+```
 
 This file connects to remote server over SSH using the IP address and credentials that you provide. It then uses the `df` command to generate a report of your server's free disk space.
 
@@ -91,7 +91,7 @@ The file above provides a high-level example that you can use to incorporate Par
 
 One of Paramiko’s specific strengths is the correct handling of [SSH add keys](/docs/guides/use-public-key-authentication-with-ssh/). The introductory example above depended on the use of your limited user account's password. It is more secure, however, to use SSH keys for server authentication. The example file below, provides a report that alerts you of any logins by users that are not included in your list of `expected` users. The Python script relies on Paramiko (notice the `key_based_connect()` function) to use SSHv2 authentication to connect to any of the servers provided in the code's `server_list` list.
 
-{{< file "key_based_login.py">}}
+```file {title="key_based_login.py"}
 # This is a small tool to report on successful logins
 # to accounts other than those listed in the variable
 # expected.  Such a report might lead to an investigation
@@ -132,7 +132,7 @@ def main():
          examine_last(server, connection)
 
 main()
-{{< /file >}}
+```
 
 Execute the file with the following command:
 

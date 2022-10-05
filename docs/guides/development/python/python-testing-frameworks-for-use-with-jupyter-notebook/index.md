@@ -40,7 +40,7 @@ The list below includes some of the most popular Python testing frameworks and w
 
 The examples in this section use a common piece of code to demonstrate how you can implement each framework to test your Python code. The code below consists of a single function using the well-known factorial calculation. The testing frameworks must determine if a value passed to the function is a negative number, a non-integer value, or a value that is too high. The unit tests must not only check correct input values but incorrect values, as well.
 
-{{< file "main.py" >}}
+```file {title="main.py"}
 
 # !/usr/bin/python
 
@@ -61,7 +61,7 @@ def factorial(n):
         result *= factor
         factor += 1
     return result
-{{< /file >}}
+```
 
 ### Doctest Unit Test Example
 
@@ -69,7 +69,7 @@ Doctest uses docstrings (`'''`) to know which tests to execute and verify. To fi
 
 The following is a an example Doctest Python module.
 
-{{< file "test_example.py" >}}
+```file {title="test_example.py"}
 # !/usr/bin/python
 
 def factorial(n):
@@ -119,7 +119,7 @@ if __name__ == '__main__':
     import doctest
     doctest.testmod()
 
-{{< /file >}}
+```
 
 To run the above example locally, create a file named `test_example.py` and execute it with the following command:
 
@@ -224,7 +224,7 @@ To install Pytest using conda, issue the following command:
 
 The example code imports the pytest module and includes 6 different test methods for the `factorial(n)` function. All the test functions are grouped in the `TestFactorial_1` class. The `assert` statement defines the expected result for a specific test function.
 
-{{< file "test_example_2.py" >}}
+```file {title="test_example_2.py"}
 import pytest
 import math
 
@@ -272,7 +272,7 @@ def factorial(n):
         result *= factor
         factor += 1
     return result
-{{< /file >}}
+```
 
 To run the unit tests, use the following command:
 
@@ -321,7 +321,7 @@ Like Doctest, unittest is part of the Python standard library. However, unittest
 
 The example file `test_example_3.py` imports unittest, creates a class named `TestFactorial_2()` that includes all the test methods for the `factorial(n)` function. The test methods ensure that any value passed to the `factorial(n)` function is within the acceptable ranges defined at the beginning of this guide.
 
-{{< file "test_example_3.py" >}}
+```file {title="test_example_3.py"}
 import unittest
 import math
 
@@ -373,7 +373,7 @@ def factorial(n):
         result *= factor
         factor += 1
     return result
-{{< /file >}}
+```
 
 To run the test methods defined in the `test_example_3.py` file, issue the following command:
 

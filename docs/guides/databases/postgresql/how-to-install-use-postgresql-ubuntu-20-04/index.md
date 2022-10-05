@@ -172,12 +172,12 @@ PostgreSQL commands starting with a backslash are known as *meta-commands*. Post
 Ensure that you do not edit the top line for the default `postgres` user. The `postgres` account requires non-interactive access to PostgreSQL for maintenance tasks. Linode recommends you to make a back-up copy of `pg_hba.conf` before editing it.
     {{< /caution >}}
 
-    {{< file "/etc/postgresql/12/main/pg_hba.conf" >}}
+    ```file {title="/etc/postgresql/12/main/pg_hba.conf"}
 ...
 # "local" is for Unix domain socket connections only
 local   all             all                                     md5
 ...
-    {{< /file >}}
+    ```
 
 9.  Restart PostgreSQL to apply the new access rule.
 

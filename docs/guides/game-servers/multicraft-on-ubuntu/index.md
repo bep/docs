@@ -51,13 +51,13 @@ Multicraft for Linux depends on several software packages in order to run.
 
 1.  In configuration file of Apache, under the `<Directory /var/www/>` section, change the `AllowOverride` value to `all`.
 
-    {{< file "/etc/apache2/apache2.conf" apache >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 <Directory /var/www/>
         Options Indexes FollowSymLinks
         AllowOverride All
         Require all granted
 </Directory>
-{{< /file >}}
+```
 
 1.  Reload the Apache configuration:
 

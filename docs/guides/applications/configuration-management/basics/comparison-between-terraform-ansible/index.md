@@ -50,7 +50,7 @@ Terraform uses *providers* to accomplish the actual configuration. Providers, wh
 
 Here is an example of how Terraform might work with the Linode provider:
 
-{{< file "~/terraform/linode-terraform-web.tf" >}}
+```file {title="~/terraform/linode-terraform-web.tf"}
 provider "linode" {
   token = "YOUR_LINODE_API_TOKEN"
 }
@@ -64,7 +64,7 @@ resource "linode_instance" "terraform-web" {
         authorized_keys = [ "YOUR_PUBLIC_SSH_KEY" ]
         root_pass = "YOUR_ROOT_PASSWORD"
 }
-{{< /file >}}
+```
 
 ### The Terraform Workflow
 
@@ -95,7 +95,7 @@ Ansible does not use agents and does not have to run on the target node. Instead
 
 Ansible includes its own declarative language, but it can operate in either declarative or procedural mode. In other words, a system can be described in terms of its final state, or by using instructions on how to get to that state. Ansible uses editable, versioned *inventory* files, written in either INI or YAML format, to store the infrastructure information in plain text. These files identify the target nodes to be managed, listed by hostname or IP address. Many inventory files can be used together, and inventories can be dynamically pulled from another system or location. Within an inventory file, nodes can be grouped together and nested for easier management. Ranges, variables, and aliases can all be used to simplify the list. A typical inventory file in INI format might be similar to this:
 
-{{< file "/etc/ansible/hosts" >}}
+```file {title="/etc/ansible/hosts"}
 mail.example.com
 
 [webservers]
@@ -106,7 +106,7 @@ web2.example.com
 dbone.example.com
 dbtwo.example.com
 dbthree.example.com
-{{< /file >}}
+```
 
 ### Ansible Tasks, Modules, and Playbooks
 
@@ -116,7 +116,7 @@ Ansible *Playbooks* group together related tasks, along with associated variable
 
 Here is an example of a snippet from a playbook that updates an Apache server:
 
-{{< file "user_account.yml" >}}
+```file {title="user_account.yml"}
 - name: update web servers
   hosts: webservers
   remote_user: root
@@ -130,7 +130,7 @@ Here is an example of a snippet from a playbook that updates an Apache server:
     template:
       src: /srv/httpd.j2
       dest: /etc/httpd.conf
-{{< /file >}}
+```
 
 ### Ansible and Other Products
 

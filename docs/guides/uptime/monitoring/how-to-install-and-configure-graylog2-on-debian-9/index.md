@@ -98,7 +98,7 @@ Graylog uses Elasticsearch for storing the log messages and also offers a search
 
 6.  Next, you will need to edit `elasticsearch.yml`. It's located in the `/etc/elasticsearch/` directory:
 
-    {{< file "/etc/elasticsearch/elasticsearch.yml" >}}
+    ```file {title="/etc/elasticsearch/elasticsearch.yml"}
 cluster.name: graylog
 network.host: 127.0.0.1
 discovery.zen.ping.timeout: 10s
@@ -108,7 +108,7 @@ script.inline: false
 script.indexed: false
 script.file: false
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -176,7 +176,7 @@ You will need this password to log in to the Graylog web interface.
 
 4.  Open the Graylog servers main configuration file: `server.conf`, located in the `/etc/graylog/server/` directory. Replace `root_password_sha2` and `password_sercret` with the console output from above:
 
-    {{< file "/etc/graylog/server/server.conf" >}}
+    ```file {title="/etc/graylog/server/server.conf"}
 is_master = true
 node_id_file = /etc/graylog/server/node-id
 password_secret = nNPjRmvyyyPc0YKySXhkebfwUYvW2dQz7kD1GxBq7qhJre1eIAySsUbmlYNKiYZnHquHPu8pTswvc3MFSVDrwn5AmdwOSMri
@@ -226,7 +226,7 @@ content_packs_dir = /usr/share/graylog-server/contentpacks
 content_packs_auto_load = grok-patterns.json
 proxied_requests_thread_pool_size = 32
 
-{{< /file >}}
+```
 
 
     Save the file when you are finished.
@@ -264,11 +264,11 @@ Consider limiting Graylog access to a private network, if you are deploying Gray
 
 5.  Your Graylog input is configured and listening on port `8514`. Now, you will need to configure rsyslog to send system logs to the newly created input. To do this, edit the `rsyslog.conf` file:
 
-    {{< file "/etc/rsyslog.conf" >}}
+    ```file {title="/etc/rsyslog.conf"}
 $template GRAYLOGRFC5424,"%protocol-version% %timestamp:::date-rfc3339% %HOSTNAME% %app-name% %procid% %msg%\n"
 *.* @192.168.0.102:8514;GRAYLOGRFC5424
 
-{{< /file >}}
+```
 
 
     Save and close the file when you are finished, then restart your server with the Linode Manager to apply these changes.

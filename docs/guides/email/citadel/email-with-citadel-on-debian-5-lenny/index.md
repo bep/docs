@@ -57,19 +57,19 @@ The installation process will prompt you to answer a couple of questions. Choose
 
 Edit the `/etc/mailname` file to reflect your system's domain name:
 
-{{< file "/etc/mailname" >}}
+```file {title="/etc/mailname"}
 username.example.com
 
-{{< /file >}}
+```
 
 
 You'll need to edit the SpamAssassin configuration file to enable spamd:
 
-{{< file "/etc/default/spamassassin" >}}
+```file {title="/etc/default/spamassassin"}
 # Change to one to enable spamd
 ENABLED=1
 
-{{< /file >}}
+```
 
 
 Start the spamassassin service as follows:
@@ -82,10 +82,10 @@ Please note that you'll finish enabling SpamAssassin support within Citadel late
 
 Customize the logon banner for your Citadel server by editing the relevant file:
 
-{{< file "/usr/share/citadel-server/messages/hello" >}}
+```file {title="/usr/share/citadel-server/messages/hello"}
 Citadel Groupware Server Login
 
-{{< /file >}}
+```
 
 
 Use the following startup script to initialize Citadel.

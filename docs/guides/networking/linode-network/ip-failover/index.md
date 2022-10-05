@@ -104,7 +104,7 @@ Review the configuration file and verify that the shared IP address does not alr
 
     -   **Ubuntu 18.04 LTS and newer**: Using [netplan](https://netplan.io/). The entire configuration file is shown below, though you only need to copy the `lo:` directive.
 
-        {{< file "/etc/netplan/01-netcfg.yaml" >}}
+        ```file {title="/etc/netplan/01-netcfg.yaml"}
 network:
   version: 2
   renderer: networkd
@@ -116,7 +116,7 @@ network:
         name: lo
       addresses:
         - [shared-ip]/[prefix]
-{{</ file >}}
+```
 
         To apply the changes, reboot the instance or run:
 
@@ -124,12 +124,12 @@ network:
 
     -   **Debian and Ubuntu 16.04 (and older)**: Using [ifupdown](https://manpages.debian.org/unstable/ifupdown/ifup.8.en.html). Replace *[protocol]* with `inet` for IPv4 or `inet6` for IPv6.
 
-        {{< file "/etc/network/interfaces" >}}
+        ```file {title="/etc/network/interfaces"}
 ...
 # Add Shared IP Address
 iface lo [protocol] static
     address [shared-ip]/[prefix]
-{{</ file >}}
+```
 
         To apply the changes, reboot the instance or run:
 
@@ -188,7 +188,7 @@ Next, we need to configure the failover software on *each* Compute Instance. For
 
 1.  Paste in the following contents and then save and close the file. Replace *$command* with the lelastic command you prepared in a previous step.
 
-    {{< file "/etc/systemd/system/lelastic.service" >}}
+    ```file {title="/etc/systemd/system/lelastic.service"}
 [Unit]
 Description= Lelastic
 After=network-online.target
@@ -201,7 +201,7 @@ ExecReload=/bin/kill -s HUP $MAINPID
 
 [Install]
 WantedBy=multi-user.target
-{{</ file >}}
+```
 
 1.  Apply the correct permissions to the service file.
 

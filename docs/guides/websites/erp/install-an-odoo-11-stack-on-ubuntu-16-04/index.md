@@ -85,34 +85,34 @@ In order to simplify communication between Linodes, set hostnames for each serve
 
 1. PostgreSQL Primary:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 127.0.1.1       primarydb.yourdomain.com   primarydb
 
 10.1.1.20       standbydb.yourdomain.com    standbydb
 10.1.3.10       odoo.yourdomain.com       odoo
 
-{{< /file >}}
+```
 
 2. PostgreSQL Standby:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 127.0.1.1       standbydb.yourdomain.com    standbydb
 
 10.1.1.10       primarydb.yourdomain.com   primarydb
 10.1.3.10       odoo.yourdomain.com       odoo
-{{< /file >}}
+```
 
 3. Odoo 11 server:
 
-    {{< file "/etc/hosts" conf >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 127.0.1.1       odoo.yourdomain.com       odoo
 
 10.1.1.10       primarydb.yourdomain.com   primarydb
 10.1.1.20       standbydb.yourdomain.com    standbydb
-{{< /file >}}
+```
 
 FQDNs will be used throughout this guide whenever possible to avoid confusion.
 
@@ -166,18 +166,18 @@ Begin with the PostgreSQL user needed for Odoo communications. Create this user 
 
 2. Edit `pg_hba.conf` to allow PostgreSQL nodes to communicate with each other. Add the following lines to the **Primary** database server:
 
-    {{< file "/etc/postgresql/9.6/main/pg_hba.conf" conf >}}
+    ```file {title="/etc/postgresql/9.6/main/pg_hba.conf"}
 host    replication     replicauser      standbydb.yourdomain.com         md5
 host    all             odoo             odoo.yourdomain.com            md5
-{{< /file >}}
+```
 
     Each line provides the client authentication permissions to connect to a specific database. For example, the first line allows the **Standby** to connect to the **Primary** node using `replicauser`, and the second line grants the `odoo` user the rights connect to `all` databases within this server.
 
 3. Add a similar configuration to the **Standby** node, this will make it easier to promote it to `primary` status if necessary:
 
-    {{< file "/etc/postgresql/9.6/main/pg_hba.conf" conf >}}
+    ```file {title="/etc/postgresql/9.6/main/pg_hba.conf"}
 host    all             odoo             odoo.yourdomain.com            md5
-{{< /file >}}
+```
 
 The settings in the `pg_hba.conf` file are:
 
@@ -202,7 +202,7 @@ The settings in the `pg_hba.conf` file are:
 
 3.  Edit `postgresql.conf`, and uncomment lines as necessary:
 
-    {{< file "/etc/postgresql/9.6/main/postgresql.conf" conf >}}
+    ```file {title="/etc/postgresql/9.6/main/postgresql.conf"}
 #From CONNECTIONS AND AUTHENTICATION Section
 listen_addresses = '*'
 #From WRITE AHEAD LOG Section
@@ -215,13 +215,13 @@ archive_timeout = 1h
 #From REPLICATION Section
 max_wal_senders = 3
 wal_keep_segments = 10
-{{< /file >}}
+```
 
 **On the Standby node**
 
 Edit the **Standby's** `postgresql.conf`:
 
-{{< file "/etc/postgresql/9.6/main/postgresql.conf" conf >}}
+```file {title="/etc/postgresql/9.6/main/postgresql.conf"}
 listen_addresses = '*'
 #From WRITE AHEAD LOG Section
 wal_level = replica
@@ -229,7 +229,7 @@ wal_level = replica
 max_wal_senders = 3
 wal_keep_segments = 10
 hot_standby = on
-{{< /file >}}
+```
 
 These settings are:
 
@@ -278,12 +278,12 @@ Do not start the Standby's PostgreSQL service until Step 3 of the next section, 
 
 2.  Edit the new copy of the recovery file:
 
-    {{< file "/var/lib/postgresql/9.6/main/recovery.conf" conf >}}
+    ```file {title="/var/lib/postgresql/9.6/main/recovery.conf"}
 standby_mode = 'on'
 primary_conninfo = 'host=primarydb.yourdomain.com port=5432 user=replicauser password=REPLICAUSER_PWD'
 restore_command = 'cp /var/lib/postgresql/9.6/main/archive/%f %p'
 trigger_file = '/tmp/postgresql.trigger.5432'
-{{< /file >}}
+```
 
 3.  Start the PostgreSQL service on the **Standby** node:
 
@@ -423,7 +423,7 @@ Odoo 11 application now uses Python 3.x instead of Python 2.7. If you are using 
 
 2.  Modify the configuration file. The complete file should look similar to the following, depending on your deployment needs:
 
-    {{< file "/etc/odoo-server.conf" conf >}}
+    ```file {title="/etc/odoo-server.conf"}
 [options]
 admin_passwd = admin
 db_host = primarydb.yourdomain.com
@@ -433,7 +433,7 @@ db_password = odoo_password
 addons_path = /opt/odoo/addons
 logfile = /var/log/odoo/odoo-server.log
 xmlrpc_port = 8070
-{{< /file >}}
+```
 
 * `admin_passwd`: The password that allows administrative operations within Odoo GUI. Be sure to change `admin` to something more secure.
 * `db_host`: The **primarydb** FQDN.
@@ -448,7 +448,7 @@ xmlrpc_port = 8070
 
 Create a systemd unit called `odoo-server` to allow your application to behave as a service. Create a new file at `/lib/systemd/system/odoo-server.service` and add the following:
 
-{{< file "/lib/systemd/system/odoo-server.service" shell >}}
+```file {title="/lib/systemd/system/odoo-server.service"}
 [Unit]
 Description=Odoo Open Source ERP and CRM
 
@@ -463,7 +463,7 @@ WorkingDirectory=/opt/odoo/
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 ### Change File Ownership and Permissions
 

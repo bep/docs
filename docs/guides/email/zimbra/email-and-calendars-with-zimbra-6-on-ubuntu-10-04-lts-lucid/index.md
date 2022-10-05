@@ -46,11 +46,11 @@ Depending on the requirements for the current version of Zimbra, you may need to
 
 Before proceeding, make sure your `/etc/hosts` file has valid entries. For reference, your file should resemble the following:
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost
 12.34.56.78 hostname.example.com hostname
 
-{{< /file >}}
+```
 
 
 Be sure to replace "12.34.56.78" with your Linode's IP address. Replace "hostname.example.com" with your Linode's fully qualified domain name. Next, make sure your hostname is set in `/etc/hostname` by issuing the following commands (insert your one-word hostname in place of "hostname").
@@ -75,7 +75,7 @@ Visit the download page for [Zimbra Open Source Edition](http://www.zimbra.com/c
 
 You'll need to edit the file `util/utilfunc.sh` to work around a package requirement. Look for the block containing the following lines:
 
-{{< file "util/utilfunc.sh" >}}
+```file {title="util/utilfunc.sh"}
 checkUbuntuRelease
 PACKAGEINST='dpkg -i'
 PACKAGERM='dpkg --purge'
@@ -84,15 +84,15 @@ PACKAGEEXT='deb'
 PACKAGEVERSION="dpkg-query -W -f \${Version}"
 PREREQ_PACKAGES="sudo libidn11 libgmp3 libstdc++6"
 
-{{< /file >}}
+```
 
 
 Change the last line to read as follows:
 
-{{< file "util/utilfunc.sh" >}}
+```file {title="util/utilfunc.sh"}
 PREREQ_PACKAGES="sudo libidn11 libgmp3c2 libstdc++6"
 
-{{< /file >}}
+```
 
 
 Launch the installer with the following commands.

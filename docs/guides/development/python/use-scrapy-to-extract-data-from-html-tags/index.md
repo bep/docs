@@ -171,7 +171,7 @@ The Spider parses the downloaded pages with the `parse(self,response)` method. T
 
 1.  Edit your `linkChecker/spiders/link_checker.py` file to extract all the `<a>` tags and get the `href` link text. Return the link URL with the `yield` keyword to add it to the download queue:
 
-    {{< file "linkChecker/spiders/link_checker.py" py >}}
+    ```file {title="linkChecker/spiders/link_checker.py"}
 import scrapy
 
 class LinkCheckerSpider(scrapy.Spider):
@@ -195,7 +195,7 @@ class LinkCheckerSpider(scrapy.Spider):
             request = response.follow(link, callback=self.parse)
             # Return it thanks to a generator
             yield request
-{{< /file >}}
+```
 
 2.  Run your updated Spider:
 
@@ -215,7 +215,7 @@ The meta information is used for two purposes:
 
 1.  Starting with the previous spider, add an attribute to store the maximum depth (`maxdepth`) and update the `parse` function to the following:
 
-    {{< file "linkChecker/spiders/link_checker.py" py >}}
+    ```file {title="linkChecker/spiders/link_checker.py"}
 
 # Add a maxdepth attribute
 maxdepth = 2
@@ -250,7 +250,7 @@ def parse(self, response):
             # Meta information: depth of the link
             request.meta['depth'] = depth + 1
             yield request
-{{< /file >}}
+```
 
 2.  Run the updated spider:
 
@@ -268,7 +268,7 @@ By default Scrapy parses only successful HTTP requests; all errors are excluded 
 
 2.  Update the parsing logic to check for HTTP status and populate the good array. The spider now looks like:
 
-    {{< file "linkChecker/spiders/link_checker.py" py >}}
+    ```file {title="linkChecker/spiders/link_checker.py"}
 class LinkCheckerSpider(scrapy.Spider):
     name = "link_checker"
     allowed_domains = ['www.example.com']
@@ -305,7 +305,7 @@ class LinkCheckerSpider(scrapy.Spider):
                     request.meta['from'] = response.url;
                     request.meta['text'] = text
                     yield request
-{{< /file >}}
+```
 
 3.  Run your updated spider:
 
@@ -319,7 +319,7 @@ Scrapy lets you add some handlers at various points in the scraping process. Sig
 
 To add a handler at the end of the scraping process to print information about broken links, overwrite the `from_crawler` method to register a handler for the `signals.spider_closed` signal:
 
-{{< file "linkChecker/spiders/link_checker.py" py >}}
+```file {title="linkChecker/spiders/link_checker.py"}
 # Overwrite the from_crawler method
 @classmethod
 def from_crawler(cls, crawler, *args, **kwargs):
@@ -339,7 +339,7 @@ def spider_closed(self):
         print("Broken links are:")
         for invalid in self.invalid_url:
             print(invalid)
-{{< /file >}}
+```
 
 See [Scrapy Signals documentation](https://doc.scrapy.org/en/latest/topics/signals.html) for a full list of available Signals.
 
@@ -351,14 +351,14 @@ The starting URL is hardcoded in the source code of your spider. It will be far 
 
 1.  Add a `__init__()` method to our spider with a `url` parameter:
 
-    {{< file "linkChecker/spiders/link_checker.py" py >}}
+    ```file {title="linkChecker/spiders/link_checker.py"}
 # Add a custom constructor with the url parameter
 def __init__(self, url='http://www.example.com', *args, **kwargs):
     # Don't forget to call parent constructor
     super(LinkCheckerSpider, self).__init__(*args, **kwargs)
     # Set the start_urls to be the one given in url parameters
     self.start_urls = [url]
-{{< /file >}}
+```
 
 2.  Spider arguments are passed with the `-a` command line flag:
 
@@ -370,9 +370,9 @@ Default Scrapy settings of your spider are defined in `settings.py` file. Set th
 
 Edit `~/scrapy/linkChecker/linkChecker/settings.py` and add the following line:
 
-{{< file "linkChecker/settings.py" py >}}
+```file {title="linkChecker/settings.py"}
 DOWNLOAD_MAXSIZE = 3000000
-{{< /file >}}
+```
 
 ## Remove Domain Limitation
 
@@ -414,7 +414,7 @@ See the full spider in the next section where this code is integrated inside the
 
 Here is the fully functional spider. A few hacks have been added to get the domain of the response and prevent recursive browsing of other domains links. Otherwise, your spider will attempt to parse the whole web!
 
-{{< file "linkChecker/spiders/link_checker.py" py >}}
+```file {title="linkChecker/spiders/link_checker.py"}
 import re
 from urllib.parse import urlparse
 
@@ -501,7 +501,7 @@ class LinkCheckerSpider(scrapy.Spider):
                     # Return it thanks to a generator
                     yield request
 
-{{< /file >}}
+```
 
 ## Monitor a Running Spider
 

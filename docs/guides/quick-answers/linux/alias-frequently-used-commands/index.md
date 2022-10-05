@@ -49,11 +49,11 @@ Any alias added through the command line can be unaliased using `unalias`:
 
 To create a persistent alias, edit the [configuration profile for your shell](#where-to-find-and-edit-aliases-in-bash-z-shell-zsh-and-fish) and add the alias to the end of the file:
 
-{{< file "~/.bashrc" bash >}}
+```file {title="~/.bashrc"}
 ...
 alias la="ls -al"
 ...
-{{< /file >}}
+```
 
 ### Refresh the Configuration
 

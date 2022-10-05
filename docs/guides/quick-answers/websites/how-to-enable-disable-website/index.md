@@ -40,11 +40,11 @@ Ubuntu systems have a `/etc/nginx/sites-available` directory, which contains *vi
 
 To enable a website, you must create a symbolic link inside the `/etc/nginx/sites-enabled` directory pointing to the actual vhost file in `/etc/nginx/sites-available`. The `nginx.conf` file reviews the contents of the `sites-enabled` directory and determines which virtual host files to include. These domains are made available to potential viewers. Adding a symbolic link leading to a virtual host file enables the associated site while removing the symbolic link disables it.
 
-{{< file "/etc/nginx/nginx.conf" aconf >}}
+```file {title="/etc/nginx/nginx.conf"}
 ...
 include /etc/nginx/sites-enabled/*;
 ...
-{{< /file >}}
+```
 To disable and enable a website, follow these directions.
 
 1. To find the name of the domain, list all of the sites hosted on the Linode using the following command:
@@ -123,7 +123,7 @@ If the `a2dissite` and `a2ensite` tools are not installed, edit the virtual host
         cd /etc/httpd/vhost.d
 1. Comment out all lines in the virtual host file using the `#` symbol. The virtual host information typically begins with a line such as `<VirtualHost *:80>` followed by a list of the server attributes including `ServerName` and `ServerAlias`.
 
-    {{< file "/etc/httpd/vhost.d/example.com.conf" aconf >}}
+    ```file {title="/etc/httpd/vhost.d/example.com.conf"}
 
 # <VirtualHost *:80>
 
@@ -137,7 +137,7 @@ If the `a2dissite` and `a2ensite` tools are not installed, edit the virtual host
 
 # </VirtualHost>
 
-    {{< /file >}}
+    ```
 
 1. Reload Apache to apply the changes using `systemctl restart`. On CentOS, the Apache service is referred to as `httpd`.
 
@@ -145,14 +145,14 @@ If the `a2dissite` and `a2ensite` tools are not installed, edit the virtual host
 1. Try to access the domain using a web browser. The site should no longer resolve.
 1. To re-enable the site, uncomment the contents of the `.conf` file. Remove the `#` symbols preceding each of the lines in the file.
 
-    {{< file "/etc/httpd/vhost.d/example.com.conf" aconf >}}
+    ```file {title="/etc/httpd/vhost.d/example.com.conf"}
  <VirtualHost *:80>
   ServerAdmin webmaster@example.com
   ServerName  example.com
   ServerAlias www.example.com
 ...
  </VirtualHost>
-    {{< /file >}}
+    ```
 1. Restart Apache using `systemctl`.
 
         sudo systemctl restart httpd.service

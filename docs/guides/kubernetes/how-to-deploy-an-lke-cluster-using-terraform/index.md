@@ -74,7 +74,7 @@ In this section, you will create Terraform configuration files that define the r
 
 1. Using the text editor of your choice, create your cluster’s main configuration file named `main.tf` which will store your resource definitions. Add the following contents to the file, replacing the `version` number which can be found on [Terraform's Registry Website](https://registry.terraform.io/providers/linode/linode/latest/docs):
 
-    {{< file "~/terraform/lke-cluster/main.tf" >}}
+    ```file {title="~/terraform/lke-cluster/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -126,7 +126,7 @@ output "id" {
 output "pool" {
    value = linode_lke_cluster.foobar.pool
 }
-    {{</ file >}}
+    ```
 
     This file contains your cluster’s main configuration arguments and output variables. In this example, you make use of Terraform’s input variables so that your `main.tf` configuration can be easily reused across different clusters.
 
@@ -151,7 +151,7 @@ You are now ready to define the input variables that were referenced in your `ma
 1. Create a new file named `variables.tf` in the same directory as your `main.tf` file. Add the following contents to the file:
 
 
-    {{< file "~/terraform/lke-cluster/variables.tf" >}}
+    ```file {title="~/terraform/lke-cluster/variables.tf"}
     variable "token" {
       description = "Your Linode API Personal Access Token. (required)"
     }
@@ -194,7 +194,7 @@ You are now ready to define the input variables that were referenced in your `ma
         }
       ]
     }
-    {{</ file >}}
+    ```
 
     This file describes each variable and provides them with default values. You should review and update the file with your own preferred default values, ensuring that they match currently available [versions of Kubernetes on LKE](https://developers.linode.com/changelog/linode-kubernetes-engine/), as well as [Available Plans](/docs/guides/choosing-a-compute-instance-plan/) and [Data Centers](/docs/guides/how-to-choose-a-data-center/)
 
@@ -208,7 +208,7 @@ You will now need to define the values you would like to use in order to create 
 If you leave out a variable value in this file, Terraform will use the variable's default value that you provided in your `variables.tf` file.
     {{</ note >}}
 
-      {{< file "$~/terraform/lke-cluster/terraform.tfvars" >}}
+      ```file {title="$~/terraform/lke-cluster/terraform.tfvars"}
 label = "example-lke-cluster"
 k8s_version = "1.23"
 region = "us-west"
@@ -218,7 +218,7 @@ pools = [
     count : 3
   }
 ]
-      {{</ file >}}
+      ```
 
     Terraform will use the values in this file to create a new Kubernetes cluster with one node pool that contains three 4 GB nodes. The cluster will be located in the `us-west` data center (Dallas, Texas, USA). Each node in the cluster's node pool will use Kubernetes version `1.23` and the cluster will be named `example-lke-cluster`. You can replace any of the values in this file with your own preferred cluster configurations.
 

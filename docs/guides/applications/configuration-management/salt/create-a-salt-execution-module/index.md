@@ -38,15 +38,15 @@ The files created in the following steps will be located in the `/srv/salt` dire
         mkdir /srv/salt
 
 1.  Create a top file in `/srv/salt` which will be Salt's point of entry for our Salt configuration:
-    {{< file "/srv/salt/top.sls" yaml >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - weather
-{{< /file >}}
+```
 
 1.  Create a state file named `weather.sls` and instruct Salt to make sure our minions have PIP installed, as well as the required Python library.
 
-    {{< file "/srv/salt/weather.sls" yaml >}}
+    ```file {title="/srv/salt/weather.sls"}
 python-pip:
   pkg.installed
 
@@ -54,7 +54,7 @@ requests:
   pip.installed:
     - require:
       - pkg: python-pip
-{{< /file>}}
+```
 
 1.  Apply these state changes:
 
@@ -68,7 +68,7 @@ requests:
 
 1.  Create a file called `weather.py` in the `/srv/salt/_modules` directory, and add the following lines to set up Salt logging and import the requests module.
 
-    {{< file "/srv/salt/_modules/weather.py" python >}}
+    ```file {title="/srv/salt/_modules/weather.py"}
 import logging
 try:
     import requests
@@ -79,11 +79,11 @@ except ImportError:
 log = logging.getLogger(__name__)
 
 . . .
-{{< /file >}}
+```
 
 1. Add the `__virtualname__` variable and the `__virtual__` function.
 
-    {{< file "/srv/salt/_modules/weather.py" python>}}
+    ```file {title="/srv/salt/_modules/weather.py"}
 . . .
 
 __virtualname__ = 'weather'
@@ -98,13 +98,13 @@ def __virtual__():
         return False, 'The weather module cannot be loaded: requests package unavailable.'
 
 . . .
-{{< /file >}}
+```
 
     The `__virtual__` function either returns the module's virtual name and loads the module, or returns `False` with an error string and the module is not loaded. The `if HAS_REQUESTS` conditional is tied to the try/except block created in the previous step through the use of the `HAS_REQUESTS` variable.
 
 1.  Add the public `get()` function and the private `_make_request()` function:
 
-    {{< file "/srv/salt/_modules/weather.py" python >}}
+    ```file {title="/srv/salt/_modules/weather.py"}
 . . .
 
 def get(signs=None):
@@ -136,7 +136,7 @@ def _make_request(sign):
         "temperature": round(request.json()["properties"]["temperature"]["value"], 1)
     }
     return conditions
-{{< /file >}}
+```
 
     There are two functions in this step. The `get()` function accepts one or more weather station call signs as a comma separated list. It calls `_make_request()` to make the HTTP request and returns a text description of the current weather and the temperature.
 
@@ -144,7 +144,7 @@ def _make_request(sign):
 
     The complete file looks like this:
 
-    {{< file "/srv/salt/_modules/weather.py" python >}}
+    ```file {title="/srv/salt/_modules/weather.py"}
 import logging
 try:
     import requests
@@ -195,7 +195,7 @@ def _make_request(sign):
         "temperature": round(request.json()["properties"]["temperature"]["value"], 1)
     }
     return conditions
-{{< /file >}}
+```
 
 ## Run the Execution Module
 

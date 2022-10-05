@@ -25,14 +25,14 @@ YAML is a data interchange language commonly used in configuration files. It is 
 
 Consider the example snippet from a Kubernetes YAML file:
 
-{{< file "my-apache-pod.yaml">}}
+```file {title="my-apache-pod.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
  name: apache-pod
  labels:
    app: web
-{{</ file >}}
+```
 
 This YAML file defines the version of the API in use, the kind of Kubernetes resource you'd like to define, and metadata about the resource. You don't have to be familiar with Kubernetes to read through the file's configurations and still have a general understanding about the purpose of each setting. YAML's human-readability is considered one of its advantages as compared to formats like XML or JSON.
 
@@ -54,7 +54,7 @@ You can get started using YAML with a few basic rules. To begin, focus on the fo
 
 YAML expresses data in hierarchical relationships through indentation. A fixed number of blank characters are used for an indentation. Take a look at the following example GitHub Actions YAML file:
 
-{{< file "test.yaml">}}
+```file {title="test.yaml"}
 ...
 jobs:
   blueberry:
@@ -63,7 +63,7 @@ jobs:
     - uses: actions/checkout@v2
     - name: Set up Python
 ...
-{{</ file >}}
+```
 
 The indention used in the example file shows that `runs-on`, and `steps` are part of the same *block*. This is a syntactic signal that both are a part of the same *scope*. By convention, two spaces are commonly used when indentation is required. Tabs should not be used for indentation.
 
@@ -72,17 +72,17 @@ The indention used in the example file shows that `runs-on`, and `steps` are par
 Colons separate keys and their values. At a formal level, YAML specifies that an arbitrary number of spaces can follow a colon. However, by convention, a single space should be used after a colon. For example:
 
 
-{{< file "test.yaml">}}
+```file {title="test.yaml"}
 ...
     runs-on: ubuntu-latest
 ...
-{{</ file >}}
+```
 
 #### Dashes
 
 Dashes (`-`) are used to denote a list. The following example is taken from [Linode's API v4](https://github.com/linode/linode-api-docs/), which uses the [OpenAPI 3 specification](https://github.com/OAI/OpenAPI-Specification).
 
-{{< file "openapi.yaml" >}}
+```file {title="openapi.yaml"}
 ...
 requestBody:
 description: Information about the OAuth Client to create.
@@ -93,7 +93,7 @@ content:
         - label
         - redirect_uri
 ...
-{{</ file >}}
+```
 
 The `required` list specifies an object's required properties. In the example, these required properties are `label` and `redirect_uri`. The next sections include more examples of indentation, colons, and dashes.
 
@@ -109,7 +109,7 @@ YAML has three basic data types:
 
 A scalar can be a numeric value, a string of text, or a boolean value like `true` or `false`. You can also express a `null` value, which is interpreted as `absent` or `unknown`.
 
-{{< file "openapi.yaml" >}}
+```file {title="openapi.yaml"}
 ...
 properties:
   address:
@@ -118,7 +118,7 @@ properties:
     description: "The IP address."
     example: 97.107.143.141
 ...
-{{</ file >}}
+```
 
 The example YAML uses several scalar values for the `address` property. Notice that the `description` property uses quotes around the string, while the `format` property does not. Using single `' '` or double `" "` quotes allow you to include special reserved YAML characters within your strings without encountering parsing errors.
 
@@ -126,7 +126,7 @@ The example YAML uses several scalar values for the `address` property. Notice t
 
 To define a list in YAML, each list value is denoted by an opening dash `-`, a space, and the value. No other values should be placed on the same line.
 
-{{< file "openapi.yaml" >}}
+```file {title="openapi.yaml"}
 ...
 status:
   type: string
@@ -136,22 +136,22 @@ status:
   - ok
   - problem
 ...
-{{</ file >}}
+```
 
 This example snippet defines the possible values for the `status` property using a list under the `enum` key. You can also nest your lists, as needed. For example:
 
-{{<  file "openapi.yaml" >}}
+```file {title="openapi.yaml"}
 security:
   - personalAccessToken: []
   - oauth:
     - account:read_only
-{{</ >}}
+```
 
 ### Dictionaries
 
 YAML supports *associative arrays* or *dictionaries*. The key-value presentation of all the examples above is in fact a dictionary; for the key `description`, for instance, the value is `"The IP address."`.
 
-{{< file "openapi.yaml" >}}
+```file {title="openapi.yaml"}
 ...
 properties:
   address:
@@ -160,7 +160,7 @@ properties:
     description: "The IP address."
     example: 97.107.143.141
 ...
-{{</ file >}}
+```
 
 Dictionaries gain much of their power in combination with other data types. For example, a value might itself be a list, and a list's values might be another dictionary.
 
@@ -185,7 +185,7 @@ You can use YAML and XML to express the same data. For this reason, several appl
 
 In general, XML is more verbose, but it also is easier to use when expressing content that resembles documents. YAML is more succinct. Below is an example of how each might express the same data:
 
-{{< file "catalogue.xml">}}
+```file {title="catalogue.xml"}
 <?xml version=”1.0”?>
 <catalogue>
   <book>
@@ -199,9 +199,9 @@ In general, XML is more verbose, but it also is easier to use when expressing co
     <genre>natural philosophy</genre>
   </book>
 </catalogue>
-{{</ file >}}
+```
 
-{{< file "catalogue.yaml">}}
+```file {title="catalogue.yaml"}
 ---
 catalogue:
   -
@@ -212,7 +212,7 @@ catalogue:
     author: "William Gilbert"
     genre: "natural philosophy"
     title: "On the Magnet and Magnetic Bodies …"
-{{</ file >}}
+```
 
 ### Double and Single Quotes
 

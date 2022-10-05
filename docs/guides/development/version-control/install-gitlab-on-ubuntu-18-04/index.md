@@ -92,26 +92,26 @@ Once you are done generating the certificate, restart GitLab with the following 
 
 1. Edit the `/etc/gitlab/gitlab.rb` to use HTTPS. This is done by modifying the value of `external_url` to use `https` instead of `http`:
 
-      {{< file "/etc/gitlab/gitlab.rb" ruby >}}
+      ```file {title="/etc/gitlab/gitlab.rb"}
 ## GitLab URL
 ##! URL on which GitLab will be reachable.
 ##! For more details on configuring external_url see:
 ##! https://docs.gitlab.com/omnibus/settings/configuration.html#configuring-the-external-url-for-gitlab
 external_url 'https://gitlab.example.com'
-      {{</ file >}}
+      ```
 
 1. Edit the `/etc/gitlab/gitlab.rb` file to point to the location of your SSL certificate and key. The path should be the location used by Certbot to store the certificates when they were initially created.
 
-      {{< file "/etc/gitlab/gitlab.rb" ruby >}}
+      ```file {title="/etc/gitlab/gitlab.rb"}
 nginx['ssl_certificate'] = "/etc/letsencrypt/live/gitlab.example.com/fullchain.pem"
 nginx['ssl_certificate_key'] = "/etc/letsencrypt/live/gitlab.example.com/privkey.pem"
-      {{</ file >}}
+      ```
 
 1. Redirect all HTTP traffic to HTTPS:
 
-      {{< file "/etc/gitlab/gitlab.rb" ruby >}}
+      ```file {title="/etc/gitlab/gitlab.rb"}
 nginx['redirect_http_to_https'] = true
-      {{</ file >}}
+      ```
 
 1. Issue the following command to enable your new configurations:
 

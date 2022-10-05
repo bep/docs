@@ -33,7 +33,7 @@ It is assumed that you have followed the steps outlined in our [Setting Up and S
 
 Edit your `/etc/hosts` file to resemble the following example, replacing "12.34.56.78" with your Linode's IP address, "hostname.example.com" with your fully qualified domain name, and "hostname" with your short hostname.
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -50,7 +50,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 deb http://security.ubuntu.com/ubuntu karmic-security universe
 deb-src http://security.ubuntu.com/ubuntu karmic-security universe
 
-{{< /file >}}
+```
 
 
 Make sure your package repositories and installed programs are up to date by issuing the following commands:
@@ -287,10 +287,10 @@ This completes configuration for `saslauthd`. Next, you'll configure Dovecot to 
 
 Edit the file `/etc/postfix/master.cf` and add the dovecot service to the bottom of the file.
 
-{{< file "/etc/postfix/master.cf" >}}
+```file {title="/etc/postfix/master.cf"}
  dovecot unix - n n - - pipe
  :   flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -d \${recipient}
-{{< /file >}}
+```
 
 Issue the following command to make a backup copy of your `/etc/dovecot/dovecot.conf` file.
 

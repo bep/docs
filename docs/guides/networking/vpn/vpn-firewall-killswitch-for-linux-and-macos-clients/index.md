@@ -60,18 +60,18 @@ On your client, change the `client.ovpn` configuration file as follows:
 
 1.  You should already have the setting  *dev tun* to specify the virtual network adapter. Change it to tun0 so it can be referred to in firewall rules:
 
-    {{< file "client.ovpn" >}}
+    ```file {title="client.ovpn"}
 dev tun0
 
-{{< /file >}}
+```
 
 
 2.  Make sure your VPN server is listed by its IP address instead of a hostname. For example:
 
-    {{< file "client.ovpn" >}}
+    ```file {title="client.ovpn"}
 remote 198.51.100.0 1194
 
-{{< /file >}}
+```
 
 
 ## GNU/Linux Clients
@@ -86,7 +86,7 @@ You may want to back up your current iptables ruleset with `iptables-save`.
 
 1.  Create a shell script with the following `iptables` ruleset:
 
-    {{< file "iptables-vpn.sh" >}}
+    ```file {title="iptables-vpn.sh"}
 #!/bin/bash
 iptables --flush
 iptables --delete-chain
@@ -102,7 +102,7 @@ iptables -A INPUT -j ACCEPT -s 198.51.100.0 -i wlp6s0 -p udp -m udp --sport 1194
 iptables -A INPUT -j ACCEPT -i tun0
 iptables -A OUTPUT -j ACCEPT -o tun0
 
-{{< /file >}}
+```
 
 
 2.  Save the script as `iptables-vpn.sh`, then set the permissions using `chmod` and execute the script:
@@ -122,7 +122,7 @@ You may want to back up your current firewall ruleset.
 
 1.  Create a new shell script containing the following commands:
 
-    {{< file "ufw-vpn.sh" >}}
+    ```file {title="ufw-vpn.sh"}
 ufw --force reset
 ufw default deny incoming
 ufw default deny outgoing
@@ -134,7 +134,7 @@ ufw allow out on wlp6s0 to 198.51.100.0 port 1194  proto udp
 ufw allow in on wlp6s0 from 198.51.100.0 port 1194 proto udp
 ufw enable
 
-{{< /file >}}
+```
 
 
 2.  Save the script as `ufw-vpn.sh`, then set the permissions using `chmod` and execute the script:
@@ -150,13 +150,13 @@ Your VPN firewall is now active. Use `ufw disable` if you want to disable the fi
 
 1.  Edit the `pf` configuration file:
 
-    {{< file "/etc/pf.conf" >}}
+    ```file {title="/etc/pf.conf"}
 block drop all
 pass on lo0
 pass on utun0
 pass out proto udp from any to 198.51.100.0 port 1194
 
-{{< /file >}}
+```
 
 
 2.  Import the newly added rules as follows:

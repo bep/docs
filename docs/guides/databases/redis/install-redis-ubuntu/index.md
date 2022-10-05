@@ -119,11 +119,11 @@ To install Redis from a downloaded `.gz` file, follow the steps below:
 
 1. Add a directive to allow Redis to start via the system control utility. Edit the `redis.conf` file at `/etc/redis/redis.conf`, and change the value of the `supervised` directive to `systemd`. This setting is found in the "General" section of the file.
 
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 ...
 supervised systemd
 ...
-{{< /file >}}
+```
 1. Use `systemctl` to start the Redis service.
 
         sudo systemctl restart redis.service
@@ -163,11 +163,11 @@ You can also use `redis-cli` as a function to run any command. Pass in the comma
 Beginning with version 6, Redis maintains multi-user security through an *Access Control List* (ACL). Additionally, you can create a default user password. A default password might be sufficient for a single user. However, we highly recommend you use one or both of these methods.
 
 1. Change the `requirepass` variable in the `redis.conf` file to set the default password. Uncomment the existing `requirepass` directive, and change the default password to a more secure password.
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 ...
 requirepass yourpassword
 ...
-{{< /file >}}
+```
 1. Restart Redis to force the changes to take effect.
 
         sudo systemctl restart redis.service
@@ -197,10 +197,10 @@ This is only a brief introduction to this topic. Create users with memorable nam
         redis-cli
         ACL LIST
 1. Edit the `redis.conf` file and add user directives for two users. The first directive adds `user2` and assigns the password `user2pass`, along with access to all commands and keys. The second user directive, for `user3`, is similar except this user cannot run `SET` commands.
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 user user2 +@all allkeys on >user2pass
 user user3 +@all -SET allkeys on >user3pass
-{{< /file >}}
+```
 1. Restart Redis to force the changes to take effect.
 
         sudo systemctl restart redis.service
@@ -238,21 +238,21 @@ Redis stores all of its data in memory, so in the event of a crash or a system r
 
 1. To change the RDB snapshot intervals, edit the `save` directives in `redis.conf`. A directive consisting of `save 30 100` means Redis continues to take a snapshot every 30 seconds provided at least 100 keys have changed. Multiple snapshot thresholds can be configured.
 
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 save 900 1
 save 300 10
 save 60 10000
-{{< /file >}}
+```
 1. To enable AOF persistence, edit `redis.conf` and change the value of the `appendonly` directive to `yes`. Then you can set the `appendfsync` directive to any one of the following of your choice.
    - `always` - sync upon every new command
    - `everysec` - sync one time per second
    - `no` - let Ubuntu manage the sync.
 
    The default of `everysec` is a good compromise for most implementations.
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 appendonly yes
 appendfsync everysec
-{{< /file >}}
+```
 1. Restart the redis server after making any changes to the Redis persistence directives.
 
         sudo systemctl restart redis.service
@@ -266,9 +266,9 @@ Some of the AOF persistence settings are complicated. Consult the [*Redis Persis
 Redis recommends several additional optimizations for the best performance. In addition to the following advice, Redis makes several recommendations regarding persistence and replication. Consult the [*Redis Administration Information*](https://redis.io/topics/admin) for more information.
 
 1. Set the overcommit memory setting to `1` in `sysctl.conf`. You must reboot the node for this setting to take effect.
-    {{< file "/etc/sysctl.conf" >}}
+    ```file {title="/etc/sysctl.conf"}
 vm.overcommit_memory = 1
-{{< /file >}}
+```
     {{< note >}}
 Enter the command `sysctl vm.overcommit_memory=1` to apply this setting immediately.
 {{< /note >}}
@@ -276,9 +276,9 @@ Enter the command `sysctl vm.overcommit_memory=1` to apply this setting immediat
 
         echo never > /sys/kernel/mm/transparent_hugepage/enabled
 1. Specify an explicit maximum memory value (in bytes) in `redis.conf`. This value must be at least somewhat less than your available system memory. Restart Redis after making this change.
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 maxmemory 2147483648
-{{< /file >}}
+```
 1. Create some swap space in the system to prevent Redis from crashing if it consumes too much memory. The following commands set up a 2GB swap file.
 
         sudo mkdir /swapdir/

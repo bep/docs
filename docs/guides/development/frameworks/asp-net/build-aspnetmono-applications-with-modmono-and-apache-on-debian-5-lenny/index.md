@@ -71,7 +71,7 @@ Recent versions of `mod_mono` utilize the `AutoHosting` method of application de
 
 For the sake of this guide, we're going to create a site on the root of our example domain, `example.com`. If you already have an Apache configuration for the root of your site, you will need to modify your existing virtual host file or create a new one on a subdomain of your site. Create the virtual host file, taking the following example virtual host configuration and modifying it to suit your needs. You may also use the [Mod\_Mono Configuration Generator](http://go-mono.com/config-mod-mono/) to generate your own custom configuration.
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost *:80>
   ServerName example.com
   ServerAdmin admin@example.com
@@ -97,7 +97,7 @@ For the sake of this guide, we're going to create a site on the root of our exam
   </IfModule>
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Save and close the file, and create the directories referenced in the `DocumentRoot` and `ErrorLog` directive:
@@ -163,7 +163,7 @@ Finally you must create a test user named "testuser" and give that user access t
 
 Now that you have created a sample database, you can test your installation with the following test page. This will not only test your Mono installation but it will also will test your MySQL connector configuration. First create a file called `testdb.aspx` in your `DocumentRoot` and paste the text below into it. Be sure to change the `User ID` and `Password` to match what you specified above.
 
-{{< file "/srv/www/example.com/public_html/testdb.aspx" aspx-cs >}}
+```file {title="/srv/www/example.com/public_html/testdb.aspx"}
 <%@ Page Language="C#" %>
 <%@ Import Namespace="System.Data" %>
 <%@ Import Namespace="MySql.Data.MySqlClient" %>
@@ -201,12 +201,12 @@ SampleControl.DataBind();
 
 </html>
 
-{{< /file >}}
+```
 
 
 Next you will need to create a `web.config` file. You can copy and paste the example below. Please note that `Custom Errors` have been turned off in this web.config for debugging purposes. The `customErrors mode` line should be removed in a production environment.
 
-{{< file "/srv/www/example.com/public_html/web.config" >}}
+```file {title="/srv/www/example.com/public_html/web.config"}
 <configuration>
   <system.web>
     <customErrors mode="Off"/>
@@ -218,7 +218,7 @@ Next you will need to create a `web.config` file. You can copy and paste the exa
   </system.web>
 </configuration>
 
-{{< /file >}}
+```
 
 
 Visit the `testdb.aspx` file in a web browser. If you see the text "Testing Sample Databases" in your browser with the information that you inserted into the database above, you now have a functioning `mod_mono` installation and can continue with the development and deployment of your own application!

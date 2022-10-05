@@ -80,7 +80,7 @@ Elgg has an automated installation process; however, before you begin, several v
 
 To configure the database connections, you'll need to edit the file in your preferred text editor and configure the following section. An example of the "standard configuration" follows:
 
-{{< file "/srv/www/example.com/public\\_html/engine/settings.php" php >}}
+```file {title="/srv/www/example.com/public\\_html/engine/settings.php"}
 // Database username
       $CONFIG->dbuser = 'elggdbaccess';
 
@@ -99,7 +99,7 @@ To configure the database connections, you'll need to edit the file in your pref
 // you will want to use this to differentiate Elgg's tables.
         $CONFIG->db prefix = 'elgg_example_';
 
-{{< /file >}}
+```
 
 
 Replace the relevant information in your config with the credentials for your database. The `dbhost` will be `localhost` unless you're running the database server on a [different machine](/docs/databases/mysql/standalone-mysql-server).

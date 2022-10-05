@@ -106,7 +106,7 @@ When applied to a Terraform configuration, the `inbound_ssh` module will create 
 
 1. Using your preferred text editor, create the `inbound_ssh` module's `main.tf` file. Copy and save the contents of the example below.
 
-    {{< file "~/main_firewalls/inbound_ssh/main.tf">}}
+    ```file {title="~/main_firewalls/inbound_ssh/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -127,7 +127,7 @@ resource "linode_firewall" "ssh_inbound" {
 
   linodes = var.linodes
 }
-   {{</ file >}}
+   ```
 
       - This file uses the Terraform Linode Provider's `linode_firewall` resource to create a Cloud Firewall with the inbound rules described above.
       - The `linodes` argument expects a list of Linode IDs. When a Linode ID is passed to the `linodes` argument, the `inbound_ssh` firewall will be assigned to it.
@@ -135,7 +135,7 @@ resource "linode_firewall" "ssh_inbound" {
 
 1. Create the `variables.tf` file to declare the `inbound_ssh` module's input variables. Copy and save the contents of the example below.
 
-     {{< file "~/main_firewalls/inbound_ssh/variables.tf">}}
+     ```file {title="~/main_firewalls/inbound_ssh/variables.tf"}
 variable "linodes" {
   description = "List of Linode ids to which the rule sets will be applied"
   type        = list(string)
@@ -153,7 +153,7 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
-     {{</ file >}}
+     ```
 
      The input variables declared in this file correspond to the `linode_firewalls` resource arguments that the `inbound_ssh` module exposes for customization. In a similar way, you can expose different arguments for your Cloud Firewall child modules as needed.
 
@@ -163,7 +163,7 @@ The `mysql` child module creates a Cloud Firewall with an inbound rule commonly 
 
 1. Using your preferred text editor, create the `inbound_ssh` module's `main.tf` file. Copy and save the contents of the example below.
 
-    {{< file "~/main_firewalls/mysql/main.tf">}}
+    ```file {title="~/main_firewalls/mysql/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -184,7 +184,7 @@ resource "linode_firewall" "mysql" {
   }
   linodes = var.linodes
 }
-   {{</ file >}}
+   ```
 
       - This file uses the Terraform Linode Provider's `linode_firewall` resource to create a Cloud Firewall with the inbound rules described above.
       - The `linodes` argument expects a list of Linode IDs. When a Linode ID is passed to the `linodes` argument, the `mysql` firewall will be assigned to it.
@@ -192,7 +192,7 @@ resource "linode_firewall" "mysql" {
 
 1. Create the `variables.tf` file to declare the `inbound_ssh` module's input variables. Copy and save the contents of the example below.
 
-     {{< file "~/main_firewalls/mysql/variables.tf">}}
+     ```file {title="~/main_firewalls/mysql/variables.tf"}
 variable "linodes" {
   description = "List of Linode ids to which the rule sets will be applied"
   type        = list(string)
@@ -216,7 +216,7 @@ variable "addresses" {
   type        = list(string)
   default     = ["0.0.0.0/0"]
 }
-     {{</ file >}}
+     ```
 
      The input variables declared in this file correspond to the `linode_firewalls` resource arguments that the `mysql` module exposes for customization.
 
@@ -226,7 +226,7 @@ The `web_server` child module, when applied, creates a Cloud Firewall with inbou
 
 1. Using your preferred text editor, create the `web_server` module's `main.tf` file. Copy and save the contents of the example below.
 
-    {{< file "~/main_firewalls/web_server/main.tf">}}
+    ```file {title="~/main_firewalls/web_server/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -266,7 +266,7 @@ resource "linode_firewall" "web_server" {
 
   linodes = var.linodes
 }
-   {{</ file >}}
+   ```
 
       - This file uses the Terraform Linode Provider's `linode_firewall` resource to create a Cloud Firewall with the inbound and outbound rules described above.
       - The `linodes` argument expects a list of Linode IDs. When a Linode ID is passed to the `linodes` argument, the `web_server` firewall will be assigned to it.
@@ -274,7 +274,7 @@ resource "linode_firewall" "web_server" {
 
 1. Create the `variables.tf` file to declare the `web_server` module's input variables. Copy and save the contents of the example below.
 
-     {{< file "~/main_firewalls/web_server/variables.tf">}}
+     ```file {title="~/main_firewalls/web_server/variables.tf"}
 variable "linodes" {
   description = "List of Linode ids to which the rule sets will be applied"
   type        = list(string)
@@ -292,7 +292,7 @@ variable "tags" {
   type        = list(string)
   default     = []
 }
-     {{</ file >}}
+     ```
 
      The input variables declared in this file correspond to the `linode_firewalls` resource arguments that the `web_server` module exposes for customization.
 
@@ -302,7 +302,7 @@ Now that all the Cloud Firewalls child modules have been created, you can create
 
 1. Using your preferred text editor, create the root module's `main.tf` file. Copy and save the contents of the example below.
 
-    {{< file "~/main_firewalls/main.tf">}}
+    ```file {title="~/main_firewalls/main.tf"}
 terraform {
   required_providers {
     linode = {
@@ -343,7 +343,7 @@ resource "linode_instance" "linode_base" {
     authorized_keys = [ linode_sshkey.main_key.ssh_key ]
     root_pass = var.root_pass
 }
-   {{</ file >}}
+   ```
 
       - The `provider` block is a requirement to use the Linode provider. Since Cloud Firewalls is currently in an open beta, you must use the `api_version` argument to tell Terraform to use Linode's beta [API v4 endpoints](https://developers.linode.com/api/v4).
       - The `locals` block declares a local variable `key` whose value will be provided by an input variable. The `linode_ids` local variable is used by the `web_server` module instance in the next block to retrieve the Linode ids for the Linodes to be assigned to the Cloud Firewall that will be created.
@@ -369,7 +369,7 @@ resource "linode_instance" "linode_base" {
 
 1. Create the `variables.tf` file to declare the root module's input variables. These input variables are a combination of the all the values required by the various resources used in the `main.tf` file. You can update the default values to your own preferences.
 
-     {{< file "~/main_firewalls/variables.tf" >}}
+     ```file {title="~/main_firewalls/variables.tf"}
 variable "token" {
   description = " Linode API token"
 }
@@ -433,21 +433,21 @@ variable "tags" {
   default     = []
 }
 
-     {{</ file >}}
+     ```
 
      The variable declaration for `firewall_label_map`, by default, creates a map with default keys `web`, `mysql`, and `ssh`. You can use these keys to provide the map's default values to the `firewall_label` argument. Alternatively, you can override the default values in the `terraform.tfvars` file that you will create in a later step.
 
 1. Create the `outputs.tf` file.  This file exposes the IDs of the Linode instances that are created by the `linode_instance` resource block and will be printed to your console when the root module's configurations are applied.
 
-     {{< file "~/main_firewalls/output.tf" >}}
+     ```file {title="~/main_firewalls/output.tf"}
   output "linode_id" {
     value = linode_instance.linode_base[*].id
 }
-     {{</ file >}}
+     ```
 
 1. Create the `terraform.tfvars` file to provide values for all input variables defined in the `variables.tf` file. This file will exclude any values that provide sensitive data, like passwords and API tokens. A file containing sensitive values will be created in the next step. You can replace any of these values with your own.
 
-     {{< file "~/main_firewalls/terraform.tfvars" >}}
+     ```file {title="~/main_firewalls/terraform.tfvars"}
 key = "~/.ssh/id_rsa.pub"
 linode_count = 3
 key_label = "my-ssh-key"
@@ -456,14 +456,14 @@ tags = ["my-example-tag"]
 firewall_label_map = {
     "web" = "firewall_webserver_http_https"
 }
-     {{</ file >}}
+     ```
 
 1. Create a file named `secrets.tfvars` to store any sensitive values. Replace the example values with your own.
 
-     {{< file "~/main_firewalls/secrets.tfvars">}}
+     ```file {title="~/main_firewalls/secrets.tfvars"}
 token = "my-api-v4-token"
 root_pass = "my-super-strong-root-password"
-     {{</ file >}}
+     ```
 
     {{< note >}}
 This file should never be tracked in version control software and should be listed in your `.gitignore` file if using GitHub.

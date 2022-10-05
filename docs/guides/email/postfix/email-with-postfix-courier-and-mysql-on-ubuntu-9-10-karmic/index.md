@@ -33,7 +33,7 @@ We assume you've followed the steps outlined in our [Setting Up and Securing a C
 
 First, make sure you have the `universe` repositories enabled on your system. Your `/etc/apt/sources.list` should resemble the following (you may have to uncomment or add the `universe` lines):
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
  \#\# main & restricted repositories deb <http://us.archive.ubuntu.com/ubuntu/> karmic main restricted deb-src <http://us.archive.ubuntu.com/ubuntu/> karmic main restricted
 
  deb <http://security.ubuntu.com/ubuntu> karmic-security main restricted deb-src <http://security.ubuntu.com/ubuntu> karmic-security main restricted
@@ -41,7 +41,7 @@ First, make sure you have the `universe` repositories enabled on your system. Yo
  \#\# universe repositories deb <http://us.archive.ubuntu.com/ubuntu/> karmic universe deb-src <http://us.archive.ubuntu.com/ubuntu/> karmic universe deb <http://us.archive.ubuntu.com/ubuntu/> karmic-updates universe deb-src <http://us.archive.ubuntu.com/ubuntu/> karmic-updates universe
 
  deb <http://security.ubuntu.com/ubuntu> karmic-security universe deb-src <http://security.ubuntu.com/ubuntu> karmic-security universe
-{{< /file >}}
+```
 
 If you had to enable new repositories, issue the following command to update your package lists:
 

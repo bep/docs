@@ -179,11 +179,11 @@ The next step is to complete the `.proto` file, which serves as an API between t
     {{< note >}}
 For simplicity, this example does not use packages. If there are multiple projects in the same Python workspace, add this code to a package to avoid naming conflicts.
     {{< /note >}}
-    {{< file "~/teams/protobufs/teams.proto" >}}
+    ```file {title="~/teams/protobufs/teams.proto"}
 syntax = "proto3";
-    {{< /file >}}
+    ```
 1. Define the `TeamRequest` message, which consists of a single field of type `string`. This message type is used for the client request. The `TeamResponse` message contains two fields, one for the `city` and the second for the `nickname` of the team. It defines the message that the server sends back to the client in response.
-    {{< file "~/teams/protobufs/teams.proto" >}}
+    ```file {title="~/teams/protobufs/teams.proto"}
 // The request message is a string containing the city name.
 message TeamRequest {
   string city = 1;
@@ -194,20 +194,20 @@ message TeamResponse {
   string city = 1;
   string nickname = 2;
 }
-   {{< /file >}}
+   ```
 
 1. The final section of the file defines the  `Teams` service and any shared `rpc` methods. In this case, `Teams` only contains the `GetTeam` method. This method accepts a message parameter of type `TeamRequest` and returns a message of type `TeamResponse`. The client can call this function on the server using an auto-generated stub method.
 
-    {{< file "~/teams/protobufs/teams.proto" >}}
+    ```file {title="~/teams/protobufs/teams.proto"}
 // The teams service definition.
 service Teams {
   // Returns the city and nickname of a team based on a string from the client
   rpc GetTeam (TeamRequest) returns (TeamResponse) {}
 }
-   {{< /file >}}
+   ```
 1. Following is an overview of the entire `teams.proto` file.
 
-    {{< file "~/teams/protobufs/teams.proto" >}}
+    ```file {title="~/teams/protobufs/teams.proto"}
 syntax = "proto3";
 
 // The request message is a string containing the type name.
@@ -225,7 +225,7 @@ service Teams {
   // Returns the city and nickname of a team based on a string from the client.
   rpc GetTeam (TeamRequest) returns (TeamResponse) {}
 }
-   {{< /file >}}
+   ```
 
 1. Before this interface can be used by other Python files, it must be compiled into Python stub files. Run the following command from the main `teams` directory to do so. The `-I` parameter indicates the location of the `protobufs` directory. The final variable is the location of the main `teams.proto` file. The destination for the auto-generated files is specified by `python_out` and `grpc_python_out` and can be set to the current directory.
 
@@ -250,7 +250,7 @@ The server application is responsible for implementing every function defined in
 
 1. At the top of the file, `import` the required packages. To import the auto-generated classes, add an `import` statement corresponding to the filename of each auto-generated file, minus the `.py` extension.
 
-    {{< file "~/teams/teams_server.py" python >}}
+    ```file {title="~/teams/teams_server.py"}
 from concurrent import futures
 import logging
 
@@ -258,7 +258,7 @@ import grpc
 
 import teams_pb2
 import teams_pb2_grpc
-    {{< /file >}}
+    ```
 
 1. Create the main class, following these guidelines:
     - The name of the `class` is the name of the `service` from the `.protos` file. In this case, the service name is `Teams`.
@@ -269,7 +269,7 @@ import teams_pb2_grpc
     - At the end of the function, the relevant information is returned using the `teams_pb2.TeamResponse` structure. The format of the `TeamResponse` message was declared inside `teams.proto`. Set a value for each message field using the format `<fieldname>=<value>`, for example, `nickname=team_name`.
     - For the purposes of this demo application, `GetTeam` prints the incoming metadata when a message is received. This is useful for debugging purposes as well as documenting the timing and nature of the client requests.
 
-    {{< file "~/teams/teams_server.py" python >}}
+    ```file {title="~/teams/teams_server.py"}
 class Teams(teams_pb2_grpc.TeamsServicer):
 
     def GetTeam(self, request, context):
@@ -291,26 +291,26 @@ class Teams(teams_pb2_grpc.TeamsServicer):
         else:
             team_name = 'not a member'
         return teams_pb2.TeamResponse(city=request.city, nickname=team_name)
-    {{< /file >}}
+    ```
 
 1. The server must handle all client calls. This is the responsibility of the `serve` function. It creates the server, attaches a `servicer` to it, and tells it to listen for incoming messages on port `50051`. The `serve` function follows the same basic format in every gRPC application. The second line of the `serve` function is complicated. It uses the `add_TeamsServicer_to_server` method from the `teams_pb2_grpc` class. This method takes a `Teams` object and the `server` itself as parameters.
-    {{< file "~/teams/teams_server.py" python >}}
+    ```file {title="~/teams/teams_server.py"}
 def serve():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     teams_pb2_grpc.add_TeamsServicer_to_server(Teams(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
     server.wait_for_termination()
-    {{< /file >}}
+    ```
 1. The file ends with a simple `main` function that only exists to call `serve`. Although `server.start` is non-blocking and runs inside its own thread, `wait_for_termination` blocks the caller as long as the server is running.
-    {{< file "~/teams/teams_server.py" python >}}
+    ```file {title="~/teams/teams_server.py"}
 if **__name__** == '**__main__**':
     logging.basicConfig()
     serve()
-    {{< /file >}}
+    ```
 1. The entire `teams_server.py` file is shown here for reference.
 
-   {{< file "~/teams/teams_server.py" python >}}
+   ```file {title="~/teams/teams_server.py"}
 from concurrent import futures
 import logging
 
@@ -349,7 +349,7 @@ def serve():
 if **__name__** == '**__main__**':
     logging.basicConfig()
     serve()
-    {{< /file >}}
+    ```
 
 {{< note >}}
 To return a stream of teams, `GetTeam` would `yield` each response message rather than returning it. Typically, the routine would iterate over the entire database or dictionary using a `for ... in` control structure and would `yield` each relevant entry in turn. This line would then become `yield teams_pb2.TeamResponse(city=tmp_city_name, nickname=tmp_team_name)`.
@@ -362,7 +362,7 @@ In most cases, the client is much simpler than the server. The main function inv
 1. Create a file named `teams_client.py` inside the main `teams` directory.
 1. At the top of the file, `import` the required packages. This section is similar to the corresponding section of the server file.
 
-    {{< file "~/teams/teams_client.py" python >}}
+    ```file {title="~/teams/teams_client.py"}
 from **__future__** import print_function
 import logging
 
@@ -370,7 +370,7 @@ import grpc
 
 import teams_pb2
 import teams_pb2_grpc
-    {{< /file >}}
+    ```
 
 1. Create the `run` function. This function is not part of any class, although it uses classes from the auto-generated files.
     - Create a channel using `grpc.insecure_channel`. This example assumes the client and server are running on the same system. To connect with a gRPC server on a remote system, replace `localhost` with the gRPC server's IP address in this example.
@@ -378,7 +378,7 @@ import teams_pb2_grpc
     - The `stub` possesses a method for each function in the service interface. Use the `stub.GetTeam` method to invoke the `GetTeam` function on the server. The `GetTeam` method accepts a `teams_pb2.TeamRequest` message as a parameter. Populate the `TeamRequest` message by passing it a field-value pair, such as `city='Chicago'`, for each field.
     - The results can be extracted from the `response` object returned by the server. For example, use `response.nickname` to access the value of the `nickname` field.
 
-    {{< file "~/teams/teams_client.py" python >}}
+    ```file {title="~/teams/teams_client.py"}
 def run():
     with grpc.insecure_channel('localhost:50051') as channel:
         stub = teams_pb2_grpc.TeamsStub(channel)
@@ -388,16 +388,16 @@ def run():
         print("Teams client received: " + response.city + response.nickname)
         response = stub.GetTeam(teams_pb2.TeamRequest(city='Miami'))
         print("Teams client received: " + response.city + response.nickname)
-    {{< /file >}}
+    ```
 1. The main function logs some information and then calls `run`. The `run` function is non-blocking, so when it is finished, the program ends.
-    {{< file "~/teams/teams_client.py" python >}}
+    ```file {title="~/teams/teams_client.py"}
 if **__name__** == '**__main__**':
     logging.basicConfig()
     run()
-    {{< /file >}}
+    ```
 1. The entire `teams_client.py` file is shown here.
 
-    {{< file "~/teams/teams_client.py" python >}}
+    ```file {title="~/teams/teams_client.py"}
 from **__future__** import print_function
 import logging
 
@@ -419,7 +419,7 @@ def run():
 if **__name__** == '**__main__**':
     logging.basicConfig()
     run()
-    {{< /file >}}
+    ```
 
 {{< note >}}
 If `GetTeam` returned a stream, the `stub.GetTeam` function call would have received a list of messages in response. The client would then process these messages, possibly with a Python list comprehension or a `for ... in` control structure.

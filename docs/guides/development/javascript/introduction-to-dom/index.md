@@ -55,7 +55,7 @@ The DOM itself is not equivalent to a web page's HTML source code. Instead, the 
 
 To illustrate how the DOM and HTML source code can differ, the example below displays an HTML source file. The HTML file includes a JavaScript function that adds additional HTML elements to the page once the page loads.
 
-{{< file "example-page.html" html >}}
+```file {title="example-page.html"}
 <!DOCTYPE html>
 <html>
   <head>
@@ -83,7 +83,7 @@ To illustrate how the DOM and HTML source code can differ, the example below dis
     <p>Example page content.</p>
   </body>
 </html>
-{{< /file >}}
+```
 
 Once the HTML page is loaded and the JavaScript runs, the DOM representation of the HTML source above resembles the code displayed below. The JavaScript has been left out to make the resulting HTML easier to read. The HTML now includes an unordered list (`<ul>...</ul>`) with two list items (`<li>...</li>`).
 

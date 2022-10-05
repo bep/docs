@@ -79,7 +79,7 @@ NGINX site-specific configuration files are kept in `/etc/nginx/sites-available`
 
 1.  Using your preferred text editor, create a new NGINX site configuration file located in the `/etc/nginx/sites-available/` directory. Replace the example file name and any instances of `example.com` with your own domain name or IP address.
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 #Names a server and declares the listening port
 server {
     listen 80 default_server;
@@ -99,7 +99,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 1.  Create a symlink from your NGINX configuration file in the `sites-available` directory to the `sites-enabled` directory.
 
@@ -111,7 +111,7 @@ server {
 
       - Add an `include` directive to the `/etc/nginx/sites-enabled/*` directory. This `include` must be within your configuration file's `http` block. Place the `include` directive below the `include /etc/nginx/conf.d/*.conf;` line.
 
-    {{< file "/etc/nginx/nginx.conf" nginx >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 ...
 http {
 ...
@@ -123,7 +123,7 @@ http {
         listen       [::]:80;
     ...
     }
-{{</ file >}}
+```
 
 1.  Open your system's firewall for `http` and `https` traffic.
 
@@ -162,7 +162,7 @@ Ensure you replace `example.com` with your own site's name or IP address in all 
 
 1.  Using the text editor of your choice, create your site's index file in the root directory using the example below.
 
-    {{< file "/var/www/example.com/index.html" html >}}
+    ```file {title="/var/www/example.com/index.html"}
 <!DOCTYPE html>
 <html>
 <body>
@@ -177,7 +177,7 @@ Ensure you replace `example.com` with your own site's name or IP address in all 
 
 </body>
 </html>
-    {{< /file >}}
+    ```
 
 ## Create Your Node.js Web Server
 
@@ -231,7 +231,7 @@ Ensure you replace `example.com` with your own site's name or IP address in all 
 
 1. Create the `test.js` file in your site's root directory.
 
-      {{< file "/var/www/example.com/test.js" html >}}
+      ```file {title="/var/www/example.com/test.js"}
 <!DOCTYPE html>
 <html>
 <body>
@@ -248,7 +248,7 @@ The below button is technically dynamic. You are now using Javascript on both th
 
 </body>
 </html>
-    {{</ file >}}
+    ```
 
 ### Create the Node.js Web Server File
 
@@ -256,7 +256,7 @@ In this section, you will create a file named `server.js` that will use Node.js 
 
 1. In your site's root directory, create the `server.js` file with the following content.
 
-      {{< file "/var/www/example.com/server.js" js >}}
+      ```file {title="/var/www/example.com/server.js"}
 //nodejs.org/api for API docs
 //Node.js web server
 var http = require("http"),                           //Import Node.js modules
@@ -280,7 +280,7 @@ fs.readFile(filename, "binary", function(err, file) { //Read file
  });                                                  //header and body sent
 }).listen(3000);                                      //Listening port
 console.log("Server is listening on port 3000.")      //Terminal output
-        {{</ file >}}
+        ```
 
 
 1.  Run a new [tmux](/docs/guides/persistent-terminal-sessions-with-tmux/) session:

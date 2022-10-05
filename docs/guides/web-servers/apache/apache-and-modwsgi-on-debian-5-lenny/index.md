@@ -52,7 +52,7 @@ In order for `mod_wsgi` to be able to provide access to your application, you wi
 
 In this example, the application is stored in `/srv/www/example.com/application` directory. Modify this example and all following examples to conform to the actual files and locations used in your deployment.
 
-{{< file "/srv/www/example.com/application/application.wsgi" python >}}
+```file {title="/srv/www/example.com/application/application.wsgi"}
 import os
 import sys
 
@@ -70,7 +70,7 @@ def application(environ, start_response):
 
     return [output]
 
-{{< /file >}}
+```
 
 
 You must append the path of your application to the system path as above. The declaration of the `PYTHON_EGG_CACHE` variable is optional but may be required for some applications when WSGI scripts are executed with the permissions of the web server. The WSGI application must be callable as `application`, regardless of how the application code is structured.
@@ -79,7 +79,7 @@ You must append the path of your application to the system path as above. The de
 
 Consider the following example Web.py *application* which is embedded in a `application.wsgi` file. The [Web.py Framework](/docs/guides/webpy-on-ubuntu-12-04-precise-pangolin/) must be installed in order for the following application to run successfully.
 
-{{< file "/srv/www/example.com/application/application.wsgi" python >}}
+```file {title="/srv/www/example.com/application/application.wsgi"}
 import web
 
 urls = (
@@ -98,14 +98,14 @@ if __name__ == "__main__":
 app = web.application(urls, globals(), autoreload=False)
 application = app.wsgifunc()
 
-{{< /file >}}
+```
 
 
 ### Django WSGI Configuration
 
 Consider the following example `application.wsgi` file for Django applications:
 
-{{< file "/srv/www/example.com/application/application.wsgi" python >}}
+```file {title="/srv/www/example.com/application/application.wsgi"}
 import os
 import sys
 
@@ -118,7 +118,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
 
-{{< /file >}}
+```
 
 
 `Django` must be installed on your system and a working Django application before this example will function. The `DJANGO_SETTINGS_MODULE` points to the "`settings.py` file for your application, which would be located in the "`/srv/www/example.com/application/settings.py` in the case of this example.

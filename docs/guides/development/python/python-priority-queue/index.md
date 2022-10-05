@@ -211,7 +211,7 @@ These instructions can be combined together to form the program `pri_queue.py`.
 Do not name this program `queue.py`. This would conflict with the actual `queue` module and hide the actual interface. This bug generates the error `ImportError: cannot import name 'priorityQueue' from partially initialized module 'queue'` at runtime.
 {{< /caution >}}
 
-{{< file "pri_queue.py" python >}}
+```file {title="pri_queue.py"}
 from queue import PriorityQueue
 q = PriorityQueue()
 
@@ -232,7 +232,7 @@ while not q.empty():
      print(q.get())
 
 print(q.empty())
-{{< /file >}}
+```
 
 You can run the file with the following command:
 

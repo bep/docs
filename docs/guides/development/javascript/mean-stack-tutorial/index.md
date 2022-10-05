@@ -66,13 +66,13 @@ Install Express.js using the Node Package Manager (NPM).
 
 Your local directory should now have a file named `package.json` with the following content:
 
-{{< file "package.json" >}}
+```file {title="package.json"}
     ...
   "dependencies": {
     "express": "^4.17.1"
   }
     ...
-        {{</ file >}}
+        ```
 
 ### Angular Installation
 
@@ -193,7 +193,7 @@ At this point, Node and Mongo are both installed and MongoDB is running successf
 
 1. In your preferred text editor, create a new file named `sbom-backend1.js` and add the following content to it:
 
-    {{< file "sbom-backend1.js" >}}
+    ```file {title="sbom-backend1.js"}
 var MongoClient = require('mongodb').MongoClient
 
 const url = "mongodb://localhost:27017/"
@@ -210,7 +210,7 @@ MongoClient.connect(url, (err, client) => {
     client.close()
   })
 })
-        {{</ file >}}
+        ```
 
     The `sbom` name is a common acronym for *software bill of materials*.  The `sbom` table contains some of the information that frequently appears in a production software bill of materials.  The source `sbom-backend1.js` specifies a small program that retrieves the contents of a MongoDB table.
 
@@ -234,7 +234,7 @@ In this section, you activate Express.js. Express.js enables information in Mong
 
 1. Create a new file named `sbom-dataserver.js` with the following content:
 
-    {{< file "sbom-dataserver.js" >}}
+    ```file {title="sbom-dataserver.js"}
 // This program creates a data server which uses Express
 // to retrieve data from a MongoDB instance to create three
 // distinct endpoints on port 3600 of locahost.  Data which
@@ -294,7 +294,7 @@ MongoClient.connect(url, (err, client) => {
     client.close()
   })
 })
-    {{</ file >}}
+    ```
 
 1. Run the API routes you created in the previous step.
 
@@ -371,7 +371,7 @@ With data in the database, and a data server to make them available, you are now
 
 1. Issuing the previous commands should create several files and directories. Open the `~/sbom/src/app/app.module.ts` file and add the following content:
 
-    {{< file "~/sbom/src/app/app.module.ts" >}}
+    ```file {title="~/sbom/src/app/app.module.ts"}
 /* app.module.ts specifies the modules this Angular
    application requires.  It retrieves results from
    the dataserver, for example; therefore it must
@@ -405,11 +405,11 @@ import { TopComponent } from './top/top.component'
   bootstrap: [AppComponent, TopComponent]
 })
 export class AppModule { }
-        {{</ file >}}
+        ```
 
 1. Similar to the previous step, open the `~/sbom/src/app/artifacts.ts` file and add the following content:
 
-    {{< file "~/sbom/src/app/artifacts.ts" >}}
+    ```file {title="~/sbom/src/app/artifacts.ts"}
 /* MVC architecture is the foundation of Angular.  The
    definition of Artifact here defines the crucial data
    Model of this application. */
@@ -418,11 +418,11 @@ export interface Artifact {
   cdn: string;
   version: string;
 }
-        {{</ file >}}
+        ```
 
 1. Next, navigate to `~/src/app/app.component.ts` and provide your component definitions.
 
-    {{< file "~/src/app/app.component.ts" >}}
+    ```file {title="~/src/app/app.component.ts"}
 /* This Component definition includes, most importantly, the
    procedural code which retrieves data from the data server.
 */
@@ -467,11 +467,11 @@ export class ArtifactService {
     this.messageService.add(`ArtifactsService: ${message}`)
   }
 }
-        {{</ file >}}
+        ```
 
 1. Open the `~/src/app/artifact-list/artifact-list.component.ts` file and add the following content:
 
-    {{< file "~/src/app/artifact-list/artifact-list.component.ts" >}}
+    ```file {title="~/src/app/artifact-list/artifact-list.component.ts"}
 /* To illustrate the operation of the data server's routes, the
    the application defines a couple of components that correspond
    to the two displayed routes.  This component defines the
@@ -512,11 +512,11 @@ export class ArtifactListComponent implements OnInit {
     .subscribe(artifact => this.detail(artifact))
   }
 }
-        {{</ file >}}
+        ```
 
 1. Add the next component to the `~/src/app/top/top/component.ts` file:
 
-    {{< file "~/src/app/top/top/component.ts" >}}
+    ```file {title="~/src/app/top/top/component.ts"}
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -530,19 +530,19 @@ export class TopComponent implements OnInit {
   ngOnInit(): void {
   }
 }
-        {{</ file >}}
+        ```
 
     This update should allow the `sbom` application to compile cleanly at all times.
 
 1. Now, open the first Angular template, `~/src/app/top/top.component.html`, and add the following content:
 
-    {{< file "~/src/app/top/top.component.html" >}}
+    ```file {title="~/src/app/top/top.component.html"}
 <p>You can see the current artifact list <a href = '/artifact-list'>here</a>.</p>
-        {{</ file >}}
+        ```
 
 1. Open, the second Angular template, `artifact-list.component.html`, and add the following content:
 
-    {{< file "~/src/app/artifact-list/artifact-list.component.html">}}
+    ```file {title="~/src/app/artifact-list/artifact-list.component.html"}
 <p>Currently known artifacts include:</p>
 <ul>
   <li *ngFor="let an_artifact of artifacts">
@@ -552,11 +552,11 @@ export class TopComponent implements OnInit {
 Select a button for more information about the selected artifact.
 <p>{{details}}
 <p><a href = '/'>Return to main menu</a>.</p>
-        {{</ file >}}
+        ```
 
 1. Open the third Angular template, `~/src/app/app.component.html`, and add the following content:
 
-    {{< file "~/src/app/app.component.html" >}}
+    ```file {title="~/src/app/app.component.html"}
 <!doctype html>
 <html>
 <body>
@@ -565,7 +565,7 @@ Select a button for more information about the selected artifact.
   <router-outlet></router-outlet>
 </body>
 </html>
-        {{</ file >}}
+        ```
 
 1. With all these pieces in place, open a web browser and navigate to the URL, `http://localhost:4200/`. You should see the following output:
 

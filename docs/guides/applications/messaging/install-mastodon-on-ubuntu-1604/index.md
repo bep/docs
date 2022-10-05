@@ -105,7 +105,7 @@ Mastodon has a number of components: [PostgreSQL](/docs/databases/postgresql/con
 
     Open `docker-compose.yml` in your favorite text editor, comment-out the `build` lines, and add a version number to the `image` lines for the `web`, `streaming`, and `sidekiq` services:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -126,7 +126,7 @@ services:
     image: tootsuite/mastodon:v2.4.2
     # [...]
 
-{{< /file >}}
+```
 
     {{< note >}}
 This guide uses Mastodon [v2.4.2](https://github.com/tootsuite/mastodon/releases/tag/v2.4.2). At the time of writing, there was a [known issue](https://github.com/tootsuite/mastodon/issues/8001) with [v2.4.3](https://github.com/tootsuite/mastodon/releases/tag/v2.4.3) during installation.
@@ -134,7 +134,7 @@ This guide uses Mastodon [v2.4.2](https://github.com/tootsuite/mastodon/releases
 
 1.  For the `db`, `redis`, `web`, and `sidekiq` services, set the volumes listed in this snippet:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -160,11 +160,11 @@ services:
     volumes:
       - ./public/system:/mastodon/public/system
       - ./public/packs:/mastodon/public/packs
-{{< /file >}}
+```
 
 1. After the `sidekiq` service and before the final `networks` section, add a new `nginx` service. NGINX will be used to proxy requests on HTTP and HTTPS to the Mastodon Ruby on Rails application:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -195,7 +195,7 @@ services:
 networks:
   # [...]
   st
-{{< /file >}}
+```
 
 1. Compare your edited `docker-compose.yml` with this [copy of the complete file](./docker-compose.yml) and make sure all the necessary changes were included.
 
@@ -205,15 +205,15 @@ networks:
 
 1. Create a file named `Dockerfile` in the `nginx` directory and paste in the following contents:
 
-    {{< file "nginx/Dockerfile" dockerfile >}}
+    ```file {title="nginx/Dockerfile"}
 FROM nginx:latest
 
 COPY default.conf /etc/nginx/conf.d
-{{< /file >}}
+```
 
 1. Create a file named `default.conf` in the `nginx` directory and paste in the following contents. Change each instance of `example.com`:
 
-    {{< file "nginx/default.conf" conf >}}
+    ```file {title="nginx/default.conf"}
 map $http_upgrade $connection_upgrade {
   default upgrade;
   ''      close;
@@ -304,7 +304,7 @@ server {
 
   error_page 500 501 502 503 504 /500.html;
 }
-{{< /file >}}
+```
 
 ### Configure Mastodon
 
@@ -312,7 +312,7 @@ The configuration settings for Mastodon are held in the `.env.production` file a
 
 1. Create the `.env.production` file and copy in the following contents. Replace all instances of `example.com` with your domain name. Fill in the `SMTP_SERVER` and `SMTP_PASSWORD` fields with the domain and credentials from your mail server:
 
-    {{< file ".env.production" >}}
+    ```file {title=".env.production"}
 LOCAL_DOMAIN=example.com
 SINGLE_USER_MODE=false
 SECRET_KEY_BASE=
@@ -340,16 +340,16 @@ SMTP_PASSWORD=your_smtp_password
 SMTP_AUTH_METHOD=plain
 SMTP_OPENSSL_VERIFY_MODE=none
 SMTP_FROM_ADDRESS=Mastodon <notifications@example.com>
-{{< /file >}}
+```
 
     If you're using Mailgun for your mail service, remove all the lines from the `Mail settings` section and enter the following options:
 
-    {{< file ".env.production" >}}
+    ```file {title=".env.production"}
 SMTP_SERVER=smtp.mailgun.org
 SMTP_PORT=587
 SMTP_LOGIN=your_mailgun_email
 SMTP_PASSWORD=your_mailgun_email_password
-{{< /file >}}
+```
 
 1. Use Docker and Mastodon to generate a new value for the `SECRET_KEY_BASE` setting:
 

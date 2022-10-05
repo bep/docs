@@ -77,9 +77,9 @@ In this section, you will create an AWK program in an input file and then run it
 
 1.  Create a file called `helloworld.awk` with the following content:
 
-    {{< file "helloworld.awk" awk >}}
+    ```file {title="helloworld.awk"}
 BEGIN { print "Hello World!" }
-    {{< /file >}}
+    ```
 
 1.  On the command line, run the `helloworld.awk` program. The `-f` option tells AWK to expect a source file as the program to run.
 
@@ -93,11 +93,11 @@ Hello World!
 
 1.  You can also run AWK programs as executable scripts. Open `helloworld.awk` and add a bash script line to the top of the file and save it **without** the `.awk` extension.
 
-    {{< file "helloworld" bash >}}
+    ```file {title="helloworld"}
 #!/usr/bin/awk -f
 
 BEGIN { print "Hello World!" }
-    {{< /file >}}
+    ```
 
     The ``#!/usr/bin/awk -f`` line defines the start of script execution.
 
@@ -144,12 +144,12 @@ User defined variables can store numeric or string values. AWK dynamically assig
 
 - To initialize variables within an input file, you can use the form `myvariable = "myvar" ` for strings and `myvariable = 10` for numeric values. Create a file named `count.awk` and add the following content:
 
-    {{< file "count.awk" awk>}}
+    ```file {title="count.awk"}
 BEGIN {
     count = 10
     print count
 }
-    {{</ file >}}
+    ```
 
     To run this file, switch back to the command line and execute the following command:
 
@@ -185,7 +185,7 @@ Two other patterns with special functionality are `BEGINFILE` and `ENDFILE`. `BE
 
 1.  As an example, create a file named `beginfile.awk`:
 
-    {{< file "beginfile.awk" awk >}}
+    ```file {title="beginfile.awk"}
 BEGIN {
     numberOfFiles = 0
 }
@@ -207,7 +207,7 @@ ENDFILE {
 END {
     print "Total number of files processed: ", numberOfFiles
 }
-{{< /file >}}
+```
 
   - This program showcases the usage of `BEGIN`, `END`, `BEGINFILE`, and `ENDFILE` by printing the total number of files read as well as the filename of each file.
 
@@ -238,7 +238,7 @@ AWK supports `for`, `do-while`, and `while` loops that behave similarly to contr
 
 1.  Create and save a file named `loops.awk`:
 
-    {{< file "loops.awk" awk >}}
+    ```file {title="loops.awk"}
 BEGIN {
     for (i = 0; i < ARGC; i++)
         printf "ARGV[%d] = %s\n", i, ARGV[i]
@@ -261,7 +261,7 @@ END {
         printf "%d ", i
     printf "\n"
 }
-{{< /file >}}
+```
 
   - The program uses the value of the [`ARGC` built-in variable](#built-in-variables) to control how many times to loop through each separate block of code. The result will vary depending on how many command line arguments you pass to AWK when executing the program.
   - The `for` loop after the `END` special pattern will print numbers from 0 - 9.
@@ -285,7 +285,7 @@ AWK does not require array indices to be consecutive integers. Instead, strings 
 
 1.  Create the file `arrays.awk`:
 
-    {{< file "arrays.awk" awk >}}
+    ```file {title="arrays.awk"}
 BEGIN {
     a[0] = 1;
     a[1] = 2;
@@ -306,7 +306,7 @@ BEGIN {
     if (a["1"] == a[1])
         printf "a[1] = a[\"1\"] = %s\n", a["1"];
 }
-{{< /file >}}
+```
 
   - The program creates the `a[]` array and initializes it with four separate numeric values.
   - The `for` block will loop through the array and print the current index and value.
@@ -348,7 +348,7 @@ AWK's built-in functions provide mechanisms for string manipulation, numeric ope
 
 1.  Create and save a file named `rand.awk`:
 
-    {{< file "rand.awk" awk >}}
+    ```file {title="rand.awk"}
 BEGIN {
     while (i < 20) {
         n = int(rand()*10);
@@ -356,7 +356,7 @@ BEGIN {
         i++;
     }
 }
-{{< /file >}}
+```
 
   - The `rand.awk` program uses the `rand()` function to generate a random number and stores it in the `n` variable. By default, `rand()` returns a random number between 0 and 1. To generate numbers larger than 1, the program multiplies the returned random number by 10.
   - AWK's `int()` function rounds the result of the `rand()` function to the nearest integer.
@@ -385,7 +385,7 @@ The AWK programming language allows you to define your own functions and call th
 
 1.  Create and save the `myFunction.awk` file:
 
-    {{< file "myFunction.awk" awk >}}
+    ```file {title="myFunction.awk"}
 function isnum(x) { return(x==x+0) }
 
 function sumToN(n) {
@@ -401,7 +401,7 @@ function sumToN(n) {
     for (i=1; i<=NF; i++)
         print $i, "\t:", sumToN($i)
 }
-{{< /file >}}
+```
 
   - The user defined function `sumToN()` takes a single parameter `n` and uses a for loop to increment its value and stores it in the `sum` variable.
   - The program will take command line input, and pass it as a parameter to the `sumToN()` function and print the calculated `sum`.
@@ -426,12 +426,12 @@ This section of the guide provides a variety of practical examples to further de
 
 1.  To use AWK to print a given line from a text file, create and save the `givenLine.awk` file:
 
-    {{< file "givenLine.awk" awk >}}
+    ```file {title="givenLine.awk"}
 {
     if (NR == line)
         print $0;
 }
-{{< /file >}}
+```
 
   - This program will print out the record that corresponds to the value passed to the `line` variable. The program will require input either from the command line or from a file.
   - You should pass the value of the `line` variable to the AWK program as a command line argument using the `-v` option.
@@ -462,17 +462,17 @@ In this example, the AWK program will print the values of the first and third fi
 
 1.  Create and save the file `field1and3.awk`:
 
-    {{< file "field1and3.awk" awk >}}
+    ```file {title="field1and3.awk"}
 {
     print $1, $3;
 }
-{{< /file >}}
+```
 
 1.  Create and save the file `words.txt`:
 
-    {{< file "words.txt" text >}}
+    ```file {title="words.txt"}
 one two three
-{{< /file >}}
+```
 
 1.  Execute `field1and3.awk` passing `words.txt` as input:
 
@@ -499,7 +499,7 @@ The following example AWK program will count the number of lines that are found 
 
 1.  Create and save the `countLines.awk` file:
 
-    {{< file "countLines.awk" awk >}}
+    ```file {title="countLines.awk"}
 {
     if (FNR==1)
         print "Processing:", FILENAME;
@@ -508,14 +508,14 @@ The following example AWK program will count the number of lines that are found 
 END {
     print "Read", NR, "records in total";
 }
-{{< /file >}}
+```
 
   - The use of `FNR` makes sure that the filename of each processed file will be printed only once.
   - `END` makes sure that the results will be printed just before AWK finishes executing `countLines.awk`.
 
 1.  Create and save the `data.txt` file. This file will be passed to AWK as input for processing.
 
-    {{< file "data.txt" text >}}
+    ```file {title="data.txt"}
 one
 two
 three
@@ -523,7 +523,7 @@ three
 
 6
 seven not eight
-{{< /file >}}
+```
 
 1.  Execute `countLines.awk` with the following command, passing `data.txt` as input:
 
@@ -560,7 +560,7 @@ The following AWK code uses the variable `n` to count the number of lines that c
 
  1. Create a file named `dataFile.txt` to pass to AWK as input for processing:
 
-     {{< file "dataFile.txt" text >}}
+     ```file {title="dataFile.txt"}
     one
     two
     three
@@ -568,7 +568,7 @@ The following AWK code uses the variable `n` to count the number of lines that c
     three
     two
     one
-{{< /file >}}
+```
 
 1.  Execute the example code and pass `dataFile.txt` as input:
 
@@ -587,7 +587,7 @@ In this example, the `countChars.awk` file calculates the number of characters f
 
 1.  Create and save the file `countChars.awk`:
 
-    {{< file "countChars.awk" awk >}}
+    ```file {title="countChars.awk"}
 BEGIN {
     n = 0;
 }
@@ -602,7 +602,7 @@ BEGIN {
 END {
     print "Read", n, "characters in total";
 }
-{{< /file >}}
+```
 
   - This program makes use of the built-in string function `length()`, which returns the number of characters in a string. In the case of the program, the string will be provided by the entirety of the current record, which is indicated by `$0`.
   - The `+ 1` appended to the `length()` function is used to account for the new line character that each line includes.
@@ -634,7 +634,7 @@ This example demonstrates some of the advanced capabilities of AWK. The file `wo
 
 1.  Create and save the file `wordFreq.awk`:
 
-    {{< file "wordFreq.awk" awk >}}
+    ```file {title="wordFreq.awk"}
 {
     for (i= 1; i<=NF; i++ ) {
         $i = tolower($i)
@@ -646,7 +646,7 @@ END {
     for (word in freq)
         print word, ":", freq[word]
 }
-{{< /file >}}
+```
 
     - `wordFreq.awk` uses a for loop to traverse through an input file and add each record to the `freq[]` array.
     - The `tolower()` built-in string function is used to ensure the program does not count the same word multiple times based on differences in case, e.g., seven and Seven are not counted as different words.
@@ -654,13 +654,13 @@ END {
 
 1.  Create and save the file `wordFreq.txt` to use as an input file.
 
-    {{< file "wordFreq.txt" text >}}
+    ```file {title="wordFreq.txt"}
 one two
 three one four seven Seven
 One Two TWO
 
 one three five
-{{< /file >}}
+```
 
 1.  Execute the `wordFreq.awk` program and pass `wordFreq.txt` as input:
 
@@ -727,7 +727,7 @@ This program's logic utilizes the behavior of AWK associative arrays. The associ
 
 1.  Create and save the file `nDuplicates.awk`:
 
-    {{< file "nDuplicates.awk" awk >}}
+    ```file {title="nDuplicates.awk"}
 BEGIN {
     total = 0;
 }
@@ -745,7 +745,7 @@ BEGIN {
 END {
     print "Found", total, "lines with duplicate records.";
 }
-{{< /file >}}
+```
 
 1.  Execute the `nDuplicates.awk` file and pass the file to itself as input:
 

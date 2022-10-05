@@ -28,7 +28,7 @@ All three primitive types are spelled in lower-case. There are capitalized varia
 
 The example TypeScript code below demonstrates how to assign values of all three primitive types to variables.
 
-{{< file "example.ts" typescript>}}
+```file {title="example.ts"}
 //strings
 var s1: string;             //declared
 const s2 = "Hello, world!"; //inferred
@@ -48,11 +48,11 @@ function FtoC (f: number) { //declared to enable input type checking
 var b1: boolean;            //declared
 const b2 = true;            //inferred
 let b3: boolean = !true;    //both (!true == false)
-{{</ file >}}
+```
 
 When the TypeScript code is compiled to JavaScript, all the type annotations are stripped out, as shown in the JavaScript example below. If you’re targeting the lowest levels of JavaScript, both `const` and `let` are changed to `var`. If you’re targeting ES6(2015) or greater, they are left as written. In TypeScript and ES6+, `let` is a block-scoped version of `var`, and `const` creates a block-scoped variable that can’t be changed once it is bound.
 
-{{< file "example.js" typescript>}}
+```file {title="example.js"}
 //strings
 var s1; //declared
 var s2 = "Hello, world!"; //inferred
@@ -69,7 +69,7 @@ function FtoC(f) {
 var b1; //declared
 var b2 = true; //inferred
 var b3 = !true; //both
-{{</ file >}}
+```
 
 {{< note >}}
 You don’t actually get an immutable variable when you use `const`. To do that, declare an object member `readonly`.
@@ -89,12 +89,12 @@ If you don't declare a type, and the type can't be inferred, the variable is set
 
 There’s a secondary reason to use the `any` type; to write a function that accepts multiple types. It’s much better to use [Generics](https://www.typescriptlang.org/docs/handbook/2/generics.html) to create a function that accepts different types instead of a single type, however, you can also use `any`, as shown in the following example:
 
-{{< file "example.ts" typescript >}}
+```file {title="example.ts"}
 function wideOpen(x: any) {
   //do something to x that doesn't depend on its type
   return x;
 }
-{{</ file >}}
+```
 
 By default, TypeScript infers an `any` type for any variable that has neither a declared type nor enough context to infer a type. To disable that, use the `noImplicitAny` or `--strict` TypeScript compiler flag. You can refer to the full list of [TypeScript compiler options](https://www.typescriptlang.org/docs/handbook/compiler-options.html).
 
@@ -123,7 +123,7 @@ In TypeScript, you can create types from other types. The most common way to do 
 Notice the difference in syntax when declaring an interface and a type alias. An interface declaration does not make use of the `=` sign.
 {{</ note >}}
 
-{{< file "object_types_example.ts" typescript >}}
+```file {title="object_types_example.ts"}
 //objects
 
 //interface
@@ -139,7 +139,7 @@ type IP4t = {
     ip_address: [number,number,number,number];
     protocol?: string;
 }
-{{</ file >}}
+```
 
 Optional properties are denoted with a question mark (`?`) after the member name, as shown for the `protocol` members in the example above.
 
@@ -147,7 +147,7 @@ Optional properties are denoted with a question mark (`?`) after the member name
 
 Unions are denoted by a vertical bar ('`|`') and allow for more than one type, often as an input parameter to a function. You can’t apply type-dependent code to a union until your code narrows down which of the allowed types have been input. Consider the following example:
 
-{{< file "unions_example.ts" typescript >}}
+```file {title="unions_example.ts"}
 function welcomePeople(x: string[] | string) { //x is a union
  //Narrowing logic
   if (Array.isArray(x)) {
@@ -161,7 +161,7 @@ function welcomePeople(x: string[] | string) { //x is a union
 
 welcomePeople("Moe");
 welcomePeople(["Moe","Larry”,"Curly"]);
-{{</ file >}}
+```
 
 When you run the code, you get the following log output:
 

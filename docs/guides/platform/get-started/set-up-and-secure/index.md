@@ -252,18 +252,18 @@ The `hosts` file creates static associations between IP addresses and hostnames 
 
 1.  Add a line for your Linode's public IP address. You can associate this address with your Linode's **Fully Qualified Domain Name** (FQDN) if you have one, and with the local hostname you set in the steps above. In the example below, `203.0.113.10` is the public IP address, `example-hostname` is the local hostname, and `example-hostname.example.com` is the FQDN.
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost
 203.0.113.10 example-hostname.example.com example-hostname
-{{< /file >}}
+```
 
 1.  Add a line for your Linode's IPv6 address. Applications requiring IPv6 will not work without this entry:
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost
 203.0.113.10 example-hostname.example.com example-hostname
 2600:3c01::a123:b456:c789:d012 example-hostname.example.com example-hostname
-{{< /file >}}
+```
 
 The value you assign as your system's FQDN should have an "A" record in DNS pointing to your Linode's IPv4 address. For IPv6, you should also set up a DNS "AAAA" record pointing to your Linode's IPv6 address.
 
@@ -397,18 +397,18 @@ If you've already created an RSA key-pair, this command will overwrite it, poten
 
 1.  **Disallow root logins over SSH.** This requires all SSH connections be by non-root users. Once a limited user account is connected, administrative privileges are accessible either by using `sudo` or changing to a root shell using `su -`.
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 # Authentication:
 ...
 PermitRootLogin no
-{{< /file >}}
+```
 
 1.  **Disable SSH password authentication.** This requires all users connecting via SSH to use key authentication. Depending on the Linux distribution, the line `PasswordAuthentication` may need to be added, or uncommented by removing the leading `#`.
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 # Change to no to disable tunnelled clear text passwords
 PasswordAuthentication no
-{{< /file >}}
+```
 
     {{< note >}}
 You may want to leave password authentication enabled if you connect to your Linode from many different computers. This will allow you to authenticate with a password instead of generating and uploading a key-pair for every device.
@@ -421,10 +421,10 @@ You may want to leave password authentication enabled if you connect to your Lin
     *   `AddressFamily inet` to listen only on IPv4.
     *   `AddressFamily inet6` to listen only on IPv6.
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 # Port 22
 AddressFamily inet
-{{< /file >}}
+```
 
 1.  Restart the SSH service to load the new configuration.
 
@@ -464,13 +464,13 @@ If for whatever reason you find yourself locked out of your Linode after putting
 
 -   If you need to re-enable password authentication and/or root login over ssh to your Linode, you can do this by reversing the following sections of this file to reflect these changes
 
-    {{< file "/etc/ssh/sshd_config" aconf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 # Authentication:
 ...
 PermitRootLogin yes
 ...
 PasswordAuthentication yes
-{{< /file >}}
+```
 
     From there, you just need to restart SSH.
 

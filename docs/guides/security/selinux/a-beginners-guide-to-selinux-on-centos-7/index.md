@@ -89,7 +89,7 @@ When SELinux is installed on your system, it can be either *enabled* or *disable
 
 - To disable SELinux, update your SELinux configuration file using the text editor of your choice. Set the `SELINUX` directive to `disabled` as shown in the example.
 
-      {{< file "/etc/selinux/config">}}
+      ```file {title="/etc/selinux/config"}
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 #     enforcing - SELinux security policy is enforced.
@@ -101,7 +101,7 @@ SELINUX=disabled
 #     minimum - Modification of targeted policy. Only selected processes are protected.
 #     mls - Multi Level Security protection.
 SELINUXTYPE=targeted
-      {{</ file >}}
+      ```
 
       {{< note >}}
 You can update the `SELINUX` directive with any of the available SELinux [states](#selinux-states) or [modes](#selinux-modes).

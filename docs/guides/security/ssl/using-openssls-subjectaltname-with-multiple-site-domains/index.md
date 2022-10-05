@@ -41,18 +41,18 @@ CentOS/Fedora users:
 
 Edit the file `openssl.cnf`, inserting the following line immediately before the "HOME" entry. On Debian and Ubuntu systems this file can found at `/usr/lib/ssl/openssl.cnf`, on CentOS and Fedora it can be found at `/etc/pki/tls/openssl.cnf`.
 
-{{< file "openssl.cnf" >}}
+```file {title="openssl.cnf"}
 SAN="email:support@example.com"
 
-{{< /file >}}
+```
 
 
 Change "example.com" to match the domain name used for your server's fully qualified domain name (FQDN). Next, add the following line immediately after the `[ v3_req ]` and `[ v3_ca ]` section markers.
 
-{{< file "openssl.cnf" >}}
+```file {title="openssl.cnf"}
 subjectAltName=${ENV::SAN}
 
-{{< /file >}}
+```
 
 These statements instruct OpenSSL to append your default support email address to the SAN field for new SSL certificates if no other alternate names are provided. The environment variable "SAN" will be read to obtain a list of alternate DNS names that should be considered valid for new certificates.
 

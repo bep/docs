@@ -54,7 +54,7 @@ If you already have Logstash installed, skip ahead to the [Generate Certificates
 
 1.  Add a configuration file for the Elastic repository at `/etc/yum.repos.d/elastic.repo` using the text editor of your choice:
 
-    {{< file "/etc/yum.repos.d/elastic.repo" >}}
+    ```file {title="/etc/yum.repos.d/elastic.repo"}
 [elasticsearch-7.x]
 name=Elastic repository for 7.x packages
 baseurl=https://artifacts.elastic.co/packages/7.x/yum
@@ -63,7 +63,7 @@ gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
 autorefresh=1
 type=rpm-md
-{{</ file >}}
+```
 
 1.  Update and install Logstash:
 
@@ -99,7 +99,7 @@ If you enter '.', the field will be left blank.
 
 1.  In this configuration you need to change the `commonName` configuration line to the server's FQDN or IP address. Create the configuration file, `logstash.conf`, in the new directory you created (`/etc/pki/tls/conf`). Use the example file shown below, and replace the `X` values with your own.
 
-    {{< file "/etc/pki/tls/conf/logstash.conf" >}}
+    ```file {title="/etc/pki/tls/conf/logstash.conf"}
 [req]
 distinguished_name = req_distinguished_name
 req_extensions = v3_req
@@ -125,7 +125,7 @@ DNS.1 = DOMAIN_1
 DNS.2 = DOMAIN_2
 DNS.3 = DOMAIN_3
 DNS.4 = DOMAIN_4
-{{</ file >}}
+```
 
     {{< note >}}
 If this Logstash service is available on multiple host names, or if you intend to use this certificate on multiple hosts, those should be added to the `[alt_names]` section. Otherwise, that section can be removed along with the `subjectAltName` line.
@@ -173,7 +173,7 @@ If this Logstash service is available on multiple host names, or if you intend t
 
 1.  Create a Logstash configuration file using the text editor of your choice. Replace the password with the password you set above.
 
-    {{< file "/etc/logstash/conf.d/logstash.conf" >}}
+    ```file {title="/etc/logstash/conf.d/logstash.conf"}
 input {
     http {
         password => "SuperSeCreT"
@@ -188,7 +188,7 @@ output {
         codec => rubydebug
     }
 }
-{{</ file >}}
+```
 
 1.  Open Logstash HTTP ports on the firewall.
 
@@ -238,7 +238,7 @@ The remote client host needs copies of the organization certificate (`org_ca.crt
 
 1.  On the host, begin by changing the Logstash configuration file to remove the `username` and `password` fields and add `ssl_verify_mode` and `ssl_certificate_authorities`.
 
-    {{< file "/etc/logstash/conf.d/logstash.conf" >}}
+    ```file {title="/etc/logstash/conf.d/logstash.conf"}
 input {
     http {
         ssl => true
@@ -253,11 +253,11 @@ output {
         codec => rubydebug
     }
 }
-{{</ file >}}
+```
 
 1.  On the client, create a client certificate configuration file using the text editor of your choice. Again, replace the `XX` fields with your own values.
 
-    {{< file "/etc/pki/tls/conf/client_crt.conf" >}}
+    ```file {title="/etc/pki/tls/conf/client_crt.conf"}
 [req]
 distinguished_name = req_distinguished_name
 req_extensions = v3_req
@@ -286,7 +286,7 @@ extendedKeyUsage = serverAuth, clientAuth
 [v3_req]
 keyUsage = keyEncipherment, dataEncipherment
 extendedKeyUsage = serverAuth, clientAuth
-{{</ file >}}
+```
 
 1.  Change permissions to allow writing the `client.key` and `client.crt` files.
 
@@ -349,7 +349,7 @@ tidied up correctly.
 
 1.  Using the text editor of your choice, update the `/etc/filebeat/filebeat.yml` file with these values.
 
-    {{< file "/etc/filebeat/filebeat.yml" >}}
+    ```file {title="/etc/filebeat/filebeat.yml"}
 filebeat.inputs:
 - type: log
   enabled: true
@@ -360,11 +360,11 @@ output.logstash:
   ssl.certificate_authorities: ["/etc/pki/tls/private/org_ca.crt"]
   ssl.certificate: "/etc/pki/tls/certs/client_combined.crt"
   ssl.key: "/etc/pki/tls/private/client.key"
-{{</ file >}}
+```
 
 1.  On the Logstash host, add a `beats` input to the logstash configuration file using the text editor of your choice.
 
-    {{< file "/etc/logstash/conf.d/logstash.conf" >}}
+    ```file {title="/etc/logstash/conf.d/logstash.conf"}
 input {
     beats {
         port => 5044
@@ -380,7 +380,7 @@ output {
         codec => rubydebug
     }
 }
-{{</ file >}}
+```
 
 1.  Make sure that port 5044 is open on the Logstash host's firewall.
 

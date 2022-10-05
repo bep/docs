@@ -49,7 +49,7 @@ The `uniq` command takes input and removes repeated lines. Because `uniq` only r
 
 The examples in this section will use the following text file as an input:
 
-{{< file "names-list.txt" conf >}}
+```file {title="names-list.txt"}
 Richard Longly
 Joni Governor
 Michael Bitley
@@ -68,7 +68,7 @@ Erin Smith
 erin smyth
 Gil Watson
 Joni Governor
-{{< /file >}}
+```
 
 ### Reorder Lists with sort
 

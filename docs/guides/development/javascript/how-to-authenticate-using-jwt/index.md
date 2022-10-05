@@ -108,7 +108,7 @@ The steps in this guide are written for a non-root user. Commands that require e
 In a production scenario, you should not store credentials in application code and your passwords should be encrypted when stored. Additionally, use a secret that conforms to the standards for the signing algorithm you are using. For instance, the HMAC SHA256 algorithm in this example should be given a 256-bit secret. You can achieve this with a random 64-character hex string or a random 44-character Base64 string.
     {{< /note >}}
 
-    {{< file "server.js" javascript >}}
+    ```file {title="server.js"}
 // Import the NPM packages to be used.
 const express = require('express');
 const jwt = require('jsonwebtoken');
@@ -148,7 +148,7 @@ const userCredentials = [
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`);
 })
-    {{< /file >}}
+    ```
 
 1. Initialize the Node.js project.
 
@@ -167,7 +167,7 @@ The server needs to have an endpoint to accept user credentials and provide a JW
 
 Add the following to the `server.js` file.
 
-{{< file "server.js" javascript >}}
+```file {title="server.js"}
 // [...]
 
 // Add an endpoint for incoming authentication requests.
@@ -195,7 +195,7 @@ const fetchUserToken = (req) => {
 }
 
 // [...]
-{{< /file >}}
+```
 
 ### Decode with JWT
 
@@ -203,7 +203,7 @@ The server now needs to have an endpoint to provide user information upon receiv
 
 Add the following to the `server.js` file:
 
-{{< file "server.js" javascript >}}
+```file {title="server.js"}
 // [...]
 
 // Add an endpoint for user information requests. The endpoint first
@@ -231,7 +231,7 @@ const fetchUserInfo = (userId) => {
 }
 
 // [...]
-{{< /file >}}
+```
 
 ### In Action
 

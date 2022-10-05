@@ -27,11 +27,11 @@ MySQL is a popular database management system, used as the data storage provider
 
 Make sure your `/etc/hosts` file has proper entries, similar to the ones shown below. Replace "12.34.56.78" with your Linode's public address, "servername" with your short hostname, and "mydomain.com" with your system's domain name.
 
-{{< file "/etc/hosts" conf >}}
+```file {title="/etc/hosts"}
 127.0.0.1 localhost.localdomain localhost
 12.34.56.78 servername.mydomain.com servername
 
-{{< /file >}}
+```
 
 
 Set your system's hostname by issuing the following commands. Replace "servername" with your system's short hostname.

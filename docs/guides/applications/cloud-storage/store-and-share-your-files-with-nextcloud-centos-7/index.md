@@ -38,13 +38,13 @@ aliases: ['/applications/cloud-storage/store-and-share-your-files-with-nextcloud
 
 1. Add the MariaDB 10.2 repository to force yum to install the latest version:
 
-    {{< file "/etc/yum.repos.d/MariaDB.repo" repo >}}
+    ```file {title="/etc/yum.repos.d/MariaDB.repo"}
 [mariadb]
 name = MariaDB-10.2.3
 baseurl = http://yum.mariadb.org/10.2.3/centos7-amd64
 gpgkey=https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 gpgcheck=1
-{{< /file >}}
+```
 
 2.  Install MariaDB and enable the service on system startup:
 
@@ -155,7 +155,7 @@ gpgcheck=1
 
 8.  Update the URL in the `config.php` file to accommodate the `nextcloud` subfolder added within the document root. Match the `overwrite.cli.url` and `htaccess.RewriteBase` lines:
 
-    {{< file "/var/www/html/nextcloud/config/config.php" php >}}
+    ```file {title="/var/www/html/nextcloud/config/config.php"}
 . . .
 
 ),
@@ -167,7 +167,7 @@ gpgcheck=1
   'dbname' => 'nextcloud',
 
 . . .
-{{< /file >}}
+```
 
 9. Update the `.htaccess` file with the URL changes:
 

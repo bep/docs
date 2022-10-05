@@ -126,7 +126,7 @@ The following instructions provide Tiller to the `cluster-admin` role, which is 
 
 1.   Create a file on your computer named `rbac-config.yaml` with the following snippet:
 
-    {{< file "rbac-config.yaml" >}}
+    ```file {title="rbac-config.yaml"}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -145,7 +145,7 @@ subjects:
   - kind: ServiceAccount
     name: tiller
     namespace: kube-system
-{{< /file >}}
+```
 
     This configuration creates a Kubernetes [Service Account](https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/) for Tiller, and then binds it to the `cluster-admin` role.
 
@@ -217,10 +217,10 @@ The [`helm install` command](https://v2.helm.sh/docs/using_helm/#helm-install-in
 
 1.  Create a file named `ghost-config.yaml` on your computer from this snippet:
 
-    {{< file "ghost-config.yaml" >}}
+    ```file {title="ghost-config.yaml"}
 ghostHost: ghost.example.com
 ghostEmail: email@example.com
-{{< /file >}}
+```
 
     Replace the value for ghostHost with a domain or subdomain that you own and would like to assign to the app, and the value for ghostEmail with your email.
 
@@ -342,11 +342,11 @@ The `upgrade` command can be used to upgrade an existing release to a new versio
 
 1.  In your computer's `ghost-config.yaml` file, add a line for the title of the website:
 
-    {{< file "ghost-config.yaml" >}}
+    ```file {title="ghost-config.yaml"}
 ghostHost: ghost.example.com
 ghostEmail: email@example.com
 ghostBlogTitle: Example Site Name
-{{< /file >}}
+```
 
 1.  Run the upgrade command, specifying the configuration file, release name, and chart name:
 

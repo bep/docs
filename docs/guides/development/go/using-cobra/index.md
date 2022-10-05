@@ -164,7 +164,7 @@ because their implementation is minimal.
 The automatically generated implementation of the `delete` command can be found
 at `./cmd/delete.go` and is currently as follows:
 
-{{< file "./cmd/delete.go" go >}}
+```file {title="./cmd/delete.go"}
 // Copyright © 2019 NAME HERE <EMAIL ADDRESS>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -215,7 +215,7 @@ func init() {
         // is called directly, e.g.:
         // deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
-{{< /file >}}
+```
 
 The actual implementation of the `delete` command is in the function defined in
 the `Run` field of the `deleteCmd` structure variable.
@@ -227,7 +227,7 @@ The other two commands have similar implementations.
 After making the desired changes and removing the code comments, the implementation of
 the `delete` command will be as follows:
 
-{{< file "./cmd/delete.go" go >}}
+```file {title="./cmd/delete.go"}
 package cmd
 
 import (
@@ -247,7 +247,7 @@ var deleteCmd = &cobra.Command{
 func init() {
         rootCmd.AddCommand(deleteCmd)
 }
-{{< /file >}}
+```
 
 As the point of this guide is not to implement the commands but to illustrate the
 use of Cobra, the implementation of the `delete` command will stop here.
@@ -285,11 +285,11 @@ In this case, you should use the internal representation of the `delete` command
 which is `deleteCmd`. The fact that `all` is a subcommand of `delete` is defined
 inside the `init()` function of `./cmd/all.go` as follows:
 
-{{< file "./cmd/all.go" go >}}
+```file {title="./cmd/all.go"}
 func init() {
         deleteCmd.AddCommand(allCmd)
 }
-{{< /file >}}
+```
 
 However, if you try to create the `all` subcommand for `list` you will get
 the following error message:
@@ -313,7 +313,7 @@ For everything to function correctly and to avoid conflicts in command names, yo
 either change the name of the `all` subcommand in `./cmd/all.go` or in `./cmd/delete_all.go`.
 In this case, the change will happen in `./cmd/delete_all.go`:
 
-{{< file "./cmd/delete_all.go" go >}}
+```file {title="./cmd/delete_all.go"}
 package cmd
 
 import (
@@ -333,7 +333,7 @@ var delete_allCmd = &cobra.Command{
 func init() {
         deleteCmd.AddCommand(delete_allCmd)
 }
-{{< /file >}}
+```
 
 So the internal name of the `all` subcommand for `delete` is now `delete_allCmd`.
 
@@ -420,7 +420,7 @@ files of these commands.
 In order to create a new global flag that accepts an integer parameter, we are going to
 make changes to `./cmd/root.go`. The final version of `./cmd/root.go` will be the following:
 
-{{< file "./cmd/root.go" go >}}
+```file {title="./cmd/root.go"}
 package cmd
 
 import (
@@ -455,7 +455,7 @@ func initConfig() {
                 fmt.Println("Developer:", developer)
         }
 }
-{{< /file >}}
+```
 
 The name of the global command line flag is `developer`, created in the `init()` function and accessed in the `initConfig()` function. However, `developer` can also be accessed from
 the other Go source files of the utility. The default value of `developer` is `Unknown Developer!`.
@@ -463,7 +463,7 @@ the other Go source files of the utility. The default value of `developer` is `U
 In order to add a flag to the `count` command we will need to change the `./cmd/count.go`
 file – its final version will be as follows:
 
-{{< file "./cmd/count.go" go >}}
+```file {title="./cmd/count.go"}
 package cmd
 
 import (
@@ -495,7 +495,7 @@ func init() {
         rootCmd.AddCommand(countCmd)
         countCmd.Flags().Int("number", 10, "A help for number")
 }
-{{< /file >}}
+```
 
 The name of the local command line flag that is associated with the `count` command is `number`. It is created in the `init()` function and is accessed in the implementation of the `count` command.
 The `count` flag has a default value of `10`.
@@ -618,7 +618,7 @@ will be created using the `cobra` utility:
 We are going to implement aliases for the `delete` command only. The final implementation
 of the `delete` command, as found in `./cmd/delete.go`, will be as follows:
 
-{{< file "./cmd/delete.go" go >}}
+```file {title="./cmd/delete.go"}
 package cmd
 
 import (
@@ -640,7 +640,7 @@ var deleteCmd = &cobra.Command{
 func init() {
         rootCmd.AddCommand(deleteCmd)
 }
-{{< /file >}}
+```
 
 A single Go statement is needed for defining the two aliases of the `delete` command
 – this is the line that begins with `Aliases`, which is a String slice. You can add as

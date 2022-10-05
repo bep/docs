@@ -51,10 +51,10 @@ aac2a6efcc1f5ec8bdc0db0a988bb1d301d64b6d61b7e8d9e42f662fbb75a2b9b  go1.12.9.linu
 
 1. Using a text editor, open the `~/.profile` file and add the following two lines to the bottom of the file:
 
-    {{< file "~/.profile" conf >}}
+    ```file {title="~/.profile"}
 export GOPATH=$HOME/go
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
-{{< /file >}}
+```
 
 2. Save the file, and load the commands into the current shell instance:
 
@@ -73,7 +73,7 @@ According to [the official documentation](https://golang.org/doc/install#testing
         mkdir -p go/src/hello && cd go/src/hello
         touch hello.go
 
-    {{< file "hello.go" go >}}
+    ```file {title="hello.go"}
 package main
 
 import "fmt"
@@ -81,7 +81,7 @@ import "fmt"
 func main() {
     fmt.Printf("hello, world\n")
 }
-{{</ file >}}
+```
 
 3. Build the `hello.go` file:
 

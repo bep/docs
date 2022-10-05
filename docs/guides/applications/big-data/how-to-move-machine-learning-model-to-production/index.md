@@ -80,13 +80,13 @@ This model is simple enough, and the data set small enough, that the script can 
 
 Older versions of Keras require deleting optimizer weights in the pre-trained model. If the pre-trained model is downloaded from GitHub, the script below checks and removes optimizer weights.
 
-{{< file "optimizer-weights.py" py >}}
+```file {title="optimizer-weights.py"}
 import h5py
 with h5py.File('my_model.h5', 'r+') as f:
 if 'optimizer_weights' in f.keys():
 del f['optimizer_weights']
 f.close()
-{{< /file >}}
+```
 
 1.  Create a directory for the model:
 
@@ -94,7 +94,7 @@ f.close()
 
 2.  Create a Python script to build and train your model:
 
-    {{< file "~/models/mnist_model.py" py >}}
+    ```file {title="~/models/mnist_model.py"}
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Convolution2D, MaxPooling2D
@@ -130,7 +130,7 @@ model.fit(X_train, Y_train,
 
 model.save('my_model.h5')
 
-{{< /file >}}
+```
 
 
 3.  Run the script:
@@ -159,7 +159,7 @@ Once a model has been trained, using it to generate predictions is much simpler.
 
 3.  Create `/var/www/flaskapi/flaskapi/__init__.py` in a text editor and add the following:
 
-    {{< file "/var/www/flaskapi/flaskapi/__init__.py" py >}}
+    ```file {title="/var/www/flaskapi/flaskapi/__init__.py"}
 from flask import Flask, jsonify, request
 import numpy as np
 import PIL
@@ -189,7 +189,7 @@ def predict_image():
 if __name__ == "__main__":
         app.run()
 
-{{< /file >}}
+```
 
 
     This time, the only module you need to import from Keras is `load_model`, which reads `my_model.h5` and loads the model and weights. Once the model is loaded, the `predict()` function will generate a set of probabilities for each of the numbers from 0-9, indicating the likelihood that the digit in the image matches each number. The `argmax` function from the Numpy library returns the number with the highest probability: the number that the model thinks is the most likely match.
@@ -221,9 +221,9 @@ Apache modules are typically installed with the system installation of Apache. H
 
 4.  Create a `wsgi.load` file in the Apache `mods-available` directory. Copy the `LoadModule` directive from above and paste it into the file:
 
-    {{< file "/etc/apache2/mods-available/wsgi.load" >}}
+    ```file {title="/etc/apache2/mods-available/wsgi.load"}
 LoadModule wsgi_module "/home/linode/miniconda3/envs/deeplearning/lib/python3.6/site-packages/mod_wsgi-4.5.20-py3.6-linux-x86_64.egg/mod_wsgi/server/mod_wsgi-py36.cpython-36m-x86_64-linux-gnu.so"
-{{< /file >}}
+```
 
 
 5.  Enable the mod:
@@ -234,18 +234,18 @@ LoadModule wsgi_module "/home/linode/miniconda3/envs/deeplearning/lib/python3.6/
 
 1.  Create a `flaskapi.wsgi` file with settings for your app:
 
-    {{< file "/var/www/flaskapi/flaskapi/flaskapi.wsgi" >}}
+    ```file {title="/var/www/flaskapi/flaskapi/flaskapi.wsgi"}
 #!/usr/bin/python
 import sys
 sys.path.insert(0,"/var/www/flaskapi/")
 
 from flaskapi import app as application
-{{< /file >}}
+```
 
 
 2.  Configure a virtual host for your app. Create `flaskapi.conf` in Apache's `sites-available` directory and add the following content, replacing `example.com` with your Linode's public IP address. For the `WSGIDaemonProcess` directive, set the Python home path to the output of `mod_wsgi-express module-config` under `WSGIPythonHome`:
 
-    {{< file "/etc/apache2/sites-available/flaskapi.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/flaskapi.conf"}
 <Directory /var/www/flaskapi/flaskapi>
   Require all granted
 </Directory>
@@ -258,7 +258,7 @@ from flaskapi import app as application
   CustomLog /var/www/html/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 3.  Create a `logs` directory:

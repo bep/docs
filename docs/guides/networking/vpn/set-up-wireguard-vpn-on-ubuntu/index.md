@@ -93,7 +93,7 @@ If the installation completes but the output does not appear, your kernel is mos
 
 1. Create the file `/etc/wireguard/wg0.conf` and add the contents indicated below. You'll need to enter your server's private key in the `PrivateKey` field, and its IP addresses in the `Address` field.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
 PrivateKey = <Private Key>
 Address = 10.0.0.1/24, fd86:ea04:1115::1/64
@@ -101,7 +101,7 @@ ListenPort = 51820
 PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
 SaveConfig = true
-{{< /file >}}
+```
 
     - **Address** defines the private IPv4 and IPv6 addresses for the WireGuard server. Each peer in the VPN network should have a unique value for this field.
 
@@ -184,11 +184,11 @@ You also need to install the `openresolv` package on the client to configure DNS
 
 1.  The main difference between the client and the server's configuration file, `wg0.conf`, is it must contain *its own* IP addresses and does not contain the `ListenPort`, `PostUP`, `PostDown`, and `SaveConfig` values.
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
 PrivateKey = <Output of privatekey file that contains your private key>
 Address = 10.0.0.2/24, fd86:ea04:1115::5/64
-{{< /file >}}
+```
 
 ## Connect the Client and Server
 
@@ -202,12 +202,12 @@ Stop the interface with `sudo wg-quick down wg0` on both the client and the serv
 
 1.  The first method is to directly edit the client's `wg0.conf` file with the server's public key, public IP address, and port:
 
-    {{< file "/etc/wireguard/wg0.conf" conf >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Peer]
 PublicKey = <Server Public key>
 Endpoint = <Server Public IP>:51820
 AllowedIPs = 10.0.0.2/24, fd86:ea04:1115::5/64
-{{< /file >}}
+```
 
 1.  Enable the `wg` service on both the client and server:
 

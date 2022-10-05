@@ -62,7 +62,7 @@ linode_example/
 
 3.  Edit `setup.py` to contain basic information about your Python package:
 
-    {{< file "linode_example/setup.py" >}}
+    ```file {title="linode_example/setup.py"}
 from setuptools import setup
 
 setup(
@@ -75,22 +75,22 @@ setup(
     author_email='docs@linode.com',
     keywords=['pip','linode','example']
     )
-{{< /file >}}
+```
 
 4.  Add an example function to `__init__.py`:
 
-    {{< file "linode_example/linode_example/__init__.py" >}}
+    ```file {title="linode_example/linode_example/__init__.py"}
 def hello_word():
     print("hello world")
 
-{{< /file >}}
+```
 
 5.  The `setup.cfg` file lets PyPI know the README is a Markdown file:
 
-    {{< file "setup.cfg" >}}
+    ```file {title="setup.cfg"}
 [metadata]
 description-file = README.md
-{{< /file >}}
+```
 
 6.  Optionally, add a `LICENSE.txt` or information to `README.md`. This is good documentation practices, and helpful if you ever plan to upload the Python package into the public PyPI repository.
 
@@ -157,16 +157,16 @@ Alternatively, [download pypiserver from Github](https://github.com/pypiserver/p
 
 4.  Inside the `~/packages` directory, create a `pypiserver.wsgi` file that creates an application object to connect between pypiserver and Apache:
 
-    {{< file "packages/pypiserver.wsgi" >}}
+    ```file {title="packages/pypiserver.wsgi"}
 import pypiserver
 PACKAGES = '/absolute/path/to/packages'
 HTPASSWD = '/absolute/path/to/htpasswd.txt'
 application = pypiserver.app(root=PACKAGES, redirect_to_fallback=True, password_file=HTPASSWD)
-{{< /file >}}
+```
 
 5.  Create a configuration file for the pypiserver located in `/etc/apache2/sites-available/`:
 
-    {{< file "/etc/apache2/sites-available/pypiserver.conf" >}}
+    ```file {title="/etc/apache2/sites-available/pypiserver.conf"}
 <VirtualHost *:80>
 WSGIPassAuthorization On
 WSGIScriptAlias / /absolute/path/to/packages/pypiserver.wsgi
@@ -179,7 +179,7 @@ WSGIDaemonProcess pypiserver python-path=/absolute/path/to/packages:/absolute/pa
     </Directory>
 </VirtualHost>
 
-{{< /file >}}
+```
 
     The `Require ip 203.0.113.0` directive is an example IP restricting access to Apache. To grant open access, replace with `Require all granted`. For more complex access control rules, consult access control in the [Apache documentation](https://httpd.apache.org/docs/2.4/howto/access.html).
 
@@ -208,11 +208,11 @@ Recall the rather long flags declared with `pip` in order to download from a spe
 
 1.  On the client computer, create a `.pip` directory in the home directory. Inside this directory, create `pip.conf` with the following:
 
-    {{< file "pip.conf" >}}
+    ```file {title="pip.conf"}
 [global]
 extra-index-url = http://192.0.2.0:8080/
 trusted-host = 192.0.2.0
-{{< /file >}}
+```
 
 2.  Install the `linode_example` package:
 
@@ -236,7 +236,7 @@ Although it's possible to use `scp` to transfer tar.gz files to the repository, 
 
 1.  On a client computer, create a new configuration file in the home directory called `.pypirc`. The remote repository will be called `linode`:
 
-    {{< file ".pypirc" >}}
+    ```file {title=".pypirc"}
 [distutils]
 index-servers =
   pypi
@@ -249,7 +249,7 @@ repository: http://192.0.2.0
 username: example_user
 password: mypassword
 
-{{< /file >}}
+```
 
     Uploading to the official Python Package Index requires an account, although account information fields can be left blank. Replace *example_user* and *mypassword* with credentials defined through `htpasswd` from earlier.
 

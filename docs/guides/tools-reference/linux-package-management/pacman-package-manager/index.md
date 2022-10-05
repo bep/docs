@@ -100,12 +100,12 @@ While it is unlikely that you will need to modify the default `pacman.conf` for 
 
 If you need to add an additional third-party repository, add a repository stanza:
 
-{{< file "/etc/pacman.conf" conf >}}
+```file {title="/etc/pacman.conf"}
 [REPOSITORY-NAME]
 Server = SERVER-LOCATION
 Include = REPOSITORY-LIST
 
-{{< /file >}}
+```
 
 The `Server =` and `Include =` lines are both optional, and the order indicates their priority. By default, the testing repository is disabled, which is wise if you're planning to use the system for production work; however, if you need bleeding-edge packages, uncomment those lines.
 
@@ -139,7 +139,7 @@ Change to the package's directory:
 
 You have the option of modifying the `PKGBUILD` file. There's a build shell function that you can use to add additional patches to the files if you have modifications to the software or the build process. That shell function generally looks like:
 
-{{< file "~/abs/PACKAGE/PKGBUILD" >}}
+```file {title="~/abs/PACKAGE/PKGBUILD"}
 build() {
   cd $startdir/src/$pkgname-$pkgver.orig
 
@@ -151,7 +151,7 @@ build() {
   make install
 }
 
-{{< /file >}}
+```
 
 To build the package, use the following command as a non-root user:
 

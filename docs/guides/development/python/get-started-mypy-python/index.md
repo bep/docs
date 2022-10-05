@@ -94,14 +94,14 @@ Mypy can identify every `print` statement that requires parentheses upon an init
 
 Mypy allows you to add *type annotations* to functions in order to help it detect errors related to incorrect function return types. Consider the following example:
 
-{{< file "test3.py" >}}
+```file {title="test3.py"}
 
 def legal_name(first: str, last:str) -> str:
     return 'My legal name is:' + first + ' '+ last
 
 legal_name('Jane', 5)
 
-{{</ file >}}
+```
 
 When you run `mypy test3.py`, you see the following error message:
 
@@ -179,7 +179,7 @@ Mypy’s directives adjusts the information it returns. Consider the following e
 
 1. Create a file named `test2.py` with the following content:
 
-    {{< file "test2.py" >}}
+    ```file {title="test2.py"}
 def f1(error: str) -> int:
     """While this does nothing particularly useful, the
       syntax is typical of Python code often found "in the
@@ -192,7 +192,7 @@ def f1(error: str) -> int:
 
 print(f"The return value is {f1('abc')}.")
 print(f"The return value is {f1('abcef')}.")
-    {{</ file >}}
+    ```
 
 1. Run Mypy on the `test2.py` file:
 
@@ -216,11 +216,11 @@ test2.py:8: error: Unsupported operand types for + ("int" and "str")  [operator]
 
 1. Update the `return` statement in line 8 of the example above to:
 
-    {{< file "test2.py" >}}
+    ```file {title="test2.py"}
 ...
     return 1 + error:  # type: ignore[operator]
 ...
-    {{</ file >}}
+    ```
 
     When you rerun Mypy, it reports no errors. The `# type: ignore[operator]` directive marks that as a problem and eventually requires a solution. The directive is a comment, which leaves the behavior of the program entirely unchanged. Now when you rerun Mypy, you get a success message and you can continue to work on other areas of your code. This is a tactic you can use more generally. In annotating types over a large body of source code, it is advisable to choose only one error code, clean up all the occurrences of one error type, while using directives to ignore other problems temporarily, and iterate.
 
@@ -230,9 +230,9 @@ You can configure Mypy using a configuration file named `mypy.ini`.
 
 Create a new file named `mypy.ini` in your project directory. Add the following content to the file:
 
-{{< file "mypy.ini" >}}
+```file {title="mypy.ini"}
 disallow_untyped_defs = true
-{{</ file >}}
+```
 
 Any `mypy` command launched in that directory behaves as though it's run with the command-line argument `--disallow-untyped-defs`.
 
@@ -240,14 +240,14 @@ Different filenames are possible for Mypy’s configuration file. `mypy.ini` is 
 
 Your target configuration should include, at minimum, the following configurations:
 
-{{< file "mypy.ini" >}}
+```file {title="mypy.ini"}
 disallow_untyped_defs = true
 no_implicit_optional = true
 show_error_codes = true
 strict_equality = true
 warn_redundant_casts = true
 warn_unused_ignores = true
-{{</ file >}}
+```
 
 This configuration helps you adopt the incremental approach for refactoring non-typed Python code recommended in this guide. This combination brings most of the benefits of Mypy to your project, without involving more difficult aspects of Mypy.
 

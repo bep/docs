@@ -175,28 +175,28 @@ For if your certificate issuer uses `.pem` files instead of `.crt`, be sure to r
 
 2. To replace the certificates used by Apache2, substitute the following paths in `default-ssl.conf` with the location of your certificate and key:
 
-    {{< file "/etc/apache2/sites-available/default-ssl.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/default-ssl.conf"}
 SSLCertificateFile /etc/ssl/certs/mail.yourdomain.com.crt
 SSLCertificateKeyFile /etc/ssl/private/mail.yourdomain.com.key
 
-{{< /file >}}
+```
 
 3. To replace the certificates used by Postfix, substitute the following paths in `main.cf` with the location of your certificate and key:
 
-    {{< file "/etc/postfix/main.cf" aconf >}}
+    ```file {title="/etc/postfix/main.cf"}
 smtpd_tls_cert_file = /etc/ssl/certs/mail.yourdomain.com.crt
    smtpd_tls_key_file = /etc/ssl/private/mail.yourdomain.com.key
 
-{{< /file >}}
+```
 
 
 4. To replace the certs used by Postfix, substitute the following paths in `dovecot.conf` with the location of your certificate and key:
 
-    {{< file "/etc/dovecot/dovecot.conf" aconf >}}
+    ```file {title="/etc/dovecot/dovecot.conf"}
 ssl_cert = </etc/ssl/certs/mail.yourdomain.com.crt
    ssl_key = </etc/ssl/private/mail.yourdomain.com.key
 
-{{< /file >}}
+```
 
 5. To apply the certificate changes to both your web and mail server, run the following commands:
 
@@ -266,7 +266,7 @@ AWStats quickly analyzes and displays log files/server activity via a few web-ba
 
 3.  Edit `apache2.conf` by adding the text block below to the end of the file. Make sure to comment out the existing Auth_MySQL lines at the end of the file.
 
-    {{< file "/etc/apache2/conf/apache2.conf" aconf >}}
+    ```file {title="/etc/apache2/conf/apache2.conf"}
 #MySQL auth (mod_dbd, libaprutil1-dbd-mysql)
 <IfModule mod_dbd.c>
     DBDriver mysql
@@ -277,12 +277,12 @@ DBDParams "host=127.0.0.1 dbname=vmail user=vmail pass=(SUBSTITUTE WITH YOUR PAS
  DBDExptime 300
 </IfModule>
 
-{{< /file >}}
+```
 
 
 4.  Edit `awstats.conf` to mirror the example text below, by adding the `mod_authn_dbd` section and commenting out the `Auth_MySQL` section.
 
-    {{< file "/etc/apache2/conf-available/awstats.conf" aconf >}}
+    ```file {title="/etc/apache2/conf-available/awstats.conf"}
 <Directory /usr/lib/cgi-bin/>
     DirectoryIndex awstats.pl
     Options ExecCGI
@@ -318,12 +318,12 @@ DBDParams "host=127.0.0.1 dbname=vmail user=vmail pass=(SUBSTITUTE WITH YOUR PAS
     Require valid-user
 </Directory>
 
-{{< /file >}}
+```
 
 
 5.  Edit `cluebringer.conf` to mirror the example text below, by adding the `mod_authn_dbd` section and commenting out `Auth_MySQL` section).
 
-    {{< file "/etc/apache2/conf-available/cluebringer.conf" aconf >}}
+    ```file {title="/etc/apache2/conf-available/cluebringer.conf"}
 <Directory /usr/share/postfix-cluebringer-webui/webui/>
    DirectoryIndex index.php
    AuthType basic
@@ -358,7 +358,7 @@ DBDParams "host=127.0.0.1 dbname=vmail user=vmail pass=(SUBSTITUTE WITH YOUR PAS
    Require valid-user
         </Directory>
 
-{{< /file >}}
+```
 
 
 6.  Restart Apache for the changes to take effect, then test them by logging in to either Cluebringer or Awstats.

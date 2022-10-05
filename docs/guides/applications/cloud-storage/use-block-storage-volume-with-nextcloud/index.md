@@ -81,7 +81,7 @@ Nextcloud provides an official `docker-compose.yml` file for persisting data to 
 
 2.  In a text editor, create `docker-compose.yml` and add the following content. Add an appropriate password for MariaDB:
 
-    {{< file "~/nextcloud/docker-compose.yml" yaml >}}
+    ```file {title="~/nextcloud/docker-compose.yml"}
 version: '2'
 
 volumes:
@@ -109,7 +109,7 @@ services:
     volumes:
       - /mnt/nextcloud/data:/var/www/html
     restart: always
-{{< /file >}}
+```
 
 3.  Launch the Docker Compose configuration:
 

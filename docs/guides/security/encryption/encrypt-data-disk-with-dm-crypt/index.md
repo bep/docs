@@ -217,21 +217,21 @@ Swapped memory keeps data indefinitely on the physical device until it is overwr
 
 1.  Open `/etc/crypttab` in a text editor and append the following line, replacing `/dev/sdX` with the path to your swap device:
 
-    {{< file "/etc/crypttab" conf >}}
+    ```file {title="/etc/crypttab"}
 swap-encrypted  /dev/sdX  /dev/urandom   swap,noearly
-{{< /file >}}
+```
 
 
 2.  Save the file, then open `/etc/fstab` and append the following line:
 
-    {{< file "/etc/fstab" conf >}}
+    ```file {title="/etc/fstab"}
 /dev/mapper/swap-encrypted none swap sw 0 0
-{{< /file >}}
+```
 
     Also, remove the line that points to unencrypted swap. It should look similar to this:
 
-    {{< file "/etc/fstab" conf >}}
+    ```file {title="/etc/fstab"}
 /dev/sdb         none            swap    sw              0       0
-{{< /file >}}
+```
 
 3. Save the file and reboot your Linode.

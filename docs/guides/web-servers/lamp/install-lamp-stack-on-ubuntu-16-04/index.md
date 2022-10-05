@@ -70,12 +70,12 @@ Instead of installing Apache, MySQL, and PHP separately, tasksel offers a conven
 
     The state of `KeepAlive` depends on the type of site you plan to run. Please read more about your specific use-case [here](https://httpd.apache.org/docs/2.4/mod/core.html#keepalive) open the Apache config file, `apache2.conf`, and adjust the `KeepAlive` setting:
 
-    {{< file "/etc/apache2/apache2.conf" aconf >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 KeepAlive On
 MaxKeepAliveRequests 50
 KeepAliveTimeout 5
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -84,7 +84,7 @@ The `MaxKeepAliveRequests` setting controls the maximum number of requests durin
 
 3.  The default *multi-processing module* (MPM) is the **prefork** module. `Mpm_prefork` is the module that is compatible with most systems. Since the LAMP stack requires PHP, it may be best to stick with the default. Open the `mpm_prefork.conf` file located in `/etc/apache2/mods-available` and edit the configuration. Below are the suggested values for a **2GB Linode**:
 
-    {{< file "/etc/apache2/mods-available/mpm_prefork.conf" aconf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_prefork.conf"}
 <IfModule mpm_prefork_module>
         StartServers            4
         MinSpareServers         3
@@ -93,7 +93,7 @@ The `MaxKeepAliveRequests` setting controls the maximum number of requests durin
         MaxConnectionsPerChild  10000
 </IfModule>
 
-{{< /file >}}
+```
 
 
 4.  Disable the event module and enable prefork:
@@ -115,7 +115,7 @@ You can set up virtual hosts several ways; however, below is the recommended met
 
 2.  Edit the new `example.com.conf` configuration file by uncommenting `ServerName` and replacing `example.com` with your site's IP or Fully Qualified Domain Name (FQDN). Enter the document root path and log directories as shown below, and add a `Directory` block before `</VirtualHost>`:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
         Require all granted
 </Directory>
@@ -130,7 +130,7 @@ You can set up virtual hosts several ways; however, below is the recommended met
 
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -210,12 +210,12 @@ Install the `mysql-server` package and choose a secure password when prompted:
 
 2.  Once PHP7.0 is installed, edit the configuration file located in `/etc/php/7.0/apache2/php.ini` to enable more descriptive errors, logging, and better performance. The following modifications provide a good starting point:
 
-    {{< file "/etc/php/7.0/apache2/php.ini" ini >}}
+    ```file {title="/etc/php/7.0/apache2/php.ini"}
 max_input_time = 30
 error_reporting = E_COMPILE_ERROR | E_RECOVERABLE_ERROR | E_ERROR | E_CORE_ERROR
 error_log = /var/log/php/error.log
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -241,7 +241,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 
 1.  Paste the following code into a new file, `phptest.php`, in the `public_html` directory. Modify `webuser` and `password` to match the information entered in the **Create a MySQL Database** section above:
 
-    {{< file "/var/www/html/example.com/public_html/phptest.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/phptest.php"}
 <html>
 <head>
     <title>PHP Test</title>
@@ -266,7 +266,7 @@ In this section, you'll create a test page that shows whether Apache can render 
 </body>
 </html>
 
-{{< /file >}}
+```
 
 
 2.  Navigate to `example.com/phptest.php` from your local machine. If the components of your LAMP stack are working correctly, the browser will display a "Connected successfully" message. If not, the output will be an error message.

@@ -104,12 +104,12 @@ OpenSSH (v6)               ALLOW       Anywhere (v6)
 
 Add your hostname and web root to the Caddy configuration. Use an editor of your choice and replace `:80` with your domain name. Set the root directory of the site to `/var/www/html/example.com` Replace `example.com` with your site's domain name:
 
-{{< file "/etc/caddy/Caddyfile" caddy >}}
+```file {title="/etc/caddy/Caddyfile"}
 example.com {
     root * /var/www/html/example.com
     file_server
 }
-{{< /file >}}
+```
 
 ## Start and Enable the Caddy Service
 

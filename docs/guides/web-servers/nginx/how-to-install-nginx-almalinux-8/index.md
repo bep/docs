@@ -102,7 +102,7 @@ This section walks you through setting up your own website using NGINX. It also 
 
 1. Open the main NGINX configuration file — `/etc/nginx/nginx.conf` — and disable the default website by commenting out the `root` line.
 
-    {{< file "/etc/nginx/nginx.conf" nginx >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 # [...]
 
 server {
@@ -112,13 +112,13 @@ server {
     # root         /usr/share/nginx/html;
 
 # [...]
-    {{< /file >}}
+    ```
 
 1. Create an NGINX configuration file for your site.
 
     - In this example, replace `example.com` with your site's domain, in both the filename and the file's contents. Do the same wherever you see `example.com` throughout this guide.
 
-       {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+       ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen 80;
     listen [::]:80;
@@ -131,7 +131,7 @@ server {
         try_files $uri $uri/ =404;
     }
 }
-    {{< /file >}}
+    ```
 
     - This configuration creates a new NGINX server. That server listens for requests on port **80** for the domain name `example.com`. It then defines the server's root directory and index file name. The root directory is where NGINX maps requests to files, and the index file name is the name of the file NGINX serves for a request to the root directory.
 
@@ -153,7 +153,7 @@ server {
 
 1. Create an `index.html` page in the new NGINX site directory.
 
-    {{< file "/var/www/example.com/index.html" html >}}
+    ```file {title="/var/www/example.com/index.html"}
 <!doctype html>
 <html>
 <body>
@@ -161,7 +161,7 @@ server {
     <p>This is an example website running on NGINX.</p>
 </body>
 </html>
-    {{< /file >}}
+    ```
 
 1. Give the NGINX user ownership of the directory for your website, and then add executable permissions to its parent directory.
 

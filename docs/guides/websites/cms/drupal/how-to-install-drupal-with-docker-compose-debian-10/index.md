@@ -63,7 +63,7 @@ Using the Drupal and PostgreSQL images from Docker Hub offers the following bene
 
 1.  Create a file named `docker-compose.yml` in this folder and add the following contents. Set your own password for the `POSTGRES_PASSWORD` option.
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3.3'
 
 services:
@@ -92,7 +92,7 @@ volumes:
   drupal_themes:
   drupal_sites:
   db_data:
-{{< /file >}}
+```
 
 1.  From the `my_drupal` directory, start your Docker containers:
 

@@ -100,7 +100,7 @@ This guide describes an alternative to the popular LAMP stack, known as *LEMP*. 
 
 3.  Website configuration files should be kept in `/etc/nginx/conf.d/`. Create a configuration file for your site. Again replace `example.com` with your site's domain:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -119,7 +119,7 @@ server {
       fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
     }
 }
-{{< /file >}}
+```
 
     Here's a breakdown of the `server` block above:
 
@@ -148,7 +148,7 @@ server {
 
 2.  Create a test page to verify NGINX can render PHP and connect to the MySQL database. Replace the `testuser` and `password` fields with the MySQL credentials you created above.
 
-    {{< file "/var/www/example.com/test.php" php >}}
+    ```file {title="/var/www/example.com/test.php"}
 <html>
 <head>
     <h2>LEMP Stack Test</h2>
@@ -172,7 +172,7 @@ server {
     ?>
 </body>
 </html>
-{{< /file >}}
+```
 
 2.  Go to `http://example.com/test.php` in a web browser. Remember to substitute `example.com` with your site's domain or Linode's IP address. The page should report that *You have connected successfully*. If you see an error message or if the page does not load, re-check your configuration.
 

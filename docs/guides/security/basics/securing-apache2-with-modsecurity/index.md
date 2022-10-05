@@ -67,7 +67,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 
 1.  With a text editor such as vim, open `/etc/modsecurity/modsecurity.conf` and change the value for `SecRuleEngine` to `On`:
 
-    {{< file "/etc/modsecurity/modsecurity.conf" aconf >}}
+    ```file {title="/etc/modsecurity/modsecurity.conf"}
 # -- Rule engine initialization ----------------------------------------------
 
 # Enable ModSecurity, attaching it to every transaction. Use detection
@@ -76,7 +76,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 #
 SecRuleEngine On
 ...
-    {{< /file >}}
+    ```
 
 1.  Restart Apache to apply the changes:
 
@@ -118,17 +118,17 @@ To begin using ModSecurity, enable it in the Apache configuration file by follow
 
 1.  Using a text editor such as vim, edit the `/etc/apache2/mods-available/security2.conf` file to include the OWASP-CRS files you have downloaded:
 
-    {{< file "/etc/apache2/mods-available/security2.conf" aconf>}}
+    ```file {title="/etc/apache2/mods-available/security2.conf"}
 <IfModule security2_module>
         SecDataDir /var/cache/modsecurity
         Include /usr/share/modsecurity-crs/crs-setup.conf
         Include /usr/share/modsecurity-crs/rules/*.conf
 </IfModule>
-    {{< /file >}}
+    ```
 
 1.  In `/etc/apache2/sites-enabled/000-default.conf` file `VirtualHost` block, include the `SecRuleEngine` directive set to `On`.
 
-    {{< file "/etc/apache2/sites-enabled/000-default.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-enabled/000-default.conf"}
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
@@ -138,7 +138,7 @@ To begin using ModSecurity, enable it in the Apache configuration file by follow
 
         SecRuleEngine On
 </VirtualHost>
-    {{< /file >}}
+    ```
 
     If you are running a website that uses SSL, add `SecRuleEngine` directive to that website's configuration file as well. See our guide on [SSL Certificates with Apache on Debian & Ubuntu](/docs/guides/ssl-apache2-debian-ubuntu/#configure-apache-to-use-the-ssl-certificate) for more information.
 

@@ -100,7 +100,7 @@ Finally, components are grouped into modules — called `NgModules` in Angular. 
 
 Here is an example of a component, pulled from the base Angular application set up above.
 
-{{< file "~/example-app/src/app/app.component.ts" >}}
+```file {title="~/example-app/src/app/app.component.ts"}
 // [...]
 
 @Component({
@@ -111,17 +111,17 @@ Here is an example of a component, pulled from the base Angular application set 
 export class AppComponent {
   title = 'example-app';
 }
-{{< /file >}}
+```
 
 In the template file identified in the decorator above, you can see how the `title` variable defined in the component class gets used in the view.
 
-{{< file "~/example-app/src/app/app.component.html" >}}
+```file {title="~/example-app/src/app/app.component.html"}
 <!-- [...] -->
 
 <span>{{ title }} app is running!</span>
 
 <!-- [...] -->
-{{< /file >}}
+```
 
 When you are ready to expand your application with an additional component, you can use the Angular CLI command to generate one. This example creates a new component called `example-component`.
 
@@ -135,7 +135,7 @@ The following example extends the base application set up above. It adds a very 
 
 1. Add the `HttpClientModule` to your `AppModule`.
 
-    {{< file "src/app/app.module.ts" >}}
+    ```file {title="src/app/app.module.ts"}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // Import the HttpClientModule
@@ -156,7 +156,7 @@ import { AppComponent } from './app.component';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-    {{< /file >}}
+    ```
 
 1. Create the service, to be named `UserService` in this example.
 
@@ -166,7 +166,7 @@ export class AppModule { }
 
 1. Add the `HttpClient` and associated modules to the service, and implement the functionality to fetch the list of users. In this example, `src/assets/users.json` contains the list of users. You can also use the URL for a web service API here instead.
 
-    {{< file "~/example-app/src/app/user.service.ts" >}}
+    ```file {title="~/example-app/src/app/user.service.ts"}
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
@@ -184,17 +184,17 @@ export class UserService {
     return this.http.get<string[]>('assets/users.json');
   }
 }
-   {{< /file >}}
+   ```
 
     For this example, you can use the following JSON file for the list of users.
 
-    {{< file "src/assets/users.json" >}}
+    ```file {title="src/assets/users.json"}
 ["userA","userB","userC"]
-    {{< /file >}}
+    ```
 
 1. Modify the component to use the service. The component needs to import the service, create a variable for the list of users, and make a call to the service to get the list. The component also now makes use of the `OnInit` module to call the service when the component loads.
 
-    {{< file "~/example-app/src/app/app.component.ts" >}}
+    ```file {title="~/example-app/src/app/app.component.ts"}
 // Add the OnInit module to this import statement
 import { Component, OnInit } from '@angular/core';
 // Import the service
@@ -219,11 +219,11 @@ export class AppComponent implements OnInit {
     this.userService.getUsers().subscribe(data => { this.users = data; });
   }
 }
-    {{< /file >}}
+    ```
 
 1. Add lines for the template to iterate through the list of users.
 
-    {{< file "~/example-app/src/app/app.component.html" >}}
+    ```file {title="~/example-app/src/app/app.component.html"}
 <!-- [...] -->
 
   <div>
@@ -235,7 +235,7 @@ export class AppComponent implements OnInit {
   <h2>Resources</h2>
 
 <!-- [...] -->
-    {{< /file >}}
+    ```
 
 1. Run the application again, and verify that your list of users shows up.
 

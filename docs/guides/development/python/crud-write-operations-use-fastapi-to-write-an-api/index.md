@@ -56,12 +56,12 @@ In keeping with RESTful resource conventions, the `POST` HTTP verb is used by cl
 
 1. In your `main.py` file, add the Create Programming Languages endpoint by inserting the function in the example file. Notice that this function is annotated with `@app.post` instead of `@app.get`.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 @app.post('/programming_languages')
 def create_programming_language(programming_language: ProgrammingLanguage):
    in_memory_datastore.append(programming_language.dict())
    return programming_language.dict()
-{{</ file >}}
+```
 
     The `create_programming_language` function accepts a `programming_language` with the type hint `ProgrammingLanguage`. FastAPI accepts the data passed to the request body and tries to cast it to a `ProgrammingLanguage`. At this point, the code turns the object right back into a dictionary to store it in the data store and return the information to the client.
 
@@ -71,7 +71,7 @@ In the previous section, you added the Create Programming Languages endpoint. Th
 
 1. Update your `in_memory_datastore` to store your data as objects instead of a list of dictionaries.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 in_memory_datastore = [
   ProgrammingLanguage(name = "COBOL", publication_year = 1960, contribution = "record data"),
   ProgrammingLanguage(name = "ALGOL", publication_year = 1958, contribution = "scoping and nested functions"),
@@ -82,11 +82,11 @@ in_memory_datastore = [
   ProgrammingLanguage(name = "Pascal", publication_year = 1970, contribution = "modern unary, binary, and assignment operator syntax expectations"),
   ProgrammingLanguage(name = "CLU", publication_year = 1975, contribution = "iterators, abstract data")
 ]
-{{</ file >}}
+```
 
 1. Refactor your List Programming Languages endpoint code to no longer convert the dictionaries into objects.
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 @app.get('/programming_languages')
 def list_programming_languages(before_year: int = 30000, after_year: int = 0):
    qualifying_data = list(
@@ -96,18 +96,18 @@ def list_programming_languages(before_year: int = 30000, after_year: int = 0):
        )
    )
    return {"programming_languages" : qualifying_data }
-{{</ file >}}
+```
 
     Notice that the `object_store` function has been removed from the `list_programming_languages()` function. This is no longer needed since your data store now stores objects instead of dictionaries.
 
 1. Refactor your Create Programming Languages endpoint to no longer convert `programming_language` to a dictionary.
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 @app.post('/programming_languages')
 def create_programming_language(programming_language: ProgrammingLanguage):
    in_memory_datastore.append(programming_language)
    return programming_language.dict()
-{{</ file >}}
+```
 
 Your code has now been completely refactored to convert the payload into an object during the write operation (using the Create Programming Languages endpoint). This conversion only has to happen one object at a time.
 
@@ -119,12 +119,12 @@ RESTful services conventionally use the `PUT` verb for the update endpoint. The 
 
 1. Update your `main.py` file with the Update Programming Languages endpoint code.
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 @app.put("/programming_languages/{programming_language_id}")
 async def update_programming_language(programming_language_id: int, updated_programming_language: ProgrammingLanguage):
    in_memory_datastore[programming_language_id] = updated_programming_language
    return updated_programming_language
-{{</ file >}}
+```
 
     {{< note >}}
 The update endpoint replaces the *entire object*. When a client sends a request to this endpoint, it needs to send the *entire updated object*. Your code can also be written to accept partial updates; that is, to only update the resource at the given id with the fields sent in the request body. With a partial updates implementation, the associated endpoint accepts the `PATCH` HTTP verb instead of `PUT`.
@@ -136,11 +136,11 @@ RESTful services conventionally use a `DELETE` verb for the delete endpoint. The
 
 1. Update your `main.py` file with the Delete Programming Languages endpoint code.
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 @app.delete("/programming_languages/{programming_language_id}")
 async def delete_programming_language(programming_language_id: int):
    del in_memory_datastore[programming_language_id]
-{{</ file >}}
+```
 
 You should now have all write operations available in your code. The next section covers the topic of *idempotence* and ways that you can update your API code to conform to RESTful best practices.
 

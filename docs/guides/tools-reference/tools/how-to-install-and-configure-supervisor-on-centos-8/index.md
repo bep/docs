@@ -68,7 +68,7 @@ Supervisor is usually configured to run important components of your project's s
 
 1. Paste the content of this snippet into the file:
 
-    {{< file "/opt/myapp/app.py" >}}
+    ```file {title="/opt/myapp/app.py"}
 #!/usr/bin/python3
 
 import sys
@@ -97,7 +97,7 @@ print("---", file = sys.stdout)
 # Print the current date/time and the number of seconds that the program
 # ran the loop for to the system's standard error output
 print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}: Died after {round(sleep_counter * sleep_interval,1)} seconds", file = sys.stderr)
-{{< /file >}}
+```
 
     This program will run for a random amount of time before quitting. Each cycle of the program's main loop will have a chance to exit equal to the `failure_chance` on line 8. Each time the program's main loop runs, it will output how long the loop has been running to the system's standard output. At the end, it will output how long the program ran to the system's standard error output.
 
@@ -120,22 +120,22 @@ Supervisor is in the [EPEL package repository](https://fedoraproject.org/wiki/EP
 
 If you intend to use Supervisor to manage processes that require the network to be online, edit the `/usr/lib/systemd/system/supervisord.service` file. Add `network-online.target` to the `After` parameter of the `[Unit]` section. For example:
 
-{{< file "/usr/lib/systemd/system/supervisord.service" conf >}}
+```file {title="/usr/lib/systemd/system/supervisord.service"}
 [Unit]
 Description=Process Monitoring and Control Daemon
 After=rc-local.service nss-user-lookup.target network-online.target
 
 ...
-{{< /file >}}
+```
 
 ### (Optional) Set the Location of Process Configuration Files
 
 In this guide, individual processes have their own `.ini` configuration files placed in `/etc/supervisord.d/`. This location is specified in `/etc/supervisord.conf` by default:
 
-{{< file "/etc/supervisord.conf" conf >}}
+```file {title="/etc/supervisord.conf"}
 [include]
 files = supervisord.d/*.ini
-{{< /file >}}
+```
 
 If you prefer to store configuration files elsewhere, edit the `[include]` section of `/etc/supervisord.conf` to point to the directory of your choice.
 
@@ -145,7 +145,7 @@ Process configurations can be added directly in `/etc/supervisord.conf`. However
 
 1. Use `sudo` to create a `myapp.ini` configuration file in `/etc/supervisord.d/`. Paste this snippet into the new file:
 
-    {{< file "/etc/supervisord.d/myapp.ini" conf >}}
+    ```file {title="/etc/supervisord.d/myapp.ini"}
 [group:myappgroup]
 programs=myapp
 
@@ -158,7 +158,7 @@ stderr_logfile=/var/log/myapp/app.err.log  ; Make sure this directory exists
 stdout_logfile=/var/log/myapp/app.log      ; Make sure this directory exists
 stopsignal=INT                           ; Signal sent to the application when halting
 user=myappuser                           ; setuid to this UNIX account to run the program
-{{< /file >}}
+```
 
     The configuration file defines a [group](http://supervisord.org/configuration.html#group-x-section-settings). Groups help you manage several processes as a single unit from Supervisor.
 
@@ -295,12 +295,12 @@ Enabling HTTP access exposes `supervisord` to the internet at large. If you choo
 
 1. To enable HTTP access, uncomment the `[inet_http_server]` in `/etc/supervisord.conf`. Update the `port`, `username`, and `password` settings:
 
-    {{< file "/etc/supervisord.conf" conf >}}
+    ```file {title="/etc/supervisord.conf"}
 [inet_http_server]
 port=*:9001              ; IP address and port to bind to. Use *:9001 to listen on all interfaces.
 username=super                 ; Service user name
 password=A!VeryS3cuReP@5sw0rd  ; Service password, make it a good one.
-{{< /file >}}
+```
 
 1.  Enable a firewall rule to allow access for your remote IP or a trusted network. Replace the value for `address` with your IP address or network range:
 

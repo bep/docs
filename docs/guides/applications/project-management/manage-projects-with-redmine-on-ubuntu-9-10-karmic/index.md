@@ -40,7 +40,7 @@ The first command should show your short hostname, and the second should show yo
 
 Edit the file /etc/apt/sources.list and uncomment the `universe` repositories if they're not already enabled. Your repository list should resemble this:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -58,7 +58,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 deb http://security.ubuntu.com/ubuntu karmic-security universe
 deb-src http://security.ubuntu.com/ubuntu karmic-security universe
 
-{{< /file >}}
+```
 
 
 Issue the following commands to update your local package database and install any outstanding updates.
@@ -137,7 +137,7 @@ Issue the following commands to enable proxy support:
 
 Configure an Apache virtualhost for your Redmine installation. The example shown below assumes Apache is configured as recommended in our [Ubuntu 9.10 LAMP guide](/docs/guides/lamp-server-on-ubuntu-9-10-karmic/). Remember to replace "12.34.56.78" with your Linode's IP address.
 
-{{< file "/etc/apache2/sites-available/redmine.example.com" apache >}}
+```file {title="/etc/apache2/sites-available/redmine.example.com"}
 <VirtualHost 12.34.56.78:80>
      ServerAdmin support@example.com
      ServerName redmine.example.com
@@ -148,7 +148,7 @@ Configure an Apache virtualhost for your Redmine installation. The example shown
      #SSLProxyEngine On
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Issue the following commands to enable the site and reload Apache:
@@ -158,10 +158,10 @@ Issue the following commands to enable the site and reload Apache:
 
 Next, you'll need to tell nginx to run on a different port. Edit your nginx configuration file, setting the following value:
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 listen 8080;
 
-{{< /file >}}
+```
 
 
 ## Installing and Configuring Redmine
@@ -194,7 +194,7 @@ Issue these commands in the `psql` shell to set up the database for Redmine. Be 
 
 Create the file `config/database.yml` with the following contents:
 
-{{< file "config/database.yml" yaml >}}
+```file {title="config/database.yml"}
 production:
   adapter: postgresql
   database: redmine
@@ -204,7 +204,7 @@ production:
   encoding: utf8
   schema_search_path: public
 
-{{< /file >}}
+```
 
 
 Issue the following commands to complete database configuration:
@@ -261,7 +261,7 @@ Enter "root" and an email address at your domain for the postmaster mail query.
 
 Create the file `config/email.yml` and copy in the following contents. Be sure to replace the domain field with your fully qualified domain name.
 
-{{< file "config/email.yml" yaml >}}
+```file {title="config/email.yml"}
 production:
   delivery_method: :smtp
   smtp_settings:
@@ -270,7 +270,7 @@ production:
     domain: redmine.example.com
     authentication: :none
 
-{{< /file >}}
+```
 
 
 This completes email configuration for your Redmine installation.
@@ -287,15 +287,15 @@ We'll create a "redmine" user to manage the installation. Issue the following co
 
 Edit the file `/opt/nginx/conf/nginx.conf`, setting the "user" parameter to "redmine":
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 user  redmine;
 
-{{< /file >}}
+```
 
 
 Add a server section after the first example server as follows. If you're proxying to nginx from another web server, be sure to change the `listen` directive to `listen 8080;` instead of the default.
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 server {
      listen 80;
      server_name  redmine.example.com;
@@ -309,7 +309,7 @@ server {
      }
 }
 
-{{< /file >}}
+```
 
 
 Start nginx:

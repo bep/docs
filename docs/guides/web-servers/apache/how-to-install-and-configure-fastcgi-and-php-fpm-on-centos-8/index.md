@@ -75,15 +75,15 @@ listen = /var/run/php-fpm/www.sock
 
 1.  If no output is returned, you will need to edit your [PHP pool configuration file](https://www.php.net/manual/en/install.fpm.configuration.php) by adding a `listen` setting with the address on which to accept FastCGI requests. Add the line in the example file.
 
-    {{< file "/etc/php-fpm.d/www.conf" >}}
+    ```file {title="/etc/php-fpm.d/www.conf"}
 listen = /var/run/php-fpm/www.sock
-    {{< /file >}}
+    ```
 
 1.  If the `listen = 127.0.0.1` is not already uncommented, do so now:
 
-    {{< file "/etc/php-fpm.d/www.conf" >}}
+    ```file {title="/etc/php-fpm.d/www.conf"}
 listen.allowed_clients = 127.0.0.1
-    {{< /file >}}
+    ```
 
 1.  Restart the `php-fpm` daemon for these changes to take effect.
 
@@ -91,13 +91,13 @@ listen.allowed_clients = 127.0.0.1
 
 1. With the text editor of your choice, update your default Apache configuration file with the following basic settings for `mod_fcgid`. You may consider [changing these settings](https://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html) based on your own needs.
 
-      {{< file "/etc/httpd/conf/httpd.conf" apache >}}
+      ```file {title="/etc/httpd/conf/httpd.conf"}
 AddHandler  fcgid-script .fcgi .php .fpl
 FcgidConnectTimeout 20
 FcgidMaxRequestLen 268435456
 FcgidMaxProcessesPerClass 10
 FcgidIOTimeout 300
-      {{</ file >}}
+      ```
 
 1.  Check for configuration errors.
 
@@ -105,7 +105,7 @@ FcgidIOTimeout 300
 
 1. Edit your FastCGI module's configuration file to add the settings in the example file.
 
-    {{< file "/etc/httpd/conf.modules.d/10-fcgid.conf" >}}
+    ```file {title="/etc/httpd/conf.modules.d/10-fcgid.conf"}
 <IfModule mod_fcgid.c>
   FcgidConnectTimeout 20
   AddType  application/x-httpd-php         .php
@@ -115,7 +115,7 @@ FcgidIOTimeout 300
     AddHandler fcgid-script .fcgi
   </IfModule>
 </IfModule>
-{{< /file >}}
+```
 
 1.  Check for configuration errors.
 
@@ -131,9 +131,9 @@ FcgidIOTimeout 300
 
 1. Open the `info.php` file with the editor of your choice and add the following line:
 
-    {{< file "/var/www/html/example.com/public_html/info.php" >}}
+    ```file {title="/var/www/html/example.com/public_html/info.php"}
 <?php phpinfo(); ?>
-    {{</ file >}}
+    ```
 
     Navigate to `www.example.com/info.php` to view your system's information.
 
@@ -151,7 +151,7 @@ FcgidIOTimeout 300
 
 1.  Edit the file to change the socket name, user and group, and socket listen address. Ensure that the listen address is different from the listen address that you set in the main PHP pool configuration file. You can append the name of your site as part of the file name, for example, `listen = /var/run/php-fpm/example.com.sock`. Also, ensure that you comment out or replace any existing `user` and `group` and add your own `user` and `group` settings as shown in the example.
 
-    {{< file "/etc/php-fpm.d/example.com.conf" >}}
+    ```file {title="/etc/php-fpm.d/example.com.conf"}
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -168,7 +168,7 @@ group = bob
 ...
 listen = /var/run/php-fpm/example.com.sock
 
-{{< /file >}}
+```
 
 
 1.  Restart the `php7.2-fpm` process for the new pool to be created.
@@ -177,7 +177,7 @@ listen = /var/run/php-fpm/example.com.sock
 
 1.  Edit the virtual host file of `example.com` to use your new PHP-FPM pool. Depending on your current virtual hosts file what you need to add and edit may differ. The `<IfModuel mod_fcgid.c>` directive and its contents is what you should add to your file. Ensure you replace any instance of `example.com` with your own domain name.
 
-    {{< file "/etc/httpd/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/httpd/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
         Require all granted
 </Directory>
@@ -198,7 +198,7 @@ listen = /var/run/php-fpm/example.com.sock
          ProxyPassMatch " ^/(.*\.php(/.*)?)$" "unix:/run/php-fpm/example.com.sock|fcgi://localhost/var/www/html/example.com/public_html/"
      </IfModule>
 </VirtualHost>
-{{< /file >}}
+```
 
 
 1.  Check the configuration file for errors.

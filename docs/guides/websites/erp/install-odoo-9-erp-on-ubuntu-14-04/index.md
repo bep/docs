@@ -153,7 +153,7 @@ Install Python libraries using the following commands:
 
 2.  Next we need to modify the configuration file. The finished file should look similar to this depending on your deploying needs:
 
-    {{< file "/etc/odoo-server.conf" aconf >}}
+    ```file {title="/etc/odoo-server.conf"}
 [options]
 admin_passwd = admin
 db_host = False
@@ -164,7 +164,7 @@ addons_path = /opt/odoo/addons
 logfile = /var/log/odoo/odoo-server.log
 xmlrpc_port = 8069
 
-{{< /file >}}
+```
 
 
     *  `admin_passwd = admin` This is the password that allows database operations.
@@ -180,7 +180,7 @@ xmlrpc_port = 8069
 
 Next step is creating a boot script called `odoo-server` to gain control over Odoo's behavior and use it at server startup and shutdown.
 
-{{< file "/etc/init.d/odoo-server" shell >}}
+```file {title="/etc/init.d/odoo-server"}
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides: odoo-server
@@ -267,7 +267,7 @@ esac
 
 exit 0
 
-{{< /file >}}
+```
 
 
 ### Odoo File Ownership and Permissions

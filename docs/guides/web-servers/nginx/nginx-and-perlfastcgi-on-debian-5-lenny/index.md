@@ -55,7 +55,7 @@ In this guide, the domain "example.com" is used as an example site. You should s
 
 Next, you'll need to define the site's virtual host file:
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -76,7 +76,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Issue the following commands to enable the site:
@@ -105,7 +105,7 @@ Issue the following command sequence to download the FastCGI wrapper script (cre
 
 Create a file called "test.pl" in your site's "public\_html" directory with the following contents:
 
-{{< file "/srv/www/www.example.com/public\\_html/test.pl" perl >}}
+```file {title="/srv/www/www.example.com/public\\_html/test.pl"}
 #!/usr/bin/perl
 
 print "Content-type:text/html\n\n";
@@ -121,7 +121,7 @@ foreach $key (sort(keys %ENV)) {
 
 print "</body></html>";
 
-{{< /file >}}
+```
 
 
 Make the script executable by issuing the following command:

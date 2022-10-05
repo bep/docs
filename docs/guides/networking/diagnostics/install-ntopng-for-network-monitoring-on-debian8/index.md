@@ -83,7 +83,7 @@ Configuration options can be defined in a file or set from the command line. If 
 
 Create a configuration file for ntopng using the example below. Replace `192.0.2.0` with your Linode’s domain or public IP address. If needed, replace `eth0` with your primary network interface. Run `man ntopng` from the terminal to see all available configuration parameters.
 
-{{< file "/etc/ntopng/ntopng.conf" conf >}}
+```file {title="/etc/ntopng/ntopng.conf"}
 --user=ntopng
 --interface=eth0
 -w=192.0.2.0:3005
@@ -92,7 +92,7 @@ Create a configuration file for ntopng using the example below. Replace `192.0.2
 --dump-flows=logstash # optional
 --disable-autologout # optional
 --disable-login=1 # optional
-{{< /file >}}
+```
 
 {{< note >}}
 The option flags commented with `# optional` are not mandatory. All flags requiring input must be followed by an `=` and a value.

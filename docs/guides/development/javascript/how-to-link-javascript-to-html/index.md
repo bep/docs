@@ -49,7 +49,7 @@ This example adds the JavaScript code directly to the HTML markup.
 
 The next example demonstrates the `<script>` tag contained within the body of an HTML page. As the browser sequentially executes the HTML, when it encounters the `<script>` tag, it executes the JavaScript within the tag. The JavaScript adds an event listener to the button with `id="exampleButton"`. If a user clicks on the button, an alert box presents the message passed as an argument to the `alert()` method.
 
-{{< file "example.html" html >}}
+```file {title="example.html"}
 <!doctype html>
 <html lang="en">
   <head>
@@ -65,7 +65,7 @@ The next example demonstrates the `<script>` tag contained within the body of an
     </script>
   </body>
 </html>
-{{< /file >}}
+```
 
 In the example, the `<script>` tag is placed **after** the `<button>` tag. This is necessary because the JavaScript references the `button` element. If the JavaScript had been inserted any earlier, the button element would not yet have been created by the time the JavaScript executes.
 
@@ -83,7 +83,7 @@ The steps below assume that you are developing a simple website on your local co
 
 1. Using your preferred text editor, add a new file named `example.js` to the `js_files` directory with the JavaScript displayed below.
 
-    {{< file "~/username/js_files/example.js" js >}}
+    ```file {title="~/username/js_files/example.js"}
 // Create a button element.
 const buttonElement = document.createElement("button");
 const buttonElementText = document.createTextNode("Click Me!");
@@ -96,11 +96,11 @@ buttonElement.addEventListener("click", () => {
 
 // Insert the button element into the body of the web page.
 document.body.appendChild(buttonElement);
-    {{< /file >}}
+    ```
 
 1. Create an HTML file with the example markup. The markup uses the `<script>` tag to reference the JavaScript file created in the previous step.
 
-    {{< file "~/username/example.html" html >}}
+    ```file {title="~/username/example.html"}
 <!doctype html>
 <html lang="en">
   <head>
@@ -110,7 +110,7 @@ document.body.appendChild(buttonElement);
     <script src="js_files/example.js"></script>
   </body>
 </html>
-    {{< /file >}}
+    ```
 
     The `src` attribute uses the relative path to the `example.js` file that contains the JavaScript code you want to execute.
 
@@ -138,7 +138,7 @@ Normally, when a browser encounters the `<script>` tag with a linked JavaScript 
 
 The example file's script tag makes use of the `async` attribute.
 
-{{< file "index.html" html >}}
+```file {title="index.html"}
 <!doctype html>
 <html lang="en">
   <head>
@@ -148,7 +148,7 @@ The example file's script tag makes use of the `async` attribute.
     <script src="js_files/main.js" async></script>
   </body>
 </html>
-{{< /file >}}
+```
 
 It's not always advisable to use the `async` attribute. For instance, if your script depends on certain elements not yet being rendered, or if the elements themselves depend on the script creating certain elements, `async` would likely be a problematic choice. When such cases are not a concern, `async` can help with your page's load speed and user experience.
 
@@ -156,7 +156,7 @@ It's not always advisable to use the `async` attribute. For instance, if your sc
 
 Like `async`, using `defer` tells the browser to download a linked JavaScript file in the background while the page continues to load. Unlike `async`, however, `defer` prevents the loaded script from being executed until the page has been fully rendered. This makes `defer` especially useful when your JavaScript code relies on one or more elements being rendered and available. Because `defer` ensures that the script only runs once the page has been loaded completely, you can be assured that the script does not run until all required elements are present on the page.
 
-{{< file "index.html" html >}}
+```file {title="index.html"}
 <!doctype html>
 <html lang="en">
   <head>
@@ -166,7 +166,7 @@ Like `async`, using `defer` tells the browser to download a linked JavaScript fi
     <script src="js_files/main.js" defer></script>
   </body>
 </html>
-{{< /file >}}
+```
 
 ## Conclusion
 

@@ -93,50 +93,50 @@ For the purposes of this tutorial, both the server application and the client ap
 
 1. We can start writing code for our server. Create a new file in the root of the `server` directory called `app.js` and add the following snippet:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
 
 const app = express();
-{{< /file >}}
+```
 
     This just imports the packages we'll be using. The `fs` module makes it easy to read and write to files on the server.
 
 1. For now, we'll create a single `/video` route. When requested, it will send a video file back to the client. Add this line after the `const app` declaration in `server/app.js`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after 'const app = express();'
 
 app.get('/video', (req, res) => {
     res.sendFile('assets/sample.mp4', { root: __dirname });
 });
-{{< /file >}}
+```
 
     This routes simply serves the `sample.mp4` video file when requested.
 
 1. Add this call to `app.listen()` to the end of `server/app.js`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add to end of file
 
 app.listen(4000, () => {
     console.log('Listening on port 4000!')
 });
-{{< /file >}}
+```
 
     This code sets up the server to listen on port 4000.
 
 1. At the moment, the server is not running. In `package.json`, add the following `dev` script to the `scripts` section:
 
-    {{< file "server/package.json" js >}}
+    ```file {title="server/package.json"}
 //...
 "scripts": {
     "dev": "nodemon app.js",
     // ...
 },
 // ...
-{{< / file >}}
+```
 
 1. Then from your terminal, run:
 
@@ -165,7 +165,7 @@ If you don't have `npx` on your workstation, it can be installed globally with:
 
 1. Once it is done, open `src/App.js` in your `client` project and replace the contents with:
 
-    {{< file "client/src/App.js" js >}}
+    ```file {title="client/src/App.js"}
 import React from 'react';
 import './App.css';
 function App() {
@@ -180,7 +180,7 @@ function App() {
     );
 }
 export default App;
-{{< /file >}}
+```
 
     In this markup, we have a single `video` element, and the `src` is the route on our server that serves the sample video file.
 
@@ -203,10 +203,10 @@ So far, we've set up our server to serve a video file when requested. In reality
 
 We'll be using Bootstrap to layout our interface, so add the following to the `head` section of `public/index.html` in your `client` project:
 
-{{< file "client/public/index.html" html >}}
+```file {title="client/public/index.html"}
 <!-- add to <head> -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.css">
-{{< /file >}}
+```
 
 Our application will have two routes to handle the `Home` and `Player` views, so install `react-router-dom` to handle routing of the React application. From the terminal, run the command:
 
@@ -224,7 +224,7 @@ This installs the recommended router for React applications.
 
 We can start to build out the necessary views. Let’s start with the `Home` view. Create a new file `src/Home.js` in your `client` project and add the following snippet:
 
-{{< file "client/src/Home.js" js >}}
+```file {title="client/src/Home.js"}
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 export default class Home extends Component {
@@ -267,7 +267,7 @@ export default class Home extends Component {
         )
     }
 }
-{{< /file >}}
+```
 
 Our component starts off by importing some required packages (lines 1-2). Then it initializes the state variable `videos` to an empty array (line 7). In the `componentDidMount` (lines 10-18), it makes a request to an endpoint (http://localhost:4000/videos), which will return an array of video metadata. This metadata will be represented as array of objects, where each object looks like:
 
@@ -292,7 +292,7 @@ We have not created the `/videos` metadata endpoint, or the `/video/:id/poster` 
 
 Next, we create the player view. Create a new file `src/Player.js` in the `client` project and add the following snippet:
 
-{{< file "client/src/Player.js" js >}}
+```file {title="client/src/Player.js"}
 import React, { Component } from 'react'
 export default class Player extends Component {
     constructor(props) {
@@ -324,7 +324,7 @@ export default class Player extends Component {
         )
     }
 }
-{{< /file >}}
+```
 
 For the player view, we get the video `id` from the URL parameter (line 6):
 
@@ -339,7 +339,7 @@ We have not created the `/video/:id/data` metadata endpoint, or the `/video/:id`
 
 That's all we need for the views. Let's glue them both together. Replace the contents of your `src/App.js` with this snippet:
 
-{{< file "client/src/App.js" js >}}
+```file {title="client/src/App.js"}
 import React from 'react';
 import {
     Route,
@@ -361,7 +361,7 @@ function App() {
     );
 }
 export default App;
-{{< /file >}}
+```
 
 Here, we import the router package (lines 2-6), as well as our `Home` and `Player` view components (lines 7 and 8). The `/` route (line 15) shows the Home component. For the `/player` route (line 16), notice the dynamic `:id` which would match anything that matches the pattern. This is how we pass the `id` to the `Player` component.
 
@@ -383,7 +383,7 @@ For this demo application, we'll create an array of objects that will hold the m
 
 1. From the `server` directory, open `app.js` and add this array declaration just after the `require()` statements:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after require() statements
 
 const videos = [
@@ -406,7 +406,7 @@ const videos = [
         name: 'Sample 3'
     },
 ];
-{{< /file >}}
+```
 
     As you can see, each object contains information about the video. Notice the `poster` attribute which contains the link to a poster image of the video. Later in this tutorial, we’ll see how we can generate a poster image from a video.
 
@@ -414,20 +414,20 @@ const videos = [
 
 1. Add this line after the other `require()` statements at the top of the `server/app.js`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after other require() statements
 
 const cors = require('cors');
-{{< /file >}}
+```
 
 1. Add these lines just after the existing `app.get('/video', ...)` route:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after existing app.get('/video', ...) route
 
 app.use(cors());
 app.get('/videos', (req, res) => res.json(videos));
-{{< /file >}}
+```
 
     First, we enable `cors` on the server since we’ll be making the requests from a different origin (domain). `cors` was installed in the [Application Setup](#application-setup) section. Then the `/videos` route is declared, which returns the array we just created in `json` format.
 
@@ -439,14 +439,14 @@ app.get('/videos', (req, res) => res.json(videos));
 
 Our React application fetches the video by `id`, so we can use the `id` to get the requested video metadata from the array. Let’s create a new route that will handle this in `server/app.js`. Add this snippet of code after the route from the previous section:
 
-{{< file "server/app.js" js >}}
+```file {title="server/app.js"}
 // add after app.get('/videos', ...) route
 
 app.get('/video/:id/data', (req, res) => {
     const id = parseInt(req.params.id, 10);
     res.json(videos[id]);
 });
-{{< /file >}}
+```
 
 If you remember, the `Player` view makes a request to `http://localhost:4000/video/${this.state.videoId}/data` which would match this route. This snippet gets the `id` from the route parameters and converts it to an integer. Then we send the object that matches the `id` from the `videos` array back to the client.
 
@@ -468,7 +468,7 @@ We now need to implement two new features that are not supported by that endpoin
 
 1. Create the route for streaming videos. Add this snippet below your other routes in `server/app.js`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after app.get('/video/:id/data', ...) route
 
 app.get('/video/:id', (req, res) => {
@@ -501,7 +501,7 @@ app.get('/video/:id', (req, res) => {
         fs.createReadStream(path).pipe(res);
     }
 });
-{{< /file >}}
+```
 
 1. Save the file, which should automatically restart the server. Then navigate to your browser and refresh the application. You should see something like this:
 
@@ -575,15 +575,15 @@ Our `Home` view appears broken at the moment because the poster images are not g
 
 1. Add this line after your other `require()` statements in `server/app.js`. This will import `thumbsupply`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after other require() statements
 
 const thumbsupply = require('thumbsupply');
-{{< /file >}}
+```
 
 1. Create a new route that will handle generating thumbnails. Add this code after the other routes in `server/app.js`:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after app.get('/video/:id', ...) route
 
 app.get('/video/:id/poster', (req, res) => {
@@ -614,7 +614,7 @@ The Web is always changing
 
 00:00:02.500 --> 00:00:08.300
 and the way we access it is changing
-{{< /file >}}
+```
 
 The file starts with `WEBVTT`, which indicates this is a [Web Video Track File](https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API). This is the format used for captions/subtitles on the web, and its file extension is `.vtt`. A duration is specified for each caption and the caption text sits under the duration.
 
@@ -624,7 +624,7 @@ The file starts with `WEBVTT`, which indicates this is a [Web Video Track File](
 
 1. Create a new file named `sample.vtt` inside the new directory with this snippet:
 
-    {{< file "server/assets/captions/sample.vtt" >}}
+    ```file {title="server/assets/captions/sample.vtt"}
 WEBVTT
 
 00:00:00.500 --> 00:00:02.000
@@ -632,7 +632,7 @@ The Web is always changing
 
 00:00:02.500 --> 00:00:08.300
 and the way we access it is changing
-{{< /file >}}
+```
 
     For this guide's example, the same caption file will be used for all caption requests. In a real application, there would be a unique caption file for each video.
 
@@ -640,12 +640,12 @@ and the way we access it is changing
 
 The [`track` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track) is used to support timed text tracks. Update the `video` element in `client/src/Player.js` like so:
 
-{{< file "client/src/Player.js" html >}}
+```file {title="client/src/Player.js"}
 <video controls muted autoPlay crossOrigin="anonymous">
     <source src={`http://localhost:4000/video/${this.state.videoId}`} type="video/mp4"></source>
     <track label="English" kind="captions" srcLang="en" src={`http://localhost:4000/video/${this.state.videoId}/caption`} default></track>
 </video>
-{{< /file >}}
+```
 
 We’ve added `crossOrigin="anonymous"` to the video element; otherwise, the request for captions will fail. The `track` element includes these attributes:
 
@@ -663,11 +663,11 @@ With the `track` element set up, we can now create the endpoint that will handle
 
 1. Create a new route in `server/app.js` after the previous routes:
 
-    {{< file "server/app.js" js >}}
+    ```file {title="server/app.js"}
 // add after the app.get('/video/:id/poster', ...) route
 
 app.get('/video/:id/caption', (req, res) => res.sendFile('assets/captions/sample.vtt', { root: __dirname }));
-{{< /file >}}
+```
 
     This route will serve the same caption file, regardless of which `id` is passed as a parameter. In a more complete application, you could serve different caption files for different `id`s.
 
@@ -681,7 +681,7 @@ We can add some styles to make the application look better:
 
 1. Update the React application `src/App.css` file in your `client` project with this snippet:
 
-    {{< file "client/src/App.css" css >}}
+    ```file {title="client/src/App.css"}
 .App-header {
     min-height: 100vh;
     color: white;
@@ -720,11 +720,11 @@ p {
     margin-bottom: 5px;
     font-size: 16px;
 }
-{{< /file >}}
+```
 
 1. Replace `src/index.css` with:
 
-    {{< file "client/src/index.css" css >}}
+    ```file {title="client/src/index.css"}
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -732,17 +732,17 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: #282c34;
 }
-{{< /file >}}
+```
 
 1. Add this line to the `head` section of `client/public/index.html` in your `client` project:
 
-    {{< file "client/public/index.html" html >}}
+    ```file {title="client/public/index.html"}
 <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
-{{< /file >}}
+```
 
 1. Create `Header` and `Footer` components in the `src/` directory of your `client` project:
 
-    {{< file "client/src/Header.js" js >}}
+    ```file {title="client/src/Header.js"}
 import React from 'react';
 function Header() {
     return (
@@ -752,9 +752,9 @@ function Header() {
     );
 }
 export default Header;
-{{< /file >}}
+```
 
-    {{< file "client/src/Footer.js" js >}}
+    ```file {title="client/src/Footer.js"}
 import React from 'react';
 function Footer() {
     return (
@@ -764,20 +764,20 @@ function Footer() {
     );
 }
 export default Footer;
-{{< /file >}}
+```
 
 1. Import and use the new `Header` and `Footer` components in `src/Home.js` and `src/Player.js`. To do this, add these `import` statements below the other `import` statements at the top of both files:
 
-    {{< file "" js >}}
+    ```file {title=""}
 // add below the other import statements
 
 import Header from './Header';
 import Footer from './Footer';
-{{< /file >}}
+```
 
     Then, add the components to markup in the `return()` method of both files in the following locations:
 
-    {{< file "Home.js" html >}}
+    ```file {title="Home.js"}
 // ...
 
 render() {
@@ -791,9 +791,9 @@ render() {
 }
 
 // ...
-{{< /file >}}
+```
 
-    {{< file "Player.js" html >}}
+    ```file {title="Player.js"}
 // ...
 
 render() {
@@ -807,7 +807,7 @@ render() {
 }
 
 // ...
-{{< /file >}}
+```
 
 1. The application should now look like this:
 

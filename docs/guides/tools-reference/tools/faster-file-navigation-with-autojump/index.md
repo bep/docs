@@ -35,9 +35,9 @@ This guide will cover installation on Linux and MacOS. Support for Windows [is l
 
 2.  On Debian-based distros, manual activation is required. Add the following line to `~/.bashrc`(for Bash) or `~/.zshrc` (if you use zsh):
 
-      {{< file "~/.bashrc" >}}
+      ```file {title="~/.bashrc"}
 . /usr/share/autojump/autojump.sh
-{{< /file >}}
+```
 
 More information is available in the README:
 

@@ -80,7 +80,7 @@ The standard Go language [testing package](https://golang.org/pkg/testing/) prov
 
 The following example test function is included in the testing package documentation. It’s not testable as given (it requires a matching `Abs()` function for integers), but it demonstrates the syntax required.
 
-{{< file "example.go" go>}}
+```file {title="example.go"}
 import "testing"
 
 func TestAbs(t *testing.T) {
@@ -89,7 +89,7 @@ func TestAbs(t *testing.T) {
         t.Errorf("Abs(-1) = %d; want 1", got)
     }
 }
-{{</ file >}}
+```
 
 Go test functions can easily be extended to perform table-driven tests to cover many cases. This is done from a single function with the help of a `for` loop. You can also take advantage of [Go interfaces](https://gobyexample.com/interfaces) and functional programming to implement mocks.
 
@@ -113,17 +113,17 @@ This section expands on an integer `Abs()` function and the sample unit test fro
 
     This creates a file named `go.mod`. The file includes content similar to the example below:
 
-    {{< file "go.mod" go>}}
+    ```file {title="go.mod"}
 module github.com/meheller/abs_test
 
 go 1.16
-    {{</ file >}}
+    ```
 
 1. Use the `cat` command to print the contents of your `go.mod` file.
 
 1. Create a new `abs.go` file in `abs_test` directory, and insert the following contents:
 
-    {{< file "abs.go" go>}}
+    ```file {title="abs.go"}
 package abs
 
 func Abs(x int) (res int) {
@@ -133,11 +133,11 @@ func Abs(x int) (res int) {
     return -x
 }
 
-    {{</ file >}}
+    ```
 
 1. Save the file and create another file, `abs_test.go`, in the same directory as the unit tests. Use the single test from the documentation, with a matching package tag added as show below:
 
-    {{< file "abs_test.go" go>}}
+    ```file {title="abs_test.go"}
 package abs
 
 import (
@@ -150,7 +150,7 @@ func TestAbs(t *testing.T) {
         t.Errorf("Abs(-1) = %d; want 1", got)
     }
 }
-    {{</ file >}}
+    ```
 
 1. Go back to your terminal and make sure all three files are present.
 

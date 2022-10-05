@@ -94,11 +94,11 @@ To illustrate how these values work together, `range(0,5)` increments the iterat
 
 The following program demonstrates how to use the `range` function to constrain a Python `for` loop. The `range` uses the default `start` value and an `end` point of 5. The iterator `i` is set to zero at the start of the loop and continues to increment each cycle. The loop continues to run while `i` is less than `5`. The code block prints out the new value of the iterator each time it runs.
 
-{{< file "loop1.py" python >}}
+```file {title="loop1.py"}
 for i in range(5):
     print("The value of i is", i)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop1.py
 
@@ -113,11 +113,11 @@ The loop has ended.
 
 In the next example, the loop initializes `i` to `1` and adds `2` to `i` each loop, up to an upper limit of `7`. When `i` is `5`, the loop executes again. When it increments to `7`, it is no longer less than the `end` value, so the loop terminates. Control passes to the next statement outside the loop.
 
-{{< file "loop2.py" python >}}
+```file {title="loop2.py"}
 for i in range(1,7,2):
     print("The value of i is", i)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop2.py
 
@@ -130,11 +130,11 @@ The loop has ended.
 
 Negative values can be used for `start` or `end` points and for the `step`. When the step is negative, Python verifies whether the iterator is still greater than the `end` value. The following example decrements the iterator by `10` each time the loop begins.
 
-{{< file "loop3.py" python >}}
+```file {title="loop3.py"}
 for i in range(5,-30,-10):
     print("The value of i is", i)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop3.py
 
@@ -148,13 +148,13 @@ The loop has ended.
 
 A `for` loop can also have an `else` statement, although it is not used too often. The code associated with the `else` statement runs after the loop ends. It can be used for post-loop processing or for situations when the loop does not run at all.
 
-{{< file "loop_else.py" python >}}
+```file {title="loop_else.py"}
 for i in range(5):
     print("The value of i is", i)
 else:
     print("The for condition is false.")
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop_else.py
 
@@ -187,12 +187,12 @@ Python uses the List's built-in `__iter__` function to step through the List. Ea
 
 The following example demonstrates how to use the Python `for` statement to loop through a List. In this case, the program defines a List named `cities`. The line `for city in cities` iterates through the `cities` List. At the start of each loop, it assigns the next item in the List to `city`. Upon each new loop, `city` contains the name of the next city. Within the code block, each city is printed on a new line.
 
-{{< file "loop_list.py" python >}}
+```file {title="loop_list.py"}
 cities = ['Chicago', 'Detroit', 'New York', 'Miami']
 for city in cities:
     print("The next city is", city)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop_list.py
 
@@ -216,12 +216,12 @@ Earlier releases of Python often order dictionary entries differently.
 
 The `lopp_dcit.py` file demonstrates how to loop through a Dictionary named `citystates`. In this Dictionary, the key is the name of the city while the value is the name of the state. More specifically, `city` contains the name of the city, and `citystates[city]` contains the name of the corresponding state. The code block prints both variables. Because the Dictionary contains four entries, the `for` loop iterates four times.
 
-{{< file "loop_dict.py" python >}}
+```file {title="loop_dict.py"}
 citystates = {'Chicago' : 'Illinois', 'Detroit' : 'Michigan', 'New York' : 'New York', 'Miami' : 'Florida'}
 for city in citystates:
     print("The name of the city is", city, "and the name of the state is", citystates[city])
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop_dict.py
 
@@ -241,12 +241,12 @@ A view object is dynamic because it changes when the underlying object changes. 
 
 The following example loops through the Dictionary values. The loop retrieves each subsequent item in `citystates.values()`. It then prints the value, which is the name of the state. The key is never retrieved or used, and the indexing operator is not required. In this case, the loop iterates through a view object of the Dictionary values, not the Dictionary itself.
 
-{{< file "loop2_dict.py" python >}}
+```file {title="loop2_dict.py"}
 citystates = {'Chicago' : 'Illinois', 'Detroit' : 'Michigan', 'New York' : 'New York', 'Miami' : 'Florida'}
 for state in citystates.values():
     print("The name of the state is", state)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop2_dict.py
 
@@ -270,12 +270,12 @@ A tuple is an immutable collection of objects separated by commas. To learn more
 
 A `for` loop can be paired with the `.items` method to iterate through all key-value pairs in a Python dictionary. Upon each iteration through the view object, the next key-value tuple is extracted and unpacked to the loop variables. The following example assigns the key and value from `citystates` to the `city` and `state` variables. When this method is used, the indexing operator is no longer required to access the value.
 
-{{< file "loop3_dict.py" python >}}
+```file {title="loop3_dict.py"}
 citystates = {'Chicago' : 'Illinois', 'Detroit' : 'Michigan', 'New York' : 'New York', 'Miami' : 'Florida'}
 for city, state in citystates.items():
     print("The name of the city is", city, "and the name of the state is", state)
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop3_dict.py
 
@@ -298,7 +298,7 @@ In the `loop_break.py` example file, the `break` statement terminates the loop w
 This program imports the built-in Python `math` module and uses the module's `factorial` function.
 {{< /note >}}
 
-{{< file "loop_break.py" python >}}
+```file {title="loop_break.py"}
 import math
 for i in range(5,10):
     print("The factorial of", i, "is", math.factorial(i))
@@ -306,7 +306,7 @@ for i in range(5,10):
         print("The limit of 5000 is exceeded.")
         break
 print("The loop has ended.")
-{{< /file >}}
+```
 
     python3 loop_break.py
 
@@ -347,7 +347,7 @@ In this example, the `while` statement is used to validate a password. The progr
 
 The following `while` statement keeps looping while the password is wrong and the user has made fewer than ten attempts to guess it. Inside the loop, the program increments the counter and prompts the user to guess the password. If the `guess` equals the `password`, the program tells the user they are right. Program control flow passes back to the start of the loop to see if the block should run again. However, this time `password != guess` is `False` and the loop terminates.
 
-{{< file "while.py" python >}}
+```file {title="while.py"}
 password = 'linode'
 guess = ''
 counter = 0
@@ -357,7 +357,7 @@ while (password != guess) and (counter < 5):
     guess = input()
     if guess == password:
         print("The password is correct on attempt", counter)
-{{< /file >}}
+```
 
     python3 while.py
 
@@ -445,7 +445,7 @@ Python does not support the `do while` loop structure even though it is availabl
 
 Here is a basic outline demonstrating how a `do while` loop might be implemented in Python. This example breaks out of the loop on the tenth cycle.
 
-{{< file "do_while.py" python >}}
+```file {title="do_while.py"}
 guard_limit = 10
 i = 0
 while True:
@@ -454,7 +454,7 @@ while True:
     if i == guard_limit:
         print("The break condition has been reached.")
         break
-{{< /file >}}
+```
 
     python3 do_while.py
 

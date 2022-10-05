@@ -124,9 +124,9 @@ At the time of this writing, if you wish to switch from a Linode kernel to GRUB2
 
 Users can generally resolve this issue by either using the latest upstream kernel instead, or by adding a kernel parameter to the grub configuration file, usually found in `/etc/default/grub` to disable the asynchronous scanning which causes the issue. To do this, the following line will need to be added to the end of the grub configuration file:
 
-{{< file "/etc/default/grub" >}}
+```file {title="/etc/default/grub"}
 scsi_mod.scan=sync
-{{< /file >}}
+```
 
 Once the file has been edited, GRUB2 will need to be manually restarted. While this command will vary between Distros, using the following command will complete this task for **Debian** and **Ubuntu**:
 
@@ -203,13 +203,13 @@ For new Linodes, an upstream kernel is already installed on your system and you 
 
 1.  Add or change the options in `/etc/default/grub` to match the following snippet. There are other variables in this file, but the current changes are only focused on these lines.
 
-    {{< file "/etc/default/grub" >}}
+    ```file {title="/etc/default/grub"}
 GRUB_TERMINAL=serial
 GRUB_DISABLE_OS_PROBER=true
 GRUB_SERIAL_COMMAND="serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1"
 GRUB_DISABLE_LINUX_UUID=true
 GRUB_GFXPAYLOAD_LINUX=text
-{{< /file >}}
+```
 
 1.  Prepare and update the bootloader:
 

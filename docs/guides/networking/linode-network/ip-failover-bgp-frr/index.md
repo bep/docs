@@ -118,11 +118,11 @@ With FRR installed, you can now configure it to enable IP failover.
 
 1.  FRR works using a variety of protocols. Since we're using FRR for its BGP support, the next step is to explicitly enable the `bgpd` daemon. Using a text editor of your choice, enable the `bgpd` daemon by updating its value to `yes` in the FRR daemons configuration file:
 
-      {{< file "/etc/frr/daemons" >}}
+      ```file {title="/etc/frr/daemons"}
 # The watchfrr and zebra daemons are always started.
 #
 bgpd=yes
-{{</ file >}}
+```
 
 1.  Gather the following information, which is required for the next step:
 
@@ -137,7 +137,7 @@ bgpd=yes
 
 1.  Edit the `/etc/frr/frr.conf` file and add the following lines. Ensure you replace any instances of `[SHARED_IP]`, `[HOSTNAME]`, `[ROLE]`, and `[DC_ID]` as outlined above.
 
-      {{< file "/etc/frr/frr.conf">}}
+      ```file {title="/etc/frr/frr.conf"}
 hostname [HOSTNAME]
 
 router bgp 65001
@@ -164,7 +164,7 @@ route-map secondary permit 10
   set community 65000:2
 
 ipv6 nht resolve-via-default
-{{</ file >}}
+```
 
 1.  Restart the FRR service:
 

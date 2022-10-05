@@ -179,7 +179,7 @@ To remove this threat entirely, you can disable root login via SSH by modifying 
 
 1.  Open the file `/etc/ssh/sshd_config` with a text editor such as vim. You are greeted with extensive configuration options that you can use to modify how the SSH server functions:
 
-    {{< file "/etc/ssh/sshd_config" conf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 #       $OpenBSD: sshd_config,v 1.101 2017/03/14 07:19:07 djm Exp $
 
 # This is the sshd server system-wide configuration file.  See
@@ -208,11 +208,11 @@ To remove this threat entirely, you can disable root login via SSH by modifying 
 #SyslogFacility AUTH
 #LogLevel INFO
 ...
-    {{< /file >}}
+    ```
 
 1.  To disable root login with SSH, set the `PermitRootLogin` configuration from `yes` to `no`. The authentication configurations can be found under the `# Authentication` section. Ensure that you uncomment the configuration to activate it.
 
-    {{< file "/etc/ssh/sshd_config" conf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 # Authentication:
 
@@ -222,7 +222,7 @@ PermitRootLogin no
 #MaxAuthTries 6
 #MaxSessions 10
 ...
-    {{< /file >}}
+    ```
 
 1.  Save the file, then restart the SSH service by running the following command:
 
@@ -273,13 +273,13 @@ Now that you can login with your private key, you can disable password authentic
 
 1.  Using a text editor such as vim, open the OpenSSH configuration file located at `/etc/ssh/sshd_config` on your LAMP stack Linode and modify it by uncommenting the `PasswordAuthentication` option and setting it to `no`:
 
-    {{< file "/etc/ssh/sshd_config" conf >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 # To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication no
 #PermitEmptyPasswords no
 ...
-    {{< /file >}}
+    ```
 
 1.  Save the new changes to the OpenSSH configuration file, then restart the SSH daemon:
 
@@ -360,7 +360,7 @@ total 64
 
 1.  With the information in the table above, create a jail configuration for OpenSSH server (sshd) by entering the following values in the `jail.local` file:
 
-    {{< file "/etc/fail2ban/jail.local" conf >}}
+    ```file {title="/etc/fail2ban/jail.local"}
 [sshd]
 enabled = true
 port = ssh
@@ -370,7 +370,7 @@ maxretry = 3
 findtime = 300
 bantime = 3600
 ignoreip = 127.0.0.1
-    {{< /file >}}
+    ```
 
 1.  Save the file, then restart the Fail2Ban service with the following command:
 
@@ -488,7 +488,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 
 1.  With a text editor such as vim, open `/etc/modsecurity/modsecurity.conf` and change the value for `SecRuleEngine` to `On`:
 
-    {{< file "/etc/modsecurity/modsecurity.conf" aconf >}}
+    ```file {title="/etc/modsecurity/modsecurity.conf"}
 # -- Rule engine initialization ----------------------------------------------
 
 # Enable ModSecurity, attaching it to every transaction. Use detection
@@ -497,7 +497,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 #
 SecRuleEngine On
 ...
-    {{< /file >}}
+    ```
 
 1.  Restart Apache to apply the changes:
 
@@ -539,17 +539,17 @@ To begin using ModSecurity, enable it in the Apache configuration file by follow
 
 1.  Using a text editor such as vim, edit the `/etc/apache2/mods-available/security2.conf` file to include the OWASP-CRS files you have downloaded:
 
-    {{< file "/etc/apache2/mods-available/security2.conf" aconf>}}
+    ```file {title="/etc/apache2/mods-available/security2.conf"}
 <IfModule security2_module>
         SecDataDir /var/cache/modsecurity
         Include /usr/share/modsecurity-crs/crs-setup.conf
         Include /usr/share/modsecurity-crs/rules/*.conf
 </IfModule>
-    {{< /file >}}
+    ```
 
 1.  In `/etc/apache2/sites-enabled/000-default.conf` file `VirtualHost` block, include the `SecRuleEngine` directive set to `On`.
 
-    {{< file "/etc/apache2/sites-enabled/000-default.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-enabled/000-default.conf"}
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
@@ -559,7 +559,7 @@ To begin using ModSecurity, enable it in the Apache configuration file by follow
 
         SecRuleEngine On
 </VirtualHost>
-    {{< /file >}}
+    ```
 
     If you are running a website that uses SSL, add `SecRuleEngine` directive to that website's configuration file as well. See our guide on [SSL Certificates with Apache on Debian & Ubuntu](/docs/guides/ssl-apache2-debian-ubuntu/#configure-apache-to-use-the-ssl-certificate) for more information.
 
@@ -759,14 +759,14 @@ You can now begin the process of setting up a secure custom configuration for My
 
 1.  The custom configuration needs to be specified for `mysqld` (MySQL daemon). Using a text editor such as vim, edit the `/etc/mysql/my.cnf` file and add the following configurations to the end of the file:
 
-    {{< file "/etc/mysql/my.cnf" conf >}}
+    ```file {title="/etc/mysql/my.cnf"}
 [mysqld]                  # MySQL Daemon
 user = mysql
 bind-address = 127.0.0.1  # Disables remote authentication
 port = 3360               # Custom port bilding for remote authN
 local-infile = 0          # Disables infile
 skip-symbolic-links = 1   # Prevents file drop or rename outside of data directory
-    {{< /file >}}
+    ```
 
 1.  After adding the custom configurations, restart the mysql service to ensure all changes are applied:
 

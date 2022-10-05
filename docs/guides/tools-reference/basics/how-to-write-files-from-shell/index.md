@@ -152,11 +152,11 @@ You can also prevent the Heredoc redirect from evaluating variables and commands
 
 In this case, the `example-heredoc.txt` file contains the text of the unevaluated commands.
 
-{{< file "example-heredoc.txt" >}}
+```file {title="example-heredoc.txt"}
 These lines include the $PWD variable
 and the $(date '+%m/%d/%Y') command
 without evaluating either.
-{{< /file >}}
+```
 
 ## Advanced Editing with Sed
 
@@ -170,11 +170,11 @@ One of the most common uses for Sed is to replace text in a file. The example be
 
     sed -i 's/$PWD/$HOME/g' example-heredoc.txt
 
-{{< file "example-heredoc.txt" >}}
+```file {title="example-heredoc.txt"}
 These lines include the $HOME variable
 and the $(date '+%m/%d/%Y') command
 without evaluating either.
-{{< /file >}}
+```
 
 The quoted portion of the command is the Sed expression. It tells Sed to substitute (`s`) occurrences of `$PWD` with `$HOME`. The `g` tells Sed to replace all instances on each line.
 
@@ -230,10 +230,10 @@ The following example combines a substitute expression with a delete expression 
 
     sed -i -e 's/either/it/g' -e '/date/d' example-heredoc.txt
 
-{{< file "example-heredoc.txt" >}}
+```file {title="example-heredoc.txt"}
 These lines include the $HOME variable
 without evaluating it.
-{{< /file >}}
+```
 
 ## Conclusion
 

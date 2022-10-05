@@ -212,11 +212,11 @@ Opening a MariaDB server up to the internet makes it less secure. If you need to
 
 3.  Configure MariaDB to listen to all network interfaces. Open the `/etc/mysql/my.cnf` file and edit the `bind-address` variable to listen to all network interfaces:
 
-    {{< file "/etc/mysql/my.cnf" >}}
+    ```file {title="/etc/mysql/my.cnf"}
 [mysqld]
 
 bind-address = 0.0.0.0
-{{< /file >}}
+```
 
 4.  Restart the server:
 

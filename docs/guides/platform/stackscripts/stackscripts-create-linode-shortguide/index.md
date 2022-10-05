@@ -18,7 +18,7 @@ aliases: ['/platform/stackscripts/stackscripts-create-linode-shortguide/']
 
 - If you have an existing deployment script, you can use a StackScript to deploy Linode instances with it. The following example StackScript installs PHP on the Linode, downloads an external PHP script from the URL `http://example.com/deployment-script.php`, makes it executable, and then runs the downloaded script.
 
-    {{< file "StackScript" bash >}}
+    ```file {title="StackScript"}
 #!/bin/bash
 if [ -f /etc/apt/sources.list ]; then
    apt update
@@ -38,7 +38,7 @@ wget http://example.com/deployment-script.php --output-document=/opt/deployment-
 chmod +x /opt/deployment-script.php
 
 ./opt/deployment-script.php
-    {{< /file >}}
+    ```
 
 - The same script can be applied via python using the following syntax:
 
@@ -65,7 +65,7 @@ print("StackScript Complete. Thank you!")
 
 - If you do not want to rely on an existing external server to host your scripts for download, you can embed the bootstrapped script into the StackScript.
 
-    {{< file "StackScript" bash >}}
+    ```file {title="StackScript"}
 #!/bin/bash
 
 if [ -f /etc/apt/sources.list ]; then
@@ -91,7 +91,7 @@ chmod +x /opt/deployment-script.php
 
 ./opt/deployment-script.php
 
-    {{< /file >}}
+    ```
 
 - When using scripts other than bash, the underlying software supporting the scripting language may need to be installed to the operating system as part of the StackScript. This issue can be resolved by creating a simple StackScript in bash to install the required software, and then importing and executing the second StackScript which is using the desired language. For CentOS for example, this StackScript could be used to install python3, and apply a script that was previously created for it:
 

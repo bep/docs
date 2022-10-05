@@ -66,9 +66,9 @@ Use `apt-get` in place of `apt` on Debian distributions.
 
 1. (**Optional**) Add this entry to the `bashrc` file to make the alias permanent.
 
-    {{< file "~/.bashrc" >}}
+    ```file {title="~/.bashrc"}
 alias fd=fdfind
-    {{< /file >}}
+    ```
 
 ### RHEL Derivatives
 

@@ -41,14 +41,14 @@ This will give an extended device utilization report five times at two second in
 
 In your MySQL configuration file (typically found in `/etc/mysql/my.cnf`), change your entries for the various settings shown below to match the recommended values:
 
-{{< file "/etc/mysql/my.cnf" >}}
+```file {title="/etc/mysql/my.cnf"}
 key_buffer = 16K
 max_allowed_packet = 1M
 thread_stack = 64K
 table_cache = 4
 sort_buffer = 64K
 net_buffer_length = 2K
-{{< /file >}}
+```
 
 If you don't use InnoDB tables, you should disable InnoDB support by adding the following line:
 
@@ -72,7 +72,7 @@ Determine the type of MPM in use by your Apache install by issuing the following
 
 In your Apache 2 configuration file (typically found at `/etc/apache2/apache2.conf` in Debian and Ubuntu systems, and `/etc/httpd/httpd.conf` in CentOS and other similar systems), change your entries for the various settings shown below to match the recommended values.
 
-{{< file "/etc/apache2/apache2.conf" >}}
+```file {title="/etc/apache2/apache2.conf"}
 KeepAlive Off
 ---
 
@@ -82,7 +82,7 @@ MaxSpareServers 6
 ServerLimit 24
 MaxClients 24
 MaxRequestsPerChild 3000
-{{< /file >}}
+```
 
  {{< caution >}}
 The settings in this section are designed to help you temporarily test and troubleshoot Apache. We recommend that you do not permanently use these settings.

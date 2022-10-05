@@ -201,7 +201,7 @@ The workstation is used to add and edit cookbooks and other configuration files.
 
 2.	Copy the following configuration into the `knife.rb` file:
 
-    {{< file "~/chef-repo/.chef/knife.rb" >}}
+    ```file {title="~/chef-repo/.chef/knife.rb"}
 log_level                :info
 log_location             STDOUT
 node_name                'username'
@@ -212,7 +212,7 @@ chef_server_url          'https://123.45.67.89/organizations/shortname'
 syntax_check_cache_path  '~/chef-repo/.chef/syntax_check_cache'
 cookbook_path [ '~/chef-repo/cookbooks' ]
 
-{{< /file >}}
+```
 
 
 3.  Change the following:
@@ -269,7 +269,7 @@ This section is optional, but provides instructions on downloading a cookbook to
 
 2.	Open the `default.rb` file to examine the default cookbook recipe:
 
-    {{< file "~/chef-repo/cookbooks/cron-delvalidate/recipies/default.rb" >}}
+    ```file {title="~/chef-repo/cookbooks/cron-delvalidate/recipies/default.rb"}
 #
 # Cookbook Name:: cron-delvalidate
 # Recipe:: Chef-Client Cron & Delete Validation.pem
@@ -288,7 +288,7 @@ file "/etc/chef/validation.pem" do
 end
 
 
-{{< /file >}}
+```
 
 
     The resource `cron "clientrun" do` defines the cron action. It is set to run the chef-client action (`/usr/bin/chef-client`) every hour (`*/1` with the `*/` defining that it's every hour and not 1AM daily). The `action` code denotes that Chef is *creating* a new cronjob.

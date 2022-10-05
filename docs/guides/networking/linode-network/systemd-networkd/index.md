@@ -39,7 +39,7 @@ Here are details regarding the network configuration files for systemd-networkd,
 
 Here is an example of a typical configuration file for systemd-networkd. It statically defines the IPv4 address and allows SLAAC to configure the IPv6 address.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 [Match]
 Name=eth0
 
@@ -51,7 +51,7 @@ IPv6PrivacyExtensions=false
 
 Gateway=192.0.2.1
 Address=192.0.2.123/24
-{{</ file >}}
+```
 
 - [**Name**](https://www.freedesktop.org/software/systemd/man/systemd.network.html#Name=): `eth0`, the default interface configured for the public internet on most Compute Instances. When using a VLAN, the public internet interface may be configured differently.
 
@@ -93,24 +93,24 @@ Address=192.0.2.123/24
 
 To change the IPv4 address configured on the system, set the `Gateway` and `Address` parameters to match the new IP address and its corresponding gateway IP address.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 Gateway=192.0.2.1
 Address=192.0.2.123/24
-{{</ file >}}
+```
 
 ## Configuring the Primary IPv4 Address through DHCP
 
 DHCP can be used to automatically configure your primary IPv4 address. The primary IPv4 address is defined as the IPv4 address assigned to your system that is in the first position when sorted numerically. To enable DHCP, set the `DHCP` parameter to `yes` and remove (or comment out) the lines that define the `Gateway` and `Address` of the primary IPv4 address.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 [Network]
 DHCP=yes
 ...
 # Gateway=192.0.2.1
 # Address=192.0.2.123/24
-{{</ file >}}
+```
 
 {{< caution >}}
 When using DHCP, the IPv4 address configured on your system may change if you add or remove IPv4 addresses on your Compute Instance. If this happens, any tool or system using the original IPv4 address will no longer be able to connect.
@@ -120,13 +120,13 @@ When using DHCP, the IPv4 address configured on your system may change if you ad
 
 SLAAC is used to automatically configure your primary IPv6 address. For this to work, your system must accept router advertisements. You also may need to disable IPv6 privacy extensions. Within systemd-networkd, this means setting `IPv6PrivacyExtensions` to `false` and `IPv6AcceptRA` to `true`.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 [Network]
 ...
 IPv6PrivacyExtensions=false
 IPv6AcceptRA=true
-{{</ file >}}
+```
 
 {{< note >}}
 The `IPv6AcceptRA` parameter isn't strictly required as long as running the `net.ipv6.conf.eth0.autoconf` kernel variable is set to `1` (not a `0`). You can determine the setting by running the following command.
@@ -136,20 +136,20 @@ The `IPv6AcceptRA` parameter isn't strictly required as long as running the `net
 
 If you wish to disable IPv6 SLAAC addressing and instead statically configure your IPv6 address (not recommended), you can explicitly set the `IPv6AcceptRA` parameter to `false` and then add your primary IPv6 address (using the prefix of `/128`).
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 IPv6AcceptRA=false
 Address=[ip-address]/128
-{{</ file >}}
+```
 
 ## Configuring Additional IP Addresses
 
 Additional IP addresses can be configured by adding another `Address` parameter within the `[Network]` section of the configuration file.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 Address=[ip-address]/[prefix]
-{{</ file >}}
+```
 
 In the example above, make the following replacements:
 
@@ -164,9 +164,9 @@ In the example above, make the following replacements:
 
 DNS resolvers are the entities that resolve domain names to their corresponding IPv4 address. By default, the Compute Instance should be using the DNS resolvers for the data center in which it resides. You can change these by setting the `DNS` parameter to a space delimited list of the IP addresses for your preferred DNS resolvers.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 DNS=203.0.113.1 203.0.113.2 203.0.113.3
-{{</ file >}}
+```
 
 In the above example, replace the IP addresses provided with the IP addresses of the DNS resolvers you wish to use. Both IPv4 and IPv6 addresses can be used together.

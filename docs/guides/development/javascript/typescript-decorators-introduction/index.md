@@ -25,7 +25,7 @@ Decorators are available in several object-oriented and functional programming l
 
 In TypeScript, decorators are declared using an at sign (`@`) before the decorator name and have a matching function that implements the behavior. The file below contains an example of a class decorator (`@classDecorator`) applied to the class `Person`.
 
-{{< file "class_decorator_example.ts" typescript>}}
+```file {title="class_decorator_example.ts"}
 const classDecorator = (target: Function) => {
   this.title = t;
 }
@@ -34,7 +34,7 @@ const classDecorator = (target: Function) => {
 class Person {
   title: string;
 }
-{{</ file >}}
+```
 
 ## How Do I Enable Decorators in TypeScript?
 
@@ -46,20 +46,20 @@ To enable the decorators feature from the command line, use the following comman
 
 Decorators can be enabled by setting `experimentalDecorators` option to `true` in your `tsconfig.json` file as follows:
 
-{{< file "tsconfig.json" >}}
+```file {title="tsconfig.json"}
 {
   "compilerOptions": {
     "target": "ES5",
     "experimentalDecorators": true
   }
 }
-{{</ file >}}
+```
 
 ## Where Can I Use Decorators in TypeScript?
 
 Decorators can be attached to a class declaration, method, accessor, property, or parameter. The example of a [Class Decorator](https://www.typescriptlang.org/docs/handbook/decorators.html#class-decorators) given in the TypeScript documentation is shown below:
 
-{{< file "class_decorator_example.ts" typescript>}}
+```file {title="class_decorator_example.ts"}
 @sealed
 class BugReport {
   type = "report";
@@ -73,7 +73,7 @@ function sealed(constructor: Function) {
   Object.seal(constructor);
   Object.seal(constructor.prototype);
 }
-{{</ file >}}
+```
 
 JavaScript's [`Object.seal()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/seal) method changes the `configurable` property descriptor the object's parameter to `false`. That means you can’t delete any members of the object or extend the object with new members. The `Object.seal()` method doesn't affect the writability of the object; for that, you can instead use `Object.freeze()`.
 

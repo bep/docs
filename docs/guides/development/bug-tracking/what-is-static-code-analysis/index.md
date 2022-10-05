@@ -39,11 +39,11 @@ Currently, there are [dozens of static code analysis tools](https://en.wikipedia
 
 Once you have [installed ESLint](https://eslint.org/docs/user-guide/getting-started#installation-and-usage) and initialized it in your JavaScript projects root directory, your `.eslintrc.{js,yml,json}` configuration file contains the configuration line in the example file. This setting enables ESLint to check for an [extensive list of common syntax or logic errors](https://eslint.org/docs/rules/) found in JavaScript code:
 
-{{< file ".eslintrc.json">}}
+```file {title=".eslintrc.json"}
 {
     "extends": "eslint:recommended"
 }
-{{</ file >}}
+```
 
 One of the rules that is automatically enabled by the above configuration is the `for-direction` rule. This logic rule ensures the counter controlling a `for` loop is incrementing in the "right direction". For example, a `for` loop with a stop condition that can never be reached, runs infinitely. While there are occasions when an infinite loop is intended, the convention is to construct such loops as a `while` loop. More typically, an infinite `for` loop is a considered a bug.
 

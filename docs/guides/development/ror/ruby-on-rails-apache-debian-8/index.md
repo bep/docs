@@ -104,10 +104,10 @@ If your Apache virtual hosts file(s) mimics the ones create in the [Apache Web S
 
 1.  Open the file in a text editor, and edit the `DocumentRoot` to reflect the public directory of your application:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 DocumentRoot /var/www/html/example.com/application/public
 
-{{< /file >}}
+```
 
 
 2.  Restart Apache to ensure all settings have been loaded:
@@ -121,13 +121,13 @@ There are a number of strategies for deploying more than one Rails application u
 
 1.  Add `RailsBaseURI` directives that specify the path to your Rails application within the VirtualHost configuration as in the following example:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 DocumentRoot /var/www/html/example.com/public_html/
 RailsBaseURI /app1
 RailsBaseURI /app2
 RailsBaseURI /app3
 
-{{< /file >}}
+```
 
 
     These directives configure Passenger to run three Rails apps on the `example.com` site at the three locations specified.

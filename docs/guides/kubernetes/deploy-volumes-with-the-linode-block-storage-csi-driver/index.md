@@ -60,7 +60,7 @@ If you remove the resources afterward, you will only be billed for the hour(s) t
 
 A *Persistent Volume Claim* (PVC) consumes a Block Storage Volume. To create a PVC, create a manifest file with the following YAML:
 
-{{< file "pvc.yaml" yaml >}}
+```file {title="pvc.yaml"}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -72,7 +72,7 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: linode-block-storage-retain
-{{</ file >}}
+```
 
 {{< note >}}
 In order to retain your Block Storage Volume and its data, even after the associated PVC is deleted, you must use the `linode-block-storage-retain` StorageClass. If, instead, you prefer to have your Block Storage Volume and its data deleted along with its PVC, use the `linode-block-storage` StorageClass. See the [Delete a Persistent Volume Claim](#delete-a-persistent-volume-claim) for steps on deleting a PVC.
@@ -107,7 +107,7 @@ To create a Pod that will use the PVC:
 
 1.  Create a manifest file for the Pod and give it the following YAML:
 
-    {{< file "owncloud-pod.yaml" yaml >}}
+    ```file {title="owncloud-pod.yaml"}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -127,7 +127,7 @@ spec:
     - name: pvc-example
       persistentVolumeClaim:
         claimName: pvc-example
-{{</ file >}}
+```
 
     This Pod will run the `owncloud/server` Docker container image. Because ownCloud stores its files in the `/mnt/data/files` directory, this `owncloud-pod.yaml` manifest instructs the ownCloud container to create a mount point at that file path for your PVC.
 
@@ -160,7 +160,7 @@ To complete the example, you should be able to access the ownCloud Pod via your 
 
 1.  Create a Service manifest file and copy in the following YAML:
 
-    {{< file "owncloud-service.yaml" yaml >}}
+    ```file {title="owncloud-service.yaml"}
 kind: Service
 apiVersion: v1
 metadata:
@@ -173,7 +173,7 @@ spec:
     port: 80
     targetPort: 8080
   type: NodePort
-{{</ file >}}
+```
 
     {{< note >}}
 The service manifest file will use the `NodePort` method to get external traffic to the ownCloud service. NodePort opens a specific port on all cluster nodes and any traffic that is sent to this port is forwarded to the service. Kubernetes will choose the port to open on the nodes if you do not provide one in your service manifest file. It is recommended to let Kubernetes handle the assignment. Kubernetes will choose a port in the default range, `30000-32768`.

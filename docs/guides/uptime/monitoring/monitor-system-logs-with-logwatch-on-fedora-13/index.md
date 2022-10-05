@@ -45,11 +45,11 @@ Issue the following command to install Logwatch:
 
 Once you have installed Logwatch, you will need to configure it to email you the reports it generates. You are encouraged to look through the entire configuration, but you may safely use Logwatch after editing the lines below.
 
-{{< file "/usr/share/logwatch/default.conf/logwatch.conf" ini >}}
+```file {title="/usr/share/logwatch/default.conf/logwatch.conf"}
 MailTo = myemail@mydomain.com
 MailFrom = logwatch@mydomain.com
 
-{{< /file >}}
+```
 
 
 The `MailTo` and `MailFrom` directives should be valid email addresses.

@@ -64,7 +64,7 @@ Here, we'll make sure ClamAV stays updated with the latest virus definitions.
 
         crontab -e
 
-{{< file "crontab" >}}
+```file {title="crontab"}
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -89,7 +89,7 @@ Here, we'll make sure ClamAV stays updated with the latest virus definitions.
 # m h  dom mon dow   command
   0 1 * * * /usr/bin/freshclam --quiet
 
-{{< /file >}}
+```
 
 
 ### SpamAssassin
@@ -98,7 +98,7 @@ Here, we'll set various options and settings for SpamAssassin.
 
 1.  Before you can start SpamAssassin for the first time, you need to edit the `/etc/default/spamassassin` file by changing the value of the `ENABLED` variable to **1**. Here, you can also edit the `CRON` variable to make sure that SpamAssassin updates its rules regularly:
 
-    {{< file "/etc/default/spamassassin" >}}
+    ```file {title="/etc/default/spamassassin"}
 ...
 
 # Change to one to enable spamd
@@ -111,7 +111,7 @@ ENABLED=1
 # spamassassin's rules on a nightly basis
 CRON=1
 
-{{< /file >}}
+```
 
 
 2.  Make a copy of the default configuration file:
@@ -120,12 +120,12 @@ CRON=1
 
 3.  SpamAssassin scores incoming messages and assigns a score based on its spam characteristics. A score of 0 is considered safe, while a score of 10 or higher is usually spam. You need to adjust its configuration file to determine what score threshold will be allowed through the filter. We're going to use 8, but this can be adjusted later. Locate and uncomment the line `# required_score 5.0` by removing the **\#** symbol, and adjust the value to 8:
 
-    {{< file "/etc/spamassassin/local.cf" >}}
+    ```file {title="/etc/spamassassin/local.cf"}
 #   Set the threshold at which a message is considered spam (default: 5.0)
 #
 required_score 8
 
-{{< /file >}}
+```
 
 
 4.  Once finished, save and exit the file. If you're using Nano the command is Control + x.
@@ -137,7 +137,7 @@ required_score 8
 
 1.  On Debian-based systems like Ubuntu, Amavis splits its configuration among several files. Enable spam and antivirus filtering by opening the `/etc/amavis/conf.d/15-content_filter_mode` file and removing the comment symbols (**\#**) from the two bypass blocks, as shown below:
 
-    {{< file "/etc/amavis/conf.d/15-content\\_filter\\_mode" perl >}}
+    ```file {title="/etc/amavis/conf.d/15-content\\_filter\\_mode"}
 use strict;
 
 # You can modify this file to re-enable SPAM checking through spamassassin
@@ -166,7 +166,7 @@ use strict;
 
 1;  # ensure a defined return
 
-{{< /file >}}
+```
 
 
 
@@ -181,26 +181,26 @@ Be sure to remove all four **\#** symbols, as shown above.
 
 4.  Open the Postfix main configuration file. If you followed our Email with Postfix Dovecot and MySQL guide, you should already have a backup. Add the following line to the bottom of the file:
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 # Additional option for filtering
 content_filter = smtp-amavis:[127.0.0.1]:10024
 
-{{< /file >}}
+```
 
 
 5.  The next configuration file to edit is `/etc/postfix/master.cf`. On a new line below the `pickup` directive, add the following options:
 
-    {{< file "/etc/postfix/master.cf" >}}
+    ```file {title="/etc/postfix/master.cf"}
 pickup    fifo  n       -       -       60      1       pickup
          -o content_filter=
          -o receive_override_options=no_header_body_checks
 
-{{< /file >}}
+```
 
 
 6.  Add the following lines to the bottom of the file, and be sure to include the indents on lines beginning with `-o`:
 
-    {{< file "/etc/postfix/master.cf" >}}
+    ```file {title="/etc/postfix/master.cf"}
 # Options for the filter
 smtp-amavis     unix    -       -       -       -       2       smtp
         -o smtp_data_done_timeout=1200
@@ -229,7 +229,7 @@ smtp-amavis     unix    -       -       -       -       2       smtp
         -o smtpd_client_connection_rate_limit=0
         -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
 
-{{< /file >}}
+```
 
 
 7.  Load the new configuration into Postfix:
@@ -264,7 +264,7 @@ You can search for the relevant logfiles with `cat /var/log/mail.log | grep SPAM
 
 Depending on the amount of users and activity on your mail server, you may wish to receive notifications when ClamAV identifies and removes an incoming virus, or SpamAssassin filters an email as spam. If you want to receive emails, open the file `/etc/amavis/conf.d/21-ubuntu_defaults`. Add the desired email address to the **\$virus\_admin** and **\$spam\_admin** parameters, as shown below.
 
-{{< file "/etc/amavis/conf.d/21-ubuntu\\_defaults" >}}
+```file {title="/etc/amavis/conf.d/21-ubuntu\\_defaults"}
 use strict;
 
 #
@@ -285,7 +285,7 @@ $spam_admin = 'admin@example.com';
 #------------ Do not modify anything below this line -------------
 1;  # insure a defined return
 
-{{< /file >}}
+```
 
 
 After changing this file, you will need to restart Amavis:

@@ -124,7 +124,7 @@ The steps in this section show you how to set up NGINX as the reverse proxy serv
 
 1. Create a `/etc/nginx/proxy.conf` file, and add the contents of the example file:
 
-    {{< file "/etc/nginx/proxy.conf" >}}
+    ```file {title="/etc/nginx/proxy.conf"}
 proxy_redirect          off;
 proxy_set_header        Host $host;
 proxy_set_header        X-Real-IP $remote_addr;
@@ -136,11 +136,11 @@ proxy_connect_timeout   90;
 proxy_send_timeout      90;
 proxy_read_timeout      90;
 proxy_buffers           32 4k;
-    {{< /file >}}
+    ```
 
 1. Open the NGINX configuration file — `/etc/nginx/nginx.conf` — and replace its contents with the following:
 
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
@@ -178,7 +178,7 @@ http {
         }
     }
 }
-    {{< /file >}}
+    ```
 
 1. Open access to the HTTPS port (`443`) on your server's firewall.
 
@@ -220,7 +220,7 @@ The steps below show you how to use [Certbot](https://certbot.eff.org) to reques
 
 1. Add the SSL certificate and its key to your NGINX configuration, via the `ssl_certificate` and `ssl_certificate_key` properties as shown below:
 
-    {{< file "/etc/nginx/nginx.conf" >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 # [...]
 
     server {
@@ -234,7 +234,7 @@ The steps below show you how to use [Certbot](https://certbot.eff.org) to reques
         add_header X-Content-Type-Options nosniff;
 
 # [...]
-    {{< /file >}}
+    ```
 
 1. Verify the NGINX configuration. Then, assuming the test passes, restart NGINX.
 
@@ -251,7 +251,7 @@ The steps below ensure that your .NET Core application works properly with the N
 
 1. Open the `Startup.cs` file, and add the *Forwarded Headers* middleware. Ensure that the `app.UseForwarededHeaders` method is invoked before any other middleware.
 
-    {{< file "~/example-app/Startup.cs" >}}
+    ```file {title="~/example-app/Startup.cs"}
 // [...]
 
 using Microsoft.AspNetCore.HttpOverrides;
@@ -271,7 +271,7 @@ using Microsoft.AspNetCore.HttpOverrides;
         }
 
 // [...]
-    {{< /file >}}
+    ```
 
 1. Publish your application.
 
@@ -285,7 +285,7 @@ using Microsoft.AspNetCore.HttpOverrides;
 
 1. Create a service file for `systemd` to run the application.
 
-    {{< file "/etc/systemd/system/example-app.service" >}}
+    ```file {title="/etc/systemd/system/example-app.service"}
 [Unit]
 Description=Example .NET Core Web Application
 
@@ -302,7 +302,7 @@ Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
 
 [Install]
 WantedBy=multi-user.target
-    {{< /file >}}
+    ```
 
 ### Run the Application
 

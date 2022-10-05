@@ -35,7 +35,7 @@ We assume you've followed the steps outlined in our [Setting Up and Securing a C
 
 First, make sure you have the `universe` repositories enabled on your system. Your `/etc/apt/sources.list` should resemble the following (you may have to uncomment or add the `universe` lines):
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
  \#\# main & restricted repositories deb <http://us.archive.ubuntu.com/ubuntu/> jaunty main restricted deb-src <http://us.archive.ubuntu.com/ubuntu/> jaunty main restricted
 
  deb <http://security.ubuntu.com/ubuntu> jaunty-security main restricted deb-src <http://security.ubuntu.com/ubuntu> jaunty-security main restricted
@@ -43,7 +43,7 @@ First, make sure you have the `universe` repositories enabled on your system. Yo
  \#\# universe repositories deb <http://us.archive.ubuntu.com/ubuntu/> jaunty universe deb-src <http://us.archive.ubuntu.com/ubuntu/> jaunty universe deb <http://us.archive.ubuntu.com/ubuntu/> jaunty-updates universe deb-src <http://us.archive.ubuntu.com/ubuntu/> jaunty-updates universe
 
  deb <http://security.ubuntu.com/ubuntu> jaunty-security universe deb-src <http://security.ubuntu.com/ubuntu> jaunty-security universe
-{{< /file >}}
+```
 
 If you had to enable new repositories, issue the following command to update your package lists:
 

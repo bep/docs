@@ -81,9 +81,9 @@ If you don't want UFW allowing SSH on port 22 for both IPv4 and IPv6, you can de
 
 7. Add the new hostname to `/etc/hosts`. The second line in the file should look like this:
 
-    {{< file "/etc/hosts"  conf >}}
+    ```file {title="/etc/hosts"}
 127.0.1.1    members.linode.com     seafile
-{{< /file >}}
+```
 
 
 8.  On first boot, your Linode's timezone will be set to UTC. Changing this is optional, but if you wish, use:
@@ -122,7 +122,7 @@ If you don't already have an SSL/TLS certificate, you can create one. This certi
 
 2.  Create the site configuration file. The only line you need to change below is `server_name`. For more HTTPS configuration options, see our guide on [TLS Best Practices with NGINX](/docs/guides/getting-started-with-nginx-part-4-tls-deployment-best-practices/).
 
-    {{< file "/etc/nginx/sites-available/seafile.conf" nginx >}}
+    ```file {title="/etc/nginx/sites-available/seafile.conf"}
 server{
     listen 80;
     server_name example.com;
@@ -184,7 +184,7 @@ server{
     }
     }
 
-{{< /file >}}
+```
 
 
 3.  Disable the default site configuration and enable the one you just created:
@@ -242,7 +242,7 @@ The `seafile.sh` and `seahub.sh` scripts don't automatically run if your Linode 
 
 1.  Create the systemd unit files:
 
-    {{< file "/etc/systemd/system/seafile.service" >}}
+    ```file {title="/etc/systemd/system/seafile.service"}
 [Unit]
 Description=Seafile Server
 After=network.target mysql.service
@@ -258,11 +258,11 @@ Group=sfadmin
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 
-    {{< file "/etc/systemd/system/seahub.service" >}}
+    ```file {title="/etc/systemd/system/seahub.service"}
 [Unit]
 Description=Seafile Hub
 After=network.target seafile.service
@@ -278,7 +278,7 @@ Group=sfadmin
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 2.  Then enable the services:

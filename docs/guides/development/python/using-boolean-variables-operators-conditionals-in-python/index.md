@@ -408,7 +408,7 @@ A more complicated series of conditional statements are shown in the `py_temp.py
 
 The following example demonstrates how the program works using a list of `[50, 70, 90]`. The first value satisfies the `elif` conditional, while the final value passes the `if` conditional. The second value is `False` for both tests, so control passes to the `else` clause.
 
-{{< file "py_temp.py" python >}}
+```file {title="py_temp.py"}
 humidities = [50, 70, 90]
 
 for humidity in humidities:
@@ -418,7 +418,7 @@ for humidity in humidities:
         print(humidity, ": This humidity is too low")
     else:
         print(humidity, ": This humidity is just right")
-{{< /file >}}
+```
 
 {{< output >}}
 50 : This humidity is too low

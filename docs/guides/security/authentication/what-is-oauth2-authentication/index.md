@@ -130,38 +130,38 @@ Successfully installed rauth-0.7.3
 
 1. Inside the python file, import `OAuth2Service` from the `rauth` package.
 
-    {{< file "oauth2.py" python >}}
+    ```file {title="oauth2.py"}
 from rauth import OAuth2Service
-    {{< /file >}}
+    ```
 
 1. Instantiate an `OAuth2Service` container object for use throughout the authorization process. Use the `client_id` and `client_secret` that were assigned to the application when it was registered. The other values are unique to the service being accessed. Verify all URLs using the service documentation.
 
-    {{< file "oauth2.py" >}}
+    ```file {title="oauth2.py"}
 service = OAuth2Service(params)
-    {{< /file >}}
+    ```
 
 1. Use this object to access the redirect URL for the service. When the client finishes authorizing access to the service, this link contains an authorization code. Consult the [service documentation](https://rauth.readthedocs.io/en/latest/api/#oauth-2-0-services) for details about how the code is embedded in the `url` variable.
 
-    {{< file "oauth2.py" python >}}
+    ```file {title="oauth2.py"}
 url = service.get_authorize_url(**params)
-    {{< /file >}}
+    ```
 
 1. Extract the authorization code from the `url` and use it to request an access token for the user account. Submit the authorization code as part of the `data` object.
 
-    {{< file "oauth2.py" python >}}
+    ```file {title="oauth2.py"}
 token = service.get_auth_session(data=data)
-    {{< /file >}}
+    ```
 
 1. The session can now be used to access account information.
 
-    {{< file "oauth2.py" python >}}
+    ```file {title="oauth2.py"}
 r = token.get(params)
 "do something with r"
-    {{< /file >}}
+    ```
 
 1. An actual implementation of this scenario, using methods and parameters from the `rauth` library, would be similar to the following prototype. Substitute the appropriate URLs for the service being accessed in place of the `example.com` URLs.
 
-    {{< file "oauth2.py" python >}}
+    ```file {title="oauth2.py"}
 from rauth import OAuth2Service
 
 # Initialize the container
@@ -195,7 +195,7 @@ token = service.get_auth_session(data=data)
 # Use the token as required
 
 r = token.get('url', params={'format': 'json'})
-    {{< /file >}}
+    ```
 
 ## OAuth2 Comparisons
 

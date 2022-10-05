@@ -101,7 +101,7 @@ Wazuh is an open source branch of the original [OSSEC HIDS](https://ossec.github
 
 1. Create the `wazuh.repo` repository file and paste the text below:
 
-    {{< file "/etc/yum.repos.d/wazuh.repo" >}}
+    ```file {title="/etc/yum.repos.d/wazuh.repo"}
 [wazuh_repo]
 gpgcheck=1
 gpgkey=https://packages.wazuh.com/key/GPG-KEY-WAZUH
@@ -109,7 +109,7 @@ enabled=1
 name=CentOS-$releasever - Wazuh
 baseurl=https://packages.wazuh.com/3.x/yum/
 protect=1
-{{< /file >}}
+```
 
 1. Install Wazuh Manager:
 
@@ -215,13 +215,13 @@ Install the Elastic Stack via RPM files to get the latest versions of all the so
 
 1.  Edit `/etc/logstash/startup.options` to change the `LS_GROUP=logstash` to `LS_GROUP=ossec`:
 
-    {{< file "/etc/logstash/startup.options" >}}
+    ```file {title="/etc/logstash/startup.options"}
 . . .
 # user and group id to be invoked as
 LS_USER=logstash
 LS_GROUP=logstash
 . . .
-{{< /file >}}
+```
 
 1. Update the service with the new parameters:
 
@@ -255,12 +255,12 @@ LS_GROUP=logstash
 
 1. By default Kibana only listens on the loopback interface. To configure it to listen on all interfaces, update the `/etc/kibana/kibana.yml` file and uncomment `server.host` and the following value:
 
-    {{< file "/etc/kibana/kibana.yml">}}
+    ```file {title="/etc/kibana/kibana.yml"}
 # Specifies the address to which the Kibana server will bind. IP addresses and host names are both valid values.
 # The default is 'localhost', which usually means remote machines will not be able to connect.
 # To allow connections from remote users, set this parameter to a non-loopback address.
 server.host: "0.0.0.0"
-    {{</ file >}}
+    ```
 
     Reference the table below for information on other configurations available in the `/etc/kibana/kibana.yml` file:
 
@@ -282,14 +282,14 @@ The Elastic Stack will require some tuning before it can be accessed via the Waz
 
 1. Enable memory locking in Elasticsearch to mitigate poor performance. Uncomment the `bootstrap.memory_lock: true` line in the `/etc/elasticsearch/elasticsearch.yml` file:
 
-    {{< file "/etc/elasticsearch/elasticsearch.yml">}}
+    ```file {title="/etc/elasticsearch/elasticsearch.yml"}
 # ----------------------------------- Memory -----------------------------------
 #
 # Lock the memory on startup:
 #
 bootstrap.memory_lock: true
 #
-    {{</ file >}}
+    ```
 
 1. Edit locked memory allocation. Follow the instructions under the appropriate init system used on your Linode:
 
@@ -297,21 +297,21 @@ bootstrap.memory_lock: true
 
     Edit the systemd init file and add the following line:
 
-    {{< file "/etc/systemd/system/multi-user.target.wants/elasticsearch.service" >}}
+    ```file {title="/etc/systemd/system/multi-user.target.wants/elasticsearch.service"}
 . . .
 LimitMEMLOCK=infinity
 . . .
-{{< /file >}}
+```
 
     **System V**
 
     Edit the `/etc/sysconfig/elasticsearch` file. Add or change the following line:
 
-    {{< file "/etc/sysconfig/elasticsearch" >}}
+    ```file {title="/etc/sysconfig/elasticsearch"}
 . . .
 MAX_LOCKED_MEMORY=unlimited
 . . .
-{{< /file >}}
+```
 
 1. Configure the Elasticsearch heap size based on your Linode's resources. This figure will determine how much memory Elasticsearch is allowed to consume. Keep the following rules in mind:
 
@@ -321,7 +321,7 @@ MAX_LOCKED_MEMORY=unlimited
 
     Open the `jvm.options` file and navigate to the block shown here:
 
-    {{< file "/etc/elasticsearch/jvm.options" >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 . . .
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
@@ -329,7 +329,7 @@ MAX_LOCKED_MEMORY=unlimited
 -Xms4g
 -Xmx4g
 . . .
-{{< /file >}}
+```
 
     This configures Elasticsearch with 4GB of allotted RAM. You may also use the `M` letter to specify megabytes, `Xms4096M` in this example. View your current RAM consumption with the `htop` command. If you do not have htop installed, install it with your distribution's package manager. Allocate as much RAM as you can, up to 50% of the max, while leaving enough available for other daemon and system processes.
 
@@ -352,7 +352,7 @@ If you have SSL encryption enabled on your domain, follow the instructions in th
 
     **HTTP**
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen 80;
     # Remove the line below if you do not have IPv6 enabled.
@@ -371,11 +371,11 @@ server {
     auth_basic "Restricted Access";
     auth_basic_user_file /etc/nginx/htpasswd.users;
 }
-{{< /file >}}
+```
 
     **HTTPS**
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
   listen 80;
   # Remove the line below if you do note have IPv6 enabled.
@@ -414,7 +414,7 @@ server {
   auth_basic "Restricted Access";
   auth_basic_user_file /etc/nginx/.htpasswd;
 }
-{{< /file >}}
+```
 
 1. Install `httpd-tools` if it is not already installed on your Linode:
 
@@ -443,20 +443,20 @@ server {
 
 1. Enable the necessary mods in Apache. Open `00-proxy.conf` and verify that the lines below are included:
 
-    {{< file "/etc/httpd/conf.modules.d/00-proxy.conf" >}}
+    ```file {title="/etc/httpd/conf.modules.d/00-proxy.conf"}
 . . .
 LoadModule proxy_module modules/mod_proxy.so
 LoadModule lbmethod_byrequests_module modules/mod_lbmethod_byrequests.so
 LoadModule proxy_balancer_module modules/mod_proxy_balancer.so
 LoadModule proxy_http_module modules/mod_proxy_http.so
 . . .
-{{< /file >}}
+```
 
 1. Create a new virtual config file for the Kibana site. Add the contents below to this file. If you do not have a domain name available, replace the `server_name` parameter value with your Linode's public IP address. Replace `kibana.exampleIPorDomain` and `http://exampleIPorDomain` with your specific values:
 
     **HTTP**
 
-    {{< file "/etc/httpd/sites-available/example.com.conf" >}}
+    ```file {title="/etc/httpd/sites-available/example.com.conf"}
 <VirtualHost *:80>
   ServerName kibana.exampleIPorDomain
   ProxyPreserveHost On
@@ -471,11 +471,11 @@ LoadModule proxy_http_module modules/mod_proxy_http.so
       Require valid-user
   </Directory>
 </VirtualHost>
-{{< /file >}}
+```
 
     **HTTPS**
 
-    {{< file "/etc/httpd/sites-available/example.com.conf" >}}
+    ```file {title="/etc/httpd/sites-available/example.com.conf"}
 <VirtualHost *:80>
   ServerName kibana.exampleIPorDomain
   ProxyPreserveHost On
@@ -513,7 +513,7 @@ LoadModule proxy_http_module modules/mod_proxy_http.so
       Require valid-user
   </Directory>
 </VirtualHost>
-{{< /file >}}
+```
 
 1. Secure your Kibana site with a login page. Create a **.htpasswd** file first if you do not have one:
 

@@ -132,7 +132,7 @@ To install PostHog, follow these steps.
 
 1. Add the following information to the file and save it. Replace `example.com` with the actual domain name.
 
-    {{< file "values.yaml" yaml >}}
+    ```file {title="values.yaml"}
 cloud: linode
 ingress:
   hostname: example.com
@@ -143,7 +143,7 @@ cert-manager:
 kafka:
   persistence:
     size: 20Gi
-    {{< /file >}}
+    ```
 
 1. Add the PostHog repository to Helm.
 
@@ -272,7 +272,7 @@ To disable and re-enable HTTPS, follow the steps below:
 
 1. Back up the `values.yaml` file to `backup_values.yaml`. Edit the `values.yaml` file and revise the configuration to allow HTTP access as illustrated below. Save the file when all changes are complete.
 
-    {{< file "values.yaml" yaml >}}
+    ```file {title="values.yaml"}
 cloud: linode
 ingress:
   hostname: example.com
@@ -285,7 +285,7 @@ web:
 kafka:
   persistence:
     size: 20Gi
-    {{< /file >}}
+    ```
 
 1. Upgrade the PostHog installation using the `helm upgrade` command.
 

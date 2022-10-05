@@ -149,22 +149,22 @@ Below is an example of how to do that, and you can view all available mime types
 
 In cases where NGINX is serving multiple websites, some using SSl/TLS and some not, an example would look like below. The `gzip` directive is added to the HTTP site's `server` block, which ensures it remains disabled for the HTTPS site.
 
-{{< file "/etc/nginx/conf.d/example1.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example1.com.conf"}
 server {
     listen         80;
     server_name    example1.com;
     gzip           on;
     gzip_types text/html text/css image/jpg image/jpeg image/png image/svg;
 }
-{{< /file >}}
+```
 
-{{< file "/etc/nginx/conf.d/example2.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example2.com.conf"}
 server {
     listen         443 ssl;
     server_name    example2.com;
     gzip           off;
 }
-{{< /file >}}
+```
 
 There are various other options available to NGINX's gzip module. See the [NGINX docs](https://nginx.org/en/docs/http/ngx_http_gzip_module.html) for more information, and if you prefer to compile your NGINX build, you can include the [*ngx_http_gzip_static_module*](https://nginx.org/en/docs/http/ngx_http_gzip_static_module.html) which further suits static content compression.
 
@@ -179,7 +179,7 @@ To summarize where we are so far:
     * The root directory is located at `/var/www/example.com/`
     * The configuration file is located at `/etc/nginx/conf.d/example.com.conf`
 
-        {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+        ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -191,13 +191,13 @@ server {
     gzip_comp_level  3;
     gzip_types       text/plain text/css application/javascript image/*;
 }
-{{< /file >}}
+```
 
 * Changes we want NGINX to apply universally are in the `http` block of `/etc/nginx/nginx.conf`. Our additions are at the bottom of the block so we know what was added compared to what's provided by default.
 
     `nginx.conf` now looks like the following example. Note that `nginx.conf` does not contain any `server` blocks:
 
-    {{< file "/etc/nginx/nginx.conf" nginx >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 user  nginx;
 worker_processes  auto;
 
@@ -231,7 +231,7 @@ http {
 
     server_tokens       off;
 }
-{{< /file >}}
+```
 
 ## Part 2: (Slightly More) Advanced Configurations
 

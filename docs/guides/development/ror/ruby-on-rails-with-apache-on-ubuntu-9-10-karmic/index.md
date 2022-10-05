@@ -34,7 +34,7 @@ Ruby on Rails is a popular rapid development web framework that allows web desig
 
 Before updating your system and installing the required software, edit the `/etc/apt/sources.list` file to enable the Ubuntu's "universe" repository, so that it resembles the following:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -55,7 +55,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 deb http://security.ubuntu.com/ubuntu karmic-security universe
 deb-src http://security.ubuntu.com/ubuntu karmic-security universe
 
-{{< /file >}}
+```
 
 
 Issue the following command to reload your system's package repositories and ensure that all installed programs are up to date:

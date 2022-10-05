@@ -121,14 +121,14 @@ The backup process above can be automated. You must create an SHH Pair Key, a Ba
 
         nano drupal-backup.sh
 
-    {{< file "~/drupal-backup.sh" >}}
+    ```file {title="~/drupal-backup.sh"}
 #!/bin/bash
 # Drupal Backup Script
 cd /var/www/example.com/public_html/drupal/
 drush archive-dump
 rsync -avz /home/local-user/drush-backups/archive-dump/ remote-user@remote-ip-address:/home/user/
 
-{{< /file >}}
+```
 
 
 3.  Make the script file executable:
@@ -139,7 +139,7 @@ rsync -avz /home/local-user/drush-backups/archive-dump/ remote-user@remote-ip-ad
 
         crontab -e
 
-    {{< file "/tmp/crontab.A6VByT/crontab" >}}
+    ```file {title="/tmp/crontab.A6VByT/crontab"}
 # For example, you can run a backup of all your user accounts
 # at 5 a.m every week with:
 # 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
@@ -149,7 +149,7 @@ rsync -avz /home/local-user/drush-backups/archive-dump/ remote-user@remote-ip-ad
 # m h  dom mon dow   command
      1 0   *   *   1    ~/drupal-backup.sh
 
-{{< /file >}}
+```
 
 
     This back up configuration creates a saved version once a week. The Cron timer is set for 12:01 a.m. every Sunday. There are many ways to configure a back up with additional options to consider. Check our [Cron](/docs/tools-reference/tools/schedule-tasks-with-cron) guide for more information.

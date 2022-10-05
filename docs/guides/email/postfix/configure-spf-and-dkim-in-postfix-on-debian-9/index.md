@@ -113,31 +113,31 @@ The Python SPF policy agent adds SPF policy-checking to Postfix. The SPF record 
 
 2.  Edit `/etc/postfix/master.cf` and add the following entry at the end:
 
-    {{< file "/etc/postfix/master.cf" resource >}}
+    ```file {title="/etc/postfix/master.cf"}
 policyd-spf  unix  -       n       n       -       0       spawn
     user=policyd-spf argv=/usr/bin/policyd-spf
 
-{{< /file >}}
+```
 
 
 3.  Open `/etc/postfix/main.cf` and add this entry to increase the Postfix policy agent timeout, which prevents Postfix from aborting the agent if transactions run a bit slowly:
 
-    {{< file "/etc/postfix/main.cf" aconf >}}
+    ```file {title="/etc/postfix/main.cf"}
 policyd-spf_time_limit = 3600
 
-{{< /file >}}
+```
 
 
 4.  Edit the `smtpd_recipient_restrictions` entry to add a `check_policy_service` entry:
 
-    {{< file "/etc/postfix/main.cf" aconf >}}
+    ```file {title="/etc/postfix/main.cf"}
 smtpd_recipient_restrictions =
     ...
     reject_unauth_destination,
     check_policy_service unix:private/policyd-spf,
     ...
 
-{{< /file >}}
+```
 
 
 Make sure to add the `check_policy_service` entry **after** the `reject_unauth_destination` entry to avoid your system from being an open relay. If `reject_unauth_destination` is the last item in your restrictions list, add the comma after it and omit the comma at the end of the `check_policy_service` item above.
@@ -167,7 +167,7 @@ DKIM involves setting up the OpenDKIM package, hooking it into Postfix, and addi
 
 1.  The main OpenDKIM configuration file `/etc/opendkim.conf` needs to look like this:
 
-    {{< file "/etc/opendkim.conf" aconf >}}
+    ```file {title="/etc/opendkim.conf"}
 # This is a basic configuration that can easily be adapted to suit a standard
 # installation. For more advanced options, see opendkim.conf(5) and/or
 # /usr/share/doc/opendkim/examples/opendkim.conf.sample.
@@ -211,7 +211,7 @@ OversignHeaders     From
 Socket              local:/var/spool/postfix/opendkim/opendkim.sock
 PidFile             /var/run/opendkim/opendkim.pid
 
-{{< /file >}}
+```
 
 
   Edit `/etc/opendkim.conf` and replace it's contents with the above.
@@ -229,20 +229,20 @@ PidFile             /var/run/opendkim/opendkim.pid
 
 4.  Create the signing table `/etc/opendkim/signing.table`. It needs to have one line per domain that you handle email for. Each line should look similar to:
 
-    {{< file "/etc/opendkim/signing.table" >}}
+    ```file {title="/etc/opendkim/signing.table"}
 *@example.com   example
 
-{{< /file >}}
+```
 
 
    Replace `example.com` with your domain and `example` with a short name for the domain. The first field is a pattern that matches e-mail addresses. The second field is a name for the key table entry that is used to sign mail from that address. For simplicity's sake, set up one key for all addresses in a domain.
 
 5.  Create the key table `/etc/opendkim/key.table`. It needs to have one line per short domain name in the signing table. Each line should look like this:
 
-    {{< file "/etc/opendkim/key.table" resource >}}
+    ```file {title="/etc/opendkim/key.table"}
 example     example.com:YYYYMM:/etc/opendkim/keys/example.private
 
-{{< /file >}}
+```
 
 
    Replace `example` with the `example` value you used for the domain in the signing table. Make sure to catch the second occurrence at the end, where it's followed by `.private`. Replace `example.com` with your domain name and replace the `YYYYMM` with the current 4-digit year and 2-digit month. This is referred to as the selector. The first field connects the signing and key tables.
@@ -259,7 +259,7 @@ The flow for DKIM lookup starts with the sender's address. The signing table is 
 
 6.  Create the trusted hosts file `/etc/opendkim/trusted.hosts`. Its contents need to be:
 
-    {{< file "/etc/opendkim/trusted.hosts" resource >}}
+    ```file {title="/etc/opendkim/trusted.hosts"}
 127.0.0.1
 ::1
 localhost
@@ -267,7 +267,7 @@ myhostname
 myhostname.example.com
 example.com
 
-{{< /file >}}
+```
 
 
    When creating the file, change `myhostname` to the name of your server and replace `example.com` with your domain name. Identify the hosts that users are submitting mail through and have outgoing mail signed. These basic configurations are located in your mail server.
@@ -307,20 +307,20 @@ example.com
 
 As with SPF, DKIM uses TXT records to hold information about the signing key for each domain. Using YYYYMM as above, you need to make a TXT record for the host `YYYYMM._domainkey` for each domain you handle mail for. Its value can be found in the `example.txt` file for the domain. Those files look like this:
 
-{{< file "example.txt" resource >}}
+```file {title="example.txt"}
 201510._domainkey  IN  TXT ( "**v=DKIM1; h=rsa-sha256; k=rsa; s=email; "
     "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu5oIUrFDWZK7F4thFxpZa2or6jBEX3cSL6b2TJdPkO5iNn9vHNXhNX31nOefN8FksX94YbLJ8NHcFPbaZTW8R2HthYxRaCyqodxlLHibg8aHdfa+bxKeiI/xABRuAM0WG0JEDSyakMFqIO40ghj/h7DUc/4OXNdeQhrKDTlgf2bd+FjpJ3bNAFcMYa3Oeju33b2Tp+PdtqIwXR"
     "ZksfuXh7m30kuyavp3Uaso145DRBaJZA55lNxmHWMgMjO+YjNeuR6j4oQqyGwzPaVcSdOG8Js2mXt+J3Hr+nNmJGxZUUW4Uw5ws08wT9opRgSpn+ThX2d1AgQePpGrWOamC3PdcwIDAQAB**" )  ; ----- DKIM key 201510 for example.com
 
-{{< /file >}}
+```
 
 
 The value inside the parentheses is what you need. Select and copy the entire region from and do not include the double-quote before `v=DKIM1`. Also do not include the final double-quote before the closing parentheses. Then edit out the double-quotes within the copied text and the whitespace between them. Also change `h=rsa-sha256` to `h=sha256`. From the above file the result would be:
 
-{{< file "example-copied.txt" resource >}}
+```file {title="example-copied.txt"}
 v=DKIM1; h=sha256; k=rsa; s=email; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu5oIUrFDWZK7F4thFxpZa2or6jBEX3cSL6b2TJdPkO5iNn9vHNXhNX31nOefN8FksX94YbLJ8NHcFPbaZTW8R2HthYxRaCyqodxlLHibg8aHdfa+bxKeiI/xABRuAM0WG0JEDSyakMFqIO40ghj/h7DUc/4OXNdeQhrKDTlgf2bd+FjpJ3bNAFcMYa3Oeju33b2Tp+PdtqIwXRZksfuXh7m30kuyavp3Uaso145DRBaJZA55lNxmHWMgMjO+YjNeuR6j4oQqyGwzPaVcSdOG8Js2mXt+J3Hr+nNmJGxZUUW4Uw5ws08wT9opRgSpn+ThX2d1AgQePpGrWOamC3PdcwIDAQAB
 
-{{< /file >}}
+```
 
 
 Paste that as the value for the TXT record.
@@ -442,7 +442,7 @@ From the above email it is clear that:
 
 2.  Set the correct socket for Postfix in the OpenDKIM defaults file `/etc/default/opendkim`:
 
-    {{< file "/etc/default/opendkim" >}}
+    ```file {title="/etc/default/opendkim"}
 # Command-line options specified here overrides the contents of
 # /etc/opendkim.conf. See opendkim(8) for a complete list of options.
 #DAEMON_OPTS=""
@@ -454,7 +454,7 @@ SOCKET="local:/var/spool/postfix/opendkim/opendkim.sock"
 #SOCKET="inet:12345@localhost" # listen on loopback on port 12345
 #SOCKET="inet:12345@192.0.2.1" # listen on 192.0.2.1 on port 12345
 
-{{< /file >}}
+```
 
 
 
@@ -462,7 +462,7 @@ SOCKET="local:/var/spool/postfix/opendkim/opendkim.sock"
 
 3.  Edit `/etc/postfix/main.cf` and add a section to activate processing of e-mail through the OpenDKIM daemon:
 
-    {{< file "/etc/postfix/main.cf" aconf >}}
+    ```file {title="/etc/postfix/main.cf"}
 # Milter configuration
 # OpenDKIM
 milter_default_action = accept
@@ -471,7 +471,7 @@ milter_protocol = 6
 smtpd_milters = local:opendkim/opendkim.sock
 non_smtpd_milters = local:opendkim/opendkim.sock
 
-{{< /file >}}
+```
 
 
     You can put this anywhere in the file. The usual practice is to put it after the `smtpd_recipient_restrictions` entry. You'll notice the path to the socket isn't the same here as it was in the `/etc/defaults/opendkim` file. That's because of Postfix's chroot jail, the path here is the path within that restricted view of the filesystem instead of within the actual filesystem.

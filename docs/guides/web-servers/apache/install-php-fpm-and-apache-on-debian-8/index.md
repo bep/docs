@@ -46,7 +46,7 @@ This guide is written for a non-root user. Commands that require elevated privil
 
 1.  Due to the PHP-FPM's licensing, it's not available in Debian's main repository. Open the `sources.list` file and add `contrib` and `non-free` to each source line:
 
-    {{< file "/etc/apt/sources.list" >}}
+    ```file {title="/etc/apt/sources.list"}
 deb http://mirrors.linode.com/debian/ jessie main contrib non-free
 deb-src http://mirrors.linode.com/debian/ jessie main contrib non-free
 
@@ -57,7 +57,7 @@ deb-src http://security.debian.org/ jessie/updates main non-free
 deb http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
 deb-src http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
 
-{{< /file >}}
+```
 
 
 2.  Update `apt-get`, and install Apache, the mod-fastcgi module, and PHP-FPM:
@@ -83,7 +83,7 @@ deb-src http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
 
 3.  Replace the contents of `fastcgi.conf` with the following:
 
-    {{< file "/etc/apache2/mods-enabled/fastcgi.conf" >}}
+    ```file {title="/etc/apache2/mods-enabled/fastcgi.conf"}
 <IfModule mod_fastcgi.c>
     AddType application/x-httpd-fastphp5 .php
     Action application/x-httpd-fastphp5 /php5-fcgi
@@ -94,7 +94,7 @@ deb-src http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
     </Directory>
 </IfModule>
 
-{{< /file >}}
+```
 
 
 4.  Confirm that you've properly copied the correct configuration:
@@ -109,10 +109,10 @@ deb-src http://mirrors.linode.com/debian/ jessie-updates main contrib non-free
 
 6.  To confirm that PHP is working, create an `info.php` file in one of your web directories:
 
-    {{< file "/var/www/example.com/public_html/info.php" php >}}
+    ```file {title="/var/www/example.com/public_html/info.php"}
 <?php phpinfo(); ?>
 
-{{< /file >}}
+```
 
 
     Navigate to `http://example.com/info.php` and look for the **Server API** line:
@@ -132,7 +132,7 @@ This is particularly useful when running multiple client sites because you can g
 
 2.  For each pool, adjust the pool name, user and group, and socket name:
 
-    {{< file "/etc/php5/fpm/pool.d/site1.conf" pool >}}
+    ```file {title="/etc/php5/fpm/pool.d/site1.conf"}
 ; Start a new pool named 'www'.
 ; the variable $pool can we used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -162,7 +162,7 @@ group = site1
 ; Note: This value is mandatory.
 listen = /var/run/php5-fpm-site1.com.sock
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -192,7 +192,7 @@ In the file excerpt above, three sequential dots - `...`  - denote that there is
 
 4.  Add the `<IfModule mod_fastcgi.c>` block to each virtual host block:
 
-    {{< file "/etc/apache2/sites-available/site1.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/site1.com.conf"}
 <VirtualHost *:80>
 
 ...
@@ -206,7 +206,7 @@ In the file excerpt above, three sequential dots - `...`  - denote that there is
 
 ...
 
-{{< /file >}}
+```
 
 
 5.  Test the new configuration with `sudo apache2ctl configtest`. If there are no errors, reload Apache:

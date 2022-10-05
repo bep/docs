@@ -43,7 +43,7 @@ The `~/.bashrc` file is the main configuration file for the Bash shell. When Bas
 
 With your preferred text editor, open the configuration file. Enter one alias per line. While you can add your aliases anywhere in this file, grouping them together makes them easier to reference and adjust.
 
-{{< file "~/.bashrc" >}}
+```file {title="~/.bashrc"}
 ...
 
 #aliases
@@ -51,7 +51,7 @@ alias update="sudo apt update && sudo apt upgrade"
 alias top="htop"
 
 ...
-{{</ file >}}
+```
 
 Any newly added aliases are available for use in your next terminal session; they are not immediately available for any current sessions.
 
@@ -67,7 +67,7 @@ Setting aliases in `~/.bash_profile` is the same as setting them in `~/.bashrc`.
 
 If you want all the commands in `~/.bashrc` to also be run at login, you can add the following lines to your `~/.bash_profile` file to ensure the `~/.bashrc` file is also run at startup.
 
-{{< file "~/.bash_profile" >}}
+```file {title="~/.bash_profile"}
 ...
 
 if [ -f ~/.bashrc ]; then
@@ -75,7 +75,7 @@ if [ -f ~/.bashrc ]; then
 fi
 
 ...
-{{</ file >}}
+```
 
 ### ~/.profile
 
@@ -87,7 +87,7 @@ If you find yourself using different shells or ever desire to change shells, put
 
 If you have a lot of aliases, you may consider creating a separate file just for aliases called `~/.bash_aliases`. This is not a standard configuration file and it is not run by default. To run it you need to reference it from another Bash configuration file like `~/.bashrc`.
 
-{{< file "~/.bashrc" >}}
+```file {title="~/.bashrc"}
 ...
 
 if [ -f ~/.bash_aliases ]; then
@@ -95,7 +95,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 ...
-{{</ file >}}
+```
 
 This `if` statement checks for a `~/.bash_aliases` file and runs its contents if the file is present.
 
@@ -131,7 +131,7 @@ To use the function with arguments, the syntax is function_name followed by argu
 
 Let's make a simple function that changes into a specified directory and then lists the directory contents.
 
-{{< file "~/.bashrc" >}}
+```file {title="~/.bashrc"}
 ...
 
 function cdl {
@@ -139,7 +139,7 @@ function cdl {
 }
 
 ...
-{{</ file >}}
+```
 
   - The `$1` references the first argument. If you have a function that takes more than one, you use `$1`, `$2`, `$3`, etc. referencing arguments as they appear after the function name when you call the function from the command line.
   - The `&&` ensures that the `ls` command only runs if the `cd` command was successful. Feel free to use the `ls` options you prefer here.

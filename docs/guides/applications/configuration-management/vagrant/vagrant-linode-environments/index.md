@@ -71,19 +71,19 @@ If using a Mac, it may request to install development tools. Select yes, then re
 
 1.  Open the Vagrantfile in your text editor of choice. In Ruby, define what version of Vagrant you are using. The `2` defines that it is Vagrant 1.1.0 leading up to Vagrant 2.0. `1` is any version of Vagrant below that:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
     All code will take place between the `Vagrant.configure` and `end` lines.
 
 2.  When creating a *guest machine* -- the sever that will be created -- Vagrant will create a username, password, and private key to access the machine. The default username and password is `vagrant`. Define your own parameters for the `username`, and set the pathway to your own private key. If you have not generated a private and public key, you can do so by following the [Securing Your Server](/docs/security/securing-your-server#create-an-authentication-key-pair) guide:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
   ## SSH Configuration
@@ -92,14 +92,14 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
     If you choose to do so, you can also define your own password with the `config.ssh.password` setting.
 
 3.  Define the Linode provider:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
   ...
@@ -113,14 +113,14 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
     Lines 6 defines the provider, and lines 7 and 8 define the *box*. Boxes are packages that include the basic requirements for a Vagrant environment to function. The supplied box is the `linode` box, created as part of the plugin. Replace the `API-KEY` with the key generated [above](#prerequisites).
 
 4.  Choose your Linode's settings:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
   ...
@@ -140,7 +140,7 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
     In this instance, a 2GB Ubuntu 14.04 LTS Linode is being created in the Newark data center. The `provider.label` is the name that the Linode will show up as in the Linode Manager.
@@ -156,7 +156,7 @@ Although the server can now be created successfully, many aspects of it still ne
 
 1.  Create a shell script called `setup.sh` to configure the Linode's hostname, set the proper timezone, and update the server. Replace `vagranttest` with your chosen hostname, and `EST` with your timezone.
 
-    {{< file "~/vagrant-linode/setup.sh" shell >}}
+    ```file {title="~/vagrant-linode/setup.sh"}
 #!/bin/bash
 echo "vagranttest" > /etc/hostname
 hostname -F /etc/hostname
@@ -165,7 +165,7 @@ echo "$ip   $ip hostname" >> /etc/hosts
 ln -sf /usr/share/zoneinfo/EST /etc/localtime
 apt-get update && apt-get upgrade -y
 
-{{< /file >}}
+```
 
 
     * Lines 2 and 3 define the hostname.
@@ -178,7 +178,7 @@ apt-get update && apt-get upgrade -y
 
 2.  Within the Vagrantfile, call to the shell script you just created by adding the `config.vm.provision` method:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
 ...
@@ -188,14 +188,14 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
 ### Install Apache and Sync Files
 
 1.  Create an installation script for Apache called `apache.sh`, and add the following:
 
-    {{< file "~/vagrant-linode/apache.sh" shell >}}
+    ```file {title="~/vagrant-linode/apache.sh"}
 #!/bin/bash
 apt-get install apache2 -y
 mv /etc/apache2/ports.conf /etc/apache2/ports.conf.backup
@@ -204,7 +204,7 @@ a2dissite 000-default.conf
 a2ensite vhost.conf
 service apache2 reload
 
-{{< /file >}}
+```
 
 
     * Line 2 installs Apache.
@@ -215,7 +215,7 @@ service apache2 reload
 
 2.  Add the shell script provisioner method to your Vagrantfile, under the line that references `setup.sh`:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
 ...
@@ -226,7 +226,7 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
 3.  Create a new directory for Apache configuration files:
@@ -235,7 +235,7 @@ end
 
 4.  Because Vagrant is often used for development environments, we want to host Apache on a port other than 80. Create `ports1.conf`, as referenced in the shell script above. The port will be set to **6789**:
 
-    {{< file "~/vagrant-linode/apache2/ports1.conf" aconf >}}
+    ```file {title="~/vagrant-linode/apache2/ports1.conf"}
 Listen 6789
 
 <IfModule ssl_module>
@@ -246,14 +246,14 @@ Listen 6789
         Listen 443
 </IfModule>
 
-{{< /file >}}
+```
 
 
 5.  Create a new directory under `apache2` called `sites-available`. Add a VirtualHosts file, `vhost.conf`, to this new directory:
 
         mkdir sites-available
 
-    {{< file "~/vagrant-linode/apache2/sites-available/vhost.conf" aconf >}}
+    ```file {title="~/vagrant-linode/apache2/sites-available/vhost.conf"}
 <VirtualHost *:6789>
         ServerAdmin webmaster@localhost
         DocumentRoot /var/www/html
@@ -261,12 +261,12 @@ Listen 6789
         CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 6.  Return to the Vagrantfile, and use the `config.vm.synced_folder` method to sync the local directories with directories on the server:
 
-    {{< file "~/vagrant-linode/Vagrantfile" ruby >}}
+    ```file {title="~/vagrant-linode/Vagrantfile"}
 Vagrant.configure('2') do |config|
 
   ...
@@ -278,7 +278,7 @@ Vagrant.configure('2') do |config|
 
 end
 
-{{< /file >}}
+```
 
 
     * Line 5 disables syncing for the root folders.

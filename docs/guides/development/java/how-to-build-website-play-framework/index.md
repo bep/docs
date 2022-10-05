@@ -142,17 +142,17 @@ The `example-play-app` directory in the example above can have the same name as 
 
 1. Open the configuration file for your application's routes (`conf/routes`), and add the following lines beneath the `GET /` line:
 
-    {{< file "conf/routes" >}}
+    ```file {title="conf/routes"}
 GET     /home                       controllers.HomeController.home()
 
 GET     /about                      controllers.AboutController.about()
-    {{< /file >}}
+    ```
 
     These lines add two new routes, one for the *Home* page and one for the *About* page.
 
 1. Open the `app/controllers/HomeController.scala` file, and replace its contents with the following:
 
-    {{< file "app/controllers/HomeController.scala" >}}
+    ```file {title="app/controllers/HomeController.scala"}
 package controllers
 
 import javax.inject._
@@ -169,7 +169,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
     Ok(views.html.index())
   }
 }
-    {{< /file >}}
+    ```
 
     Controllers like this, and the one created in the next step, handle the initial logic of your application. Any requests to your application tend to get routed into these controllers. Controllers then either render page templates, perform basic logic, or call other components to handle more complicated or reusable logic. This helps to keep your application modular and easily manageable.
 
@@ -177,7 +177,7 @@ class HomeController @Inject()(val controllerComponents: ControllerComponents) e
 
 1. Create an `app/controllers/AboutController.java`, and give it the following contents:
 
-    {{< file "app/controllers/AboutController.java" >}}
+    ```file {title="app/controllers/AboutController.java"}
 package controllers;
 
 import play.mvc.*;
@@ -187,7 +187,7 @@ public class AboutController extends Controller {
         return ok(views.html.about.render());
     }
 }
-    {{< /file >}}
+    ```
 
     You could as easily have implemented this controller in Scala. However, implementing the controller in Java demonstrates how easily Play lets you work with both languages in the same project.
 
@@ -195,27 +195,27 @@ public class AboutController extends Controller {
 
 1. Customize your page templates. Open the `app/views/index.scala.html` template, and give it the contents below. Then, create the `app/views/about.scala.html` template, and give it the contents shown for it a little further below.
 
-    {{< file "app/views/index.scala.html" >}}
+    ```file {title="app/views/index.scala.html"}
 @()
 
 @main("Home") {
   <h1>Home</h1>
   <p>This is the homepage for a web application built with the Play framework.</p>
 }
-    {{< /file >}}
+    ```
 
-    {{< file "app/views/about.scala.html" >}}
+    ```file {title="app/views/about.scala.html"}
 @()
 
 @main("About") {
   <h1>About</h1>
   <p>This is an example web application built with the Play framework.</p>
 }
-    {{< /file >}}
+    ```
 
 1. Both of the above templates frame their contents in the `main` template. Open up the `app/views/main.scala.html` template, and give it the contents below:
 
-    {{< file "app/views/main.scala.html" >}}
+    ```file {title="app/views/main.scala.html"}
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
@@ -236,7 +236,7 @@ public class AboutController extends Controller {
       <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
     </body>
 </html>
-    {{< /file >}}
+    ```
 
 1. Run the application using the steps given in the [Check Out the Example Applications](#play-framework-example-applications) section.
 

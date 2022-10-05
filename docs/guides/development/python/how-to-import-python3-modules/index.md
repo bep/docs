@@ -167,12 +167,12 @@ To see what functions are available in a module, use the `dir` function and encl
 
 The same approach is used to import and use a module inside a file. Here is a sample file containing the same functionality:
 
-{{< file "factorial.py" python >}}
+```file {title="factorial.py"}
 import math
 
 n = math.factorial(9)
 print(n)
-{{< /file >}}
+```
 
 There are a few additional issues to keep in mind when importing and using modules.
 

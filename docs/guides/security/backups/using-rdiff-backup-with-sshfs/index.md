@@ -69,9 +69,9 @@ Your backup server will be pulling data from remote devices by SSHFS, so SSH mus
 
     You'll need to specify the remote device's login information so change the value for *user@remotehost* appropriately. Change *remote_path* to the top-level directory on the remote device you want to create a back up of.
 
-    {{< file "/etc/fstab" >}}
+    ```file {title="/etc/fstab"}
 <sshfs#user@remotehost>:/remote_path /home/rdbadmin/device_hostname fuse user,noauto,ro 0 0
-{{< /file >}}
+```
 
 2.  Run a test backup, changing the values where appropriate to match the earlier steps. First witch to the rdbadmin user if you have not already, and mount the remote device's directory to back up. If you don't have any data there yet, create three empty files just so something can move between the servers. Then run the backup.
 
@@ -87,13 +87,13 @@ Your backup server will be pulling data from remote devices by SSHFS, so SSH mus
 
 1.  Create a shell script to mount the remote directory, run rdiff-backup, and unmount the remote directory when finished. Adjust the values for directories to meet your own needs.
 
-    {{< file "/home/rdbadmin/backup.sh" >}}
+    ```file {title="/home/rdbadmin/backup.sh"}
 #!/bin/sh
 mount /home/rdbadmin/mounts/device_hostname
 rdiff-backup /home/rdbadmin/mounts/device_hostname /home/rdbadmin/backups/device_hostname
 umount /home/rdbadmin/mounts/device_hostname
 
-{{< /file >}}
+```
 
 2.  Make the script executable:
 

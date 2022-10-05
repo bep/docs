@@ -144,7 +144,7 @@ By default, Solr listens for search requests on all IP addresses at port 8983. F
 
 2.  Locate the section where listening host and port are set:
 
-    {{< file "/opt/solr-4.10.4/example/etc/jetty.xml" >}}
+    ```file {title="/opt/solr-4.10.4/example/etc/jetty.xml"}
 <!--
     <Call name="addConnector">
       <Arg>
@@ -162,7 +162,7 @@ By default, Solr listens for search requests on all IP addresses at port 8983. F
     </Call>
 -->
 
-{{< /file >}}
+```
 
 
 3.  Set the appropriate listening IP address:
@@ -217,7 +217,7 @@ Run the following commands on the server where **Solr** is installed.
 If using a different version of Solr, change the `JETTY_HOME=/opt/solr-4.10.4/example` line to match the installed version.
 {{< /note >}}
 
-    {{< file "/etc/init.d/solr" >}}
+    ```file {title="/etc/init.d/solr"}
 #!/bin/sh -e
 #
 # /etc/init.d/solr -- startup script for Apache Solr
@@ -395,7 +395,7 @@ esac
 
 exit 0
 
-{{< /file >}}
+```
 
 
 3.  After saving the script, run the following commands:

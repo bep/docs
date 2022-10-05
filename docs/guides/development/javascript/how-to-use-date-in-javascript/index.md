@@ -34,7 +34,7 @@ This section demonstrates the default behavior of the `Date` object by using it 
 
 Create a file named `date-test.html` on your computer with the following content:
 
-{{< file "date-test.html" html>}}
+```file {title="date-test.html"}
 <html>
   <body>
 
@@ -49,7 +49,7 @@ Create a file named `date-test.html` on your computer with the following content
 
   </body>
 </html>
-{{< /file >}}
+```
 
 Open the file in a browser to see the results. You should see similar results to the example below (date, time, and GMT offset will vary):
 
@@ -59,7 +59,7 @@ Open the file in a browser to see the results. You should see similar results to
 
 The Date object provides several Get methods that you can use to retrieve different data from your Date instance. For example, your website might only need to display the current year (in a copyright statement on a webpage, for example). In that case, you can use the `getFullYear()` method. Modify your `year-test.html` example to add the new method as shown below:
 
-{{< file "year-test.html" html>}}
+```file {title="year-test.html"}
 <html>
   <body>
 
@@ -74,7 +74,7 @@ The Date object provides several Get methods that you can use to retrieve differ
 
   </body>
 </html>
-{{< /file >}}
+```
 
 Reload your browser page and you should see a similar result to the example below:
 ![An example of getting full year in JavaScript](js-demo-get-full-year.png)
@@ -85,7 +85,7 @@ You can experiment and change the `getFullYear()` method to `getMonth()` or `get
 
 The Date object provides several Set methods that you can use to update an instance of the Date object. Perhaps you need to set a deadline of some sort, or you need to reference a year in the future. You can use the `setFullYear()` method to achieve this. Modify your `year-test.html` example to add the new method as shown below:
 
-{{< file "set-year-test.html" html>}}
+```file {title="set-year-test.html"}
 <html>
   <body>
 
@@ -101,7 +101,7 @@ The Date object provides several Set methods that you can use to update an insta
 
   </body>
 </html>
-{{< /file >}}
+```
 
 When you reload your browser, notice that the results display the year 2022:
 ![An example of setting the year as 2022 in JavaScript](js-demo-set-year.png)
@@ -112,7 +112,7 @@ Similar to the Get methods in the previous section, you can experiment with othe
 
 Now that you are familiar with Get and Set methods, you can use them to compare dates using JavaScript. Referring to the [year 2038 problem](https://en.wikipedia.org/wiki/Year_2038_problem) mentioned in the beginning of the guide, you may want to use the Date object to notify you if it's January 19, 2038. Modify your `year-test.html` example to add the JavaScript code to compare Dates:
 
-{{< file "compare-date-test.html" html >}}
+```file {title="compare-date-test.html"}
 <html>
   <body>
 
@@ -138,7 +138,7 @@ Now that you are familiar with Get and Set methods, you can use them to compare 
 
   </body>
 </html>
-{{< /file >}}
+```
 
 The results will look like this (they may vary, or be completely inoperative on a 32-bit system, if it is after January 19, 2038):
 ![An example of comparing dates using JavaScript](js-demo-compare-dates.png)

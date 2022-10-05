@@ -61,10 +61,10 @@ You will be asked for several configuration values. Enter values appropriate for
 
 SSL name-based virtual hosts are still not supported in `/etc/apache2/ports.conf`, we'll need to add an entry for a specific IP address on your Linode as follows. You may use a single IP to provide self-signed SSL service for multiple vhosts.
 
-{{< file "/etc/apache2/ports.conf" apache >}}
+```file {title="/etc/apache2/ports.conf"}
 NameVirtualHost 12.34.56.78:443
 
-{{< /file >}}
+```
 
 
 Replace "12.34.56.78" with your Linode's IP address. Next, edit the virtual host configuration files for sites which you would like to enable SSL on. For each virtual host, you must add the following stanza (change the values as appropriate for each site). Note that we've essentially reproduced the configuration for a non-SSL site, with the addition of three lines for SSL.
@@ -159,10 +159,10 @@ For example, if we downloaded a root cert for Verisign, we would save it to `/et
 
 Next, we'll add an entry to `/etc/apache2/ports.conf` for the IP address you'll be using to host your SSL-enabled site.
 
-{{< file "/etc/apache2/ports.conf" apache >}}
+```file {title="/etc/apache2/ports.conf"}
 NameVirtualHost 12.34.56.78:443
 
-{{< /file >}}
+```
 
 
 Replace "12.34.56.78" with the IP address of your SSL-enabled site. Next, edit the virtual host configuration file for the site you would like to enable SSL on (www.mydomain.com in our example). Add the following stanza; note that we've essentially reproduced the configuration for the non-SSL version of the site, with the addition of four lines for SSL. This example uses the CA certificate file for a certificate signed by Verisign.

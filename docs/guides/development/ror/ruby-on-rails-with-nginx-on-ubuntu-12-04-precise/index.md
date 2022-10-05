@@ -67,10 +67,10 @@ This guide is written for a non-root user. Commands that require elevated privil
 
 3.  With `sudo`, or as the root user, create the file `/etc/apt/sources.list.d/passenger.list` containing Phusion's repository info:
 
-    {{< file "/etc/apt/sources.list.d/passenger.list" sourceslist >}}
+    ```file {title="/etc/apt/sources.list.d/passenger.list"}
 deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main
 
-{{< /file >}}
+```
 
 
 4.  Update your local package database and install Phusion Passenger:
@@ -91,11 +91,11 @@ deb https://oss-binaries.phusionpassenger.com/apt/passenger precise main
 
 1.  Nginx is now installed on your system, but you need to enable support for Phusion Passenger. Edit the file `/etc/nginx/nginx.conf` and uncomment these lines:
 
-    {{< file "/etc/nginx/nginx.conf" aconf >}}
+    ```file {title="/etc/nginx/nginx.conf"}
 passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
 passenger_ruby /usr/bin/ruby;
 
-{{< /file >}}
+```
 
 
 2.  Restart Nginx:

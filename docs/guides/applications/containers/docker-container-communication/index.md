@@ -82,7 +82,7 @@ The example app used throughout this guide will be a simple Node.js app that wil
 
 10. Since you will be connecting to this database from a container (which will have an IP address other than `locahost`), you will need to edit the PostgreSQL config file to allow connections from remote addresses. Open `/etc/postgresql/9.5/main/postgresql.conf` in a text editor. Uncomment the `listen_addresses` line and set it to '*':
 
-    {{< file "/etc/postgresql/9.5/main/postgresql.conf" >}}
+    ```file {title="/etc/postgresql/9.5/main/postgresql.conf"}
 #------------------------------------------------------------------------------
 # CONNECTIONS AND AUTHENTICATION
 #------------------------------------------------------------------------------
@@ -90,7 +90,7 @@ The example app used throughout this guide will be a simple Node.js app that wil
 # - Connection Settings -
 
 listen_addresses = '*'                  # what IP address(es) to listen on;
-{{< /file >}}
+```
 
 11. Enable and start the `postgresql` service:
 
@@ -111,7 +111,7 @@ listen_addresses = '*'                  # what IP address(es) to listen on;
 
 3.  Using a text editor, create `app.js` and add the following content:
 
-    {{< file "app.js" >}}
+    ```file {title="app.js"}
 const { Client } = require('pg')
 
 const client = new Client({
@@ -128,7 +128,7 @@ client.query('SELECT * FROM hello', (err, res) => {
   console.log(res.rows[0].message)
   client.end()
 })
-{{< /file >}}
+```
 
     This app uses the `pg` NPM module (node-postgres) to connect to the database created in the previous section. It then queries the 'hello' table (which returns the "Hello world" message) and logs the response to the console. Replace `'newpassword'` with the `postgres` database user password you set in the previous section.
 
@@ -158,7 +158,7 @@ This section illustrates a use case where the Node.js app is run from a Docker c
 
 2. Create a Dockerfile to run the Node.js app:
 
-    {{< file "Dockerfile" >}}
+    ```file {title="Dockerfile"}
 FROM debian
 
 RUN apt update -y && apt install -y gnupg curl
@@ -166,11 +166,11 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt install -y nod
 COPY app/ /home/
 
 ENTRYPOINT tail -F /dev/null
-{{< /file >}}
+```
 
 3. The image built from this Dockerfile will copy the `app/` directory to the new image. Edit `app.js` to allow the app to connect to the `database` host instead of `localhost`:
 
-    {{< file "app/app.js" >}}
+    ```file {title="app/app.js"}
 const client = new Client({
   user: 'postgres',
   host: 'database',
@@ -178,7 +178,7 @@ const client = new Client({
   password: 'newpassword',
   port: 5432
 })
-{{< /file >}}
+```
 
 4.  Build an image from the Dockerfile:
 
@@ -206,9 +206,9 @@ docker0   Link encap:Ethernet  HWaddr 02:42:1e:e8:39:54
 
 2.  Allow PostgreSQL to accept connections from the Docker interface. Open `/etc/postgresql/9.5/main/pg_hba.conf` in a text editor and add the following line:
 
-    {{< file "/etc/postgresql/9.5/main/pg_hba.conf" >}}
+    ```file {title="/etc/postgresql/9.5/main/pg_hba.conf"}
 host    all             postgres        172.17.0.0/16           password
-{{< /file >}}
+```
 
     Since 172.17.0.1 is the IP of the Docker host, all of the containers on the host will have an IP address in the range 172.17.0.0/16.
 
@@ -280,9 +280,9 @@ You should not store production database data inside a Docker container. Contain
 
     There should be a line similar to the following:
 
-      {{< file "/etc/hosts" conf >}}
+      ```file {title="/etc/hosts"}
 172.17.0.2  database  pg_container
-{{< /file >}}
+```
 
     This shows that `pg_container` has been assigned to the IP address 172.17.0.2, and is linked to this container via the hostname `database`, as expected.
 
@@ -305,7 +305,7 @@ For a more comprehensive explanation of Docker Compose and how to write `docker-
 
 2.  In the same directory as your Dockerfile, create a `docker-compose.yml` file with the following content:
 
-    {{< file "docker-compose.yml" >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -331,13 +331,13 @@ services:
 
 volumes:
   pgdata: {}
-{{< /file >}}
+```
 
     When you run Docker Compose with this file, it will create the `pg_container` and `node_container` from the previous section. As before, the database container will use the official PostgreSQL image, while the app container will be built from your Dockerfile. The `links` entry serves the same function as the `--link` option in the `run` command used earlier.
 
 3.  Docker Compose also allows you to set up environment values, so you can simplify the app to use these rather than having the values hard-coded. Edit `app.js` to remove these values:
 
-    {{< file "app.js" >}}
+    ```file {title="app.js"}
 const express = require('express')
 const { Client } = require('pg')
 
@@ -349,7 +349,7 @@ client.query('SELECT * FROM hello', (err, res) => {
   console.log(res.rows[0].message)
   client.end()
 })
-{{< /file >}}
+```
 
 4.  Remove the previous containers:
 

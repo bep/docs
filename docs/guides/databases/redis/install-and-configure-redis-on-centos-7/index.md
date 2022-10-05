@@ -91,11 +91,11 @@ Because the Point-in-time snapshot persistence is enabled by default, you only n
 
 1.  Make sure that the following values are set for the `appendonly` and `appendfsync` settings in `redis.conf`:
 
-    {{< file "/etc/redis.conf" >}}
+    ```file {title="/etc/redis.conf"}
 appendonly yes
 appendfsync everysec
 
-{{< /file >}}
+```
 
 
 2.  Restart Redis:
@@ -111,10 +111,10 @@ To improve Redis performance, set the Linux kernel overcommit memory setting to 
 
 This immediately changes the overcommit memory setting, but the change will not persist across reboots. To make it permanent, add `vm.overcommit_memory = 1` to `/etc/sysctl.conf`:
 
-{{< file "/etc/sysctl.conf" >}}
+```file {title="/etc/sysctl.conf"}
 vm.overcommit_memory = 1
 
-{{< /file >}}
+```
 
 
 ### Additional Swap
@@ -149,10 +149,10 @@ To communicate over the private network, your master and slave Linodes must resi
 
 1.  Configure the master Redis instance to listen on a private IP address by updating the `bind` configuration option in `redis.conf`. Replace `192.0.2.100` with the master Linode's private IP address:
 
-    {{< file "/etc/redis.conf" >}}
+    ```file {title="/etc/redis.conf"}
 bind 127.0.0.1 192.0.2.100
 
-{{< /file >}}
+```
 
 
 2.  Restart Redis to apply the changes:
@@ -163,10 +163,10 @@ bind 127.0.0.1 192.0.2.100
 
 1.  Configure a slave instance by adding the `slaveof` directive into `redis.conf` to setup the replication. Again replace `192.0.2.100` with the master Linode's private IP address:
 
-    {{< file "/etc/redis.conf" >}}
+    ```file {title="/etc/redis.conf"}
 slaveof 192.0.2.100 6379
 
-{{< /file >}}
+```
 
 
     The `slaveof` directive takes two arguments: the first is the IP address of the master node; the second is the Redis port specified in the master's configuration.
@@ -213,10 +213,10 @@ For an added layer of security, use password authentication to secure the connec
 
 1.  On your master Linode, uncomment the `requirepass` line in your Redis configuration and replace `master_password` with a secure password:
 
-    {{< file "/etc/redis.conf" >}}
+    ```file {title="/etc/redis.conf"}
 requirepass master_password
 
-{{< /file >}}
+```
 
 
 2.  Save your changes, and apply them by restarting Redis on the master Linode:
@@ -225,11 +225,11 @@ requirepass master_password
 
 3.  On your slave Linode, add the master password to your Redis configuration under `masterpass`, and then create a unique password for the slave Linode with `requirepass`:
 
-    {{< file "/etc/redis.conf" >}}
+    ```file {title="/etc/redis.conf"}
 masterpass  master_password
 requirepass slave_password
 
-{{< /file >}}
+```
 
 
     Replace `master_password` with the password you configured on your master, and replace `slave_password` with the password to use for your slave Linode.

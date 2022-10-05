@@ -119,18 +119,18 @@ In this section, you will write the code for your Flask application. Since this 
 
 1. In the root of your `stadia-maps` directory create a file named `app.py` and add the following import statements. This will ensure that your app has access to all the necessary Python packages and their methods.
 
-    {{< file "~/stadia-maps/app.py" python >}}
+    ```file {title="~/stadia-maps/app.py"}
 from flask import Flask, request, render_template
 from flask_session import Session
 from geojson import Point
 from flask_pymongo import PyMongo
 from bson.json_util import dumps
 import json
-    {{</ file >}}
+    ```
 
 1. Below your import statements, add the Python code to set up the Flask app and connect to your MongoDB database. The code creates an instance of the `Flask` class, connects to your MongoDB server and `linodeStreetTrees` database running on port `27017`. Finally, an instance of the `PyMongo` class is created, which manages connections from MongoDB to your Flask app.
 
-    {{< file "~/stadia-maps/app.py" python >}}
+    ```file {title="~/stadia-maps/app.py"}
 
 from flask import Flask, request, render_template
 from flask_session import Session
@@ -142,13 +142,13 @@ import json
 app=Flask(__name__)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/linodeStreetTrees"
 mongo = PyMongo(app)
-    {{</ file >}}
+    ```
 
 1. Register your [view function](https://flask.palletsprojects.com/en/1.1.x/tutorial/views/#blueprints-and-views) for your app's index page by adding the example's remaining lines to your `app.py` file. The `route()` decorator signals to Flask which URL should trigger the defined function `def index()`. When a user visits your app's index (i.e. `http://127.0.0.1:5000/`), the code defined in the `index()` function will execute. This code retrieves all the data in your MongoDB `linodeStreetTress` collection and makes the data available to the `base.html` template in the `street_trees_points` template variable. The `base.html` template will be created in the next section.
 
     The final block of code provides a way for Python to handle both script execution and importing. Finally, if the conditional evaluates to `true`, it will execute Flask's `run()` method to run your app.
 
-    {{< file "~/stadia-maps/app.py" python >}}
+    ```file {title="~/stadia-maps/app.py"}
 from flask import Flask, request, render_template
 from flask_session import Session
 from geojson import Point
@@ -170,7 +170,7 @@ if __name__ == '__main__':
     app.debug=True
     app.run()
 
-    {{</ file >}}
+    ```
 
 ### Create your Template File
 
@@ -180,7 +180,7 @@ In this example, the `base.html` template connects to Stadia Maps to retrieve th
 
 1. Create a file named `base.html` in your root project's `templates` directory with the example file content.
 
-      {{< file "~/stadia-maps/templates/base.html" html >}}
+      ```file {title="~/stadia-maps/templates/base.html"}
 <html>
 <head>
     <title>Stadia Maps + Flask + MongoDB Demo</title>
@@ -227,7 +227,7 @@ In this example, the `base.html` template connects to Stadia Maps to retrieve th
     </script>
 </body>
 </html>
-      {{</ file >}}
+      ```
 
       Key portions of the file that you should take note of are the following:
 
@@ -243,7 +243,7 @@ In the previous section, the `base.html` template file calls your app's style sh
 
 1. Create a file named `map.css` in your project's `~/stadia-maps/static/styles` directory and add the example file's content. The marker that will be rendered on your map is provided by Stadia Map.
 
-    {{< file "~/stadia-maps/static/styles/map.css" css >}}
+    ```file {title="~/stadia-maps/static/styles/map.css"}
 body {
   margin: 0;
   padding: 0;
@@ -267,7 +267,7 @@ width: 27px;
 height: 42px;
 cursor: pointer;
 }
-    {{</ file >}}
+    ```
 
 ### Run your Flask App
 

@@ -186,35 +186,35 @@ Your script, service unit file, and timer unit file should all have `644` read a
 
 Below is the script that creates a backup `.sql` file named for a database named `testdb`. The script will append a date and timestamp to the file name:
 
-{{< file "/usr/local/bin/my-db-backup.sh" bash >}}
+```file {title="/usr/local/bin/my-db-backup.sh"}
 #!/bin/sh
 
 stamp=$(date "+%y-%m-%d-%H-%M")
 /usr/bin/mysqldump testdb > ~/backups/my-db-backup-${stamp}.sql
-{{</ file >}}
+```
 
 To bypass being prompted for a MySQL username and password, create a `.my.cnf` file in your home directory with your MySQL credentials.
 
-{{< file "~/.my.cnf">}}
+```file {title="~/.my.cnf"}
 [mysqldump]
 user=mysqluser
 password=mypassword
-{{</ file >}}
+```
 
 The service unit file is located in the `/etc/systemd/system/` directory and contains the following information:
 
-{{< file "/etc/systemd/system/my-db-backup.service">}}
+```file {title="/etc/systemd/system/my-db-backup.service"}
 [Unit]
 Description=A script to backup mysql database named testdb
 
 [Service]
 # The location of the mysql backup script
 ExecStart=/usr/local/bin/my-db-backup.sh
-{{</ file >}}
+```
 
 The timer unit file is located in the same directory as the service unit file with the same name, but with the `.timer` extension instead. The unit file contains the following options:
 
-{{< file "/etc/systemd/system/my-db-backup.timer">}}
+```file {title="/etc/systemd/system/my-db-backup.timer"}
 [Unit]
 Description=Runs my-db-backup.sh every hour
 
@@ -229,7 +229,7 @@ Unit=my-db-backup.service
 [Install]
 # Defines which service triggers the custom service on boot
 WantedBy=multi-user.target
-{{</ file >}}
+```
 
 When creating unit files, you can verify the correctness of the file with the following systemd command:
 

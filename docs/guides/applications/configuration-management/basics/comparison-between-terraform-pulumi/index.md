@@ -48,7 +48,7 @@ To accomplish the actual configuration, Terraform uses *providers*, which can be
 
 Here is an example illustrating how Terraform might work in conjunction with the Linode provider:
 
-{{< file "~/terraform/linode-terraform-web.tf" >}}
+```file {title="~/terraform/linode-terraform-web.tf"}
 provider "linode" {
   token = "YOUR_LINODE_API_TOKEN"
 }
@@ -62,7 +62,7 @@ resource "linode_instance" "terraform-web" {
         authorized_keys = [ "YOUR_PUBLIC_SSH_KEY" ]
         root_pass = "YOUR_ROOT_PASSWORD"
 }
-{{< /file >}}
+```
 
 ### The Terraform Workflow
 
@@ -108,25 +108,25 @@ Pulumi stores the metadata as a *state*, which is used to manage the cloud resou
 
 Here is an example illustrating how to use Pulumi and JavaScript to create a Linode:
 
-{{< file "linode.js" javascript>}}
+```file {title="linode.js"}
 const linode = require("@pulumi/linode")
 const domain = new linode.Domain("my-domain", {
   domain: "foobar.example",
   soaEmail: "example@foobar.example",
   type: "master",
 });
-{{< /file >}}
+```
 
 Here is how a similar program would appear in Python:
 
-{{< file "linode.py" python>}}
+```file {title="linode.py"}
 import pulumi_linode as linode
 domain = linode.Domain("my-domain",
   domain='foobar.example',
   soa_email='example@foobar.example',
   type='master',
 )
-{{< /file >}}
+```
 
 ### Pulumi and Other Products
 

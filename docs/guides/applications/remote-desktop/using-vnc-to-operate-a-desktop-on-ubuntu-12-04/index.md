@@ -127,7 +127,7 @@ In the next few steps we'll configure VNC to launch the full Gnome desktop.
 
 2.  In your preferred text editor, open the xstartup file in your home folder under the `.vnc` directory:
 
-    {{< file "~/.vnc/xstartup" >}}
+    ```file {title="~/.vnc/xstartup"}
 #!/bin/sh
 
 # Uncomment the following two lines for normal desktop:
@@ -141,7 +141,7 @@ vncconfig -iconic &
 x-terminal-emulator -geometry 80x24+10+10 -ls -title "$VNCDESKTOP Desktop" &
 x-window-manager &
 
-{{< /file >}}
+```
 
 
 3.  Edit the last line of the file, replacing it with the following:
@@ -176,7 +176,7 @@ Below we've outlined optional steps to ensure that the VNC server starts automat
 
 2.  Add `@reboot         /usr/bin/vncserver :1` to the bottom of the file. Your crontab should look like this:
 
-    {{< file "crontab" >}}
+    ```file {title="crontab"}
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -203,7 +203,7 @@ Below we've outlined optional steps to ensure that the VNC server starts automat
 
 @reboot /usr/bin/vncserver :1
 
-{{< /file >}}
+```
 
 
 3.  Save and exit the file. Test by rebooting your Linode and attempting to connect to the VNC server.

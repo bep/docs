@@ -101,9 +101,9 @@ To enable MySQL replication, edit some variables in the main MySQL configuration
 
 1. Open the MySQL configuration file and change the `bind-address` to the IP address of the source server.
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.cnf" aconf >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.cnf"}
 bind-address  = <source_ip_address>
-    {{< /file >}}
+    ```
 
 1. Uncomment or add the lines for `server-id` and `log-bin`. Set the `server-id` to `1`, and `log-bin` to `/var/log/mysql/mysql-bin.log`.
 
@@ -111,10 +111,10 @@ bind-address  = <source_ip_address>
 Ensure the `skip_networking` variable is not declared anywhere. Comment it out if it appears inside this file. To replicate a single database, add the line `binlog_do_db = <database_name>` to the file.
     {{< /note>}}
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.cnf" aconf >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.cnf"}
 server-id  = 1
 log_bin  = /var/log/mysql/mysql-bin.log
-    {{< /file >}}
+    ```
 
 1. Restart the MySQL service.
 
@@ -205,9 +205,9 @@ The following configuration should be applied to the replica database configurat
 
 1. Open the main MySQL file, usually located at `/etc/mysql/mysql.conf.d/mysqld.cnf`, and change the `bind-address` to match the IP address of the replica server.
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.cnf" aconf >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.cnf"}
 bind-address  = xx.xx.xx.xx
-    {{< /file >}}
+    ```
 
 1. Uncomment or add the lines for `server-id` and `log-bin`. The `server-id` must be set to `2` on the replica, while the `log-bin` variable must be set to `/var/log/mysql/mysql-bin.log`. Add a variable for `relay-log` and set it to `/var/log/mysql/mysql-relay-bin.log`.
 
@@ -215,11 +215,11 @@ bind-address  = xx.xx.xx.xx
 Ensure the `skip_networking` variable is not set anywhere inside this file. To replicate a single database, add the following directive to the file `binlog_do_db = database_name`. To configure more than one replica, number the `server-id` values in a sequentially increasing manner. For instance, a second replica would have a `server-id` of `3`.
     {{< /note >}}
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.cnf" aconf >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.cnf"}
 server-id        = 2
 log_bin    = /var/log/mysql/mysql-bin.log
 relay-log        = /var/log/mysql/mysql-relay-bin.log
-    {{< /file >}}
+    ```
 
 1. Restart the MySQL service to incorporate the changes.
 

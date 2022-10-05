@@ -51,7 +51,7 @@ To get started, you'll install uWSGI and other packages, and then configure ngin
 
 3.  Using the virtual host configuration below as a guide, create your configuration file.
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
         listen          80;
         server_name     $hostname;
@@ -75,7 +75,7 @@ server {
 
 }
 
-{{< /file >}}
+```
 
 4.  Link the virtual host file to sites-enabled by entering the following command, replacing `example.com` with your domain name:
 
@@ -103,7 +103,7 @@ Now, we need to configure uWSGI. Here's how:
 
 2.  Using the configuration below as a guide, create your configuration file.
 
-    {{< file "/etc/uwsgi/apps-available/example.com.xml" xml >}}
+    ```file {title="/etc/uwsgi/apps-available/example.com.xml"}
 <uwsgi>
     <plugin>python</plugin>
     <socket>/run/uwsgi/app/example.com/example.com.socket</socket>
@@ -127,7 +127,7 @@ Now, we need to configure uWSGI. Here's how:
     <vacuum/>
 </uwsgi>
 
-{{< /file >}}
+```
 
 
 3.  Link the configuration to apps-enabled by entering the following command, replacing `example.com` with your domain name:
@@ -136,7 +136,7 @@ Now, we need to configure uWSGI. Here's how:
 
 4.  If you want to deploy a "Hello World" application, insert the following code into the `/srv/www/example.com/application/wsgi_configuration_module.py` file:
 
-    {{< file "/srv/www/example.com/application/wsgi\\_configuration\\_module.py" python >}}
+    ```file {title="/srv/www/example.com/application/wsgi\\_configuration\\_module.py"}
 import os
 import sys
 
@@ -154,7 +154,7 @@ def application(environ, start_response):
 
     return [output]
 
-{{< /file >}}
+```
 
 5.  Restart uWSGI with the command:
 

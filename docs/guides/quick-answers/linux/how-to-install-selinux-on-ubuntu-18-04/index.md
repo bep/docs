@@ -116,14 +116,14 @@ Max kernel policy version:      31
 
 1.  To maintain `enforcing` mode after reboot, edit the SELinux configuration file located in `/etc/selinux/config` from the default `SELINUX=permissive` to `SELINUX=enforcing`.
 
-    {{< file "/etc/selinux/config" >}}
+    ```file {title="/etc/selinux/config"}
 # This file controls the state of SELinux on the system.
 # SELINUX= can take one of these three values:
 # enforcing - SELinux security policy is enforced.
 # permissive - SELinux prints warnings instead of enforcing.
 # disabled - No SELinux policy is loaded.
 SELINUX=enforcing
-    {{< /file >}}
+    ```
 
     {{< note >}}
 If you have set SELinux to enforcing mode, ensure that the SSH port has access before logging out of the current session.

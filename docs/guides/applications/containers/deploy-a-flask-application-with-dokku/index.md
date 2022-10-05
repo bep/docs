@@ -84,7 +84,7 @@ Add the public key immediately after running the installation script to avoid so
 
 2.  Create a new file called `hello_world.py` that serves 'Hello World!' on the index page.
 
-    {{< file "hello_world.py" python >}}
+    ```file {title="hello_world.py"}
 import os
 
 from flask import Flask
@@ -99,14 +99,14 @@ if __name__ == '__main__':
     # Bind to PORT if defined, otherwise default to 5000.
     port = int(os.environ.get('PORT', 5000))
     app.run(host='127.0.0.1', port=port)
-{{< /file >}}
+```
 
 3.  Add a `requirements.txt` file to track versions of any dependencies of the Flask application. Gunicorn is the WSGI server used to allow Flask to interface properly with NGINX.
 
-    {{< file "requirements.txt" >}}
+    ```file {title="requirements.txt"}
 Flask==0.12.1
 gunicorn==19.7.1
-{{< /file >}}
+```
 
 4.  For more complex projects with many dependencies using a virtual environment, redirect output of `pip freeze` into `requirements.txt`.
 
@@ -116,20 +116,20 @@ gunicorn==19.7.1
 
 Optionally, add a `.gitignore` file to have Git omit caching and virtual environment files from version control.
 
-{{< file ".gitignore" >}}
+```file {title=".gitignore"}
 __pycache__/
 *.pyc
 
 venv/
-{{< /file >}}
+```
 
 ### Procfile
 
 The Procfile tells the Gunicorn server what command to use when launching the app:
 
-{{< file "Procfile" >}}
+```file {title="Procfile"}
 web: gunicorn hello_world:app --workers=4
-{{< /file >}}
+```
 
 {{< note >}}
 4 workers is a good default for an web app running on a Linode. See the [Gunicorn docs](http://docs.gunicorn.org/en/stable/design.html#how-many-workers) for more information about determining the correct number of workers for your particular app.

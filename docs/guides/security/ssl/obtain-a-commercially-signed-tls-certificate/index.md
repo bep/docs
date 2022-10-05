@@ -129,7 +129,7 @@ Use this table to better visualize the command entered to prepare the chained ce
 
 The contents of the resulting file will appear similar to the following:
 
-{{< file "example.com.crt" >}}
+```file {title="example.com.crt"}
 -----BEGIN CERTIFICATE-----
 MIIFSzCCBDOgAwIBAgIQVjCXC0bF9U8FypJOnL9cuDANBgkqhkiG9w0BAQsFADCB
 ................................................................
@@ -151,4 +151,4 @@ MIIENjCCAx6gAwIBAgIBATANBgkqhkiG9w0BAQUFADBvMQswCQYDVQQGEwJTRTEU
 ................................................................
 6wwCURQtjr0W4MHfRnXnJK3s9EK0hZNwEGe6nQY1ShjTK3rMUUKhemPR5ruhxSvC
 -----END CERTIFICATE-----
-{{< /file >}}
+```

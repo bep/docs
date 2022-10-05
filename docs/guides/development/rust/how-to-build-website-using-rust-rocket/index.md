@@ -127,16 +127,16 @@ In this section, you complete the following steps:
 
 1. Open the `Cargo.toml` file, and add Rocket as a dependency for the project. Use the version number for the latest version of Rocket. Refer to the [Example Applications](/docs/guides/build-a-website-using-rust-and-the-rocket-web-framework/#example-applications) section above for how to identify the latest Rocket release.
 
-    {{< file "~/example-app/Cargo.toml" >}}
+    ```file {title="~/example-app/Cargo.toml"}
 # [...]
 
 [dependencies]
 rocket = "0.4.7"
-    {{< /file >}}
+    ```
 
 1. Open the `src/main.rs` file, and populate it with the following lines:
 
-    {{< file "~/example-app/src/main.rs" >}}
+    ```file {title="~/example-app/src/main.rs"}
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
@@ -149,7 +149,7 @@ fn index() -> &'static str {
 fn main() {
     rocket::ignite().mount("/", routes![index]).launch();
 }
-    {{< /file >}}
+    ```
 
 1. You have now created a basic "Hello, World!" application, which you can test by using the `cargo run` command as shown in the [Example Applications](#example-applications) section above.
 
@@ -163,7 +163,7 @@ Pairing Rocket with a template engine like [Handlebars](https://handlebarsjs.com
 
 1. Open the project's `Cargo.toml`, and modify with the additional  lines in the example below:
 
-    {{< file "~/example-app/Cargo.toml" >}}
+    ```file {title="~/example-app/Cargo.toml"}
 # [...]
 
 [dependencies]
@@ -174,13 +174,13 @@ serde = { version = "1.0", features = ["derive"] }
 version = "*"
 default-features = false
 features = ["handlebars_templates"]
-    {{< /file >}}
+    ```
 
     This adds `serde`, which comes with some typing features the application needs,as a dependency. The `rocket_contrib` section allows Handlebars to be identified as a feature that the project uses.
 
 1. Open your `~/example-app/src/main.rs` file, and modify it to include the following code:
 
-    {{< file "~/example-app/src/main.rs" >}}
+    ```file {title="~/example-app/src/main.rs"}
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
@@ -227,7 +227,7 @@ fn about() -> Template {
         parent: "layout"
     })
 }
-    {{< /file >}}
+    ```
 
     - This creates a `Message` struct, defining the basic shape for messages. The `BoardContext` and `AboutContext` structs determine "context" information to be handed off to the templates. Each context struct has a `parent` attribute. The application uses these attributes in the `board` and `about` functions to apply the appropriate page layout for each page.
 
@@ -243,7 +243,7 @@ fn about() -> Template {
 
     - The `layout.hbs` file defines the page layout used on each page. Using the `parent` attribute defined in the `main.rs` file's context structs, you could also have different layouts for different sections of your site.
 
-    {{< file "~/example-app/templates/layout.hbs" >}}
+    ```file {title="~/example-app/templates/layout.hbs"}
 <!doctype html>
 <html>
   <head>
@@ -255,25 +255,25 @@ fn about() -> Template {
     {{> footer}}
   </body>
 </html>
-    {{< /file >}}
+    ```
 
     - The `header.hbs` and `footer.hbs` files provide contents for those sections. These are directly referenced in the page layout file, so they appear on each page of your site that uses that page layout.
 
-    {{< file "~/example-app/templates/header.hbs" >}}
+    ```file {title="~/example-app/templates/header.hbs"}
 <nav>
   <a href="/">Message Board</a> | <a href="/about">About</a>
 </nav>
-    {{< /file >}}
+    ```
 
-    {{< file "~/example-app/templates/footer.hbs" >}}
+    ```file {title="~/example-app/templates/footer.hbs"}
 <footer>
   Built with Rust and the Rocket framework.
 </footer>
-    {{< /file >}}
+    ```
 
     - The `index.hbs` file defines the way your main page — in this case, the Message board — gets laid out.
 
-    {{< file "~/example-app/templates/index.hbs" >}}
+    ```file {title="~/example-app/templates/index.hbs"}
 {{#*inline "page"}}
 
 <section id="message_board">
@@ -290,11 +290,11 @@ fn about() -> Template {
 
 {{/inline}}
 {{~> (parent)~}}
-    {{< /file >}}
+    ```
 
     The `about.hbs` provides the contents for the about page.
 
-    {{< file "~/example-app/templates/about.hbs" >}}
+    ```file {title="~/example-app/templates/about.hbs"}
 {{#*inline "page"}}
 
 <section id="about">
@@ -304,7 +304,7 @@ fn about() -> Template {
 
 {{/inline}}
 {{~> (parent)~}}
-    {{< /file >}}
+    ```
 
 1. Now you can run the application using the `cargo run` command as shown in the [Example Applications](/docs/guides/build-a-website-using-rust-and-the-rocket-web-framework/#example-applications) section above.
 

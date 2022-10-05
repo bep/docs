@@ -57,13 +57,13 @@ The Roster file is configured on the master server.
 
     This is an example of minimal host definition
 
-    {{< file "/etc/salt/roster" >}}
+    ```file {title="/etc/salt/roster"}
 linode1:
      host: <IPADDRESS OR HOSTNAME>
      user: <username>
      passwd: <password>
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -72,14 +72,14 @@ The Roster file stores data in YAML format. Do not add unnecessary spaces to the
 
 2.  If you have a public key stored on the minion, and a private key on the master system, you can configure access to a minion using a private key. For public key authentication, add the following lines to the Roster file:
 
-    {{< file "/etc/salt/roster" >}}
+    ```file {title="/etc/salt/roster"}
 #This is an example of minimal host definition using private key:
 linode1:
     host: <IPADDRESS OR HOSTNAME>
     user: <username>
     priv: /<username_home_folder>/.ssh/id_rsa
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -90,15 +90,15 @@ Using SSH keys is the safest way to access your minions because passwords are no
 
     **a.** Disable the TTY check by commenting a line in the sudoers file on your minion:
 
-    {{< file "/etc/sudoers" >}}
+    ```file {title="/etc/sudoers"}
 # Defaults requiretty
 
-{{< /file >}}
+```
 
 
     **b.** Force TTY allocation by setting the `tty: True` option in your Roster file:
 
-    {{< file "/etc/salt/roster" >}}
+    ```file {title="/etc/salt/roster"}
 linode1:
     host: <IPADDRESS OR HOSTNAME>
     user: <username>
@@ -106,7 +106,7 @@ linode1:
     sudo: True
     tty: True
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -180,7 +180,7 @@ An interesting use case for Salt SSH is automating the installation of `salt-min
 
 2.  Open the `/srv/salt/install_salt_minion/init.sls` file and declare your state:
 
-    {{< file "/srv/salt/install_salt_minion/init.sls" >}}
+    ```file {title="/srv/salt/install_salt_minion/init.sls"}
 # This is a state which will install salt-minion on your hosts using Salt SSH
 # It will install the SaltStack repo, install salt-minion from that repo, enable and start the salt-minion service and
 # declare master in /etc/salt/minion file
@@ -217,7 +217,7 @@ salt-minion:
         - contents:
             - master: <IPADDRESS OR HOSTNAME>
 
-{{< /file >}}
+```
 
 
 3.  To apply this state, run the following command:

@@ -100,11 +100,11 @@ These are only a few basic configuration options that are set by default.
 
 We **strongly** recommend uncommenting the `security` section and adding the following:
 
-{{< file "/etc/mongod.conf" conf >}}
+```file {title="/etc/mongod.conf"}
 security:
   authorization: enabled
 
-{{< /file >}}
+```
 
 
 The `authorization` option enables [role-based access control](https://docs.mongodb.com/manual/core/authorization/) for your databases. If no value is specified, any user will have the ability to modify any database. We'll explain how to create database users and set their permissions later in this guide.

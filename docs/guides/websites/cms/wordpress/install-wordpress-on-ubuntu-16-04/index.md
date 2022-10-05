@@ -117,11 +117,11 @@ If WordPress doesn't display when you visit your domain, try adding `/wp-admin` 
 
 3.  By default, WordPress will prompt you for FTP credentials when you install new themes or plugins. To bypass this, modify your `wp-config.php` file by adding the following lines:
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /** Bypass FTP */
 define('FS_METHOD', 'direct');
 
-{{< /file >}}
+```
 
 
 4.  If you're using Apache, run the following commands to ensure that `mod_rewrite` is enabled and then restart Apache to apply the changes:
@@ -155,14 +155,14 @@ To configure permalink settings:
 
 Instruct Apache to allow individual sites to update the `.htaccess` file, by adding the following options to the *Directory* section in your virtual host configuration:
 
-{{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
     Options Indexes FollowSymLinks
     AllowOverride All
     Require all granted
 </Directory>
 
-{{< /file >}}
+```
 
 
 Restart Apache to enable the changes:
@@ -173,12 +173,12 @@ Restart Apache to enable the changes:
 
 Direct nginx to check whether each permalink refers to an existing page. By default, nginx assumes that it doesn't, and returns a server-side 404. Update the following lines in the `location / {` block in your virtual host configuration:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ /index.php?$args;
 
-{{< /file >}}
+```
 
 
 ## Configure Maximum File Size Upload Setting to Allow Larger Files

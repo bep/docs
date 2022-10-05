@@ -153,7 +153,7 @@ This section will configure VNC to launch the full Unity desktop when it starts.
 
 2.  Edit the end of your `~/.vnc/xstartup` file to match the following configuration. This starts the desktop dependencies as background processes upon starting the VNC server:
 
-    {{< file "~/.vnc/xstartup" >}}
+    ```file {title="~/.vnc/xstartup"}
 #!/bin/sh
 
 # Uncomment the following two lines for normal desktop:
@@ -172,7 +172,7 @@ gnome-settings-daemon &
 metacity &
 nautilus &
 
-{{< /file >}}
+```
 
 
 3.  Save and exit the file. Begin another VNC session:
@@ -202,7 +202,7 @@ This section is optional. Follow these steps to configure the VNC server to star
 
 2.  Add `@reboot /usr/bin/vncserver :1` to the bottom of the file. Your crontab should look like this:
 
-    {{< file "crontab" >}}
+    ```file {title="crontab"}
 # Edit this file to introduce tasks to be run by cron.
 #
 # Each task to run has to be defined through a single line
@@ -229,7 +229,7 @@ This section is optional. Follow these steps to configure the VNC server to star
 
 @reboot /usr/bin/vncserver :1
 
-{{< /file >}}
+```
 
 
 3.  Save and exit the file. You can test by rebooting your Linode and connecting to the VNC server.

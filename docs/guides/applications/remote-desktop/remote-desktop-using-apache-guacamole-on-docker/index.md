@@ -62,7 +62,7 @@ Before you're able to remotely connect to your server's desktop, a desktop envir
 
     Alternate Unity configuration example:
 
-    {{< file "~/.vnc/xstartup" bash >}}
+    ```file {title="~/.vnc/xstartup"}
 #!/bin/sh
 
 xrdb $HOME/.Xresources
@@ -77,7 +77,7 @@ gnome-panel &
 gnome-settings-daemon &
 metacity &
 nautilus &
-{{< / file >}}
+```
 
 ## Opening Guacamole in a Browser
 

@@ -245,7 +245,7 @@ It also lets you define a couple of other, optional behavioral settings for Bise
 
 Bise's default configuration file defines six rows. On some lines, it includes comments that clarify its activity:
 
-{{< file "conf/conf.yaml" yaml >}}
+```file {title="conf/conf.yaml"}
 reports:
     - label: All visitors
       test_type: path_regex
@@ -273,7 +273,7 @@ reports:
     - label: From web searches
       test_type: referer_regex
       test: \bgoogle.com|\bduckduckgo.com|\bbing.com
-{{< /file >}}
+```
 
 If you're happy with the behavior of the default rows, you can certainly continue using them as-is! You can also modify or remove these report-row directives, or add new ones, depending upon your needs.
 
@@ -293,11 +293,11 @@ Row definitions with a `test_type` set to `path` will count any access whose req
 
 The following row definition will count any request for the path `/`, and only that path, as a "Front page" access:
 
-{{< file "" yaml >}}
+```file {title=""}
 - label: Front page
   test_type: path
   test: /
-{{< /file >}}
+```
 
 ### test_type: path_regex
 
@@ -305,14 +305,14 @@ Counts any access whose requested URL path matches the value of `test`, evaluate
 
 The following "All visitors" definition from the default configuration will match any request path that ends in an HTML, XML, or JSON filename, as well as any request ending in `/`. This means that a request for `/`, in the default configuration, will match both this row and the "Front page" one defined above.
 
-{{< file "" yaml >}}
+```file {title=""}
 - label: All visitors
   test_type: path_regex
   test: |
     /$           # Match all requests whose paths end in '/'.
     |html$|htm$  # And all explicit requests for .html or .htm files.
     |xml$|json$  # And all requests for .xml (RSS) and .json (feed) files.
-{{< /file >}}
+```
 
 As noted earlier, Bise's regular expression processor ignores whitespace, allowing configuration files to add newlines and commentary in the middle of regexes like this.
 
@@ -322,11 +322,11 @@ Counts any access whose referer URL matches the value of `test`, evaluated as a 
 
 This line from the default configuration will count any visit that arrived by way of a `t.co`-based URL as "From Twitter". `t.co` is Twitter's own URL shortening service. Therefore, a matching request probably came from a link posted to Twitter.
 
-{{< file "" yaml >}}
+```file {title=""}
 - label: From Twitter
   test_type: referer_regex
   test: \bt\.co\b
-{{< /file >}}
+```
 
 ### test_type: agent_regex
 
@@ -334,11 +334,11 @@ Counts any access whose User-agent string matches the value of `test`, evaluated
 
 This configuration (not found in the default file) would add a row to the output table describing visits from clients using [Perl's LWP toolkit](https://metacpan.org/pod/LWP):
 
-{{< file "" yaml >}}
+```file {title=""}
 - label: Using LWP
   test_type: agent_regex
   test: libwww-perl
-{{< /file >}}
+```
 
 ### Other configuration options
 

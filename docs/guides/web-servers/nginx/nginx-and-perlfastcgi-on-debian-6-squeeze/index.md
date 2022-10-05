@@ -60,7 +60,7 @@ In this guide, the domain "example.com" is used as an example site. You should s
 
 Next, you'll need to define the site's virtual host file. This example uses a UNIX socket to connect to fcgiwrap. Be sure to change all instances of "example.com" to your domain name.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -81,14 +81,14 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 ### TCP Sockets Configuration Example
 
 Alternately, you may wish to use TCP sockets instead. If so, modify your nginx virtual host configuration file to resemble the following example. Again, make sure to replace all instances of "example.com" with your domain name.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -109,23 +109,23 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 If you elected to use TCP sockets instead of UNIX sockets, you'll also need to modify the fcgiwrap init script. Look for the following section in the `/etc/init.d/fcgiwrap` file:
 
-{{< file "/etc/init.d/fcgiwrap" >}}
+```file {title="/etc/init.d/fcgiwrap"}
 # FCGI_APP Variables
 FCGI_CHILDREN="1"
 FCGI_SOCKET="/var/run/$NAME.socket"
 FCGI_USER="www-data"
 FCGI_GROUP="www-data"
 
-{{< /file >}}
+```
 
 Change it to match the following excerpt:
 
-{{< file "/etc/init.d/fcgiwrap" >}}
+```file {title="/etc/init.d/fcgiwrap"}
 # FCGI_APP Variables
 FCGI_CHILDREN="1"
 FCGI_PORT="8999"
@@ -133,7 +133,7 @@ FCGI_ADDR="127.0.0.1"
 FCGI_USER="www-data"
 FCGI_GROUP="www-data"
 
-{{< /file >}}
+```
 
 
 ### Enable the Site
@@ -152,7 +152,7 @@ Start nginx and fcgiwrap by issuing the following commands:
 
 Create a file called "test.pl" in your site's "public\_html" directory with the following contents:
 
-{{< file "/srv/www/www.example.com/public\\_html/test.pl" perl >}}
+```file {title="/srv/www/www.example.com/public\\_html/test.pl"}
 #!/usr/bin/perl
 
 print "Content-type:text/html\n\n";
@@ -168,7 +168,7 @@ foreach $key (sort(keys %ENV)) {
 
 print "</body></html>";
 
-{{< /file >}}
+```
 
 
 Make the script executable by issuing the following command:

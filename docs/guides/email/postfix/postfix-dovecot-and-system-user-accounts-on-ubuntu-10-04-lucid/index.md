@@ -56,15 +56,15 @@ The next prompt will ask for the system mail name. This should correspond to the
 
 Edit the `/etc/default/saslauthd` file to allow the SASL authentication daemon to start. Uncommon or add the following line:
 
-{{< file "/etc/default/saslauthd" >}}
+```file {title="/etc/default/saslauthd"}
 START=yes
-{{< /file >}}
+```
 
 Create the `/etc/postfix/sasl/smtpd.conf` file, and insert the following line:
 
-{{< file "/etc/postfix/sasl/smtpd.conf" >}}
+```file {title="/etc/postfix/sasl/smtpd.conf"}
 pwcheck_method: saslauthd
-{{< /file >}}
+```
 
 Issue the following command to start the SASL daemon for the first time:
 
@@ -95,11 +95,11 @@ Consider the [basic email gateway guide](/docs/email/postfix/gateway-ubuntu-10-0
 
 The above Postfix configuration makes it possible to *send* mail using postfix. If your server receives email, Postfix requires additional configuration to deliver mail locally. Edit the `main.cf` file to insert or modify the following configuration directives:
 
-{{< file "/etc/postfix/main.cf" >}}
+```file {title="/etc/postfix/main.cf"}
 myhostname = lollipop.example.com
 virtual_alias_maps = hash:/etc/postfix/virtual
 home_mailbox = mail/
-{{< /file >}}
+```
 
 Issue the following command to ensure that new user accounts have a `~/mail` directory:
 
@@ -111,13 +111,13 @@ Every existing user that receives email will also need to make their own `Maildi
 
 Create a `/etc/postfix/virtual` file to map incoming email addresses to their destinations. Consider the following example:
 
-{{< file "/etc/postfix/virtual" >}}
+```file {title="/etc/postfix/virtual"}
 <username@example.com> username <username@example.net> username <username@example.com> username
 
 <fore@example.com> <foreman@example.com> <fore@example.net> <foreman@example.com> <fore@example.com> <foreman@example.com>
 
 <team@example.com> username, <foreman@example.com> <team@example.net> username, <foreman@example.com> <team@example.com> username, <foreman@example.com>
-{{< /file >}}
+```
 
 Here, all mail sent to the three addresses beginning with the characters `username@` are delivered to the local user "username" and deposited to a Maildir in the `/home/username/mail/` directory. The three addresses that begin with the characters `fore@` are delivered to the email address `foreman@example.com`. The final set of three email addresses beginning with `team@` are both delivered locally and sent to the `foreman@example.com` email address.
 
@@ -125,9 +125,9 @@ You can add additional lines in the same format as the above to control how all 
 
 Edit the `/etc/alias` file to add the following line. This will to reroute all local mail delivered to the root user to another user account. In the following example, all mail delivered to `root` will be delivered to the `username` user's mail box.
 
-{{< file "/etc/aliases" >}}
+```file {title="/etc/aliases"}
 root: username
-{{< /file >}}
+```
 
 When you have configured mail delivery issue the following command to recreate the aliases database, rebuild the virtual alias database, and restart the mail server:
 
@@ -143,17 +143,17 @@ Dovecot is a contemporary POP3/IMAP server that makes it possible to access and 
 
 Edit the following configuration directive in the `/etc/dovecot/conf.d/01-dovecot-postfix.conf` file to select the services that Dovecot will provide.
 
-{{< file "/etc/dovecot/conf.d/01-dovecot-postfix.conf" >}}
+```file {title="/etc/dovecot/conf.d/01-dovecot-postfix.conf"}
 protocols = imap imaps pop3 pop3s
-{{< /file >}}
+```
 
 The `protocols` directive enables `imap` and `pop3` services within Dovecot along with their SSL-encrypted alternatives. You may remove any of these services if you do not want Dovecot to provide `imap`, `pop3` or ssl services.
 
 Edit the following directives in `/etc/dovecot/conf.d/01-dovecot-postfix.conf` to ensure that Dovecot can find your user's Maildirs:
 
-{{< file "/etc/dovecot/conf.d/01-dovecot-postfix.conf" >}}
+```file {title="/etc/dovecot/conf.d/01-dovecot-postfix.conf"}
 mail_location = maildir:~/mail:LAYOUT=fs
-{{< /file >}}
+```
 
 Once configured, issue the following command to restart the Dovecot instance:
 

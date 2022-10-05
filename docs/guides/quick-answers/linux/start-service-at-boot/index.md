@@ -30,7 +30,7 @@ It is simple to create a custom systemd service that will run any script or proc
 
 1.  Create a script or executable that the service will manage. This guide uses a simple Bash script as an example:
 
-    {{< file "test_service.sh" bash >}}
+    ```file {title="test_service.sh"}
 DATE=`date '+%Y-%m-%d %H:%M:%S'`
 echo "Example service started at ${DATE}" | systemd-cat -p info
 
@@ -39,7 +39,7 @@ do
 echo "Looping...";
 sleep 30;
 done
-{{< /file >}}
+```
 
     This script will log the time at which it is initialized, then loop infinitely to keep the service running.
 
@@ -50,7 +50,7 @@ done
 
 3.  Create a **Unit file** to define a systemd service:
 
-    {{< file "/lib/systemd/system/myservice.service" conf >}}
+    ```file {title="/lib/systemd/system/myservice.service"}
 [Unit]
 Description=Example systemd service.
 
@@ -60,7 +60,7 @@ ExecStart=/bin/bash /usr/bin/test_service.sh
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
     This defines a simple service. The critical part is the `ExecStart` directive, which specifies the command that will be run to start the service.
 
@@ -138,7 +138,7 @@ May 02 15:03:37 localhost bash[2973]: Looping...
 ## Troubleshooting
 
 - "Example service started at ..." line does not appear in the output of the status command. The `systemd-cat` output is not reliable because of a race condition. As a workaround update the `test_service.sh` file as follows:
-{{< file "test_service.sh" bash >}}
+```file {title="test_service.sh"}
 info=/tmp/myservice-systemd-cat-pipe-info
 mkfifo "$info"
 trap "exec 3>&-; rm $info" EXIT
@@ -153,4 +153,4 @@ do
 echo "Looping...";
 sleep 30;
 done
-{{< /file >}}  
+```  

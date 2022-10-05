@@ -38,7 +38,7 @@ A *Deployment* has the ability to keep a defined number of replica Pods up and r
 
 Below is an example of a Deployment:
 
-{{< file "my-apache-deployment.yaml" yaml>}}
+```file {title="my-apache-deployment.yaml"}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -58,7 +58,7 @@ spec:
       containers:
       - name: apache-container
         image: httpd:2.4.35
-{{</ file >}}
+```
 
 As you will see, the only noticeable difference between a Deployment's manifest and that of a [ReplicaSet](#replicasets) the `kind`. In this example we have chosen to initially install Apache 2.4.35. If you wanted to update that image to Apache 2.4.38, you would issue the following command:
 
@@ -107,7 +107,7 @@ As has been mentioned, Kubernetes allows an application to scale horizontally. A
 
 Below is an example of a ReplicaSet:
 
-{{< file "my-apache-replicaset.yaml" yaml>}}
+```file {title="my-apache-replicaset.yaml"}
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -127,7 +127,7 @@ spec:
       containers:
       - name: apache-container
         image: httpd
-{{</ file >}}
+```
 
 There are three main things to note in this ReplicaSet. The first is the `apiVersion`, which is `apps/v1`. This differs from the previous examples, which were all `apiVersion: v1`, because ReplicaSets do not exist in the `v1` core. They instead reside in the `apps` group of `v1`. The second and third things to note are the `replicas` field and the `selector` field. The `replicas` field defines how many replica Pods you want to be running at any given time. The `selector` field defines which Pods, matched by their label, will be controlled by the ReplicaSet.
 
@@ -177,7 +177,7 @@ A *Job* is a controller that manages a Pod that is created for a single, or set,
 
 Below is an example of a Job that simply prints "Hello World!" and ends:
 
-{{< file "my-job.yaml" yaml>}}
+```file {title="my-job.yaml"}
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -195,7 +195,7 @@ spec:
          - "-c"
          - "echo 'Hello World!'"
       restartPolicy: Never
-{{</ file >}}
+```
 
 To create the Job, issue the `create` command:
 

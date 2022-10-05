@@ -83,11 +83,11 @@ It's good practice to provide clear and descriptive commit messages for every co
 
 There may be files or folders in your project directory that you do not wish to include in your Git repository. You can include these files in a `.gitignore` file, and Git will ignore them. A sample `.gitignore` file might look like the following:
 
-{{< file ".gitignore" >}}
+```file {title=".gitignore"}
 .DS_Store
 *.zip
 __doNotInclude__/
-{{< /file >}}
+```
 
 To learn how to undo Git commit, see our guide [How to Undo a Git Commit: A Step-by-Step Guide](/docs/guides/how-to-undo-git-commit/).
 

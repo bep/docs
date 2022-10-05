@@ -144,7 +144,7 @@ At this stage, you should have a total of five Linodes:
 
 1.  Edit the `/etc/default/etcd` file to add the following configuration:
 
-    {{< file "/etc/default/etcd" >}}
+    ```file {title="/etc/default/etcd"}
 ETCD_LISTEN_PEER_URLS="http://192.0.2.21:2380"
 
 ETCD_LISTEN_CLIENT_URLS="http://localhost:2379,http://192.0.2.21:2379"
@@ -159,7 +159,7 @@ ETCD_INITIAL_CLUSTER_TOKEN="cluster1"
 
 ETCD_INITIAL_CLUSTER_STATE="new"
 
-{{< /file >}}
+```
 
 
 2.  Save the file, then restart the etcd service:
@@ -174,7 +174,7 @@ Create a `patroni.yml` file on all three Linodes that have Postgres and Patroni 
 
 1.  Edit this file to have the following content:
 
-    {{< file "/etc/patroni.yml" >}}
+    ```file {title="/etc/patroni.yml"}
 scope: postgres
 namespace: /db/
 name: postgresql0
@@ -234,7 +234,7 @@ tags:
     clonefrom: false
     nosync: false
 
-{{< /file >}}
+```
 
 
 2.  Make note of the `data_dir` value in the above file. The `postgres` user needs the ability to write to this directory. If this directory doesn't exist, create it:
@@ -253,7 +253,7 @@ tags:
 
 5.  Create a `systemd` script that will allow you to start, stop and monitor Patroni. Create a file at `/etc/systemd/system/patroni.service` with the following content:
 
-    {{< file "/etc/systemd/system/patroni.service" >}}
+    ```file {title="/etc/systemd/system/patroni.service"}
 [Unit]
 Description=Runners to orchestrate a high-availability PostgreSQL
 After=syslog.target network.target
@@ -275,7 +275,7 @@ Restart=no
 [Install]
 WantedBy=multi-user.targ
 
-{{< /file >}}
+```
 
 
     If `patroni` is installed in a location other than `/usr/local/bin/patroni` on your machine, update the above file accordingly.
@@ -315,7 +315,7 @@ With the Postgres cluster set up, you need a way to connect to the primary regar
 
 1.  On the Linode that has HAProxy installed, edit the configuration file at `/etc/haproxy/haproxy.cfg` to contain the following:
 
-    {{< file "/etc/haproxy/haproxy.cfg" >}}
+    ```file {title="/etc/haproxy/haproxy.cfg"}
 global
     maxconn 100
 
@@ -343,7 +343,7 @@ listen postgres
     server postgresql_192.0.2.12_5432 192.0.2.12:5432 maxconn 100 check port 8008
     server postgresql_192.0.2.13_5432 192.0.2.13:5432 maxconn 100 check port 8008
 
-{{< /file >}}
+```
 
 
     This configuration exposes HAProxy stats on a public URL. In a production setup, it might be better to restrict this to an internal network/localhost and access it via an SSH tunnel.

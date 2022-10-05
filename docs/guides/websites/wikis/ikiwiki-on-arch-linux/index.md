@@ -96,15 +96,15 @@ Issue the following command to install Apache:
 
 Edit the `/etc/httpd/conf/httpd.conf` file to uncomment or add the following line:
 
-{{< file "/etc/httpd/conf/extra/httpd-vhosts.conf" apache >}}
+```file {title="/etc/httpd/conf/extra/httpd-vhosts.conf"}
 Include conf/extra/httpd-vhosts.conf
 
-{{< /file >}}
+```
 
 
 Replace the existing example `VirtualHost` configuration examples with one that resembles the following. Modify this example as needed to suit the needs of your deployment:
 
-{{< file "/etc/httpd/conf/extra/httpd-vhosts.conf" apache >}}
+```file {title="/etc/httpd/conf/extra/httpd-vhosts.conf"}
 <VirtualHost *:80>
         ServerAdmin username@example.com
         ServerName example.com
@@ -120,7 +120,7 @@ Replace the existing example `VirtualHost` configuration examples with one that 
     </Directory>
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Issue the following commands to create the required directories and to restart the web server:
@@ -147,13 +147,13 @@ You will want to add the `fcgiwrap` daemon to the `DAEMONS=()` array at the end 
 
 Add an `include` directive to the `/etc/nginx/conf/nginx.conf` file so that nginx will read configuration files in the `/etc/nginx/conf.d/` directory. Use the following form:
 
-{{< file "/etc/nginx/conf/nginx.conf" nginx >}}
+```file {title="/etc/nginx/conf/nginx.conf"}
 http {
     include       /etc/nginx/conf.d/*.conf;
     include       mime.types;
     default_type  application/octet-stream;
 
-{{< /file >}}
+```
 
 
 Issue the following command to create a `conf.d/` directory:
@@ -162,7 +162,7 @@ Issue the following command to create a `conf.d/` directory:
 
 Create a virtual host by inserting a version of the following excerpt into your nginx configuration. Modify this example for the needs of your deployment:
 
-{{< file "/etc/nginx/conf.d/vhost.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/vhost.conf"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -183,7 +183,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Issue the following commands to create the required directories and to restart the web server:
@@ -210,7 +210,7 @@ Issue the following commands to create a `~/wiki/` directory as a git repository
 
 Add the following excerpt to `~/wiki/.git/config`:
 
-{{< file "~/wiki/.git/config" >}}
+```file {title="~/wiki/.git/config"}
 [remote "origin"]
     fetch = +refs/heads/*:refs/remotes/origin/*
     url = /srv/git/wiki.git
@@ -219,7 +219,7 @@ Add the following excerpt to `~/wiki/.git/config`:
     remote = origin
     merge = refs/heads/master
 
-{{< /file >}}
+```
 
 
 Configure the `username` user's identity within git. Modify the following model for your user:
@@ -244,12 +244,12 @@ Edit the `~/wiki/ikiwiki.yaml` file to suit the needs of your deployment, paying
 
 Create content in the `~/wiki/source/index.mdwn` file, for example:
 
-{{< file "~/wiki/source/index.mdwn" >}}
+```file {title="~/wiki/source/index.mdwn"}
 # Welcome to $wiki
 
 Hello World. What should we call [[this site]]?
 
-{{< /file >}}
+```
 
 
 When the configuration file has been edited, and there is content in the `~/wiki/source/index.mdwn` file, issue the following command to rebuild the wiki:

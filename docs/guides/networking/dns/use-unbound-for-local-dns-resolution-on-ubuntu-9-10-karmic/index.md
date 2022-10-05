@@ -29,7 +29,7 @@ If you are unfamiliar with DNS, you may want to consider our [introduction to th
 
 The unbound package for Ubuntu is included in the `universe` repository. To enable `universe`, modify your `/etc/apt/sources.list` file to mirror the example file below. You'll need to uncomment the universe lines:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 
 deb http://security.ubuntu.com/ubuntu karmic-security main restricted deb-src http://security.ubuntu.com/ubuntu karmic-security main restricted
@@ -37,7 +37,7 @@ deb http://security.ubuntu.com/ubuntu karmic-security main restricted deb-src ht
 ## universe repositories deb http://us.archive.ubuntu.com/ubuntu/ karmic universe deb-src http://us.archive.ubuntu.com/ubuntu/ karmic universe deb http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 
 deb http://security.ubuntu.com/ubuntu karmic-security universe deb-src http://security.ubuntu.com/ubuntu karmic-security universe
-{{< /file >}}
+```
 
 Next, make sure your package repositories and installed programs are up to date by issuing the following commands:
 
@@ -56,10 +56,10 @@ This will install and start the Unbound server on your system. Note that the unb
 
 In the default configuration, Unbound will only listen for requests on the local interface. If you want unbound to attach to additional interfaces, these interfaces must be configured manually. Possible interfaces include the public interface or the private networking interface. Specify those IP addresses after the `server:` directive in the following format:
 
-{{< file "/etc/unbound/unbound.conf" conf >}}
+```file {title="/etc/unbound/unbound.conf"}
 server:
 :   interface: 19.28.37.56 interface: 192.168.3.105
-{{< /file >}}
+```
 
 Modify these `interface:` directives to reflect the actual addresses assigned to your Linode. In this example, these directives would configure Unbound to listen for requests on the publicly accessible address `19.28.37.56`, and on the internal or private network address of `192.168.3.105`. If you specify interfaces other than the local interface using the `interface:` directive, it will disable the default local directive. If you would like to be able to perform queries on the local interface in addition to other interfaces, you will need to include an interface directive for `127.0.0.1`.
 
@@ -67,14 +67,14 @@ Modify these `interface:` directives to reflect the actual addresses assigned to
 
 By default, Unbound will only listen for and respond to requests for DNS queries on the localhost interface (i.e. from 127.0.0.1). Unbound must be configured to listen for requests on a given interface **and** be configured to allow requests from a given IP address before it can successfully provide DNS services. Insert lines similar to the following example into the `unbound.conf` file after the `server:` directive.
 
-{{< file "/etc/unbound/unbound.conf" conf >}}
+```file {title="/etc/unbound/unbound.conf"}
 server:
 :   access-control: 127.0.0.0/8 allow access-control: 192.168.0.0/16 allow\_snoop
 
     access-control: 11.22.33.44/32 allow
 
     access-control: 12.34.56.0/24 deny access-control: 34.0.0.0/8 refuse
-{{< /file >}}
+```
 
 Unbound uses CIDR notation to control access to the DNS resolver. This allows you permit or refuse DNS traffic to large or small groups of IP addresses in a simple and clear syntax. In the example above, we see a number of different access control approaches.
 
@@ -103,9 +103,9 @@ Before you can begin using your Unbound instance to resolve DNS queries, you nee
 
 If you're accessing your Unbound instance over the local interface, make sure your `/etc/resolv.conf` resembles the following:
 
-{{< file "/etc/resolve.conf" conf >}}
+```file {title="/etc/resolve.conf"}
 nameserver 127.0.0.1
-{{< /file >}}
+```
 
 If you're accessing your Unbound instance from another machine, modify the address to reflect the address on which Unbound is listening for requests. Ensure that Unbound's access control rules permit access from all clients that will be making requests from the server. If your Unbound instance is accessible on the public network, you can configure any machine on the Internet to resolve DNS using your Linode. While most Linux-based systems use the `/etc/resolve.conf` method for configuring DNS resolution, consult your operating system's networking configuration interface to reconfigure your DNS settings.
 

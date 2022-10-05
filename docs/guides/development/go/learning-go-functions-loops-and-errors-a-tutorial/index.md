@@ -41,7 +41,7 @@ This guide was written with Go version 1.13.
 
 The file `loops.go` demonstrates loops in Go:
 
-{{< file "./loops.go" go >}}
+```file {title="./loops.go"}
 package main
 
 import (
@@ -90,7 +90,7 @@ func main() {
         fmt.Println("index:", loopIndex, "value: ", value)
     }
 }
-{{< /file >}}
+```
 
 * There are two types of `for` loops in Go. Traditional `for` loops that use a control variable initialization, condition, and afterthought; and those that iterate over the elements of a Go data type such as an [array](https://golang.org/doc/effective_go.html#arrays) or a [map](https://golang.org/doc/effective_go.html#maps) using the `range` keyword.
 
@@ -129,7 +129,7 @@ Go also supports *anonymous functions*. These can be defined inline without the 
 
 This section will present the implementation of some traditional functions.
 
-{{< file "./functions.go" go >}}
+```file {title="./functions.go"}
 package main
 
 import (
@@ -188,7 +188,7 @@ func main() {
     min, max = namedMinMax(value1, value2)
     fmt.Println(min, max)
 }
-{{< /file >}}
+```
 
 * The `main()` function takes no arguments and returns no arguments. Once the special function `main()` exits, the program automatically ends.
 
@@ -223,7 +223,7 @@ The double of 10 is 20
 
 *Variadic functions* are functions that accept a variable number of arguments. The most popular variadic functions in Go can be found in the `fmt` package. The code of `variadic.go` illustrates the creation and the use of variadic functions.
 
-{{< file "./variadic.go" go >}}
+```file {title="./variadic.go"}
 package main
 
 import (
@@ -255,7 +255,7 @@ func main() {
     sum = oneByOne("Adding numbers...", sliceOfNumbers...)
     fmt.Println(sliceOfNumbers)
 }
-{{< /file >}}
+```
 
 
 * The `...` operator used as a prefix to a type like `...int` is called the *pack operator*, whereas the *unpack operator* appends a *slice* like `sliceOfNumbers...`. A slice is a Go data type that is essentially an abstraction of an array of unspecified length.
@@ -286,7 +286,7 @@ Adding numbers...
 
 Go supports *pointers* and this section will briefly present how functions can work with [pointers](https://golang.org/doc/effective_go.html#pointers_vs_values). A future Go guide will talk about pointers in more detail, but here is a brief overview.
 
-{{< file "./fPointers.go" go >}}
+```file {title="./fPointers.go"}
 package main
 
 import (
@@ -312,7 +312,7 @@ func main() {
     fmt.Println("sq value:", *theSquare)
     fmt.Println("sq memory address:", theSquare)
 }
-{{< /file >}}
+```
 
 * The `getPointer()` function takes a pointer argument to a `float64`, which is defined as `varToPointer *float64`, where `returnPointer()` returns a pointer to an `int`, which is declared as `*int`.
 
@@ -333,7 +333,7 @@ sq memory address: 0xc00001a0b8
 
 Go functions can have functions as parameters.
 
-{{< file "./fArgF.go" go >}}
+```file {title="./fArgF.go"}
 package main
 
 import "fmt"
@@ -355,7 +355,7 @@ func main() {
     fmt.Println("funFun Square:", funFun(squareIt, 12))
     fmt.Println("Inline", funFun(func(numToCube int) int { return numToCube * numToCube * numToCube }, 12))
 }
-{{< /file >}}
+```
 
 * The `funFun()` function accepts two parameters, a function parameter named `functionName` and an `int` value. The `functionName` parameter should be a function that takes one `int` argument and returns an `int` value.
 
@@ -381,7 +381,7 @@ Inline 1728
 
 Go functions can return functions.
 
-{{< file "./fRetF.go" go >}}
+```file {title="./fRetF.go"}
 package main
 
 import (
@@ -405,7 +405,7 @@ func main() {
     fmt.Println("First Call to square2:", square2())
     fmt.Println("Third Call to square1:", square1())
 }
-{{< /file >}}
+```
 
 * `squareFunction()` returns an anonymous function with the `func() int` signature.
 
@@ -432,7 +432,7 @@ Third Call to square1: 9
 
 Recognizing an error condition is one task, while deciding how to react to an error condition is another task. Therefore, some error conditions might require that you immediately stop the execution of the program, whereas in other error situations, you might just print a warning message and continue.
 
-{{< file "./errors.go" go >}}
+```file {title="./errors.go"}
 package main
 
 import (
@@ -462,7 +462,7 @@ func main() {
         return
     }
 }
-{{< /file >}}
+```
 
 * The `strconv.Atoi()` function tries to convert a string into an integer, provided that the string is a valid integer, and returns two things, an integer value and an `error` variable. If the `error` variable is `nil`, then the conversion was successful and you get a valid integer. The `_` character tells Go to ignore one, as in this case, or more of the return values of a function.
 

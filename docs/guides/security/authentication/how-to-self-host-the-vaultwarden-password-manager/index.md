@@ -126,7 +126,7 @@ This is the de facto image. If you are unsure about your needs, you probably wan
 
 1. Create the following Caddyfile. Be sure to replace `example.com` with the name of the domain that you set up in the [Before You Begin](#before-you-begin) section of this guide, and confirm that the domain points to the IP address of the Linode. This domain serves the web interface for Vaultwarden hosted and secured by Caddy's automatic TLS.
 
-   {{< file "/etc/Caddyfile" caddy >}}
+   ```file {title="/etc/Caddyfile"}
 example.com {
   encode gzip
 
@@ -139,7 +139,7 @@ example.com {
   # Send all other traffic to the regular Vaultwarden endpoint
   reverse_proxy 0.0.0.0:80
 }
-{{< /file >}}
+```
 
    {{< note >}}
 The site name you choose in this file must match the desired URL that Vaultwarden is served under. When navigating to the web interface later in this guide, ensure that you type the same hostname chosen in this configuration file (in this example, `example.com`).
@@ -258,7 +258,7 @@ In a more resilient setup, these local backups should be replicated onto another
 
 1. Create the following systemd service.
 
-   {{< file "/etc/systemd/system/vaultwarden-backup.service" ini >}}
+   ```file {title="/etc/systemd/system/vaultwarden-backup.service"}
 [Unit]
 Description=backup the vaultwarden sqlite database
 
@@ -267,7 +267,7 @@ Type=oneshot
 WorkingDirectory=/srv/backup
 ExecStart=/usr/bin/env sh -c 'sqlite3 /srv/vaultwarden/db.sqlite3 ".backup backup-$(date -Is | tr : _).sq3"'
 ExecStart=/usr/bin/find . -type f -mtime +30 -name 'backup*' -delete
-{{< /file >}}
+```
 
    This service unit creates a timestamped file and cleans up any backups older than 30 days.
 
@@ -288,7 +288,7 @@ total 136
 
 1. To schedule regular backups using this backup service unit, create the following systemd timer unit.
 
-   {{< file "/etc/systemd/system/vaultwarden-backup.timer" ini >}}
+   ```file {title="/etc/systemd/system/vaultwarden-backup.timer"}
 [Unit]
 Description=schedule vaultwarden backups
 
@@ -298,7 +298,7 @@ Persistent=true
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
    This schedules the backup to occur at 4:00 in the time zone set for the Linode. You may alter this time to trigger at a desired time of day.
 

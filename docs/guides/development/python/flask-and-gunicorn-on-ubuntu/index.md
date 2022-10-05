@@ -124,7 +124,7 @@ Checking connectivity... done.
 
         sudo nano /etc/nginx/sites-enabled/flask_app
 
-    {{< file "/etc/nginx/sites-enabled/flask_app" nginx >}}
+    ```file {title="/etc/nginx/sites-enabled/flask_app"}
 server {
     listen 80;
     server_name 192.0.2.0;
@@ -135,7 +135,7 @@ server {
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     }
 }
-{{< /file >}}
+```
 
 3. Disable the NGINX's default configuration file by removing its symlink:
 
@@ -206,12 +206,12 @@ You should keep sensitive configuration files **outside of source control**. If 
 
 1. Store the environment variables of the application in the JSON configuration file with the example content:
 
-    {{< file "/etc/config.json" json >}}
+    ```file {title="/etc/config.json"}
 {
   "SECRET_KEY": "1A37BbcCJh67",
   "SQLALCHEMY_DATABASE_URI": "sqlite:///site.db"
 }
-{{< /file >}}
+```
 
     - The `SECRET_KEY` is used to keep client-side sessions secure using a session cookie that can only be modified if the secret key is known and used for signing. Replace the value included in the example with a randomly generated value.
 
@@ -219,7 +219,7 @@ You should keep sensitive configuration files **outside of source control**. If 
 
 2.  Modify the `__init__.py` file to import the newly created JSON configuration:
 
-    {{< file "~/flask_app_project/flask_app/__init__.py" python >}}
+    ```file {title="~/flask_app_project/flask_app/__init__.py"}
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -239,7 +239,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 from flask_app import routes
-    {{</ file >}}
+    ```
 
 ### Install and Configure Gunicorn
 [Gunicorn](https://gunicorn.org/), *Green Unicorn*, is a Python web server gateway interface (WSGI) HTTP Server for UNIX. It is used to forward requests from the NGINX web server to the Flask application.
@@ -287,7 +287,7 @@ You can specify the number of workers you want Gunicorn to use with the `--worke
 
         sudo nano /etc/supervisor/conf.d/flask_app.conf
 
-    {{< file "/etc/supervisor/conf.d/flask_app.conf" supervisor >}}
+    ```file {title="/etc/supervisor/conf.d/flask_app.conf"}
 [program:flask_app]
 directory=/home/flask_app_project
 command=gunicorn3 --workers=3 flask_app:app
@@ -297,7 +297,7 @@ stopasgroup=true
 killasgroup=true
 stderr_logfile=/var/log/flask_app/flask_app.err.log
 stdout_logfile=/var/log/flask_app/flask_app.out.log
-{{< /file >}}
+```
 
 3. Create the log directories and files listed in the `flask_app.conf` file. Make sure to replace `flask_app` if it was modified in the Supervisor script above:
 

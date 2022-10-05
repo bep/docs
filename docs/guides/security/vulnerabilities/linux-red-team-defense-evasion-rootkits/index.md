@@ -123,12 +123,12 @@ The following procedures outline the process of setting up the apache-rootkit mo
 
 1. After which, you will need to add the following configuration at the top of the file to load the module correctly:
 
-    {{< file "/etc/apache2/apache2.conf" >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 LoadModule authg_module /usr/lib/apache2/modules/mod_authg.so
 <Location /authg>
 SetHandler authg
 </Location>
-{{< /file >}}
+```
 
 1. After adding the aforementioned configuration, you will need to save the file.
 

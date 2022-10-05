@@ -254,7 +254,7 @@ The Bookinfo app is a sample application that comes packaged with Istio. It feat
 
 1.  The `bookinfo.yaml` file is the application manifest. It specifies all the service and deployment objects for the application. Here is just the `productpage` section of this file; feel free to browse the entire file:
 
-    {{< file "~/istio-1.4.2/samples/bookinfo/platform/kube/bookinfo.yaml" >}}
+    ```file {title="~/istio-1.4.2/samples/bookinfo/platform/kube/bookinfo.yaml"}
 ...
 
 apiVersion: v1
@@ -303,7 +303,7 @@ spec:
         ports:
         - containerPort: 9080
 ---
-{{< /file >}}
+```
 
 1.  Start the `Bookinfo` application with the following command:
 
@@ -400,7 +400,7 @@ When checking the services in the previous section, you may have noticed none ha
 
 Here are the contents of the `bookinfo-gateway.yaml` file that you will use to open the gateway:
 
-{{< file "~/istio-1.4.2/samples/bookinfo/networking/bookinfo-gateway.yaml" >}}
+```file {title="~/istio-1.4.2/samples/bookinfo/networking/bookinfo-gateway.yaml"}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -442,7 +442,7 @@ spec:
         host: productpage
         port:
           number: 9080
-{{< /file >}}
+```
 
   - The `Gateway` section sets up the `server` and specifies the `port` and `protocol` that will be opened through the gateway. Note that the `name` must match Istio's [named service ports standardization scheme](https://istio.io/docs/setup/additional-setup/requirements/).
   - In the `Virtual Service` section, the `http` field defines how HTTP traffic will be routed, and the `destination` field says where requests are routed.
@@ -506,7 +506,7 @@ destinationrule.networking.istio.io/details created
 
 1.  Open a gateway for Grafana in the same way. Create a new file called `grafana-gateway.yaml`.
 
-    {{< file "~/istio-1.4.2/samples/bookinfo/networking/grafana-gateway.yaml" yaml >}}
+    ```file {title="~/istio-1.4.2/samples/bookinfo/networking/grafana-gateway.yaml"}
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
@@ -550,7 +550,7 @@ spec:
   trafficPolicy:
     tls:
       mode: DISABLE
-{{< /file >}}
+```
 
 1.  Apply the ingress gateway with the following command:
 

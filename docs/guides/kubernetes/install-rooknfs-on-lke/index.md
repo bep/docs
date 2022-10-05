@@ -53,7 +53,7 @@ rook-nfs-operator-5cc679885d-88769   1/1     Running   0          45h
 
 1. Overwrite the contents of the `webhook.yaml` file to the contents of the following file. This ensures that the webhook manifests will rely on a more up to date version of the Kubernetes API, ensuring that they're compatible with the latest versions of Kubernetes:
 
-    {{< file "/nfs/cluster/examples/kubernetes/nfs/webhook.yaml" >}}
+    ```file {title="/nfs/cluster/examples/kubernetes/nfs/webhook.yaml"}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -184,7 +184,7 @@ spec:
           secret:
             defaultMode: 420
             secretName: rook-nfs-webhook-cert
-{{< /file >}}
+```
 
 1.  Apply the Rook Admission Webhook and Cert Manager. Cert manager is a prerequisite for the webhook and applies an added layer of security:
 
@@ -220,7 +220,7 @@ rook-nfs-webhook-6ffb579d8c-wl59k    1/1     Running   0          45h
 
 1.  Edit the PVC portion of the default NFS server manifests in the `nfs.yaml` file before initializing the NFS server. The provided NFS manifest has two changes that need to be made. The first is the storage class for the PVC is left off, which assumes the default storage class. This can be explicitly defined to "linode-block-storage-retain" instead of assuming the default storage class. Secondly the accessModes is set to ReadWriteMany and the Linode block storage does not support ReadWriteMany. This should be changed to ReadWriteOnce.
 
-    {{< file "/nfs/cluster/examples/kubernetes/nfs/nfs.yaml" >}}
+    ```file {title="/nfs/cluster/examples/kubernetes/nfs/nfs.yaml"}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -237,7 +237,7 @@ spec:
 ---
 # Additionally this manifest contains the Rook NFSServer below the PVC
 # This is not displayed as there are no modifications to that portion of the manifest
-{{< /file >}}
+```
 
 1.  Apply the updated nfs.yaml file, then add a Rook storage class that leverages the Rook NFS server.
 

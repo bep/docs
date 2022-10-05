@@ -100,7 +100,7 @@ Default options are read from the following files in the given order:
 
     Also, if the file contains a `skip-networking` parameter, comment it out with a `#`.
 
-    {{< file "/etc/mysql/mysql.conf.d/mysqld.conf" >}}
+    ```file {title="/etc/mysql/mysql.conf.d/mysqld.conf"}
 ...
 [mysqld]
 
@@ -109,7 +109,7 @@ Default options are read from the following files in the given order:
 
 bind-address = 0.0.0.0
 ...
-{{< /file >}}
+```
 
 1.  Restart the MySQL service.
 

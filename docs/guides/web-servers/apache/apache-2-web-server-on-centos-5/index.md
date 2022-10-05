@@ -214,13 +214,13 @@ These usernames and passwords need not (and should not) correspond to system use
 
 In the .htaccess file for the directory that you want to protect, add the following lines:
 
-{{< file ".htaccess" apache >}}
+```file {title=".htaccess"}
 AuthUserFile /srv/www/example.com/.htpasswd
 AuthType Basic
 AuthName "Advanced Choreographic Information"
 Require valid-user
 
-{{< /file >}}
+```
 
 
 Note, that the `AuthName` is presented to the user as an explanation in the authentication dialog for what they are requesting access to on the server.

@@ -38,7 +38,7 @@ Be sure to replace "titan" with the name that you wish to give to your server.
 
 Edit your `/etc/apt/sources.list` file and change instances of `maverick` to `natty`. Once you have finished this, your `/etc/apt/sources.list` should resemble the following:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 deb http://us.archive.ubuntu.com/ubuntu/ natty main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ natty main restricted
 deb http://us.archive.ubuntu.com/ubuntu/ natty-updates main restricted
@@ -68,7 +68,7 @@ deb-src http://security.ubuntu.com/ubuntu natty-security universe
 deb http://security.ubuntu.com/ubuntu natty-security multiverse
 deb-src http://security.ubuntu.com/ubuntu natty-security multiverse
 
-{{< /file >}}
+```
 
 
 Issue the following command to update your package lists:

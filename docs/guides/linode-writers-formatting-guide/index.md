@@ -217,15 +217,15 @@ When using the `content` shortcode in a guide to embed a shortguide, the shortco
 
 To use an image in a shortguide, add the image to your shortguide's directory and then use the `image` shortcode to embed it:
 
-{{< file "sample_embedding_guide/index.md" text >}}
+```file {title="sample_embedding_guide/index.md"}
 {{</* image src="image-name.png" alt="image alt label" title="image title" */>}}
-{{< /file >}}
+```
 
 #### Example Usage
 
 The following shortguide describes how to install Python via Miniconda. Create a directory named `install_python_miniconda` and filed named `index.md` within it:
 
-{{< file "install_python_miniconda/index.md"  text >}}
+```file {title="install_python_miniconda/index.md"}
 ---
 author:
   name: Linode
@@ -254,13 +254,13 @@ show_on_rss_feed: false
 3.  Check your Python version:
 
         python --version
-{{< /file >}}
+```
 
 To use this shortguide in another guide, use the following syntax:
 
-{{< file "sample_embedding_guide/index.md" >}}
+```file {title="sample_embedding_guide/index.md"}
 {{</* content "install_python_miniconda" */>}}
-{{< /file >}}
+```
 
 #### Hide Content Through Buttons
 
@@ -283,11 +283,11 @@ For each file or file excerpt, a code language or syntax should be defined in th
         </div>
     {{</* /file */>}}
 
-{{< file "path/to/file.html" html >}}
+```file {title="path/to/file.html"}
 <div>
     Sample file text
 </div>
-{{< /file >}}
+```
 
 **Example**: File Excerpt shortcode
 
@@ -296,10 +296,10 @@ For each file or file excerpt, a code language or syntax should be defined in th
         print("This is a function.")
     {{</* /file */>}}
 
-{{< file "script.py" python >}}
+```file {title="script.py"}
 def some_function():
     print("This is a function.")
-{{< /file >}}
+```
 
 ### File Paths and File Names
 

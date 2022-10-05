@@ -173,7 +173,7 @@ To search for a specific text in the document, use `^W` The editor opens a searc
 
 For example, make some changes to the existing `tutorial.txt file` and save it with the following text in it:
 
-{{< file "tutorial.txt" >}}
+```file {title="tutorial.txt"}
 test 1
 
 test 2
@@ -191,7 +191,7 @@ Linode3
 Linode4
 
 Linode-end
-{{</ file >}}
+```
 
 ![updated contents in the file](content-file.png "Opening the sample file in nano.")
 

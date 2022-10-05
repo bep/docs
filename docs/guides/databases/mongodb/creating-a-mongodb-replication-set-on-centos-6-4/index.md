@@ -41,10 +41,10 @@ This guide is written for a non-root user. Commands that require elevated privil
 
     Replace the name in brackets <> with your own hostname. This example uses the Nano text editor. However, you can use the text editor you prefer.
 
-    {{< file "/etc/hostname" >}}
+    ```file {title="/etc/hostname"}
 europa
 
-{{< /file >}}
+```
 
 
 2.  Create a file to hold the configuration information for the MongoDB repository:
@@ -87,12 +87,12 @@ Before you begin, you will need to obtain all the private IP addresses for each 
 
 Once you have all your private IPs, you can add them to the `hosts` file. Use your favorite text editor and add the addresses.
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 192.168.160.1 mongo1
 192.168.170.1 mongo2
 192.168.180.1 mongo3
 
-{{< /file >}}
+```
 
 
 Use your own IP addresses in place of the addresses in the above example. The names of the members in the replication set are also variables, so you may name them what you choose. However, it would be prudent to have some numerical or alphabetic notation as this will make it easier to identify when connecting to the different replication set members.
@@ -105,7 +105,7 @@ Replication set member names and the actual server name are different. In this i
 
 1.  Edit your `ifcfg-eth0` file to include the public IP address information.
 
-    {{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+    ```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 DEVICE=eth0
 BOOTPROTO=none
 ONBOOT=yes
@@ -120,7 +120,7 @@ IPADDR=xxx.xx.xxx.xx
 NETMASK=xxx.xxx.xxx.x
 GATEWAY=xxx.xx.xx.x
 
-{{< /file >}}
+```
 
 
     Replace the sample addresses with your own IP information.
@@ -131,7 +131,7 @@ GATEWAY=xxx.xx.xx.x
 
 3.  Now edit your newly created `eth0:1` file to reflect your private IP information:
 
-    {{< file "/etc/sysconfig/network-scripts/ifcfg-eth0:1" >}}
+    ```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0:1"}
 # Configuration for eth0:1
 DEVICE=eth0:1
 BOOTPROTO=none
@@ -144,7 +144,7 @@ ONBOOT=yes
 IPADDR=xxx.xxx.xxx.xxx
 NETMASK=xxx.xxx.xxx.x
 
-{{< /file >}}
+```
 
 
     Again you will replace the sample addresses with your own IP information.
@@ -157,24 +157,24 @@ NETMASK=xxx.xxx.xxx.x
 
 1.  Edit the `mongod.conf` file to add the IP address and port number.
 
-    {{< file "/etc/mongod.conf" >}}
+    ```file {title="/etc/mongod.conf"}
 # fork and run in background
 fork = true
 
 bind_ip = 192.168.135.24
 port = 27017
 
-{{< /file >}}
+```
 
 
     Enter the private IP address of the server you are logged onto in the bind ip section. If bind_ip is not present, you will need to add it. Leave the default port number of **27017**, and uncomment the line `fork = true`.
 
 2.  While still in the `mongodb.conf` file scroll to the bottom and add the replica set information:
 
-    {{< file "/etc/mongod.conf" >}}
+    ```file {title="/etc/mongod.conf"}
 replSet = rs1
 
-{{< /file >}}
+```
 
 
     In this example, the sample replication set is **rs1**, however, you may change the name as you choose.

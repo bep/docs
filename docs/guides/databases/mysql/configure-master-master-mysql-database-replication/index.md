@@ -53,7 +53,7 @@ If you are unsure of which version of MySQL has been installed on your system wh
 
     **Server 1:**
 
-    {{< file "/etc/mysql/my.cnf" >}}
+    ```file {title="/etc/mysql/my.cnf"}
 [mysqld]
 server_id           = 1
 log_bin             = /var/log/mysql/mysql-bin.log
@@ -65,14 +65,14 @@ max_binlog_size     = 100M
 log_replica_updates = 1
 auto-increment-increment = 2
 auto-increment-offset = 1
-{{< /file >}}
+```
   {{< note >}}
 If using MySQL 8.0.25 or earlier, replace `log_replica_updates` with `log_slave_updates` (within both Servers 1 and 2). See [MySQL documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_slave_updates) for details.
     {{< /note >}}
 
     **Server 2:**
 
-    {{< file "/etc/mysql/my.cnf" >}}
+    ```file {title="/etc/mysql/my.cnf"}
 [mysqld]
 server_id           = 2
 log_bin             = /var/log/mysql/mysql-bin.log
@@ -84,7 +84,7 @@ max_binlog_size     = 100M
 log_replica_updates = 1
 auto-increment-increment = 2
 auto-increment-offset = 2
-{{< /file >}}
+```
 
     {{< note >}}
 If using MySQL 8.0.25 or earlier, replace `log_replica_updates` with `log_slave_updates` (within both Servers 1 and 2). See [MySQL documentation](https://dev.mysql.com/doc/refman/8.0/en/replication-options-binary-log.html#sysvar_log_slave_updates) for details.
@@ -92,9 +92,9 @@ If using MySQL 8.0.25 or earlier, replace `log_replica_updates` with `log_slave_
 
 2. Edit the `bind-address` configuration in order to use the private IP addresses, for each of the Linodes.
 
-    {{< file "/etc/mysql/my.cnf" >}}
+    ```file {title="/etc/mysql/my.cnf"}
 bind-address    = x.x.x.x
-{{< /file >}}
+```
 
 3.  Once completed, restart the MySQL application:
 

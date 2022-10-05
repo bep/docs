@@ -78,7 +78,7 @@ Clone the new repository to your local workstation:
 
 Open your favorite text editor and create the file `app.js` at the root of your repository. Add the following content:
 
-{{< file "~/jenkins-guide/app.js" js >}}
+```file {title="~/jenkins-guide/app.js"}
 'use strict';
 
 const express = require('express');
@@ -99,11 +99,11 @@ app.get('/',function(req,res) {
 // Console output
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
-{{< /file >}}
+```
 
 This application uses the [Express](https://expressjs.com/) web server to deliver a single JSON output to the browser on port 9000. Next, save `test.js` to the same location at the root of your repository.
 
-{{< file "~/jenkins-guide/test.js" js >}}
+```file {title="~/jenkins-guide/test.js"}
 var supertest = require("supertest");
 var should = require("should");
 
@@ -132,7 +132,7 @@ describe("Webapp Status",function(){
   });
 
 });
-{{< /file >}}
+```
 
 This is a simplified test suite that uses `supertest` and `should`. It only has two tests: The first checks the HTTP status, which it expects to be 200. The second is not a real test but a control that always passes.
 
@@ -144,7 +144,7 @@ This example will use two Docker containers, one to serve `app.js` using Express
 
 2.  Create the `Dockerfile` and `package.json` for the `express-image`.
 
-    {{< file "~/jenkins-guide/express-image/Dockerfile" >}}
+    ```file {title="~/jenkins-guide/express-image/Dockerfile"}
 FROM node:6-alpine
 
 # Create a server directory
@@ -162,13 +162,13 @@ COPY app.js /home/node/app
 EXPOSE 9000
 
 CMD ["npm", "start"]
-{{< /file >}}
+```
 
     This image runs `app.js` by default when launched. You can think of it as the "dockerized" version of the web application.
 
 3.  The Dockerfile copies a `package.json` file from the root of your project directory into the new image:
 
-    {{< file "~/jenkins-guide/express-image/package.json" json >}}
+    ```file {title="~/jenkins-guide/express-image/package.json"}
 {
   "name": "express-image",
   "version": "1.0.0",
@@ -186,11 +186,11 @@ CMD ["npm", "start"]
     "express": "^4.13.3"
   }
 }
-{{< /file >}}
+```
 
 4.  Create the `Dockerfile` for the `test-image`:
 
-    {{< file "~/jenkins-guide/test-image/Dockerfile" conf >}}
+    ```file {title="~/jenkins-guide/test-image/Dockerfile"}
 FROM node:6-alpine
 
 # Create feports directory
@@ -210,13 +210,13 @@ COPY test.js /home/node/tests
 EXPOSE 9000
 
 CMD ["npm", "test"]
-{{< /file >}}
+```
 
     This image creates a *report* folder and installs dependencies from `package.json`. On start, it executes the Mocha tests.
 
 5.  Add a `package.json` file for your testing image:
 
-    {{< file "~/jenkins-guide/test-image/package.json" conf >}}
+    ```file {title="~/jenkins-guide/test-image/package.json"}
 {
   "name": "test-image",
   "version": "1.0.0",
@@ -242,7 +242,7 @@ CMD ["npm", "test"]
     "supertest": "^3.0.0"
   }
 }
-{{< /file >}}
+```
 
     This JSON file contains all the necessary dependencies, including `mocha-junit-reporter` that will be needed by Jenkins for tests storage. Notice that the test script is configured with the `mochaFile` option which uses the image's report folder specified in the `Dockerfile`.
 
@@ -444,7 +444,7 @@ All these actions can be executed inside your `agent` or you can also instruct J
 
 1.  Create your first `Jenkinsfile` in the `jenkins-guide` directory on your workstation. This is only a template, but it contains all the necessary code to start your Pipeline:
 
-    {{< file "~/jenkins-guide/Jenkinsfile" conf  >}}
+    ```file {title="~/jenkins-guide/Jenkinsfile"}
 pipeline {
     agent any
         stages {
@@ -465,7 +465,7 @@ pipeline {
             }
         }
     }
-{{< /file >}}
+```
 
 2.  Push your commit to GitHub:
 
@@ -533,7 +533,7 @@ The `Jenkinsfile` template uses a very basic pipeline structure with only three 
 
 Start by editing your Jenkinsfile and pasting the following pipeline. Replace `<DockerHub Username>` with your own information.
 
-{{< file "~/jenkins-guide/Jenkinsfile" conf >}}
+```file {title="~/jenkins-guide/Jenkinsfile"}
 pipeline {
     environment {
       DOCKER = credentials('docker-hub')
@@ -635,7 +635,7 @@ pipeline {
     }
   }
 }
-{{< /file >}}
+```
 
 This complete Jenkinsfile is written using declarative syntax. If you read it carefully, you will notice that it describes the same procedure used during the application deployment in a previous section. This section will analyze the Jenkinsfile in more detail.
 
@@ -643,13 +643,13 @@ This complete Jenkinsfile is written using declarative syntax. If you read it ca
 
 The first block defines a globally available environmental variable called `DOCKER`. You can tell it applies globally because is inside the pipeline block but outside the stages block. Next comes the `agent`, a statement that means Jenkins can use any (server) agent.
 
-{{< file "~/jenkins-guide/Jenkinsfile" conf >}}
+```file {title="~/jenkins-guide/Jenkinsfile"}
 pipeline {
     environment {
       DOCKER = credentials('docker-hub')
     }
   agent any
-{{< /file >}}
+```
 
 The `DOCKER` definition is done through the *credentials* feature. This allows you to use confidential login information without including it in the Jenkinsfile. To configure this key pair:
 
@@ -673,7 +673,7 @@ In the example pipeline, `DOCKER = credentials('docker-hub')` creates two enviro
 
 The first thing you will notice about the `parallel` code block is that it's self-explanatory-it will run sub-stages in parallel. This is useful for building two Docker images at the same with the same shell commands you used before. Each image is declared in its own step which is also part of an independent stage.
 
-{{< file "~/jenkins-guide/Jenkinsfile" >}}
+```file {title="~/jenkins-guide/Jenkinsfile"}
 // Building your Test Images
     stage('BUILD') {
       parallel {
@@ -696,7 +696,7 @@ The first thing you will notice about the `parallel` code block is that it's sel
         }
       }
     }
-{{< /file >}}
+```
 
 After closing the parallel stage you encounter the `post` conditionals. `Post` means the definitions applies to the whole `BUILD` stage. In this case only the `failure` condition is set, so it will only run if any part of the `BUILD` stage fails. Configuring the different tools that Jenkins provides for communications is beyond the scope of this guide.
 
@@ -704,7 +704,7 @@ After closing the parallel stage you encounter the `post` conditionals. `Post` m
 
 The testing stage also uses parallel execution:
 
-{{< file "~/jenkins-guide/Jenkinsfile" conf >}}
+```file {title="~/jenkins-guide/Jenkinsfile"}
 // Performing Software Tests
     stage('TEST') {
       parallel {
@@ -738,7 +738,7 @@ The testing stage also uses parallel execution:
         }
       }
     }
-{{< /file >}}
+```
 
 The `Mocha Tests` stage starts the two images and performs the automatic tests, resulting in a `reports.xml` file saved into Jenkins workspace. On the other hand, the `Quality Tests` stage publishes the `trunk` version of your application to Docker Hub. It first issues the Docker login command (using the pre-defined credentials), then changes the image tag, and pushes it.
 
@@ -798,12 +798,12 @@ Up to this point, everything should work as expected without error. But what hap
 
 1.  Edit `app.js` in your local workstation. On the server, change the root address `/` with `/ERROR`. This will cause an error 404 on the `express` server (page not found) so the test will fail.
 
-{{< file "~/jenkins-guide/app.js" js >}}
+```file {title="~/jenkins-guide/app.js"}
 // Web Server
 app.get('/ERROR',function(req,res) {
   res.json(os);
 });
-{{< /file >}}
+```
 
 2.  Commit your changes to Jenkins:
 
@@ -827,11 +827,11 @@ Now, induce an error on the `BUILD` stage.
 
 1.  Edit your `express-image/package.json`. Change the Express package name to `express-ERROR` to simulate a mistyping.
 
-    {{< file "~/jenkins-guide/express-image/package.json" json >}}
+    ```file {title="~/jenkins-guide/express-image/package.json"}
 "dependencies": {
     "express-ERROR": "^4.13.3"
   }
-{{< /file >}}
+```
 
 2.  Push your changes to Jenkins:
 

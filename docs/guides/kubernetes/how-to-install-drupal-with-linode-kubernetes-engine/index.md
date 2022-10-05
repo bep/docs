@@ -51,7 +51,7 @@ Follow the instructions in [Deploying and Managing a Cluster with Linode Kuberne
 
 1. Create a `kustomization.yaml` file in the `drupal` folder. Open a text editor and create the file with a secret generator and resource config files for the single-instance MySQL deployment, as well as a single-instance Drupal deployment. Be sure to replace `MySQLpassword` with the secure password that you want to use to access MySQL:
 
-      {{< file "/drupal/kustomization.yaml" >}}
+      ```file {title="/drupal/kustomization.yaml"}
 ---
 secretGenerator:
 - name: mysql-pass
@@ -60,11 +60,11 @@ secretGenerator:
 resources:
   - mysql-deployment.yaml
   - drupal-deployment.yaml
-{{< /file >}}
+```
 
 1. Create a `mysql-deployment.yaml` file in the `drupal` folder. Open a text editor and create a manifest file that describes a single-instance deployment of MySQL.
 
-      {{< file "/drupal/mysql-deployment.yaml" >}}
+      ```file {title="/drupal/mysql-deployment.yaml"}
 ---
 apiVersion: v1
 kind: Service
@@ -136,7 +136,7 @@ spec:
           persistentVolumeClaim:
             claimName: mysql-claim
 
-{{< /file >}}
+```
 
       This manifest is doing several things:
 
@@ -149,7 +149,7 @@ spec:
 
 1. Create a `drupal-deployment.yaml` file in the `drupal` folder. Open a text editor and create a manifest file that describes a single-instance deployment of Drupal.
 
-      {{< file "/drupal/drupal-deployment.yaml" >}}
+      ```file {title="/drupal/drupal-deployment.yaml"}
 ---
 apiVersion: v1
 kind: Service
@@ -242,7 +242,7 @@ spec:
           persistentVolumeClaim:
             claimName: drupal-claim
 
-{{< /file >}}
+```
 
       This manifest is doing several things:
 

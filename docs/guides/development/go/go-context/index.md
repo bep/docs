@@ -51,14 +51,14 @@ The context package supports both the handling of multiple concurrent operations
 
 If you take a look at the source code of the context package, you will realize that its implementation is pretty simple. The context package defines the `Context` type, which is a Go interface with four methods, named `Deadline()`, `Done()`, `Err()`, and `Value()`:
 
-{{< file "context.go" go >}}
+```file {title="context.go"}
 type Context interface {
     Deadline() (deadline time.Time, ok bool)
     Done() <-chan struct{}
     Err() error
     Value(key interface{}) interface{}
 }
-{{< /file >}}
+```
 
  - The developer will need to declare and modify a Context variable using functions such as `context.WithCancel()`, `context.WithDeadline()` and `context.WithTimeout()`.
 
@@ -74,7 +74,7 @@ This first code example is relatively simple and illustrates the use of the `con
 
 The code of `simple.go` is as follows:
 
-{{< file "./simple.go" go >}}
+```file {title="./simple.go"}
 package main
 
 import (
@@ -169,7 +169,7 @@ func main() {
         f2(delay)
         f3(delay)
 }
-{{< /file >}}
+```
 
  - The program contains four functions including the `main()` function. Functions `f1()`, `f2()`, and `f3()` each require just one parameter, which is a time delay, because everything else they need is defined inside their functions.
 
@@ -245,7 +245,7 @@ The presented utility, which is called `http.go`, requires two command line argu
 
 The Go code of the `http.go` utility is the following:
 
-{{< file "./http.go" go >}}
+```file {title="./http.go"}
 package main
 
 import (
@@ -345,7 +345,7 @@ func main() {
         w.Wait()
         fmt.Println("Exiting...")
 }
-{{< /file >}}
+```
 
  - The timeout period is defined by the `context.WithTimeout()` method in `main()`.
 
@@ -411,7 +411,7 @@ The `more.go` program illustrates the use of the `context.TODO()` function as we
 
 The Go code of `more.go` is the following:
 
-{{< file "./more.go" go >}}
+```file {title="./more.go"}
 package main
 
 import (
@@ -440,7 +440,7 @@ func main() {
         emptyCtx := context.TODO()
         searchKey(emptyCtx, aKey("notThere"))
 }
-{{< /file >}}
+```
 
  - This time we create a context using `context.TODO()` instead of `context.Background()`. Although both functions return a non-nil, empty Context, their purposes differ. You should never pass a nil context –-- use the `context.TODO()` function to create a suitable context. Use the `context.TODO()` function when you are not sure about the Context that you want to use.
 

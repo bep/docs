@@ -77,7 +77,7 @@ The script in this section is updated in the next section to incorporate auto-fo
 
 1.  Copy this snippet into the file:
 
-    {{< file "forward-last-email-to-text-message.py">}}
+    ```file {title="forward-last-email-to-text-message.py"}
 import os
 import sys
 import imaplib
@@ -102,7 +102,7 @@ except KeyError:
     print("EMAIL_PASSWORD")
     print("EMAIL_SERVER")
     sys.exit(1)
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 This code imports several modules that are used later in the code:
@@ -122,11 +122,11 @@ This code imports several modules that are used later in the code:
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 twilio_client = Client(twilio_account_sid, twilio_auth_token)
-{{< /file >}}
+```
 
 This line creates a new client object that can interact with the Twilio API.
 
@@ -134,12 +134,12 @@ This line creates a new client object that can interact with the Twilio API.
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 mail = imaplib.IMAP4_SSL(email_server)
 mail.login(email_username, email_password)
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 - The first line [configures a secure connection](https://docs.python.org/3/library/imaplib.html#imaplib.IMAP4_SSL) to your email server.
@@ -151,7 +151,7 @@ mail.login(email_username, email_password)
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 mail.select('INBOX')
@@ -160,7 +160,7 @@ status, email_search_data = mail.search(None, 'FROM', '"Linode Alerts"')
 mail_ids = []
 for mail_ids_string in email_search_data:
     mail_ids += mail_ids_string.decode("utf-8").split()
-{{< /file >}}
+```
 
 You may want to retrieve mail from a mailbox with a specific name, instead of `INBOX`. For example, if you use Gmail and want to search all of your mail, remove the existing `mail.select()` function call and insert this new one:
 
@@ -186,7 +186,7 @@ You may want to retrieve mail from a mailbox with a specific name, instead of `I
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 if len(mail_ids) == 0:
@@ -195,7 +195,7 @@ if len(mail_ids) == 0:
 
 mail_ids.reverse()
 status, email_data = mail.fetch(mail_ids[0], '(RFC822)')
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 - Lines 3-5 exit the script if no emails matching the search were found.
@@ -213,7 +213,7 @@ status, email_data = mail.fetch(mail_ids[0], '(RFC822)')
 
 Copy and paste the code from this snippet to the bottom of your script:
 
-{{< file "forward-last-email-to-text-message.py">}}
+```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 response_part = email_data[0]
@@ -230,7 +230,7 @@ if isinstance(response_part, tuple):
 
 mail.close()
 mail.logout()
-{{< /file >}}
+```
 
 {{< disclosure-note "About the code" >}}
 This section of code parses the `email_data` variable returned by the `mail.fetch()` function. The value of this variable is an array that contains the contents of the fetched emails. This is an example of what the array might look like:
@@ -322,7 +322,7 @@ The code parses this array as follows:
 
 1. Copy and paste the code from this snippet to the bottom of your script:
 
-    {{< file "forward-last-email-to-text-message.py">}}
+    ```file {title="forward-last-email-to-text-message.py"}
 # copy and paste to bottom of file:
 
 message = twilio_client.messages.create(
@@ -332,7 +332,7 @@ message = twilio_client.messages.create(
 )
 
 print("Twilio message created with ID: %s" % (message.sid))
-{{< /file >}}
+```
 
     {{< disclosure-note "About the code" >}}
 The `create` method tells the Twilio API to create *and* immediately send a new text message:
@@ -442,7 +442,7 @@ This auto-forwarding system has two parts:
 
 1.  Copy this snippet into the file. Then, save the file and exit your text editor.
 
-    {{< file "autoforward-email-to-text-message.py">}}
+    ```file {title="autoforward-email-to-text-message.py"}
 import os
 import sys
 import imaplib
@@ -526,7 +526,7 @@ for mail_id in mail_ids:
 
 mail.close()
 mail.logout()
-{{< /file >}}
+```
 
 As in the previous section, you may want to retrieve mail from a mailbox with a specific name, instead of `INBOX`. For example, if you use Gmail and want to search all of your mail, remove the existing `mail.select()` function call and insert this new one:
 
@@ -626,24 +626,24 @@ Follow these steps to only forward CPU usage alerts to text:
 
 1. In your `autoforward-email-to-text-message.py`, remove lines 34-36:
 
-    {{< file "autoforward-email-to-text-message.py" >}}
+    ```file {title="autoforward-email-to-text-message.py"}
 # remove the following lines:
 
 # status, email_search_data = mail.search(None,
 #     'FROM', '"Linode Alerts"',
 #     'SINCE', yesterday.strftime("%d-%b-%Y"))
-{{< /file >}}
+```
 
 1. Insert these new lines of code in the same position as the removed lines:
 
-    {{< file "autoforward-email-to-text-message.py">}}
+    ```file {title="autoforward-email-to-text-message.py"}
 # insert where previous lines were removed:
 
 status, email_search_data = mail.search(None,
     'FROM', '"Linode Alerts"',
     'SINCE', yesterday.strftime("%d-%b-%Y"),
     'SUBJECT', '"CPU Usage"')
-{{< /file >}}
+```
 
 This new code adds the `SUBJECT` IMAP search command to the search criterion. Note that the subject string that is searched for should be wrapped in double and single quotes.
 

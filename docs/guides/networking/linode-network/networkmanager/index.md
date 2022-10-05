@@ -33,7 +33,7 @@ Most distributions that use NetworkManager enable the ifcfg-rh plugin be default
 
 Here is an example of a typical configuration file for NetworkManager. It statically defines the IPv4 address and allows SLAAC to configure the IPv6 address.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 DEVICE="eth0"
 NAME="eth0"
 ONBOOT="yes"
@@ -55,7 +55,7 @@ DNS3=203.0.113.3
 GATEWAY0=192.0.2.1
 IPADDR0=192.0.2.123
 PREFIX0=24
-{{</ file >}}
+```
 
 ## Configuring IP Addresses Manually
 
@@ -85,25 +85,25 @@ PREFIX0=24
 
 To change the main IPv4 address configured on the system, set the `GATEWAY0`, `ADDRESS0`, and `PREFIX0` parameters to match the new IP address and its corresponding gateway IP address.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 ...
 GATEWAY0=192.0.2.1
 IPADDR0=192.0.2.123
 PREFIX0=24
-{{</ file >}}
+```
 
 ## Configuring the Primary IPv4 Address through DHCP
 
 DHCP can be used to automatically configure your primary IPv4 address. The primary IPv4 address is defined as the IPv4 address assigned to your system that is in the first position when sorted numerically. To enable DHCP, set the `BOOTPROTO` parameter to `"dhcp"` and remove (or comment out) the lines that define the `GATEWAY0`, `ADDRESS0`, and `PREFIX0` parameters.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 ...
 BOOTPROTO="dhcp"
 ...
 # GATEWAY0=192.0.2.1
 # IPADDR0=192.0.2.123
 # PREFIX0=24
-{{</ file >}}
+```
 
 {{< caution >}}
 When using DHCP, the IPv4 address configured on your system may change if you add or remove IPv4 addresses on your Compute Instance. If this happens, any tool or system using the original IPv4 address will no longer be able to connect.
@@ -115,11 +115,11 @@ To disable DHCP, set the `BOOTPROTO` parameter back to `"none"`.
 
 Additional IPv4 addresses can be configured by adding the `IPADDRn` and `PREFIXn` parameters, where *n* is an incrementing number based on how many other IPv4 address you have configured (starting at `0` for the primary address). For instance, to add a second IPv4 address, use the parameters `IPADDR1` and `PREFIX1`. For a third address, use `IPADDR2` and `PREFIX2`.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 IPADDR1=[ip-address]
 PREFIX1=[prefix]
-{{</ file >}}
+```
 
 In the example above, make the following replacements:
 
@@ -130,23 +130,23 @@ In the example above, make the following replacements:
 
 SLAAC is used to automatically configure your primary IPv6 address. For this to work, your system must accept router advertisements. You also may need to disable IPv6 privacy extensions. Within NetworkManager, you can set `IPV6INIT` to `yes`, `IPV6_ADDR_GEN_MODE` to `eui64`, and `IPV6_PRIVACY` to `no`.
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 ...
 IPV6INIT="yes"
 IPV6_ADDR_GEN_MODE="eui64"
 IPV6_PRIVACY="no"
-{{</ file >}}
+```
 
 If you wish to disable IPv6 SLAAC addressing and instead statically configure your IPv6 address (not recommended), you can explicitly set the `net.ipv6.conf.eth0.autoconf` kernel variable to `0` in the `/etc/sysctl.conf` file and then reboot your Compute Instance
 
-{{< file "/etc/sysctl.conf" >}}
+```file {title="/etc/sysctl.conf"}
 ...
 net.ipv6.conf.all.autoconf=0
-{{</ file >}}
+```
 
 Then modify the network configuration file to disable auto-configuration and statically set your IPv6 address (using the prefix of `/128`).
 
-{{< file "/etc/sysconfig/network-scripts/ifcfg-eth0" >}}
+```file {title="/etc/sysconfig/network-scripts/ifcfg-eth0"}
 ...
 IPV6INIT="yes"
 IPV6_AUTOCONF="no"
@@ -155,16 +155,16 @@ IPV6_AUTOCONF="no"
 
 IPV6ADDR=[ip-address]/128
 IPV6_DEFAULTGW=fe80::1
-{{</ file >}}
+```
 
 ## Configuring Additional IPv6 Addresses
 
 If you have an IPv6 range assigned to your Compute Instance, addresses from this range can be configured through the `IPV6ADDR_SECONDARIES` parameter. This accepts a list of space delimited IPv6 addresses.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 IPV6ADDR_SECONDARIES="[ip-address]/[prefix]"
-{{</ file >}}
+```
 
 In the example above, make the following replacements:
 
@@ -175,11 +175,11 @@ In the example above, make the following replacements:
 
 DNS resolvers are the entities that resolve domain names to their corresponding IPv4 address. By default, the Compute Instance should be using the DNS resolvers for the data center in which it resides. You can change these by setting the `DNS` parameter to a space delimited list of the IP addresses for your preferred DNS resolvers.
 
-{{< file "/etc/systemd/network/05-eth0.network" >}}
+```file {title="/etc/systemd/network/05-eth0.network"}
 ...
 DNS1=203.0.113.1
 DNS2=203.0.113.2
 DNS3=203.0.113.3
-{{</ file >}}
+```
 
 In the above example, replace the IP addresses provided with the IP addresses of the DNS resolvers you wish to use. Both IPv4 and IPv6 addresses can be used together.

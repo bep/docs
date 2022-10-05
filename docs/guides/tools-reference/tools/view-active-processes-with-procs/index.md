@@ -186,9 +186,9 @@ ARGS:
 
 On some systems, special characters can scramble the procs display. To avoid this problem, add the following line to your `.bashrc` file.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export LESSCHARSET=utf-8
-{{< /file >}}
+```
 
 Then, run the command `source ~/.bashrc` to initialize the changes.
 
@@ -277,14 +277,14 @@ Users can personalize the default procs behavior using a `config.toml` file. Whe
 
 1. Change or add any formatting as required. Sample configuration files can be found on the [*procs GitHub site*](https://github.com/dalance/procs/tree/master/config). For example, the following configuration snippet adds the `VmData` field to the configuration. Paste this text into the file right before the final separator in the `[[columns]]` section.
 
-    {{< file "~/.config/procs/config.toml" aconf >}}
+    ```file {title="~/.config/procs/config.toml"}
 [[columns]]
 kind = "VmData"
 style = "ByUnit"
 numeric_search = false
 nonnumeric_search = false
 align = "Right"
-    {{< /file >}}
+    ```
 
 1. Save the file.
 

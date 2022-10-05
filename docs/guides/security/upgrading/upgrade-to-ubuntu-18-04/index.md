@@ -90,7 +90,7 @@ Remember to perform these steps in a Lish or Glish session:
 
 2.  Open `/etc/update-manager/release-upgrades` and verify that the `Prompt` value is set to `lts` on Ubuntu 16.04 or `normal` on Ubuntu 17.10:
 
-    {{< file "/etc/update-manager/release-upgrades" >}}
+    ```file {title="/etc/update-manager/release-upgrades"}
 # Default behavior for the release upgrader.
 
 [DEFAULT]
@@ -109,7 +109,7 @@ Remember to perform these steps in a Lish or Glish session:
 #           determine if a newer release is available.
 Prompt=lts
 
-{{< /file >}}
+```
 
 1.  You're now ready to begin the upgrade to Ubuntu 18.04 LTS.
 

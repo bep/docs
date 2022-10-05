@@ -98,10 +98,10 @@ Use the Rubygems package manager to install Rails. Replace the version below wit
 
 1.  NGINX is now installed on the system, but support for Phusion Passenger is not enabled. As root, or with the `sudo` command, open the file `/etc/nginx/conf.d/mod-http-passenger.conf` and verify that the following two lines are present and uncommented:
 
-    {{< file "/etc/nginx/conf.d/mod-http-passenger.conf" aconf >}}
+    ```file {title="/etc/nginx/conf.d/mod-http-passenger.conf"}
 passenger_root /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini;
 passenger_ruby /usr/bin/passenger_free_ruby;
-{{< /file >}}
+```
 
     {{< note >}}
 If the file does not already exist, you will need to create it and add the lines manually.
@@ -150,12 +150,12 @@ If your Gemfile already includes `therubyracer`, or you have another JavaScript 
 
 3.  Open `/etc/nginx/sites-available/default` in a text editor and remove `default_server` from the first two lines of the `server` block:
 
-    {{< file "/etc/nginx/sites-available/default" conf >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 server {
   listen 80;
   listen [::]:80;
    . . .
-  {{< /file >}}
+  ```
 
 4. Since you are using RVM, you will need to specify which version of Ruby should be used by Passenger:
 
@@ -177,7 +177,7 @@ passenger-config was invoked through the following Ruby interpreter:
 
 5. Configure a new site for your Rails app. Create `/etc/nginx/sites-available/railsapp` in a text editor and add the following content:
 
-    {{< file "/etc/nginx/sites-available/railsapp" conf >}}
+    ```file {title="/etc/nginx/sites-available/railsapp"}
 server {
   listen 80 default_server;
   server_name 192.0.2.0;
@@ -185,7 +185,7 @@ server {
   passenger_enabled on;
   root /path/to/app/public;
 }
-{{< /file >}}
+```
 
   Set the `server_name` to the public IP address or FQDN of your Linode and replace the `root` path with the path to your Rails application. Paste the output of the `passenger-config` command to replace the `passenger_ruby` line.
 

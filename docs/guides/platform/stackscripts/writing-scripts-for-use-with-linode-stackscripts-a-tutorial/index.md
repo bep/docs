@@ -161,7 +161,7 @@ Linode StackScripts provide a set of default environment variables that you can 
 
 It is possible to set your script's environment variables using externally hosted files. The example Bash script uses the wget utility to download two files named `base.env` and `$IPADDR.env` from the external site `http://example.com/`. The `source` command loads the downloaded files into the script.
 
-{{< file "StackScript" bash >}}
+```file {title="StackScript"}
 # [...]
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 
@@ -171,7 +171,7 @@ wget http://example.com/$IPADDR.env --output-document=/tmp/system.env
 source /tmp/base.env
 source /tmp/system.env
 # [...]
-{{< /file >}}
+```
 
 {{< note >}}
 The files you reference within your script must exist and be accessible via `HTTP`. Also, ensure that the files you host externally do not contain any sensitive information.

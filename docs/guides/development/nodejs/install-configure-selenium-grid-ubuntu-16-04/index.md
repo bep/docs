@@ -113,7 +113,7 @@ Selenium provides a single `.jar` file that can be used to run a standalone serv
 
 1.  On `node-1` and `node-2`, create a node configuration file `config.json` and add the following content. Replace the `hub` address with the public IP of the `hub` Linode, and replace the `version` with the version of Firefox installed on the respective nodes. If you are putting the grid and nodes on the same Linode, replace the IP address with `http://localhost:4444`:
 
-    {{< file "config.json" json >}}
+    ```file {title="config.json"}
 {
   "capabilities":
   [
@@ -141,7 +141,7 @@ Selenium provides a single `.jar` file that can be used to run a standalone serv
   "withoutServlets": [],
   "custom": {}
 }
-{{< /file >}}
+```
 
 2.  Connect each node to the hub:
 
@@ -203,7 +203,7 @@ This script tests the Linode Docs home page.
 
 4.  Create `test.js` and add the following script. Replace `192.0.2.0` on Line 11 with the IP address of `hub`:
 
-    {{< file "~/test-selenium/test.js" js >}}
+    ```file {title="~/test-selenium/test.js"}
 const {Builder, By, Capabilities, Key, until} = require('selenium-webdriver');
 let firefox = require('selenium-webdriver/firefox');
 
@@ -246,7 +246,7 @@ async function main() {
 }
 
 main();
-{{< /file >}}
+```
 
 5.  Save the test script, then run it:
 

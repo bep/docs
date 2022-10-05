@@ -125,12 +125,12 @@ To enable HTTP/2 support on NGINX, edit the `server` block for the domain. This 
 
 1. Edit the file containing the server block for the domain. Append the `http2` keyword to the `listen` directives for both Ipv4 (`443`) and Ipv6 (`[::]:443`), and add the line `ssl_protocols TLSv1.2;`. Follow the example shown below.
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
     listen [::]:443 ssl http2 ipv6only=on; # managed by Certbot
     listen 443 ssl http2; # managed by Certbot
     ...
     ssl_protocols TLSv1.2;
-    {{< /file >}}
+    ```
 1. Save the file and validate the NGINX syntax using the following command.
 
         sudo nginx -t

@@ -45,9 +45,9 @@ Memcached should not be exposed to the internet. There are a few basic steps you
 
     Edit the `OPTIONS` line in the memcached config file:
 
-    {{< file "/etc/sysconfig/memcached" >}}
+    ```file {title="/etc/sysconfig/memcached"}
 OPTIONS="-l 127.0.0.1 -U 0"
-{{< /file >}}
+```
 
 2.  Restart memcached. If your system uses systemd:
 

@@ -111,7 +111,7 @@ After you get acquainted with the initial introducer setup, you can [read about 
 
 8.  To automatically start up the introducer on boot, create a systemd service file with the following:
 
-      {{< file "/etc/systemd/system/tahoe-autostart-introducer.service" >}}
+      ```file {title="/etc/systemd/system/tahoe-autostart-introducer.service"}
 [Unit]
 Description=Tahoe-LAFS autostart introducer
 After=network.target
@@ -125,7 +125,7 @@ ExecStart=/usr/bin/tahoe run introducer --logfile=logs/introducer.log
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
     While a rule to restart the process in case of a crash can be added here, it's better to inspect the Linode each time a node, client or introducer crashes, before restarting the process.
@@ -188,7 +188,7 @@ When you configure `/etc/fstab`, instead of mounting your volume in `/mnt/BlockS
 
 6.  Create a systemd service file:
 
-      {{< file "/etc/systemd/system/tahoe-autostart-node.service" >}}
+      ```file {title="/etc/systemd/system/tahoe-autostart-node.service"}
 [Unit]
 Description=Tahoe-LAFS autostart node
 After=network.target
@@ -202,7 +202,7 @@ ExecStart=/usr/bin/tahoe run .tahoe --logfile=logs/node.log
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 7.  Enable the service to autostart the storage node at boot:

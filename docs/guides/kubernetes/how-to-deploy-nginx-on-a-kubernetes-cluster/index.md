@@ -105,7 +105,7 @@ Linodes come with swap memory enabled by default. [kubelets](https://kubernetes.
 
 The `/etc/fstab` should look something like this:
 
-{{< file "/etc/fstab" >}}
+```file {title="/etc/fstab"}
 # /etc/fstab: static file system information.
 #
 # use 'blkid' to print the universally unique identifier for a
@@ -116,7 +116,7 @@ The `/etc/fstab` should look something like this:
 # / was on /dev/sda1 during installation
 /dev/sda         /               ext4    noatime,errors=remount-ro 0       1
 /dev/sdb         none            swap    sw 0    0
-{{< /file >}}
+```
 
 1.  Delete the line describing the swap partition. In this example, Line 10 with `/dev/sdb`.
 
@@ -132,16 +132,16 @@ To make the commands in this guide easier to understand, set up your hostname an
 
 1.  Edit `/etc/hostname`, and add:
 
-    {{< file "/etc/hostname" >}}
+    ```file {title="/etc/hostname"}
 kube-master
-{{< /file >}}
+```
 
 1.  Add the following lines to `/etc/hosts`:
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 <kube-master-private-ip>    kube-master
 <kube-worker-private-ip>    kube-worker-1
-{{< /file >}}
+```
 
     If you have more than two nodes, add their private IPs to `/etc/hosts` as well.
 

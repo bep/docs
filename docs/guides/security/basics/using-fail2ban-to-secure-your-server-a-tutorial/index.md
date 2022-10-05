@@ -161,7 +161,7 @@ This section contains examples of common Fail2ban configurations using `fail2ban
 
 2.  **If using CentOS or Fedora** you need to change the `backend` option in `jail.local` from *auto* to *systemd*. This is not necessary on Debian 8 or Ubuntu 16.04, even though both use systemd as well.
 
-{{< file "/etc/fail2ban/jail.local" aconf >}}
+```file {title="/etc/fail2ban/jail.local"}
 # "backend" specifies the backend used to get files modification.
 # Available options are "pyinotify", "gamin", "polling", "systemd" and "auto".
 # This option can be overridden in each jail as well.
@@ -170,7 +170,7 @@ This section contains examples of common Fail2ban configurations using `fail2ban
 
 backend = systemd
 
-{{< /file >}}
+```
 
 {{< note >}}
 If the `backend` configuration is set to `auto`, Fail2ban monitors log files by first using `pyinotify`. Next, it tries `gamin`. If neither are available, a polling algorithm decides what to try next.
@@ -179,17 +179,17 @@ If the `backend` configuration is set to `auto`, Fail2ban monitors log files by 
 
 No jails are enabled by default in CentOS 7. For example, to enable the SSH daemon jail, uncomment the following lines in `jail.local`:
 
-{{< file "/etc/fail2ban/jail.local" aconf >}}
+```file {title="/etc/fail2ban/jail.local"}
 [sshd]
 enabled = true
 
-{{< /file >}}
+```
 
 ### Fail2ban jail.local Configurations
 
 To become more familiar with Fail2ban's available settings, open your `jail.local` file and browse the available configurations.
 
-{{< file "/etc/fail2ban/jail.local" >}}
+```file {title="/etc/fail2ban/jail.local"}
 
     [DEFAULT]
 
@@ -210,7 +210,7 @@ To become more familiar with Fail2ban's available settings, open your `jail.loca
     protocol="%(protocol)s"...
     action_mwl = %(banaction)s...
 
-{{</ file >}}
+```
 
 For example, if you set the `usedns` setting to `no`, Fail2ban does not use reverse DNS to set its bans, and instead bans the IP address. When set as `warn`, Fail2ban performs a reverse lookup of the hostname and uses it to perform a ban.
 
@@ -242,7 +242,7 @@ You can remove a rule applied to an IP address using the `iptables -D chain rule
 
 Set `bantime`, `findtime`, and `maxretry` to define the circumstances and the length of time of a ban:
 
-{{< file "/etc/fail2ban/jail.local" aconf >}}
+```file {title="/etc/fail2ban/jail.local"}
 # "bantime" is the number of seconds that a host is banned.
 bantime  = 600
 
@@ -251,7 +251,7 @@ bantime  = 600
 findtime = 600
 maxretry = 3
 
-{{< /file >}}
+```
 
 -   `findtime`: The lengths of time between login attempts before a ban is set. For example, if Fail2ban is set to ban an IP after five (5) failed log-in attempts, those 5 attempts must occur within the set 10-minute `findtime` limit. The `findtime` value should be a set number of seconds.
 
@@ -263,7 +263,7 @@ maxretry = 3
 
 To ignore specific IPs, add them to the `ignoreip` line. By default, this command does not ban the localhost. If you work from a single IP address often, it may be beneficial to add it to the ignore list:
 
-{{< file "/etc/fail2ban/jail.local" aconf >}}
+```file {title="/etc/fail2ban/jail.local"}
 [DEFAULT]
 
 # "ignoreip" can be an IP address, a CIDR mask or a DNS host. Fail2ban will not
@@ -271,7 +271,7 @@ To ignore specific IPs, add them to the `ignoreip` line. By default, this comman
 # defined using space separator.
 ignoreip = 127.0.0.1/8 123.45.67.89
 
-{{< /file >}}
+```
 
 `ignoreip`: This setting helps you define IP addresses that should be excluded from Fail2ban rules. To ignore specific IPs, add them to the `ignoreip` configuration, as shown in the example. By default, this command does not ban the `localhost`. If you often work from a single IP address, you should consider adding it to the ignore list.
 
@@ -303,7 +303,7 @@ Beyond the basic settings address above, jail.local also contains various jail c
 
 An average jail configuration resembles the following:
 
-{{< file "/etc/fail2ban/jail.local" >}}
+```file {title="/etc/fail2ban/jail.local"}
 # Default banning action (e.g. iptables, iptables-new,
 # iptables-multiport, shorewall, etc) It is used to define
 # action_* variables. Can be overridden globally or per
@@ -319,7 +319,7 @@ filter   = sshd
 logpath  = /var/log/auth.log
 maxretry = 6
 
-{{< /file >}}
+```
 
 -   `banaction`: Determines the action to use when the threshold is reached. If you have configured the firewall to use firewalld set the value to `firewallcmd-ipset` and if you have configured the firewall to use UFW set the value to `ufw`.
 -   `banaction_allports`: Blocks a remote IP in every port. If you have configured the firewall to use firewalld set the value to `firewallcmd-ipset`.
@@ -342,7 +342,7 @@ Depending on your system's Fail2ban version, you can find your system's filters 
 
 Open your `/etc/fail2ban/jail.conf` file and examine the `ssh/sshd` filter:
 
-{{< file "/etc/fail2ban/jail.conf" >}}
+```file {title="/etc/fail2ban/jail.conf"}
 [ssh]
 
 enabled  = true
@@ -351,27 +351,27 @@ filter   = sshd
 logpath  = /var/log/auth.log
 maxretry = 5
 
-{{</ file >}}
+```
 
 If you are using a Fail2ban version greater than `0.8`, check both your `defaults-*.conf` and `jail.conf` files.
 
 If your system has Fail2ban version 0.8 or greater, your `jail.conf` file resembles the following example:
 
-{{< file "/etc/fail2ban/jail.conf" >}}
+```file {title="/etc/fail2ban/jail.conf"}
 [sshd]
 
 port    = ssh
 logpath = %(sshd_log)s
-{{</ file >}}
+```
 
 Finally, a system using Fail2ban 0.8 or greater has a `defaults-*.conf` that includes the following filters:
 
-{{< file "/etc/fail2ban/jail.d/defaults-*.conf" >}}
+```file {title="/etc/fail2ban/jail.d/defaults-*.conf"}
 [sshd]
 
 enabled  = true
 maxretry = 3
-{{</ file >}}
+```
 
 You can test your existing filters by running the example command and replacing `logfile`, `failregex`, and `ignoreregex` with your own values.
 
@@ -395,12 +395,12 @@ Before making changes to the `failregex` configuration, you have to customize `i
 
 For example, to exclude activity cron from running on your server or to exclude MySQL, you can configure `ignoreregex` to filter logs generated by these two programs:
 
-{{< file "/etc/fail2ban/filter.d/sshd.conf" >}}
+```file {title="/etc/fail2ban/filter.d/sshd.conf"}
 ignoreregex = : pam_unix\((cron|sshd):session\): session (open|clos)ed for user (daemon|munin|mysql|root)( by \(uid=0\))?$
             : Successful su for (mysql) by root$
             New session \d+ of user (mysql)\.$
             Removed session \d+\.$
-{{</ file >}}
+```
 
 Now that you have filtered for the each program's logs, you can customize `failregexs` to block what you want.
 
@@ -414,18 +414,18 @@ The best way to understand how failregex works is to write one. Although we do n
 
 1.  Navigate to your website's `access.log` (generally located at `/var/www/example.com/logs/access.log`) and find a failed login attempt. It resembles:
 
-    {{< file "/var/www/example.com/logs/access.log" resource >}}
+    ```file {title="/var/www/example.com/logs/access.log"}
 123.45.67.89 - - [01/Oct/2015:12:46:34 -0400] "POST /wp-login.php HTTP/1.1" 200 1906 "http://example.com/wp-login.php" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.10; rv:40.0) Gecko/20100101 Firefox/40.0"
 
-{{< /file >}}
+```
 
 
     Note that you only need to track up to the `200`:
 
-    {{< file "/var/www/example.com/logs/access.log" resource >}}
+    ```file {title="/var/www/example.com/logs/access.log"}
 123.45.67.89 - - [01/Oct/2015:12:46:34 -0400] "POST /wp-login.php HTTP/1.1" 200
 
-{{< /file >}}
+```
 
 
 1.  The IP address from where the failed attempt originated is always be defined as `<HOST>`. The subsequent few characters are unchanging and can be input as literals:
@@ -474,7 +474,7 @@ With the failregex created, it then needs to be added to a filter.
 
 1.  Create a file called `wordpress.conf`, and add your failregex:
 
-{{< file "/etc/fail2ban/filter.d/wordpress.conf" aconf >}}
+```file {title="/etc/fail2ban/filter.d/wordpress.conf"}
 # Fail2Ban filter for WordPress
 
 [Definition]
@@ -482,21 +482,21 @@ With the failregex created, it then needs to be added to a filter.
 failregex = <HOST> - - \[(\d{2})/\w{3}/\d{4}:\1:\1:\1 -\d{4}\] "POST /wp-login.php HTTP/1.1" 200
 ignoreregex =
 
-{{< /file >}}
+```
 
 
     Save and quit.
 
 1.  Add a WordPress section to `jail.local`:
 
-{{< file "/etc/fail2ban/jail.local" aconf >}}
+```file {title="/etc/fail2ban/jail.local"}
 [wordpress]
 enabled  = true
 filter   = wordpress
 logpath  = /var/www/html/andromeda/logs/access.log
 port     = 80,443
 
-{{< /file >}}
+```
 
 
 This uses the default ban and email action. Other actions can be defined by adding an `action =` line.

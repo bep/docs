@@ -67,7 +67,7 @@ All Puppet files are stored in the `/etc/puppet/manifests/` directory, and Puppe
 
 Consider the following class, which is an elaboration on the canonical example Puppet `sudo` class:
 
-{{< file "/etc/puppet/manifests/classes/sudo.pp" puppet >}}
+```file {title="/etc/puppet/manifests/classes/sudo.pp"}
 # /etc/puppet/manifests/classes/sudo.pp
 
 class sudo {
@@ -79,12 +79,12 @@ class sudo {
     }
 }
 
-{{< /file >}}
+```
 
 
 In this example, configuration for the `/etc/sudoers` file is described, owned by the `root` user and group, with permissions of 440 that only allow read access for the owner and the members of the owner group. When applied, this manifest will ensure that the system in question has the above configuration applied to the `/etc/sudoers` file. The `source` specification allows puppet to copy a specific file from the Puppetmaster server. Distributing files with puppet will be covered [later](#serving_files).
 
-{{< file "/etc/puppet/manifests/site.pp" puppet >}}
+```file {title="/etc/puppet/manifests/site.pp"}
 # /etc/puppet/manifests/site.pp
 
 import "classes/*"
@@ -93,7 +93,7 @@ node default {
     include sudo
 }
 
-{{< /file >}}
+```
 
 
 This file imports all of the classes described in the `/etc/puppet/manifests/classes` directory. Then, into the `default` node it includes the configuration described in the `sudo` class. The `default` node is a special node identifier that includes all Puppet client nodes that connect to the local Puppetmaster daemon.
@@ -104,7 +104,7 @@ By default, `puppetd` runs as a client on the machine that `puppetmasterd` is in
 
 As above, the `default` node provides a space to specify the configuration for all Puppet nodes. Of course, it is also possible to configure node descriptions in more specific terms. Consider the following setup:
 
-{{< file "/etc/puppet/manifests/site.pp" puppet >}}
+```file {title="/etc/puppet/manifests/site.pp"}
 # /etc/puppet/manifests/site.pp
 
 import "classes/*"
@@ -152,7 +152,7 @@ node 'monitoring1.example.com', 'monitoring2.example.com' {
     include monitoringhub
 }
 
-{{< /file >}}
+```
 
 
 In this example, we create several "base nodes" which each include a number of classes from the `classes/` directory. There are four specific nodes created, which specify in single quotes the names of machines. These machines are identified by a hostname, configured when the Puppetmaster node signed the certificate of the Puppet nodes. All nodes receive the `default` node configuration, the configuration specified in their description and all of the configuration options specified in the node description of the "inherited" nodes.
@@ -173,13 +173,13 @@ This makes it possible to write Puppet manifests that are sensitive to the actua
 
 While Puppet contains powerful abstractions for specifying configurations, in some cases it's necessary to deploy files to systems that are not configured using Puppet. The above example regarding the `/etc/sudoers` file presents one such situation. Puppet's fileserver is configured in the `/etc/puppet/fileserver.conf` file. Consider the following example configuration:
 
-{{< file "/etc/puppet/fileserver.conf" >}}
+```file {title="/etc/puppet/fileserver.conf"}
 [files]
   path /etc/puppet/files
   allow *.example.com
   allow 192.168.0.0/24
 
-{{< /file >}}
+```
 
 
 In the Puppet fileserver configuration, the order of `allow` and `deny` statements does not carry any weight. Puppet will deny access to hosts by default. In this example, the only hosts that are allowed access to the server are hosts which have certificates signed for names within the `.example.com` name space, and any host accessing the Puppet server with an IP in the non-public address space beginning with `192.168.` as would be the case with access to Puppet over the LAN.

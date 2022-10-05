@@ -65,11 +65,11 @@ DNS entries or consult your DNS provider's documentation if using an external DN
 
 1. Enable registration on the Synapse instance by setting `enable_registration: true` in your `/etc/matrix-sysnapse/homeserver.yaml` file:
 
-    {{< file "/etc/matrix-sysnapse/homeserver.yaml">}}
+    ```file {title="/etc/matrix-sysnapse/homeserver.yaml"}
 ...
 enable_registration: true
 ...
-{{</ file >}}
+```
 
 1. Restart Synapse to enable your configuration:
 
@@ -117,7 +117,7 @@ Grab the latest .tgz release from (https://github.com/vector-im/riot-web/release
 
 1. Open the `config.json` file you created and update `base_url` and  `server_name` with the values in the example file.
 
-    {{< file "/var/www/html/riot.demochat.com/riot/config.json" >}}
+    ```file {title="/var/www/html/riot.demochat.com/riot/config.json"}
 {
     "default_server_config": {
         "m.homeserver": {
@@ -131,7 +131,7 @@ Grab the latest .tgz release from (https://github.com/vector-im/riot-web/release
 ...
 }
 ...
-{{</ file >}}
+```
 
 ### Install and Configure NGINX and Let's Encrypt
 
@@ -150,7 +150,7 @@ In this section, you use [NGINX](https://www.nginx.com/) as your web server and 
 
 1.  Add your site configuration to each of the configuration files you created in the previous step.
 
-    {{< file "/etc/nginx/sites-available/demochat.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/demochat.com"}
     server {
         listen 80;
         listen [::]:80;
@@ -163,9 +163,9 @@ In this section, you use [NGINX](https://www.nginx.com/) as your web server and 
             try_files $uri $uri/ =404;
         }
     }
-    {{< /file >}}
+    ```
 
-    {{< file "/etc/nginx/sites-available/riot.demochat.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/riot.demochat.com"}
     server {
         listen 80;
         listen [::]:80;
@@ -178,9 +178,9 @@ In this section, you use [NGINX](https://www.nginx.com/) as your web server and 
             try_files $uri $uri/ =404;
         }
     }
-    {{< /file >}}
+    ```
 
-    {{< file "/etc/nginx/sites-available/matrix.demochat.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/matrix.demochat.com"}
     server {
         listen 80;
         listen [::]:80;
@@ -193,7 +193,7 @@ In this section, you use [NGINX](https://www.nginx.com/) as your web server and 
             proxy_pass http://localhost:8008;
         }
     }
-    {{< /file >}}
+    ```
 
 1.  Install [certbot](https://certbot.eff.org/) and configure your Let's Encrypt certificates:
 

@@ -88,7 +88,7 @@ This setup uses three Linodes running two instances of Redis server per Linode: 
 
 2.  In `a_master.conf`, add the following lines to the end of the file, replacing `192.0.2.1` with the IP address of your Linode.
 
-    {{< file "~/redis-stable/a_master.conf" >}}
+    ```file {title="~/redis-stable/a_master.conf"}
 bind 127.0.0.1 192.0.2.1
 protected-mode no
 port 6379
@@ -96,7 +96,7 @@ pidfile /var/run/redis_6379.pid
 cluster-enabled yes
 cluster-config-file nodes-6379.conf
 cluster-node-timeout 15000
-{{< /file >}}
+```
 
     {{< caution >}}
 Without taking additional precautions, your Redis nodes may be exposed to the public internet via their respective public IP addresses. This means your nodes may be vulnerable to automated attacks. For more information, see [Redis Security](https://redis.io/topics/security).
@@ -108,7 +108,7 @@ When using VLANs, replace `192.0.2.1` with the respective Linode's IPAM address 
 
 3.  In `c_replica.conf`, the configuration is similar except for an update of the port number. `redis-cli` will be used later to configure this into a replica for the appropriate master.
 
-    {{< file "~/redis-stable/c_replica.conf" >}}
+    ```file {title="~/redis-stable/c_replica.conf"}
 bind 127.0.0.1 192.0.2.1
 protected-mode no
 port 6381
@@ -116,7 +116,7 @@ pidfile /var/run/redis_6381.pid
 cluster-enabled yes
 cluster-config-file nodes-6381.conf
 cluster-node-timeout 15000
-{{< /file >}}
+```
 
 4.  Repeat this process across the remaining two Linodes, taking care to specify the port numbers for all master-replica pairs.  The ports in this guide range from 6379 to 6381.
 

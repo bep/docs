@@ -49,7 +49,7 @@ Both Docker and Docker Compose are necessary to complete this guide.
 
 2.  In a text editor, create `docker-compose.yml` and add the following content:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: "3"
 services:
   grafana:
@@ -76,7 +76,7 @@ networks:
 volumes:
   grafana-volume:
     external: true
-{{< /file >}}
+```
 
     This Compose file uses the official Docker images for both Graphite and Grafana. It also specifies a network to connect the containers.
 

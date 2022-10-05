@@ -84,7 +84,7 @@ Both of the guides linked below are for CentOS 8 rather than AlmaLinux 8. Howeve
 
         - Modify the following lines in the PHP-FPM configuration file to have PHP listen for the NGINX user.
 
-            {{< file "/etc/opt/remi/php74/php-fpm.d/www.conf" nginx >}}
+            ```file {title="/etc/opt/remi/php74/php-fpm.d/www.conf"}
 
 # [...]
 
@@ -95,16 +95,16 @@ listen.mode = 0660
 # [...]
 
 listen.acl_users = nginx
-            {{< /file >}}
+            ```
 
         - Add `index.php` to the `location /` block of your site's configuration file.
 
-            {{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+            ```file {title="/etc/nginx/conf.d/example.com.conf"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ =404;
 }
-            {{< /file >}}
+            ```
 
         - Restart both PHP and NGINX to reload their configurations.
 
@@ -181,10 +181,10 @@ location / {
 
 1. By default, WordPress attempts to use FTP credentials to install themes and plug-ins. Bypass this by adding the following lines to the `public/wp-config.php` file.
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /** Bypass FTP */
 define('FS_METHOD', 'direct');
-    {{< /file >}}
+    ```
 
     ![WordPress's default, "Hello, World!" post.](wordpress-default-post.png)
 

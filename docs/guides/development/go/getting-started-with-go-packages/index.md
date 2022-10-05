@@ -43,7 +43,7 @@ Packages provide the capability to organize and reuse source code.
 
 In a text editor, create a `hellogopher.go` file in your [GOPATH](/docs/guides/install-go-on-ubuntu/#adjust-the-path-variable) and add the following content to create a simple "Hello world" program:
 
-{{< file "hellogopher.go" go >}}
+```file {title="hellogopher.go"}
 package main
 
 import "fmt"
@@ -51,7 +51,7 @@ import "fmt"
 func main() {
         fmt.Println("Hello Gopher!")
 }
-{{< /file >}}
+```
 
 The first statement declares the package `main` using the `package` keyword.
 
@@ -109,7 +109,7 @@ We print out the current time by printing out the `time` value returned from the
 
 After making these two changes, the Hello Gopher program now looks like this:
 
-{{< file "hellogopher.go" go >}}
+```file {title="hellogopher.go"}
 package main
 
 import (
@@ -121,7 +121,7 @@ func main() {
         fmt.Println("Hello Gopher!")
         fmt.Println(time.Now())
 }
-{{< /file >}}
+```
 
 Run the modified program:
 
@@ -166,7 +166,7 @@ Create and change to a new directory for the `greetings` package:
 
 Create a source file called `greetings.go` and place it inside the `greetings` directory with the following contents:
 
-{{< file "$GOPATH/src/greetings/greetings.go" go >}}
+```file {title="$GOPATH/src/greetings/greetings.go"}
 package greetings
 
 import (
@@ -180,7 +180,7 @@ func PrintGreetings() {
 func printGreetingsUnexported() {
         fmt.Println("Hello Gopher! (from unexported)")
 }
-{{< /file >}}
+```
 
 The first line of code in `greetings.go` declares the `greetings` package, using the `package` keyword.
 
@@ -190,7 +190,7 @@ Function names that begin with a lowercase letter are only accessible by Go sour
 
 A Go package can contain multiple Go source files. Let's create another Go source file named `magic.go` inside the `greetings` directory with the following contents:
 
-{{< file "magic.go" go >}}
+```file {title="magic.go"}
 package greetings
 
 import "fmt"
@@ -210,7 +210,7 @@ func PrintTheUnexportedGreetings() {
 func init() {
         magicNumber = 108
 }
-{{< /file >}}
+```
 
 The first line of code declares that `magic.go` belongs to the `greetings` package.
 
@@ -238,7 +238,7 @@ At this point we've created our own custom package, and now it's time to use the
 
 Create a new directory called `usegreetings` inside the `$GOPATH/src` directory and create a source file called `usegreetings.go` with the following contents:
 
-{{< file "$GOPATH/src/usegreetings/usegreetings.go" go >}}
+```file {title="$GOPATH/src/usegreetings/usegreetings.go"}
 package main
 
 import (
@@ -250,7 +250,7 @@ func main() {
         greetings.PrintMagicNumber()
         greetings.PrintTheUnexportedGreetings()
 }
-{{< /file >}}
+```
 
 The `usegreetings.go` source file implements a command line program, so we have to declare the `main` package and function which is the primary entry point of the command line Go program.
 

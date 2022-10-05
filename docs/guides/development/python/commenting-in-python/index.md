@@ -42,45 +42,45 @@ Python, like other languages, uses a special character or sequence of characters
 ### One Line Comments
 
 For example, a one-line comment would place the hash character and one character of white space (`# `) at the start of a line and looks like this:
-    {{< file "comment.py" python >}}
+    ```file {title="comment.py"}
     # I like my eggs with a side of Spam
 
     print('Eggs with a side of Spam.')
-    {{< /file >}}
+    ```
 
 It is also convenient to use the hash character to "comment out" any code that may be going through testing or debugging:
-    {{< file "testing.py" python >}}
+    ```file {title="testing.py"}
 
     # print('Eggs with a side of Spam.')
-    {{< /file >}}
+    ```
 
 ### Inline Comments
 
 Inline comments can be made but should be done cautiously. Inline comments will need to go after the code on a single line:
-    {{< file "inlinecomment.py" python >}}
+    ```file {title="inlinecomment.py"}
     print('Eggs with a side of Spam.') # I like my eggs with a side of Spam
-    {{< /file >}}
+    ```
 
 ### Multiline or Block Comments
 
 The process for creating multiline comments is the same as a series of one-line comments stacked together, with each line of the comment starting with the hash character:
-    {{< file "multilinecomment.py" python >}}
+    ```file {title="multilinecomment.py"}
     # I like my eggs with a side of Spam
     # I should also be courteous when asking for something
 
     print('I would like eggs with a side of Spam, please.')
-    {{< /file >}}
+    ```
 
 #### Another Way to Make Multiline Comments
 
 While not recommended, multiline comments can also be created using a delimiter that defines a text string constant:
-      {{< file "alternatemultilinecomment.py" python >}}
+      ```file {title="alternatemultilinecomment.py"}
       """
       I like my eggs with a side of Spam.
       I should also be courteous when asking for something.
       """
 
       print('I would like eggs with a side of Spam, please.')
-      {{< /file >}}
+      ```
 
 This is not the official or recommended way of handling multiline comments because, as it's a string constant, it could cause issues with your code. It is mentioned in this guide only because it is possible to find code from others that have used it. It is recommended that you only use the official method.

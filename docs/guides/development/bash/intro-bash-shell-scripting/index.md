@@ -53,11 +53,11 @@ bash scripts.
 
 The following code is the "Hello World" program written in `bash(1)`:
 
-{{< file "hello_world.sh" bash >}}
+```file {title="hello_world.sh"}
 #!/bin/bash
 
 echo "Hello World!"
-{{< /file >}}
+```
 
 The first line is required for the bash script to become autonomous and executable
 as a command. The `#!` characters are called a *shebang*, and instruct Linux to use following path as the file interpreter. The `.sh` file extension is not required but it is good to have it in
@@ -115,7 +115,7 @@ better to use multiple single line comments when you want to write bigger commen
 The programming language of the bash shell has support for variables. Variables, like in math, have values that can be declared in a program and later changed or passed around to different functions. Variables
 are illustrated in `vars.sh`, which is as follows:
 
-{{< file "vars.sh" bash >}}
+```file {title="vars.sh"}
 #!/bin/bash
 
 VAR1="Mihalis"
@@ -127,7 +127,7 @@ echo $myVar
 
 myVar=`pwd`
 echo $myVar
-{{< /file >}}
+```
 
 There are two variables defined in this example: the first one is called `VAR1` and the second one
 is called `myVar`. Although both variables are defined inside the program, the first
@@ -155,7 +155,7 @@ The bash shell offers the `read` command for getting user input. However, this i
 rarely used because it makes bash shell scripts less autonomous as it depends on user interaction. Nevertheless, the
 `read.sh` script illustrates the use of `read`:
 
-{{< file "read.sh" bash >}}
+```file {title="read.sh"}
 #!/bin/bash
 
 echo -n "What is your name? "
@@ -166,7 +166,7 @@ echo "Hello" "$name!"
 echo -n "Please state your name and your surname: "
 read name surname
 echo "Hello" "$name $surname!"
-{{< /file >}}
+```
 
 Executing `read.sh` will generate the following kind of output:
 
@@ -188,7 +188,7 @@ is more common in the UNIX world than the `read` command.
 The bash shell supports `if` statements using a unique syntax, which
 is illustrated in `whatIf.sh`:
 
-{{< file "whatIf.sh" bash >}}
+```file {title="whatIf.sh"}
 #!/bin/bash
 
 VAR1="4"
@@ -215,7 +215,7 @@ then
 else
     echo Not equal!
 fi
-{{< /file >}}
+```
 
 `if` statements allow for logic to be applied to a block of code. If the statement is true, the code is executed. `if` statements in bash script use square brackets for the logical condition and also
 have support for `else` and `elif` (else if) branches. Bash supports standard programming language conditional operators such as equals (`==`), not equals (`!=`), less than and greater than (`<`, `>`),  and a number of other file specific operators.
@@ -244,7 +244,7 @@ see it many times in this guide.
 The bash shell has support for loops, which are illustrated in this section
 of the guide using the code of `loops.sh`:
 
-{{< file "loops.sh" bash >}}
+```file {title="loops.sh"}
 #!/bin/bash
 
 # For loop
@@ -283,7 +283,7 @@ do
     ((c++))
 done
 echo
-{{< /file >}}
+```
 
 {{< note >}}
 
@@ -322,7 +322,7 @@ getting user input or reading the setup of the current user.
 
 The related bash shell script is called `env.sh` and is as follows:
 
-{{< file "env.sh" bash >}}
+```file {title="env.sh"}
 #!/bin/bash
 
 # Read
@@ -347,7 +347,7 @@ fi
 # Create
 MYPATH="/bin:/sbin:/usr/bin"
 echo "MYPATH: ${MYPATH}"
-{{< /file >}}
+```
 
 Notice that the `PATH` environment variable is automatically available to the bash script. You can view it's current value in the output of the first `if` statement. The `-z` operator
 tests whether a variable has a length of zero or not and can be pretty handy when
@@ -383,7 +383,7 @@ This example command is executing the `cla.sh` command, and supplying a number o
 The `cla.sh` bash script demonstrates how to work with command line
 arguments:
 
-{{< file "cla.sh" bash >}}
+```file {title="cla.sh"}
 #!/bin/bash
 
 echo "Arguments: $@"
@@ -401,7 +401,7 @@ if [ -x $0 ]
 then
     echo "$0" file exists!
 fi
-{{< /file >}}
+```
 
 The full list of arguments is stored as `$@` and the number of arguments is stored as `$#`. A `for` loop can be used for iterating over the list of command line arguments. Lastly, the name of the program is always `$0` and the first command line argument, if it exists, is always `$1`.
 
@@ -424,7 +424,7 @@ The first argument is: 1
 
 In the previous section you learned how to pass command line arguments to a bash script. The following bash script, which is named `nCla.sh`, requires that you pass at least two command line arguments to it:
 
-{{< file "nCla.sh" bash >}}
+```file {title="nCla.sh"}
 #!/bin/bash
 
 if [ "$#" -lt 2 ]
@@ -433,7 +433,7 @@ then
 else
     echo "Thanks for the $# arguments!"
 fi
-{{< /file >}}
+```
 
 Notice that numeric comparisons require the use of `-lt` in an `if` statement, which
 is an alias for `less than`.
@@ -461,7 +461,7 @@ Need more arguments than 0!
 Bash has the additional capability of executing a combination of commands. This capability is illustrated in
 `combine.sh`:
 
-{{< file "combine.sh" bash >}}
+```file {title="combine.sh"}
 #!/bin/bash
 
 total=0
@@ -476,7 +476,7 @@ do
 done
 
 echo "Total:" $total
-{{< /file >}}
+```
 
 The `for` loop in this example iterates over every bash script file in the current working directory.
 The initial value of `ti` is taken from the output of a command with two parts. The first part uses
@@ -497,7 +497,7 @@ Total: 2
 
 The bash scripting language supports the `case` statement. A case statement provides a number of possible values for a variable and maps code blocks to those values. For example, the case statement included in `case.sh` script below defines a number of possible outputs depending on the number provided as a command line argument:
 
-{{< file "case.sh" bash >}}
+```file {title="case.sh"}
 #!/bin/bash
 
 if [ $# -lt 1 ]
@@ -550,7 +550,7 @@ case  1:${NUM:--} in
     echo "$NUM greater than 301"
 ;;
 esac
-{{< /file >}}
+```
 
 The script requires a command line argument, which is an integer value. A regular
 expression verifies that the input is a valid positive integer number with the
@@ -594,7 +594,7 @@ Zero!
 One often important operation that you may find yourself needing to perform is specifying
 whether a given file or directory actually exists. This is idea is illustrated in `files.sh`:
 
-{{< file "files.sh" bash >}}
+```file {title="files.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -621,7 +621,7 @@ do
         echo "and is neither a regular file nor a regular directory!"
     fi
 done
-{{< /file >}}
+```
 
 The `-e` operator will check whether a file exists regardless of its type – this
 is the first test that we are performing. The other two tests use `-f` and `-d`
@@ -641,7 +641,7 @@ aFile exists and is a regular file!
 
 The following bash script will accept one command line argument, which is a string you'd like to find, and then a list of files that will be searched for that given string. If there is a match, then the filename of the file will appear on the screen.
 
-{{< file "match.sh" bash >}}
+```file {title="match.sh"}
 #!/bin/bash
 
 if [[ $# -le 1 ]]
@@ -671,7 +671,7 @@ do
         echo "* $arg is not a regular file!"
     fi
 done
-{{< /file >}}
+```
 
 The `"${@:2}"` notation allows you to skip the first element from the list
 of command line arguments because this is the string that we will be looking for

@@ -88,11 +88,11 @@ To install Minecraft on your server use the following steps:
 
 1.  Create a script to run the Minecraft server:
 
-    {{< file "/home/minecraft/run.sh" sh >}}
+    ```file {title="/home/minecraft/run.sh"}
 #!/bin/sh
 
 java -Xms1024M -Xmx1536M -jar minecraft_server.1.17.jar -o true
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -163,11 +163,11 @@ And you are now running an updated Minecraft server on Ubuntu or Debian.
 
 1.  Open the `eula.txt` file and change the value of `eula` to true:
 
-    {{< file "/home/minecraft/eula.txt" sh >}}
+    ```file {title="/home/minecraft/eula.txt"}
 #By changing the setting below to TRUE you are indicating your agreement to our EULA (https://account.mojang.com/documents/minecraft_eula).
 #Tue Jan 27 21:40:00 UTC 2015
 eula=true
-{{< /file >}}
+```
 
 1.  To ensure that the Minecraft server runs independent of an SSH connection, execute `run.sh` from within a [GNU Screen](/docs/guides/using-gnu-screen-to-manage-persistent-terminal-sessions/) session:
 

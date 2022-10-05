@@ -94,7 +94,7 @@ To update CS:GO, run the above 4 commands again.
 
     The value for `hostname` will displayed to users that join your server. Replace the values of `sv_password` and `rcon_password` with two different and unique passwords that you don't use elsewhere.
 
-    {{< file "server.cfg" aconf >}}
+    ```file {title="server.cfg"}
 hostname "The name of your CS:GO server"
 sv_password "server_password"
 sv_timeout 60
@@ -103,13 +103,13 @@ mp_autoteambalance 1
 mp_limitteams 1
 writeid
 writeip
-{{< /file >}}
+```
 
     `sv_password` is the password users will need to enter to join the server. `rcon_password` is the [RCON](https://developer.valvesoftware.com/wiki/Source_RCON_Protocol) password, which is used to remotely control the game server from within the game. For an extensive list of `server.cfg` options, see [this page](http://csgodev.com/csgodev-server-cfg-for-csgo/).
 
 1.  Create a startup script for CS:GO with the following snippet. Name the file `startcsgo.sh` and save it to your `steam` user's home directory. Set the value of the `YOUR_GSLT` variable at the top to be your game server login token. Set the value of the `CSGO_INSTALL_LOCATION` variable at the top according to the table below.
 
-    {{< file "~/startcsgo.sh" >}}
+    ```file {title="~/startcsgo.sh"}
 #!/bin/sh
 
 YOUR_GSLT=
@@ -117,7 +117,7 @@ CSGO_INSTALL_LOCATION=
 
 cd $CSGO_INSTALL_LOCATION
 screen -S "Counter-Strike: Global Offensive Server" ./srcds_run -game csgo -usercon +game_type 0 +game_mode 1 +mapgroup mg_bomb +map de_dust2 +sv_setsteamaccount $YOUR_GSLT -net_port_try 1
-{{< /file >}}
+```
 
     | SteamCMD Installation Method | CSGO_INSTALL_LOCATION |
     | ------------------- | ------------- |

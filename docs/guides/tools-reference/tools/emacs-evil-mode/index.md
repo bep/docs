@@ -50,11 +50,11 @@ Evil mode expands on Emacs by adding the modes, motion, and text manipulation fe
 
         emacs ~/.emacs.d/init.el
 
-    {{< file "~/.emacs.d/init.el" lisp >}}
+    ```file {title="~/.emacs.d/init.el"}
 (add-to-list 'load-path "~/.emacs.d/evil")
 (require 'evil)
 (evil-mode 1)
-{{< /file >}}
+```
 
 4.  Save the file and reload the buffer to load the plugin:
 
@@ -110,9 +110,9 @@ Since *modes* refer to a different function in Emacs, Evil calls its different m
 
 To force Emacs to start in another state, add `evil-default-state` to `.emacs`:
 
-{{< file "~/.emacs.d/init.el" lisp >}}
+```file {title="~/.emacs.d/init.el"}
 (setq evil-default-state 'emacs) ;; changes default state to emacs
-{{< /file >}}
+```
 
 ## Use Emacs and Vim Together
 

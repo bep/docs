@@ -116,7 +116,7 @@ Instead of using a script, we suggest creating a systemd unit file for your *Ark
 
 3.  Copy and paste the following lines to the new file. Replace the `customname` value within the `SessionName` parameter on line 12 with a unique name you will use to identify your Ark server.
 
-    {{< file "/lib/systemd/system/ark.service" >}}
+    ```file {title="/lib/systemd/system/ark.service"}
 [Unit]
 Description=ARK Survival Evolved
 [Service]
@@ -132,7 +132,7 @@ ExecStart=/home/ark/server/ShooterGame/Binaries/Linux/ShooterGameServer TheIslan
 ExecStop=killall -TERM srcds_linux
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 4.  Exit the file and save the buffer.
 
@@ -159,10 +159,10 @@ If you only have Epic players joining the server, you can add `-epiconly` to kee
 
 Once you've started the server, you can add or remove settings by editing the `GameUserSettings.ini` file under `/home/ark/server/ShooterGame/Saved/Config/LinuxServer`. Add the following settings within the `[ServerSettings]` section (near the bottom) of that file, replacing the "example" passwords with your own (don't make them the same password):
 
-  {{< file "/home/ark/server/ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini" >}}
+  ```file {title="/home/ark/server/ShooterGame/Saved/Config/LinuxServer/GameUserSettings.ini"}
 ServerPassword=example
 ServerAdminPassword=example
-{{< /file >}}
+```
 
 `ServerPassword` determines the password that users will be required to enter when connecting to your server. You can omit this line to allow access without a password. `ServerAdminPassword` specifies the administrative password that will be used when issuing [game commands](https://ark.fandom.com/wiki/Console_commands).
 

@@ -92,13 +92,13 @@ julia>
 
 1.  In a text editor, create `example.jl` and add the following content:
 
-    {{< file "example.jl" julia >}}
+    ```file {title="example.jl"}
 function circumference(radius::Float64)
   return 2pi * radius
 end
 
 circumference(10.0)
-{{< /file >}}
+```
 
     The `circumference` function specifies that it should only accept a floating point value as input (specifically a `Float64`). In addition, `pi` is a built-in variable, and you can multiply it by 2 with `2pi`, rather than `pi * 2` in Python or similar languages.
 
@@ -127,7 +127,7 @@ Closest candidates are:
 
     This error occurs because `circumference` will only accept floating point values, and there is no version of the function available that will accept integers. You can avoid this error by allowing any number as an argument (using `radius::Real` to allow all real numbers, for example). You can also make use of multiple dispatch by declaring another function with the same name that takes integers:
 
-    {{< file "example.jl" julia >}}
+    ```file {title="example.jl"}
 function circumference(radius::Float64)
   return 2pi * radius
 end
@@ -135,4 +135,4 @@ end
 function circumference(radius::Int64)
   return 2pi * radius
 end
-{{< /file >}}
+```

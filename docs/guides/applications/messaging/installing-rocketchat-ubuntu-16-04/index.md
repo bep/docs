@@ -78,7 +78,7 @@ lrwxrwxrwx 1 root root 34 Aug 16 14:59 default -> /etc/nginx/sites-available/def
 
 1.  Create `/etc/nginx/sites-available/rocketchat.conf` and add the necessary values to point to your domain name and to add the reverse proxy. Replace `example.com` with your domain name:
 
-    {{< file "/etc/nginx/conf.d/rocketchat.conf" nginx >}}
+    ```file {title="/etc/nginx/conf.d/rocketchat.conf"}
 server {
     listen 80;
 
@@ -88,7 +88,7 @@ server {
         proxy_pass http://localhost:3000/;
     }
 }
-{{< /file >}}
+```
 
 1.  Enable the new configuration by creating a link to it from `/etc/nginx/sites-available/`:
 

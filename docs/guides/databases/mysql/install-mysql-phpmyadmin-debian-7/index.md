@@ -87,11 +87,11 @@ If you have installed the `php-suhosin` package, there are some known issues whe
 Secure your phpMyAdmin directory using an `.htaccess file` that only allows specified IP addresses to access it. You can do this by creating an `.htaccess` file in your `phpmyadmin` directory. Substitute the proper paths and **IP addresses** for your particular configuration:
 
 
-{{< file "/var/www/example.org/public_html/phpmyadmin/.htaccess" apache >}}
+```file {title="/var/www/example.org/public_html/phpmyadmin/.htaccess"}
 order allow,deny
 allow from 12.34.56.78
 
-{{< /file >}}
+```
 
 
 
@@ -99,10 +99,10 @@ allow from 12.34.56.78
 
 You can force phpMyAdmin to use SSL in the phpMyAdmin configuration file `/etc/phpmyadmin/config.inc.php` by adding the following lines under the `Server(s) configuration` section:
 
-{{< file "/etc/phpmyadmin/config.inc.php" php >}}
+```file {title="/etc/phpmyadmin/config.inc.php"}
 $cfg['ForceSSL'] = 'true';
 
-{{< /file >}}
+```
 
 
 ## Testing Your phpMyAdmin Installation

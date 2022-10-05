@@ -49,7 +49,7 @@ If you choose to run OpenJDK, you can skip the rest of this section, as OpenJDK 
 
 If you would like to run the Sun Microsystems implementation of Java, edit the `/etc/apt/sources.list` so that it resembles the following example. This will enable access to the "partner" repository:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ lucid main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ lucid main restricted
@@ -80,7 +80,7 @@ deb-src http://archive.canonical.com/ubuntu lucid-updates partner
 deb http://archive.canonical.com/ubuntu lucid-security partner
 deb-src http://archive.canonical.com/ubuntu lucid-security partner
 
-{{< /file >}}
+```
 
 
 Issue the following command to update your system's package repositories:
@@ -111,11 +111,11 @@ Tomcat should now be totally functional, following installation and your next sy
 
 You can test your Tomcat installation by pointing your browser at `http://[yourdomain-or-ip-address]:8080/`. By default, files are located in the `/usr/share/tomcat6` directory. To configure the admin area, you'll need to add the following lines to the end of your `tomcat-users.xml` file, substituting your own username and password. Make sure you keep the "manager" role.
 
-{{< file "/etc/tomcat6/tomcat-users.xml" xml >}}
+```file {title="/etc/tomcat6/tomcat-users.xml"}
 <role rolename="manager"/>
 <user username="username" password="examplemorris" roles="manager"/>
 
-{{< /file >}}
+```
 
 
 Issue the following command to restart the Tomcat server, which will allow this change to take effect:

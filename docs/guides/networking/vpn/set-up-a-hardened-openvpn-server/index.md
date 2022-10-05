@@ -82,7 +82,7 @@ By default, Linode distribution images are built with network interfaces renamed
 Replace any instances of `eth0` with the name of your network interface.
     {{</ note >}}
 
-    {{< file "/etc/iptables/rules.v4" >}}
+    ```file {title="/etc/iptables/rules.v4"}
 *filter
 
 # Allow all loopback (lo) traffic and reject anything
@@ -130,7 +130,7 @@ Replace any instances of `eth0` with the name of your network interface.
 
 COMMIT
 
-{{< /file >}}
+```
 
 
 5.  You will disable IPv6 in the next section, so add an `ip6tables` ruleset to reject all IPv6 traffic:
@@ -177,10 +177,10 @@ If you are exclusively using IPv4 on your VPN, IPv6 should be disabled unless yo
 
 3.  Comment out the line for IPv6 resolution over localhost in `/etc/hosts`:
 
-    {{< file "/etc/hosts" aconf >}}
+    ```file {title="/etc/hosts"}
 #::1     localhost ip6-localhost ip6-loopback
 
-{{< /file >}}
+```
 
 
 
@@ -237,7 +237,7 @@ The rest of this guide will use EasyRSA.
 
 4.  The `vars` file created in `/ca` contains presets used by EasyRSA. Here you can specify a distinguished name for your certificate authority that will be  passed to client certificates. Changing these fields is optional, and you can always input them manually during certificate creation, but setting them here creates less work during client certificate creation.
 
-    {{< file "~/ca/vars" aconf >}}
+    ```file {title="~/ca/vars"}
 # These are the default values for fields
 # which will be placed in the certificate.
 # Don't leave any of these fields blank.
@@ -248,7 +248,7 @@ export KEY_ORG="Fort-Funston"
 export KEY_EMAIL="me@myhost.mydomain"
 export KEY_OU="MyOrganizationalUnit"
 
-{{< /file >}}
+```
 
 
 5.  From `~/ca`, [source](http://stackoverflow.com/a/9326746) the `vars` script:
@@ -300,7 +300,7 @@ Anyone with access to `client1.key` will be able to access your VPN. To better p
 
 OpenVPN's server-side configuration file is `/etc/openvpn/server.conf`. Use the contents below to create a new file at that location on your server:
 
-{{< file "/etc/openvpn/server.conf" >}}
+```file {title="/etc/openvpn/server.conf"}
 dev tun
 persist-key
 persist-tun
@@ -348,7 +348,7 @@ status openvpn-status.log
 log /var/log/openvpn.log
 verb 3
 
-{{< /file >}}
+```
 
 
 {{< note >}}
@@ -361,7 +361,7 @@ You can extract a server template from OpenVPN's sample configuration files usin
 
 OpenVPN's client-side configuration file is `client.ovpn`. When you import an OpenVPN profile, the location of the directory where the credentials are stored doesn't matter, but this `.ovpn` file needs to be in the same directory as the client certificate and all other credentials. OpenVPN does not refer to any of these files after importing and they do not need to remain on the client system. Create this file on your Linode so that it can be distributed to your client devices:
 
-{{< file "client.ovpn" >}}
+```file {title="client.ovpn"}
 # No cryptography options are specified here because we want
 # the VPN server to push those settings to clients rather than
 # allow clients to dictate their crypto.
@@ -392,7 +392,7 @@ cert client1.crt
 key client1.key
 tls-crypt ta.key
 
-{{< /file >}}
+```
 
 
 {{< note >}}

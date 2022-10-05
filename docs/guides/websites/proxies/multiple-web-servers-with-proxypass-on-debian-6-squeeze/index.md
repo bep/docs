@@ -24,7 +24,7 @@ We assume you already have Apache running on your Linode; if you don't, you may 
 
 We'll edit the file `/etc/apache2/mods-available/proxy.conf` as follows:
 
-{{< file "/etc/apache2/mods-available/proxy.conf" apache >}}
+```file {title="/etc/apache2/mods-available/proxy.conf"}
 <IfModule mod_proxy.c>
         # [...]
 
@@ -42,7 +42,7 @@ We'll edit the file `/etc/apache2/mods-available/proxy.conf` as follows:
 
 </IfModule>
 
-{{< /file >}}
+```
 
 
 This turns on proxy support in the module configuration. **Please note** the warning regarding the `ProxyRequests` directive. It should be "off" in your configuration. Next, we'll issue the following commands:
@@ -57,7 +57,7 @@ Apache should restart cleanly. If you encounter any issues, you may wish to insp
 
 We already have a site called "www.firstsite.org" running under Apache as a normal virtual host. We'll use Apache to send requests for the site "www.secondsite.org" to lighttpd, which we've configured to run on port 8080 on localhost. Here's the configuration file for "www.secondsite.org":
 
-{{< file "/etc/apache2/sites-available/www.secondsite.org" apache >}}
+```file {title="/etc/apache2/sites-available/www.secondsite.org"}
 <VirtualHost *:80>
      ServerAdmin support@secondsite.org
      ServerName secondsite.org
@@ -69,7 +69,7 @@ We already have a site called "www.firstsite.org" running under Apache as a norm
      #SSLProxyEngine On
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 The `ProxyPass` directive tells Apache to forward all requests for this domain to a web server running on port 8080. If our target server was running on another Linode (as with a server that only answers on the backend private network), we could just specify that address instead. We'll enable the site with the following commands:
@@ -89,7 +89,7 @@ Here's the site "www.secondsite.org" being served by lighttpd via ProxyPass:
 
 If we wanted to have `http://www.firstsite.org/myapp/` served by a web application running under lighttpd, we'd simply modify its configuration file to look like this:
 
-{{< file "/apache2/sites-available/www.firstsite.org" apache >}}
+```file {title="/apache2/sites-available/www.firstsite.org"}
 <VirtualHost firstsite.org:80>
      ServerAdmin support@firstsite.org
      ServerName firstsite.org
@@ -101,7 +101,7 @@ If we wanted to have `http://www.firstsite.org/myapp/` served by a web applicati
      ProxyPass /myapp http://localhost:8080/
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Now the location "/myapp" will be served by lighttpd instead of Apache. After reloading the Apache configuration with `/etc/init.d/apache2 reload`, we can see that it's functioning correctly:

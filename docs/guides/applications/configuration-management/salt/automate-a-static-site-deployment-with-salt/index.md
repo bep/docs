@@ -111,11 +111,11 @@ This step needs to be completed **before installing Salt** on the minion, as Sal
 
 1.  Edit the minion's `/etc/hosts` file and append a new line for your hostname after the `localhost` line; replace 192.0.2.3 with your **minion's** public IP address:
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 127.0.0.1       localhost
 192.0.2.3       hugo-webserver
 # [...]
-{{</ file >}}
+```
 
 1.  Run the bootstrap script on the minion:
 
@@ -124,11 +124,11 @@ This step needs to be completed **before installing Salt** on the minion, as Sal
 
 1.  Edit `/etc/salt/minion` on the Salt minion. Uncomment the line that begins with `#master:` and enter your Salt **master's** IP after the colon (in place of `192.0.2.2`):
 
-    {{< file "/etc/salt/minion" >}}
+    ```file {title="/etc/salt/minion"}
 # [...]
 master: 192.0.2.2
 # [...]
-{{</ file >}}
+```
 
     {{< note >}}
 Linode does not charge for traffic within a datacenter across private IP addresses. If your Salt master and minion are in the same datacenter, and both have a private IP addresses, you can use your Salt master's private IP address in this step to avoid incurring data traffic charges.
@@ -162,11 +162,11 @@ The example fingerprints in this section have been truncated for brevity.
 
 1.  Copy the fingerprint for `master.pub` from the output of `salt-key --finger-all`. On your Salt **minion**, open `/etc/salt/minion` in a text editor. Uncomment the line that begins with `#master_finger:` and enter the value for your `master.pub` after the colon in single-quotes:
 
-    {{< file "/etc/salt/minion" >}}
+    ```file {title="/etc/salt/minion"}
 # [...]
 master_finger: '0f:d6:5f:5e:f3:4f:d3:...'
 # [...]
-{{</ file >}}
+```
 
 1.  Restart Salt on the minion:
 
@@ -215,11 +215,11 @@ The Salt minion is ready to be configured by the master. These configurations wi
 
 1.  Inside the `hugo` directory, create a new `install.sls` file:
 
-    {{< file "hugo-webserver-salt-formula/hugo/install.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/install.sls"}
 nginx_pkg:
   pkg.installed:
     - name: nginx
-{{< /file >}}
+```
 
     {{< note >}}
 Salt configurations are declared in YAML-- a markup language that incorporates whitespace/indentation in its syntax. Be sure to use the same indentation as the snippets presented in this guide.
@@ -234,24 +234,24 @@ Salt configurations are declared in YAML-- a markup language that incorporates w
     {{< note >}}
 If you were to name the ID to be the same as the relevant installed package, then you do not need to specify the `- name` option, as it will be inferred from the ID. For example, this snippet also installs NGINX:
 
-{{< file "hugo-webserver-salt-formula/hugo/install.sls" >}}
+```file {title="hugo-webserver-salt-formula/hugo/install.sls"}
 nginx:
   pkg.installed
-{{< /file >}}
+```
 
 The same name/ID convention is true for other Salt modules.
 {{< /note >}}
 
 1.  Inside the `hugo` directory, create a new `service.sls` file:
 
-    {{< file "hugo-webserver-salt-formula/hugo/service.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/service.sls"}
 nginx_service:
   service.running:
     - name: nginx
     - enable: True
     - require:
       - pkg: nginx_pkg
-{{< /file >}}
+```
 
     This state says that the `nginx` service should be immediately run and be enabled to run at boot. For a Debian 9 system, Salt will set the appropriate [systemd](/docs/guides/what-is-systemd/) configurations to enable the service. Salt also supports other init systems.
 
@@ -263,11 +263,11 @@ Unless specified by a `require` declaration, Salt makes no guarantees about the 
 
 1.  Inside the `hugo` directory, create a new `init.sls` file with the following contents:
 
-    {{< file "hugo-webserver-salt-formula/hugo/init.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/init.sls"}
 include:
   - hugo.install
   - hugo.service
-{{< /file >}}
+```
 
     Using the `include` declaration in this way simply concatenates the `install.sls` and `service.sls` files into a single combined state file.
 
@@ -340,36 +340,36 @@ Update your Salt master to serve the new formula from GitHub:
 
 1.  Open `/etc/salt/master` in a text editor. Uncomment the `fileserver_backend` declaration and enter `roots` and `gitfs` in the declaration list:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 fileserver_backend:
   - roots
   - gitfs
-{{< /file >}}
+```
 
     `roots` refers to Salt files stored on the master's filesystem. While the Hugo webserver Salt formula is stored on GitHub, the Salt [*Top file*](https://docs.saltproject.io/en/latest/ref/states/top.html#states-top) will be stored on the master. The Top file is how Salt maps states to the minions they will be applied to.
 
 1.  In the same file, uncomment the `gitfs_remotes` declaration and enter your Salt formula's repository URL:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 gitfs_remotes:
   - https://github.com/your_github_user/hugo-webserver-salt-formula.git
-{{< /file >}}
+```
 
 1.  Uncomment the `gitfs_provider` declaration and set its value to `gitpython`:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 gitfs_provider: gitpython
-{{< /file >}}
+```
 
 ### Apply the Formula's State to the Minion
 
 1.  In `/etc/salt/master`, uncomment the `file_roots` declaration and set the following values:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 file_roots:
   base:
     - /srv/salt/
-{{< /file >}}
+```
 
     `file_roots` specifies where state files are kept on the Master's filesystem. This is referenced when `- roots` is declared in the `fileserver_backend` section. `base` refers to a Salt *environment*, which is a tree of state files that can be applied to minions.  This guide will only use the `base` environment, but other environments could be created for development, QA, and so on.
 
@@ -383,11 +383,11 @@ file_roots:
 
 1.  Create a new `top.sls` file in `/srv/salt`:
 
-    {{< file "/srv/salt/top.sls" >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   'hugo-webserver':
     - hugo
-{{< /file >}}
+```
 
     This is Salt's Top file, and the snippet declares that the `hugo-webserver` minion should receive the `init.sls` state from the `hugo` directory (from your GitHub-hosted Salt formula).
 
@@ -434,14 +434,14 @@ Salt's GitFS fetches files from remotes periodically, and this period [can be co
 
 1.  Edit the `baseurl`, `themesDir`, and `name` options in `config.toml` as follows; replace `example.com` with your own domain and `Your Name` with your own name:
 
-    {{< file "example-hugo-site/config.toml" >}}
+    ```file {title="example-hugo-site/config.toml"}
 # [...]
 baseURL = "http://example.com"
 # [...]
 themesDir = "themes"
 # [...]
   name = "Your Name"
-{{< /file >}}
+```
 
 1.  Run the Hugo development server on your computer:
 
@@ -459,10 +459,10 @@ Web Server is available at http://localhost:1313/ (bind address 127.0.0.1)
 
 1.  Enter **CTRL-C** in the terminal session on your computer to stop the Hugo development server. Open the `.gitignore` file and make sure `public/` is listed. The default `.gitignore` from the Cactus theme should look like:
 
-    {{< file "example-hugo-site/config.toml" >}}
+    ```file {title="example-hugo-site/config.toml"}
 public/
 themes
-{{< /file >}}
+```
 
     The `public` directory is the result of Hugo compiling the Markdown content files into HTML. These files can be regenerated by anyone who downloads your site code, so they won't be checked into version control.
 
@@ -502,7 +502,7 @@ Pillar data is injected into state files with Salt's [*Jinja* templating](https:
 
 In your local Salt formula's repository, edit the `install.sls` file to append the `git_pkg` and `hugo_pkg` states:
 
-{{< file "hugo-webserver-salt-formula/hugo/install.sls" >}}
+```file {title="hugo-webserver-salt-formula/hugo/install.sls"}
 # [...]
 
 git_pkg:
@@ -514,7 +514,7 @@ hugo_pkg:
     - name: hugo
     - sources:
       - hugo: https://github.com/gohugoio/hugo/releases/download/v{{ pillar['hugo_deployment_data']['hugo_version'] }}/hugo_{{ pillar['hugo_deployment_data']['hugo_version'] }}_Linux-64bit.deb
-{{< /file >}}
+```
 
 The first state component installs Git, and the second component installs Hugo. The second component's `sources` declaration specifies that the package should be downloaded from Hugo's GitHub repository (instead of from the distribution package manager).
 
@@ -524,7 +524,7 @@ The `{{ }}` syntax that appears in `{{ pillar['hugo_deployment_data']['hugo_vers
 
 Create a new `config.sls` file in your local Salt formula repository's `hugo` directory:
 
-{{< file "hugo-webserver-salt-formula/hugo/config.sls" >}}
+```file {title="hugo-webserver-salt-formula/hugo/config.sls"}
 hugo_group:
   group.present:
     - name: {{ pillar['hugo_deployment_data']['group'] }}
@@ -547,7 +547,7 @@ hugo_site_repo:
     - require:
       - pkg: git_pkg
       - user: hugo_user
-{{< /file >}}
+```
 
 The final `hugo_site_repo` component in this snippet is responsible for cloning the example Hugo site repository from GitHub. This cloned repo is placed in the home directory of a system user that Salt creates in the preceding components. The clone command also recursively downloads the Cactus theme submodule.
 
@@ -567,7 +567,7 @@ Instead of hard-coding the parameters for the user, group, home directory, GitHu
 
 1.  Append the following states to your `config.sls`:
 
-    {{< file "hugo-webserver-salt-formula/hugo/config.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/config.sls"}
 nginx_default:
   file.absent:
     - name: '/etc/nginx/sites-enabled/default'
@@ -602,7 +602,7 @@ nginx_document_root:
     - dir_mode: 0755
     - require:
       - user: hugo_user
-{{< /file >}}
+```
 
     -   The `nginx_default` component removes the symlink in `sites-enabled` for the default NGINX config, which disables that configuration.
     -   `nginx_config` and `nginx_symlink` then create a new configuration file in `sites-available` and a symlink to it in `sites-enabled`.
@@ -615,7 +615,7 @@ nginx_document_root:
 
 1.  Create the `hugo_site` file inside `files/`:
 
-    {{< file "hugo-webserver-salt-formula/hugo/files/hugo_site" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/files/hugo_site"}
 server {
     listen 80;
     listen [::]:80;
@@ -629,13 +629,13 @@ server {
         try_files $uri $uri/ = /404.html;
     }
 }
-{{< /file >}}
+```
 
     The `nginx_config` component that manages this file also listed the `- template: jinja` declaration, so the source file is interpreted as a Jinja template. The source file is able to substitute values from Pillar using the Jinja substitution syntax.
 
 1.  **Replace** the content of your `service.sls` with this snippet:
 
-    {{< file "hugo-webserver-salt-formula/hugo/service.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/service.sls"}
 nginx_service:
   service.running:
     - name: nginx
@@ -644,7 +644,7 @@ nginx_service:
       - file: nginx_symlink
     - watch:
       - file: nginx_config
-{{< /file >}}
+```
 
     The `nginx_service` component now requires `nginx_symlink` instead of `nginx_pkg`. Without this change, the service may be enabled and run before the new NGINX configuration is set up. The `- watch` declaration also instructs NGINX to restart whenever a change to `nginx_config` is made.
 
@@ -652,7 +652,7 @@ nginx_service:
 
 1.  Append a `build_script` state to `config.sls`:
 
-    {{< file "hugo-webserver-salt-formula/hugo/config.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/config.sls"}
 build_script:
   file.managed:
     - name: {{ pillar['hugo_deployment_data']['home_dir'] }}/deploy.sh
@@ -672,7 +672,7 @@ build_script:
       - file: build_script
       - cmd: hugo_site_repo
       - file: nginx_document_root
-{{< /file >}}
+```
 
     This state uses more than one module. The first module will download the `deploy.sh` file from the salt master and place it on the minion. This script will be responsible for compiling your Hugo site files. The second module then calls that script. The first module is listed as a requirement of the second module, along with the Git clone command, and the creation of the document root folder.
 
@@ -682,23 +682,23 @@ The `- creates` option in the second module ensures that Salt doesn't rebuild Hu
 
 1.  Create the `deploy.sh` script in `files/`:
 
-    {{< file "hugo-webserver-salt-formula/hugo/files/deploy.sh" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/files/deploy.sh"}
 #!/bin/bash
 
 cd {{ pillar['hugo_deployment_data']['site_repo_name'] }}
 hugo --destination={{ pillar['hugo_deployment_data']['nginx_document_root'] }}/{{ pillar['hugo_deployment_data']['site_repo_name'] }}
-{{< /file >}}
+```
 
     Hugo's build function is called with NGINX's document root as the destination for the built files.
 
 1.  Update `init.sls` to include the new `config.sls` file:
 
-    {{< file "hugo-webserver-salt-formula/hugo/init.sls" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/init.sls"}
 include:
   - hugo.install
   - hugo.config
   - hugo.service
-{{< /file >}}
+```
 
 ### Push the Salt Formula Updates to GitHub
 
@@ -731,11 +731,11 @@ hugo
 
 1.  Open `/etc/salt/master` on the Salt master in a text editor. Uncomment the `pillar_roots` section:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 pillar_roots:
   base:
     - /srv/pillar
-{{< /file >}}
+```
 
     `pillar_roots` performs an analogous function to `file_roots`: it specifies where Pillar data is stored on the master's filesystem.
 
@@ -749,7 +749,7 @@ pillar_roots:
 
 1.  Create an `example-hugo-site.sls` file in `/srv/pillar` to contain the Pillar data for the minion. This file uses the same YAML syntax as other state files. Replace the values for `github_account` and `domain_name` with your GitHub account and your site's domain name:
 
-    {{< file "/srv/pillar/example-hugo-site.sls" >}}
+    ```file {title="/srv/pillar/example-hugo-site.sls"}
 hugo_deployment_data:
   hugo_version: 0.49
   group: hugo
@@ -759,15 +759,15 @@ hugo_deployment_data:
   site_repo_name: example-hugo-site
   nginx_document_root: /var/www
   domain_name: yourdomain.com
-{{< /file >}}
+```
 
 1.  Create a `top.sls` file in `/srv/pillar`. Similar to the Top file in your state tree, the Pillar's Top file maps Pillar data to minions:
 
-    {{< file "/srv/pillar/top.sls" >}}
+    ```file {title="/srv/pillar/top.sls"}
 base:
   'hugo-webserver':
     - example-hugo-site
-{{< /file >}}
+```
 
 ### Apply State Updates to the Minion
 
@@ -803,11 +803,11 @@ Webhooks are HTTP POST requests specifically designed and sent by systems to com
 
 1.  In your local Salt formula repository, append a new `webhook_pkg` state to your `install.sls` that installs the [webhook server package by adnanh](https://github.com/adnanh/webhook/):
 
-    {{< file "hugo-webserver-salt-formula/hugo/install.sls"  >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/install.sls"}
 webhook_pkg:
   pkg.installed:
     - name: webhook
-{{< /file >}}
+```
 
     {{< note >}}
 The webhook server written in Go by adnanh is a popular implementation of the concept, but it's possible to write other HTTP servers that parse webhook payloads.
@@ -815,7 +815,7 @@ The webhook server written in Go by adnanh is a popular implementation of the co
 
 1.  Append two new components to your `config.sls`:
 
-    {{< file "hugo-webserver-salt-formula/hugo/config.sls"  >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/config.sls"}
 webhook_systemd_unit:
   file.managed:
     - name: '/etc/systemd/system/webhook.service'
@@ -842,13 +842,13 @@ webhook_config:
     - require:
       - pkg: webhook_pkg
       - group: hugo_group
-{{< /file >}}
+```
 
     The first state creates a [systemd unit file](/docs/guides/introduction-to-systemctl/) for the webhook service. The second state creates a webhook configuration. The webhook server reads the configuration and generates a webhook URL from it.
 
 1.  Create a `webhook.service` file in your repository's `files/` directory:
 
-    {{< file "hugo-webserver-salt-formula/hugo/files/webhook.service"  >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/files/webhook.service"}
 [Unit]
 Description=Small server for creating HTTP endpoints (hooks)
 Documentation=https://github.com/adnanh/webhook/
@@ -859,11 +859,11 @@ ExecStart=/usr/bin/webhook -nopanic -hooks /etc/webhook.conf
 
 [Install]
 WantedBy=multi-user.target
-{{< /file >}}
+```
 
 1.  Create a `webhook.conf` file in your repository's `files/` directory:
 
-    {{< file "hugo-webserver-salt-formula/hugo/files/webhook.conf"  >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/files/webhook.conf"}
 [
   {
     "id": "github_push",
@@ -901,7 +901,7 @@ WantedBy=multi-user.target
     }
   }
 ]
-{{< /file >}}
+```
 
     This configuration sets up a URL named `http://example.com:9000/hooks/github_push`, where the last component of the URL is derived from the value of the configuration's `id`.
 
@@ -923,7 +923,7 @@ Further documentation on the webhook configuration options can be reviewed on th
 
 1.  Append a new `webhook_service` state to your `service.sls` that enables and starts the webhook server:
 
-    {{< file "hugo-webserver-salt-formula/hugo/service.sls"  >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/service.sls"}
 webhook_service:
   service.running:
     - name: webhook
@@ -931,17 +931,17 @@ webhook_service:
     - watch:
       - file: webhook_config
       - module: webhook_systemd_unit
-{{< /file >}}
+```
 
 1.  Update the `deploy.sh` script so that it pulls changes from `master` before building the site:
 
-    {{< file "hugo-webserver-salt-formula/hugo/files/deploy.sh" >}}
+    ```file {title="hugo-webserver-salt-formula/hugo/files/deploy.sh"}
 #!/bin/bash
 
 cd {{ pillar['hugo_deployment_data']['site_repo_name'] }}
 git pull origin master
 hugo --destination={{ pillar['hugo_deployment_data']['nginx_document_root'] }}//{{ pillar['hugo_deployment_data']['site_repo_name'] }}
-{{< /file >}}
+```
 
 1.  Your state files should now have these contents: [init.sls](init-full.sls) *(unchanged)*, [install.sls](install-full.sls), [config.sls](config-full.sls), [service.sls](service-full.sls). Save the changes made to your Salt files, then commit and push them to GitHub:
 
@@ -952,11 +952,11 @@ hugo --destination={{ pillar['hugo_deployment_data']['nginx_document_root'] }}//
 
 1.  On the Salt master, add a `webhook_secret` to the `example-hugo-site.sls` Pillar. Your secret should be a complex, random alphanumeric string.
 
-    {{< file "/srv/pillar/example-hugo-site.sls" >}}
+    ```file {title="/srv/pillar/example-hugo-site.sls"}
 hugo_deployment_data:
   # [...]
   webhook_secret: your_webhook_secret
-{{</ file >}}
+```
 
 1.  From the Salt master, apply the formula updates to the minion:
 
@@ -999,14 +999,14 @@ Hook rules were not satisfied.⏎
 
 1.  This command creates a new partially filled in Markdown document in `content/post/`. Open this file in your editor, remove the `draft: true` line from the [*frontmatter*](https://gohugo.io/content-management/front-matter/), and add some body text:
 
-    {{< file "example-hugo-site/content/post/test-post.md" >}}
+    ```file {title="example-hugo-site/content/post/test-post.md"}
 ---
 title: "Test Post"
 date: 2018-10-19T11:39:15-04:00
 ---
 
 Test post body text
-{{< /file >}}
+```
 
 1.  If you run `hugo server` in the repository directory, you can see the new post:
 

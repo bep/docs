@@ -44,7 +44,7 @@ This section will review an example Docker Compose file taken from the [Docker o
 
 1.  Open `docker-compose.yml` in a text editor and add the following content:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -73,7 +73,7 @@ services:
 volumes:
     db_data:
 
-{{< /file >}}
+```
 
 2.  Save the file and run Docker Compose from the same directory:
 
@@ -128,7 +128,7 @@ Create a `docker-compose.yml` file one section at a time to illustrate the steps
 
 1.  Create a new `docker-compose.yml` in a text editor and add the following content:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -137,7 +137,7 @@ services:
     restart: always
     container_name: Alpine_Distro
     entrypoint: tail -f /dev/null
-{{< /file >}}
+```
 
     Each entry in the `services` section will create a separate container when `docker-compose` is run. At this point, the section contains a single container based on the official Alpine distribution:
     * The `restart` directive is used to indicate that the container should always restart (after a crash or system reboot, for example).
@@ -169,7 +169,7 @@ From here you can begin to build an ecosystem of containers. You can define how 
 
 1.  Reopen `docker-compos.yml` and add the `database` service below:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -186,7 +186,7 @@ services:
       - ../dumps:/tmp/
     ports:
       - "5432:5432"
-{{< /file >}}
+```
 
     There are now two services defined:
 
@@ -215,7 +215,7 @@ ecc37246f6ef        postgres:latest     "docker-entrypoint..."   About a minute 
 
 1.  Add an nginx container so that your application will be able to serve websites:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -246,7 +246,7 @@ services:
       - database:db
       - distro
 
-{{< /file >}}
+```
 
     This `docker-compose` file contains some new directives: *environment* and *links*. The first directive sets runtime level options within the container. `links` creates a dependency network between the containers. The nginx container depends on the other two to execute. In addition, the corresponding containers will be reachable at a hostname indicated by the alias. In this case, pinging `db` from the `web` container will reach the `database` service. While you do not need the `links` directive for the containers to talk with each other, `links` can serve as a failsafe when starting the docker-compose application.
 
@@ -274,7 +274,7 @@ For these reasons it is important to set up a persistent volume on the host that
 
 1.  Add a `volumes` section to `docker-compose.yml` and edit the `database` service to refer to the volume:
 
-    {{< file "docker-compose.yml" yaml >}}
+    ```file {title="docker-compose.yml"}
 version: '3'
 
 services:
@@ -307,7 +307,7 @@ services:
 volumes:
   data:
     external: true
-{{< /file >}}
+```
 
 2.  `external: true` tells Docker Compose to use a pre-existing external data volume. If no volume named `data` is present, starting the application will cause an error. Create the volume:
 

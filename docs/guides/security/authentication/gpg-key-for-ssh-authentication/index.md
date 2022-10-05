@@ -427,7 +427,7 @@ Return to your local machine, import all of the appropriate GPG keys and insert 
 
     **Linux:**
 
-    {{< file "~/.bash_profile" >}}
+    ```file {title="~/.bash_profile"}
 if [ -f "${HOME}/.gpg-agent-info" ]; then
      source "${HOME}/.gpg-agent-info"
        export GPG_AGENT_INFO
@@ -437,12 +437,12 @@ else
     eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
 fi
 
-{{< /file >}}
+```
 
 
     **OS X**
 
-    {{< file "~/.bash_profile" >}}
+    ```file {title="~/.bash_profile"}
 [ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
 if [ -S "${GPG_AGENT_INFO%%:*}" ]; then
     export GPG_AGENT_INFO
@@ -452,20 +452,20 @@ else
     eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
 fi
 
-{{< /file >}}
+```
 
 
     This ensures that SSH can 'see' your GPG keys and automatically starts `gpg-agent` as needed.
 
 2.  Edit or create `~/.gnupg/gpg-agent.conf`:
 
-    {{< file "~/.gnupg/gpg-agent.conf" >}}
+    ```file {title="~/.gnupg/gpg-agent.conf"}
 default-cache-ttl 600
 max-cache-ttl 7200
 enable-ssh-support
 write-env-file ~/.gpg-agent-info
 
-{{< /file >}}
+```
 
 
     If you're on OS X and previously installed [GPGTools](https://gpgtools.org/), you can also add the line:

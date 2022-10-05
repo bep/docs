@@ -33,9 +33,9 @@ Also, you will want to configure aliases for the private IP address of each Lino
 
 You will want to create hostnames for each machine so you can keep track of them later. This also saves work, should you find yourself in a situation where you need to change the IP address of the server. Edit the `/etc/hosts` file to include the **private** IP addresses of each Linode. Use the following excerpt from an example `/etc/hosts` file as an example:
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 > 127.0.0.1 localhost 192.168.192.168 mysql.example.com mysql 192.168.192.169 app.example.com app
-{{</ file >}}
+```
 
 Remember to replace `192.168.192.168` and `192.168.192.169` with the actual private IP addresses.
 
@@ -45,9 +45,9 @@ While this step is optional, configuring `hosts` entries will allow you to avoid
 
 The next step is to modify the `/etc/mysql/my.cnf` file on your MySQL server to listen on your private IP address. Using your favorite editor, open the `/etc/mysql/my.cnf` file and insert the hostname of the MySQL database. For this example, the MySQL database hostname is `mysql`. Locate the `bind-address` line:
 
-{{< file "/etc/mysql/my.cnf" >}}
+```file {title="/etc/mysql/my.cnf"}
 bind-address = mysql
-{{< /file >}}
+```
 
 You can alternatively use the private IP address. Save the file, and run the following command to restart the MySQL daemon:
 
@@ -75,10 +75,10 @@ Using MySQL on a separate database server is very similar to running a local dat
 
 For example, in [WordPress](/docs/guides/how-to-install-and-configure-wordpress/) database settings are contained in the `wp-config.php` file, and the hostname is specified in the following format:
 
-{{< file "wp-config.php" >}}
+```file {title="wp-config.php"}
 /** MySQL hostname */
 define('DB_HOST', 'mysql');
-{{< /file >}}
+```
 
 Note that the method for setting the hostname varies from application to application. Furthermore, you can substitute the specific IP address of the database server, rather than using the hostname as configured in `/etc/hosts` above.
 

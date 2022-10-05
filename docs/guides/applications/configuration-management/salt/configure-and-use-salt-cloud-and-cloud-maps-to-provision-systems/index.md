@@ -65,12 +65,12 @@ Configure and test access to the Linode API.
 
 1.  Edit `/etc/salt/cloud.providers.d/linode.conf` to configure the name of your provider configuration. Salt Cloud will use it during operations with instances in the CLI. Use a short name (or abbreviation like `li`) that will be easy to remember. You can also specify multiple Linode providers for managing multiple accounts. Linode requires the default root password for the new servers to be set. This password needs to be eight characters and contain lowercase, uppercase, and numbers.
 
-    {{< file "/etc/salt/cloud.providers.d/linode.conf" conf >}}
+    ```file {title="/etc/salt/cloud.providers.d/linode.conf"}
 linode-provider:
   apikey: <Your API key>
   password: <Default password for the new instances>
   driver: linode
-{{< /file >}}
+```
 
     {{< note >}}
 All configuration files store data in YAML format. Be careful with indentation - use only spaces and not tabs. Each level of indentation is usually separated with 2 spaces.
@@ -125,13 +125,13 @@ For this example, create an instance with minimal size, using a CentOS 7 image, 
 
 1.  Open `/etc/salt/cloud.profiles.d/linode-london-1gb.conf` and paste the following:
 
-    {{< file "/etc/salt/cloud.profiles.d/linode-london-1gb.conf" conf >}}
+    ```file {title="/etc/salt/cloud.profiles.d/linode-london-1gb.conf"}
 linode_1gb:
   provider: linode-provider
   size: Nanode 1GB
   image: CentOS 7
   location: London, England, UK
-{{< /file >}}
+```
 
     You can use one file for all profiles, or use one file per instance profile. All files from `/etc/salt/cloud.profiles.d/` are read during execution.
 
@@ -139,14 +139,14 @@ linode_1gb:
 
     Edit `/etc/salt/cloud.conf.d/master.conf` and paste the following content, replacing `saltmaster.example.com` with the IP address or domain name of your master server:
 
-    {{< file "/etc/salt/cloud.conf.d/master.conf" >}}
+    ```file {title="/etc/salt/cloud.conf.d/master.conf"}
 minion:
   master: saltmaster.example.com
-{{< /file >}}
+```
 
     Another option is to set this parameter for specific instance profile:
 
-    {{< file "/etc/salt/cloud.profiles.d/linode-london-1gb.conf" conf >}}
+    ```file {title="/etc/salt/cloud.profiles.d/linode-london-1gb.conf"}
 linode_1gb_with_master:
 provider: linode-provider
   size: Nanode 1GB
@@ -154,11 +154,11 @@ provider: linode-provider
   location: London, England, UK
   minion:
     master: mymaster.example.com
-{{< /file >}}
+```
 
 3.  Set up [SSH key authentication](/docs/guides/use-public-key-authentication-with-ssh/) for your instance. To do this during provisioning, set up the profile as follows, replacing the `ssh_pubkey` and `ssh_key_file` with key information for an SSH key on your master server:
 
-    {{< file "/etc/salt/cloud.profiles.d/linode-london-1gb.conf" conf >}}
+    ```file {title="/etc/salt/cloud.profiles.d/linode-london-1gb.conf"}
 linode_1gb_with_ssh_key:
   provider: linode-provider
   size: Nanode 1GB
@@ -166,7 +166,7 @@ linode_1gb_with_ssh_key:
   location: London, England, UK
   ssh_pubkey: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKHEOLLbeXgaqRQT9NBAopVz366SdYc0KKX33vAnq+2R user@host
   ssh_key_file: ~/.ssh/id_ed25519
-{{< /file >}}
+```
 
     {{< note >}}
 If your master server is located behind a firewall, you will have to open ports `4505-4506` in [firewall](https://docs.saltproject.io/en/latest/topics/tutorials/firewall.html). Depending on your network configuration, you may have to set up port forwarding for these ports.
@@ -261,11 +261,11 @@ Get full information about instances using `-F` option:
 
 1.  Edit `/etc/salt/cloud.conf.d/query.conf` and add the fields you would like to select:
 
-    {{< file "/etc/salt/cloud.conf.d/query.conf" >}}
+    ```file {title="/etc/salt/cloud.conf.d/query.conf"}
 query.selection:
   - image
   - size
-{{< /file >}}
+```
 
 2.  Execute selective query using `-S` option:
 
@@ -304,11 +304,11 @@ In this example, Cloud map will define two instances: `linode_web` and `linode_d
 
 1.  Edit `/etc/salt/cloud.conf.d/linode.map` and paste the following:
 
-    {{< file "/etc/salt/cloud.conf.d/linode.map" >}}
+    ```file {title="/etc/salt/cloud.conf.d/linode.map"}
 linode_1gb:
   - linode_web
   - linode_db
-{{< /file >}}
+```
 
     Cloud map file allows you to define instances from several Linode accounts or even from a different provider. Check the [Cloud Map documentation](https://docs.saltproject.io/en/latest/topics/cloud/map.html) for an in-depth guide.
 
@@ -344,9 +344,9 @@ If an existing instance is removed from the Cloud map file, it will remain runni
 
     1. Modify `/etc/salt/cloud` and add:
 
-        {{< file "/etc/salt/cloud" >}}
+        ```file {title="/etc/salt/cloud"}
 enable_hard_maps: True
-{{< /file >}}
+```
 
     2. Execute `salt-cloud` with the `--hard` option:
 

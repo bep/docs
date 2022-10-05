@@ -201,7 +201,7 @@ If you think you may be interested in `bat`, check out our guide [How to Install
 
 1. `cheat` opens an editor for you to enter the contents of the cheat sheet. Here are example contents for `bat`:
 
-    {{< file "~/.config/cheat/cheatsheets/personal/bat" >}}
+    ```file {title="~/.config/cheat/cheatsheets/personal/bat"}
 ---
 tags: [ files, reader ]
 ---
@@ -216,7 +216,7 @@ bat --list-themes
 
 # To use a theme to view a file:
 bat --theme="{theme-name}" path/to/file
-    {{< /file >}}
+    ```
 
 1. When you have finished entering contents for your cheat sheet, save the file and exit the editor.
 

@@ -140,7 +140,7 @@ The `schroot` tool allows you to use a `chroot` environment as a limited user, r
 
     The file comes with several configuration examples. The file below is a simple example used for this guide.
 
-    {{< file "/etc/schroot/schroot.conf" >}}
+    ```file {title="/etc/schroot/schroot.conf"}
 [...]
 
 [focal-env]
@@ -152,7 +152,7 @@ root-groups=root
 aliases=focal
 
 [...]
-    {{< /file >}}
+    ```
 
 1. Access the `chroot` environment through `schroot`.
 

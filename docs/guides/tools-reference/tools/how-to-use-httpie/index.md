@@ -198,11 +198,11 @@ Via: 1.1 vegur
 
 HTTPie also provides options for using files for the request and response JSON objects. You can see this feature in action by creating a JSON file like the one below for the "Shout Cloud" service used above.
 
-{{< file "to-shout.json" >}}
+```file {title="to-shout.json"}
 {
     "INPUT": "this sentence needs to be shouted!"
 }
-{{< /file >}}
+```
 
 Then, use HTTPie to submit that JSON data in a `POST` request to the web service.
 
@@ -224,9 +224,9 @@ Conversely, you can have HTTPie save a JSON response as a file, as shown below:
 
     http POST api.shoutcloud.io/V1/SHOUT INPUT="another shout over here!" > shouting.json
 
-{{< file "shouting.json" >}}
+```file {title="shouting.json"}
 {"INPUT":"another shout over here!","OUTPUT":"ANOTHER SHOUT OVER HERE!"}
-{{< /file >}}
+```
 
 ## Conclusion
 

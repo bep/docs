@@ -215,7 +215,7 @@ PostgreSQL commands starting with a backslash are called *meta-commands*. These 
 
     However, we recommend you add a rule to exempt the default `postgres` user from the local password requirement. This allows for easier non-interactive access to PostgreSQL for maintenance tasks and scripting. Add a new line for the `postgres` user right above the rule for general local access. The entire section should now look like this.
 
-    {{< file "/var/lib/pgsql/13/data/pg_hba.conf" >}}
+    ```file {title="/var/lib/pgsql/13/data/pg_hba.conf"}
 ...
 
 # Database administrative login by Unix domain socket
@@ -226,7 +226,7 @@ local   all             postgres                                peer
 
 local   all             all                                     md5
 ...
-    {{< /file >}}
+    ```
     {{< caution >}}
 If you do not define this exception for the `postgres` user, you could potentially lock yourself out of the database. We recommend making a backup copy of this file before editing it and taking note of its location.
 {{< /caution >}}

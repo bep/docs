@@ -125,10 +125,10 @@ When using a reverse proxy in front of a web server, the web server does not kno
 
 1. Create the file `/etc/apache2/conf-available/remoteip.conf`.
 
-    {{< file "remoteip.conf" >}}
+    ```file {title="remoteip.conf"}
 RemoteIPHeader X-Real-IP
 RemoteIPTrustedProxy 10.10.10.28 fd42:67a4:b462:6ae2:216:3eff:fe00:252e
-{{</ file >}}
+```
 
     You can use the `nano` text editor by running the command `sudo nano /etc/apache2/conf-available/remoteip.conf`. Note, these are the IP addresses of the `proxy` container shown earlier, for both IPv4 and IPv6. Replace these with the IPs from your `lxc list` output.
 
@@ -190,10 +190,10 @@ Like Apache, NGINX does not know the IP addresses of visitors when using a rever
 
 1. Create the file `/etc/nginx/conf.d/real-ip.conf`.
 
-    {{< file "real-ip.conf" >}}
+    ```file {title="real-ip.conf"}
 real_ip_header    X-Real-IP;
 set_real_ip_from  proxy.lxd;
-{{</ file >}}
+```
 
     You can use the `nano` text editor by running the command `sudo nano /etc/nginx/conf.d/real-ip.conf`.
 
@@ -276,7 +276,7 @@ The reverse proxy container is running and the NGINX package has been installed.
 
 2.  Create the file `apache1.example.com` in `/etc/nginx/sites-available/` for the configuration of your first website.
 
-    {{< file "apache1.example.com" >}}
+    ```file {title="apache1.example.com"}
 server {
         listen 80 proxy_protocol;
         listen [::]:80 proxy_protocol;
@@ -292,7 +292,7 @@ server {
         real_ip_header proxy_protocol;
         set_real_ip_from 127.0.0.1;
 }
-{{</ file >}}
+```
 
     You can run `sudo nano /etc/nginx/sites-available/apache1.example.com` to open up a text editor and add the configuration. Note, in this case you only need to edit the `server_name` to be the hostname of the website.
 
@@ -326,7 +326,7 @@ The reverse proxy container is running and the `NGINX` package has been installe
 
 2.  Create the file `nginx1.example.com` in `/etc/nginx/sites-available/` for the configuration of your second website.
 
-    {{< file "nginx1.example.com" >}}
+    ```file {title="nginx1.example.com"}
 server {
         listen 80 proxy_protocol;
         listen [::]:80 proxy_protocol;
@@ -342,7 +342,7 @@ server {
         real_ip_header proxy_protocol;
         set_real_ip_from 127.0.0.1;
 }
-{{</ file >}}
+```
 
     You can run `sudo nano /etc/nginx/sites-available/nginx1.example.com` to create the configuration. Note, you only need to edit the fields `server_name` to be the hostname of the website.
 

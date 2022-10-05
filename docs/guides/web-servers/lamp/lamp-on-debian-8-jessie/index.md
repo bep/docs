@@ -60,7 +60,7 @@ Prior to installing your LAMP stack ensure that:
 
 1.  Open `/etc/apache2/mods-available/mpm_prefork.conf` in your text editor and edit the values as needed. The following is optimized for a 2GB Linode:
 
-    {{< file "/etc/apache2/mods-available/mpm_prefork.conf" aconf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_prefork.conf"}
 # prefork MPM
 # StartServers: number of server processes to start
 # MinSpareServers: minimum number of server processes which are kept spare
@@ -78,7 +78,7 @@ Prior to installing your LAMP stack ensure that:
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -108,7 +108,7 @@ There can be as many virtual hosts files as needed to support the amount of doma
 
 1.  Create an `example.com.conf` file in `/etc/apache2/sites-available` with your text editor, replacing instances of `example.com` with your own domain URL in both the configuration file and in the file name:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.com
      ServerName example.com
@@ -118,12 +118,12 @@ There can be as many virtual hosts files as needed to support the amount of doma
      CustomLog /var/www/html/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     Repeat this process for any other domains you host:
 
-    {{< file "/etc/apache2/sites-available/example.org.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.org.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.org
      ServerName example.org
@@ -133,7 +133,7 @@ There can be as many virtual hosts files as needed to support the amount of doma
      CustomLog /var/www/html/example.org/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 1.  Symbolically link your virtual hosts files from the `sites-available` directory to the `sites-enabled` directory. Replace the filename with your own:
@@ -210,12 +210,12 @@ PHP 7.3 is the [latest version available](http://php.net/supported-versions.php)
 
 1.  Open `/etc/php/7.3/apache2/php.ini` in your text editor and edit the following values. These settings are optimized for the 2GB Linode:
 
-    {{< file "/etc/php/7.3/apache2/php.ini" ini >}}
+    ```file {title="/etc/php/7.3/apache2/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 error_log = /var/log/php/error.log
 max_input_time = 30
 
-{{< /file >}}
+```
 
 
     {{< note >}}

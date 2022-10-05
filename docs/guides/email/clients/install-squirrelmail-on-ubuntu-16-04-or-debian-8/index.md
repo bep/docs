@@ -55,7 +55,7 @@ To access SquirrelMails's web interface, create and configure a copy of its defa
 
 2.  Edit the configuration file to uncomment the `<VirtualHost 1.2.3.4:80>` block by removing the pound symbol (`#`), as shown below. Edit the IP and ServerName to match your Linode and domain settings:
 
-    {{< file "/etc/apache2/sites-available/squirrelmail" apache >}}
+    ```file {title="/etc/apache2/sites-available/squirrelmail"}
 Alias /squirrelmail /usr/share/squirrelmail
 
 <Directory /usr/share/squirrelmail>
@@ -97,7 +97,7 @@ Alias /squirrelmail /usr/share/squirrelmail
 #  </IfModule>
 #</IfModule>
 
-{{< /file >}}
+```
 
 
     {{< note >}}

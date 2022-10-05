@@ -90,7 +90,7 @@ The installation should take a few seconds to complete.
 
 Create a new file named `client-example.js` with the following content:
 
-{{< file "client-example.js" >}}
+```file {title="client-example.js"}
 // cross-fetch helps ensure correct behavior independent of the environment
 // needs the HttpLink.
 import fetch from 'cross-fetch';
@@ -113,7 +113,7 @@ const client = new ApolloClient({link: link, cache: cache});
 client
   .query({query: query})
   .then(result => console.log(JSON.stringify(result)));
-{{< /file >}}
+```
 
 This code imports the necessary libraries to then query the SpaceX API. The query expects a JSON response from the API.
 
@@ -143,7 +143,7 @@ To install the Apollo GraphQL server use the following command:
 
 Create a new filled named `hello-server.js` and add the following content:
 
-{{< file "hello-server.js" >}}
+```file {title="hello-server.js"}
 var {graphql, buildSchema} = require('graphql');
 
 var schema = buildSchema(`
@@ -158,7 +158,7 @@ graphql(schema, '{ hello }', root)
   .then((response) => {
  console.log(response);
 });
-{{< /file >}}
+```
 
 Run the above example file using the following command
 
@@ -172,7 +172,7 @@ You should see a similar output:
 
 The example demonstrates a GraphQL server response. The next step in server behavior is to embed this responsiveness into a web API. To do this, update the `server-example.js` with the following content:
 
-{{< file "server-example.js" >}}
+```file {title="server-example.js"}
 const express = require('express');
 const {ApolloServer, gql} = require('apollo-server-express');
 
@@ -203,7 +203,7 @@ async function startApolloServer() {
 
 startApolloServer();
 
-{{< /file >}}
+```
 
 The code above defines the GraphQL schema, creates a resolver, and creates an instance of the Apollo server that is served on the localhost.
 

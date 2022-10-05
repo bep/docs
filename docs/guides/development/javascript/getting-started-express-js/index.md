@@ -103,7 +103,7 @@ Most template engines use their own template formatting. So, the template engine
 
 Express JS applications pass information to views using the `render` function on response objects. You can see this in the base application installed above. The `~/example-app/routes/index.js` file uses the `render` function to create the welcome page view for any users visiting the base URL (`/`). In doing so, it also provides data to be used in the view — in this case, a page title.
 
-{{< file "~/example-app/routes/index.js" >}}
+```file {title="~/example-app/routes/index.js"}
 // [...]
 
 var router = express.Router();
@@ -113,17 +113,17 @@ router.get('/', function(req, res, next) {
 });
 
 // [...]
-{{< /file >}}
+```
 
 By default, you can find the view templates in the `views` directory. With the Pug engine, the `index` view is in the `~/example-app/views/index.pug` file. There, you can see the template make use of the `title` data to customize the welcome message.
 
-{{< file "~/example-app/views/index.pug" >}}
+```file {title="~/example-app/views/index.pug"}
 // [...]
 
 block content
   h1= title
   p Welcome to #{title}
-{{< /file >}}
+```
 
 ## Express JS Middleware
 
@@ -141,7 +141,7 @@ If you are familiar with frameworks that use the [*Model–View–Controller (MV
 
 In the base application installed above, `app.js` executes an application-level middleware function to catch 404 errors.
 
-{{< file "~/example-app/app.js" >}}
+```file {title="~/example-app/app.js"}
 // [...]
 
 app.use('/', ;
@@ -161,17 +161,17 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-{{< /file >}}
+```
 
 The above also contains a special kind of middleware function for handling errors. These functions take an `err` parameter in addition to the `req`, `res`, and `next` parameters.
 
 For its part, `~/example-app/routes/index.js` executes a router-level middleware to handle requests whenever a user visits the base URL (`/`).
 
-{{< file "~/example-app/routes/index.js" >}}
+```file {title="~/example-app/routes/index.js"}
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
-{{< /file >}}
+```
 
 In addition to Express JS's default middleware functions, you have the ability to write your own. Doing so can be immensely helpful when you are working with larger, more complicated applications where behaviors are frequently repeated. To learn more about how this is done, check out Express's guide on [writing your own middleware functions](https://expressjs.com/en/guide/writing-middleware.html).
 

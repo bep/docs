@@ -70,7 +70,7 @@ The Elastic Yum package repository contains all the necessary packages for the r
         sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
 
 2.  Create a yum repository configuration to use the Elastic yum repository:
-{{< file "elastic.repo" ini >}}
+```file {title="elastic.repo"}
 [elasticsearch-6.x]
 name=Elastic repository for 6.x packages
 baseurl=https://artifacts.elastic.co/packages/6.x/yum
@@ -79,7 +79,7 @@ gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
 enabled=1
 autorefresh=1
 type=rpm-md
-{{< /file >}}
+```
 
 3.  Update the `yum` cache to ensure any new packages become available:
 
@@ -104,10 +104,10 @@ In order to provide a datastore for each Beat and Kibana, Elasticsearch must fir
 
 2.  Set the JVM heap size to approximately half of your server's available memory. For example, if your server has 1GB of RAM, change the `Xms` and `Xmx` values in the `/etc/elasticsearch/jvm.options` file `512m`. Leave the other values in this file unchanged:
 
-    {{< file "/etc/elasticsearch/jvm.options" yaml >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m
 -Xmx512m
-{{< /file >}}
+```
 
 3.  In order for Filebeat to properly parse and process certain documents, two _ingest_ plugins must be installed for elasticsearch. First, install the `ingest-user-agent` plugin, which enables Elasticsearch to accurately parse user-agent strings:
 
@@ -170,13 +170,13 @@ By default, Elasticsearch will create five shards and one replica for every inde
 
 1.  Create a temporary JSON file with an *index template* that instructs Elasticsearch to set the number of shards to one and number of replicas to zero for all matching index names (in this case, a wildcard `*`):
 
-    {{< file "template.json" conf >}}
+    ```file {title="template.json"}
 "template": "*",
 "settings":
 "index":
 "number_of_shards": 1,
 "number_of_replicas": 0
-{{< /file >}}
+```
 
 2.  Use `curl` to create an index template with these settings that'll be applied to all indices created hereafter:
 
@@ -211,7 +211,7 @@ Your Linode should already have NGINX configured following the [Install a LEMP S
 
 1.  Using a text editor, create `/etc/filebeat/filebeat.yml` and add the following content:
 
-    {{< file "/etc/filebeat/filebeat.yml" yaml >}}
+    ```file {title="/etc/filebeat/filebeat.yml"}
 filebeat.config.modules:
     path: ${path.config}/modules.d/*.yml
 
@@ -222,7 +222,7 @@ output.elasticsearch:
     hosts: ["localhost:9200"]
 
 setup.dashboards.enabled: true
-{{< /file >}}
+```
 
 2.  You can enable Filebeat modules by removing `.disabled` from the file names. Enable the NGINX module:
 
@@ -239,7 +239,7 @@ Like Filebeat, Metricbeat also provides a variety of built-in modules to help co
 
 1.  Create the following Metricbeat configuration:
 
-{{< file "/etc/metricbeat/metricbeat.yml" yaml >}}
+```file {title="/etc/metricbeat/metricbeat.yml"}
 metricbeat.config.modules:
   path: ${path.config}/modules.d/*.yml
 
@@ -251,7 +251,7 @@ output.elasticsearch:
 
 setup.dashboards.enabled: true
 
-{{< /file >}}
+```
 
 2.  Rename the Elasticsearch, Kibana, and NGINX module configuration files in order to enable them:
 
@@ -334,7 +334,7 @@ In addition to collecting NGINX access logs, Filebeat also installs several dash
 
 1.  Open the `/etc/nginx/nginx.conf` file and add the following `location` block in between the `include` and `location /` lines:
 
-    {{< file "/etc/nginx/nginx.conf" nginx>}}
+    ```file {title="/etc/nginx/nginx.conf"}
 
 include /etc/nginx/default.d/*.conf;
 
@@ -349,7 +349,7 @@ include /etc/nginx/default.d/*.conf;
     location / {
         }
 
-{{< /file >}}
+```
 
 2.  Restart NGINX:
 

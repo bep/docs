@@ -78,7 +78,7 @@ The syntax for creating a permanent alias is the same as creating a temporary on
 
 With your preferred text editor, open the appropriate configuration file, such as `~/.bashrc`. Enter one alias per line. While you can add your aliases anywhere in this file, grouping them together makes them easier to reference and adjust.
 
-{{< file "~/.bashrc" >}}
+```file {title="~/.bashrc"}
 ...
 
 #aliases
@@ -86,7 +86,7 @@ alias update="sudo apt update && sudo apt upgrade"
 alias top="htop"
 
 ...
-{{</ file >}}
+```
 
 Any newly added aliases are available for use in your next terminal session; they are not immediately available for any current sessions.
 

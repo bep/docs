@@ -80,7 +80,7 @@ You'll be greeted by the Phusion Passenger nginx installer program. Press "Enter
 
 Next, create the file `/etc/init.d/nginx` with the following contents:
 
-{{< file "/etc/init.d/nginx" bash >}}
+```file {title="/etc/init.d/nginx"}
 #!/bin/sh
 
 ### BEGIN INIT INFO
@@ -143,7 +143,7 @@ case "$1" in
 esac
 exit 0
 
-{{< /file >}}
+```
 
 
 Issue the following commands the make the script executable and set it to start on boot:
@@ -163,7 +163,7 @@ Issue the following commands to enable proxy support:
 
 Configure an Apache virtualhost for your Redmine installation. The example shown below assumes Apache is configured as recommended in our [Ubuntu 10.04 LAMP guide](/docs/guides/apache-2-web-server-on-ubuntu-10-04-lts-lucid/). Remember to replace "12.34.56.78" with your Linode's IP address, `support@example.com` with your administrative email address, and "redmine.example.com" with your Redmine domain.
 
-{{< file "/etc/apache2/sites-available/redmine.example.com" apache >}}
+```file {title="/etc/apache2/sites-available/redmine.example.com"}
 <VirtualHost *:80>
      ServerAdmin support@example.com
      ServerName redmine.example.com
@@ -175,7 +175,7 @@ Configure an Apache virtualhost for your Redmine installation. The example shown
      #SSLProxyEngine On
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Issue the following commands to enable the site and reload Apache:
@@ -185,10 +185,10 @@ Issue the following commands to enable the site and reload Apache:
 
 Next, you'll need to tell nginx to run on a different port. Edit your nginx configuration file, setting the following value:
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 listen 8080;
 
-{{< /file >}}
+```
 
 
 ## Install and Configure Redmine
@@ -221,7 +221,7 @@ Issue these commands in the `psql` shell to set up the database for Redmine. Be 
 
 Create the file `config/database.yml` with the following contents, replacing "changeme" with the password you assigned in the last step.
 
-{{< file "config/database.yml" yaml >}}
+```file {title="config/database.yml"}
 production:
   adapter: postgresql
   database: redmine
@@ -231,7 +231,7 @@ production:
   encoding: utf8
   schema_search_path: public
 
-{{< /file >}}
+```
 
 
 Issue the following commands to complete database configuration:
@@ -243,7 +243,7 @@ Issue the following commands to complete database configuration:
 
 If you receive an error message after issuing the `rake db:migrate` command, edit the `config/environment.rb` file to include the following excerpt between the bootstrap and initializer sections. After editing the file, retry the `rake db:migrate` command.
 
-{{< file "config/environment.rb" ruby >}}
+```file {title="config/environment.rb"}
 if Gem::VERSION >= "1.3.6"
     module Rails
         class GemDependency
@@ -255,7 +255,7 @@ if Gem::VERSION >= "1.3.6"
     end
 end
 
-{{< /file >}}
+```
 
 
 ### Configure Email Service
@@ -305,7 +305,7 @@ Enter "root" and an email address at your domain for the postmaster mail query.
 
 Create the file `config/email.yml` and copy in the following contents. Be sure to replace the domain field with your fully qualified domain name.
 
-{{< file "config/email.yml" yaml >}}
+```file {title="config/email.yml"}
 production:
   delivery_method: :smtp
   smtp_settings:
@@ -314,7 +314,7 @@ production:
     domain: redmine.example.com
     authentication: :none
 
-{{< /file >}}
+```
 
 
 This completes email configuration for your Redmine installation.
@@ -331,15 +331,15 @@ We'll create a "redmine" user to manage the installation. Issue the following co
 
 Edit the file `/opt/nginx/conf/nginx.conf`, setting the "user" parameter to "redmine":
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 user redmine;
 
-{{< /file >}}
+```
 
 
 Add a server section after the first example server as follows. If you're proxying to nginx from another web server, be sure to change the `listen` directive to `listen 8080;` instead of the default. Be sure to replace "redmine.example.com" with the domain for your Redmine site.
 
-{{< file "/opt/nginx/conf/nginx.conf" nginx >}}
+```file {title="/opt/nginx/conf/nginx.conf"}
 server {
      listen 80;
      server_name  redmine.example.com;
@@ -353,7 +353,7 @@ server {
      }
 }
 
-{{< /file >}}
+```
 
 
 Start nginx:

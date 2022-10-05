@@ -85,13 +85,13 @@ The mysqldump utility is used to dump the contents of a database to a file store
 
 1. Copy the following contents into the file:
 
-    {{< file "/usr/local/bin/backup_mariadb" >}}
+    ```file {title="/usr/local/bin/backup_mariadb"}
 #!/bin/bash
 PATH="/usr/local/bin:$PATH"
 source /root/restic_params
 mysql --defaults-extra-file=/root/mysql_cnf -N -e 'show databases' | while read dbname; do /usr/bin/mysqldump --defaults-extra-file=/root/mysql_cnf --complete-insert "$dbname" > "/var/backups/mariadb/$dbname".sql; done
 restic -r s3:us-east-1.linodeobjects.com/your-bucket-name -p /root/restic_pw backup /var/backups/mariadb
-{{< /file >}}
+```
 
 1. Make the script executable and create the folder to store the backup files (if it doesn't already exist):
 
@@ -104,11 +104,11 @@ restic -r s3:us-east-1.linodeobjects.com/your-bucket-name -p /root/restic_pw bac
 
     Copy and past the contents of the example file and replace the values of `your-database-username` and `your-database-password` with your own.
 
-    {{< file "/root/mysql_cnf" >}}
+    ```file {title="/root/mysql_cnf"}
 [client]
 user="your-database-username"
 password="your-database-password"
-{{< /file >}}
+```
 
 1. Run your first backup using the script you created:
 
@@ -188,24 +188,24 @@ Create the service configuration file and copy and paste the contents of the exa
 
     sudo nano /etc/systemd/system/backup-mariadb.service
 
-{{< file "/etc/systemd/system/backup-mariadb.service" >}}[Unit]
+```file {title="/etc/systemd/system/backup-mariadb.service"}[Unit]
 Description=Backup MariaDB databases
 [Service]
 ExecStart=/usr/local/bin/backup_mariadb
 Environment=USER=root HOME=/root
-{{< /file >}}
+```
 
 Create the timer configuration file and copy and paste the contents of the example. The `OnCalendar` line instructs Systemd when to execute the service file's commands. In the example, the service file's commands are run on-the-hour, every hour.
 
     sudo nano /etc/systemd/system/backup-mariadb.timer
 
-{{< file "/etc/systemd/system/backup-mariadb.timer" >}}[Unit]
+```file {title="/etc/systemd/system/backup-mariadb.timer"}[Unit]
 Description=Backup MariaDB databases
 [Timer]
 OnCalendar=*-*-* *:00:00
 [Install]
 WantedBy=timers.target
-{{< /file >}}
+```
 
 When you are satisfied with your timer's configurations, enable the timer:
 

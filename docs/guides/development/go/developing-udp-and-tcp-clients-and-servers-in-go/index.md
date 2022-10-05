@@ -87,7 +87,7 @@ The TCP client that you will create in this section will allow you to interact w
 
 1. In your current working directory, create a file named `tcpC.go` with the following content:
 
-    {{< file "./tcpC.go" go >}}
+    ```file {title="./tcpC.go"}
 package main
 
 import (
@@ -126,7 +126,7 @@ func main() {
                 }
         }
 }
-    {{< /file >}}
+    ```
 
  - This file creates the `main` package, which declares the `main()` function. The function will use the imported packages to create a TCP client.
  - The `main()` function gathers command line arguments in the `arguments` variable and makes sure that a value for `host:port` was sent.
@@ -142,7 +142,7 @@ You are now ready to create the TCP server. The TCP server will return the curre
 
 1. In your current working directory, create a file named `tcpS.go` with the following content:
 
-    {{< file "./tcpS.go" go >}}
+    ```file {title="./tcpS.go"}
 package main
 
 import (
@@ -192,7 +192,7 @@ func main() {
                 c.Write([]byte(myTime))
         }
 }
-    {{< /file >}}
+    ```
   - This file creates the `main` package, which declares the `main()` function. The function will use the imported packages to create a TCP server.
   - The `main()` function gathers command line arguments in the `arguments` variable and includes error handling.
   - The `net.Listen()` function makes the program a TCP server. This functions returns a `Listener` variable, which is a generic network listener for stream-oriented protocols.
@@ -266,7 +266,7 @@ The UDP client that you will create in this section will allow you to interact w
 
 1. In your current working directory, create a file named `udpC.go` with the following content:
 
-      {{< file "./udpC.go" go >}}
+      ```file {title="./udpC.go"}
 package main
 
 import (
@@ -320,7 +320,7 @@ func main() {
                 fmt.Printf("Reply: %s\n", string(buffer[0:n]))
         }
 }
-      {{< /file >}}
+      ```
 
     - This file creates the `main` package, which declares the `main()` function. The function will use the imported packages to create a UDP client.
     - The `main()` function gathers command line arguments in the `arguments` variable and includes error handling.
@@ -336,7 +336,7 @@ You are now ready to create the UDP server. You will write the UDP server code t
 
 1. In your current working directory, create a file named `udps.go` with the following content:
 
-    {{< file "./udpS.go" go >}}
+    ```file {title="./udpS.go"}
 package main
 
 import (
@@ -395,7 +395,7 @@ func main() {
                 }
         }
 }
-    {{< /file >}}
+    ```
 
     - This file creates the `main` package, which declares the `main()` function. The function will use the imported packages to create a UDP server.
     - The `main()` function gathers command line arguments in the `arguments` variable and includes error handling.
@@ -453,7 +453,7 @@ The example TCP server keeps a running count of the number of TCP clients it has
 
 1. In your current working directory, create a file named `concTCP.go` with the following content:
 
-      {{< file "./concTCP.go" go >}}
+      ```file {title="./concTCP.go"}
 package main
 
 import (
@@ -512,7 +512,7 @@ func main() {
                 count++
         }
 }
-      {{< /file >}}
+      ```
 
     - This file creates the main package, which declares the `handleConnection()` and `main()` functions.
     - The `main()` function will use the imported packages to create a concurrent TCP server. It gathers command line arguments in the `arguments` variable and includes error handling.

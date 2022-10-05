@@ -48,17 +48,17 @@ Now you can create an SQLite database with Node.js. This example uses a simple d
 
 1. First, create a file called `sample.js` and import the `sqlite3` module into Node.js:
 
-    {{< file "sample.js" js >}}
+    ```file {title="sample.js"}
 var sqlite3 = require('sqlite3');
-{{</ file >}}
+```
 
 1. The following line creates a database, `mcu.db`, in the current working directory. The `sqlite3.Database()` call can take one, two, or three arguments. The second argument is SQLite database flags, from the set of `sqlite3.OPEN_READONLY`, `sqlite3.OPEN_READWRITE`, and `sqlite3.OPEN_CREATE`.
 
-    {{< file "sample.js" js >}}
+    ```file {title="sample.js"}
 ...
 
 new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE, (err) ...);
-{{</ file >}}
+```
     {{< note >}}
 The following are the different SQLite flag combinations:
 
@@ -72,7 +72,7 @@ The following are the different SQLite flag combinations:
 {{< /note >}}
 
 1. The third argument in the `sqlite3.Database()` is a callback function that is called when the database is opened successfully or when an error occurred. This callback function has the error object, `err` as the first parameter. If an error occurred, the error object is not null, otherwise, it is null.
-        {{< file "sample.js" js >}}
+        ```file {title="sample.js"}
 
 var sqlite3 = require('sqlite3');
 var db;
@@ -86,10 +86,10 @@ new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE, (err) => {
     }
     runQueries(db);
 });
-{{< /file >}}
+```
 
 1. If the database exists, the `runQueries()` is executed. Now you need to create the `createDatabase()` function as shown below:
-        {{< file "sample.js" >}}
+        ```file {title="sample.js"}
 
 function createDatabase() {
     var newdb = new sqlite3.Database('mcu.db', (err) => {
@@ -100,14 +100,14 @@ function createDatabase() {
         createTables(newdb);
     });
 }
-{{< /file >}}
+```
 
 The above code is similar to that of creating the database. However, this time the flags are missing; that means that the database is created if it does not exist yet. If it succeeds, the `createTables()` is executed to create the tables. If we get an error again, something more serious is going on, so the code exits.
 
 ## Create Tables and Insert Data
 
 The following code illustrates SQLite's `exec()` method to create the tables and populate them. The `exec()` method runs all the queries in the specified string. After the tables are created and insertions are made, the `runQueries()` method is executed. The following code creates a table for popular Marvel superheroes such X-Men, Thanos, and others. It also creates a table for their superpowers.
-        {{< file "sample.js" >}}
+        ```file {title="sample.js"}
 function createTables(newdb) {
     newdb.exec(`
     create table hero (
@@ -137,12 +137,12 @@ function createTables(newdb) {
             runQueries(newdb);
     });
 }
-{{< /file >}}
+```
 
 ## Query the Database
 
 You can use one of several methods to fetch rows from the database. The data can be fetched row by row, looped over, or returned in a single array. In this case, the latter method is used. The following code returns characters whose superpowers are being "Total Nerds," and whether they are X-Men or were snapped by Thanos.
-    {{< file "sample.js" >}}
+    ```file {title="sample.js"}
 function runQueries(db) {
     db.all(`
     select hero_name, is_xman, was_snapped from hero h
@@ -155,7 +155,7 @@ function runQueries(db) {
         });
     });
 }
-{{< /file >}}
+```
 
 The `all()` method of the sqlite3 returns an array of rows on success, or an error on failure.
 
@@ -164,7 +164,7 @@ It is good practice to parameterize the query by providing a list of substation 
 {{< /note >}}
 
 Below is the complete `sample.js` file:
-    {{< file "sample.js" >}}
+    ```file {title="sample.js"}
 var sqlite3 = require('sqlite3');
 let db= new sqlite3.Database('./mcu.db', sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err) => {
     if (err && err.code == "SQLITE_CANTOPEN") {
@@ -226,7 +226,7 @@ function runQueries(db) {
         });
     });
 }
-{{< /file >}}
+```
 
 When you execute `sample.js` file, the following result is generated:
     {{< output >}}

@@ -73,7 +73,7 @@ Wherever you've installed `kubectl`, create two `yaml` manifest files using a te
 
 1.  Using a text editor, create a new file named `hello-one.yaml` with the contents of the example file.
 
-    {{< file "hello-one.yaml" yaml >}}
+    ```file {title="hello-one.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -105,12 +105,12 @@ spec:
         image: nginxdemos/hello
         ports:
         - containerPort: 80
-{{< /file >}}
+```
 
 
 1.  Create a second Service and Deployment manifest file named `hello-two.yaml` with the contents of the example file.
 
-    {{< file "hello-two.yaml" yaml >}}
+    ```file {title="hello-two.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -142,7 +142,7 @@ spec:
         image: nginxdemos/hello
         ports:
         - containerPort: 80
-{{< /file >}}
+```
 
 1.  Use kubectl to create the Services and Deployments for your example applications.
 
@@ -226,7 +226,7 @@ Once your Ingress Controller is installed and DNS records have been created poin
 
 1.  Create an Ingress resource manifest file named `my-new-ingress.yaml`.
 
-    {{< file "my-new-ingress.yaml" yaml >}}
+    ```file {title="my-new-ingress.yaml"}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -255,7 +255,7 @@ spec:
             name: hello-two
             port:
               number: 80
-{{< /file >}}
+```
 
 1.  Create the Ingress resource using the following command:
 

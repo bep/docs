@@ -71,12 +71,12 @@ A **master node** maintains knowledge about the distributed file system, like th
 
 For each node to communicate with each other by name, edit the `/etc/hosts` file to add the private IP addresses of the three servers. Don't forget to replace the sample IP with your IP:
 
-{{< file "/etc/hosts" >}}
+```file {title="/etc/hosts"}
 192.0.2.1    node-master
 192.0.2.2    node1
 192.0.2.3    node2
 
-{{< /file >}}
+```
 
 ### Distribute Authentication Key-pairs for the Hadoop User
 
@@ -111,16 +111,16 @@ Log into **node-master** as the `hadoop` user, download the Hadoop tarball from 
 
 1.  Add Hadoop binaries to your PATH. Edit `/home/hadoop/.profile` and add the following line:
 
-    {{< file "/home/hadoop/.profile" shell >}}
+    ```file {title="/home/hadoop/.profile"}
 PATH=/home/hadoop/hadoop/bin:/home/hadoop/hadoop/sbin:$PATH
-{{< /file >}}
+```
 
 1.  Add Hadoop to your PATH for the shell. Edit `.bashrc` and add the following lines:
 
-    {{< file "/home/hadoop/.bashrc" shell >}}
+    ```file {title="/home/hadoop/.bashrc"}
 export HADOOP_HOME=/home/hadoop/hadoop
 export PATH=${PATH}:${HADOOP_HOME}/bin:${HADOOP_HOME}/sbin
-{{< /file >}}
+```
 
 ## Configure the Master Node
 
@@ -142,10 +142,10 @@ Configuration will be performed on **node-master** and replicated to other nodes
 
     with your actual java installation path. On a Debian 9 Linode with open-jdk-8 this will be as follows:
 
-    {{< file "~/hadoop/etc/hadoop/hadoop-env.sh" shell >}}
+    ```file {title="~/hadoop/etc/hadoop/hadoop-env.sh"}
 export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 
-{{< /file >}}
+```
 
 
 
@@ -153,7 +153,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre
 
 Update your `~/hadoop/etc/hadoop/core-site.xml` file to set the NameNode location to **node-master** on port `9000`:
 
-{{< file "~/hadoop/etc/hadoop/core-site.xml" xml >}}
+```file {title="~/hadoop/etc/hadoop/core-site.xml"}
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
     <configuration>
@@ -163,14 +163,14 @@ Update your `~/hadoop/etc/hadoop/core-site.xml` file to set the NameNode locatio
         </property>
     </configuration>
 
-{{< /file >}}
+```
 
 
 ### Set path for HDFS
 
 Edit `hdfs-site.conf` to resemble the following configuration:
 
-{{< file "~/hadoop/etc/hadoop/hdfs-site.xml" xml >}}
+```file {title="~/hadoop/etc/hadoop/hdfs-site.xml"}
 <configuration>
     <property>
             <name>dfs.namenode.name.dir</name>
@@ -188,7 +188,7 @@ Edit `hdfs-site.conf` to resemble the following configuration:
     </property>
 </configuration>
 
-{{< /file >}}
+```
 
 
 The last property, `dfs.replication`, indicates how many times data is replicated in the cluster. You can set `2` to have all the data duplicated on the two nodes. Don't enter a value higher than the actual number of worker nodes.
@@ -197,7 +197,7 @@ The last property, `dfs.replication`, indicates how many times data is replicate
 
 Edit the `mapred-site.xml` file, setting YARN as the default framework for MapReduce operations:
 
-{{< file "~/hadoop/etc/hadoop/mapred-site.xml" xml >}}
+```file {title="~/hadoop/etc/hadoop/mapred-site.xml"}
 <configuration>
     <property>
             <name>mapreduce.framework.name</name>
@@ -217,14 +217,14 @@ Edit the `mapred-site.xml` file, setting YARN as the default framework for MapRe
     </property>
 </configuration>
 
-{{< /file >}}
+```
 
 
 ### Configure YARN
 
 Edit `yarn-site.xml`, which contains the configuration options for YARN. In the `value` field for the `yarn.resourcemanager.hostname`, replace `203.0.113.0` with the public IP address of **node-master**:
 
-{{< file "~/hadoop/etc/hadoop/yarn-site.xml" xml >}}
+```file {title="~/hadoop/etc/hadoop/yarn-site.xml"}
 <configuration>
     <property>
             <name>yarn.acl.enable</name>
@@ -242,18 +242,18 @@ Edit `yarn-site.xml`, which contains the configuration options for YARN. In the 
     </property>
 </configuration>
 
-{{< /file >}}
+```
 
 
 ### Configure Workers
 
 The file `workers` is used by startup scripts to start required daemons on all nodes. Edit `~/hadoop/etc/hadoop/workers` to include both of the nodes:
 
-{{< file "~/hadoop/etc/hadoop/workers" resource >}}
+```file {title="~/hadoop/etc/hadoop/workers"}
 node1
 node2
 
-{{< /file >}}
+```
 
 
 ## Configure Memory Allocation
@@ -307,7 +307,7 @@ For 2GB nodes, a working configuration may be:
 
 1.  Edit `/home/hadoop/hadoop/etc/hadoop/yarn-site.xml` and add the following lines:
 
-    {{< file "~/hadoop/etc/hadoop/yarn-site.xml" xml >}}
+    ```file {title="~/hadoop/etc/hadoop/yarn-site.xml"}
 <property>
         <name>yarn.nodemanager.resource.memory-mb</name>
         <value>1536</value>
@@ -328,7 +328,7 @@ For 2GB nodes, a working configuration may be:
         <value>false</value>
 </property>
 
-{{< /file >}}
+```
 
 
     The last property disables virtual-memory checking which can prevent containers from being allocated properly with JDK8 if enabled.
@@ -336,7 +336,7 @@ For 2GB nodes, a working configuration may be:
 
 2.  Edit `/home/hadoop/hadoop/etc/hadoop/mapred-site.xml` and add the following lines:
 
-    {{< file "~/hadoop/etc/hadoop/mapred-site.xml" xml >}}
+    ```file {title="~/hadoop/etc/hadoop/mapred-site.xml"}
 <property>
         <name>yarn.app.mapreduce.am.resource.mb</name>
         <value>512</value>
@@ -352,7 +352,7 @@ For 2GB nodes, a working configuration may be:
         <value>256</value>
 </property>
 
-{{< /file >}}
+```
 
 
 

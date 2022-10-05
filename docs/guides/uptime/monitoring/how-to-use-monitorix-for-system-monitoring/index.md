@@ -43,7 +43,7 @@ Monitorix is not installed on Linux servers by default. This section shows you h
 
 1. Monitorix ships with a default configuration file, `/etc/monitorix/monitorix.conf`. The monitorix daemon automatically reads `/etc/monitorix/monitorix.conf` and uses its settings at launch. Most of the time, the default configuration is appropriate. There are over two dozen setting groups. Most of these are for specific hardware configurations, such as NVIDIA card temperatures, file systems (e.g, [ZFS pools](https://www.ixsystems.com/blog/zfs-pools-in-freenas/)), or programs such as [sendmail](https://www.proofpoint.com/us/products/email-protection/open-source-email-solution), [Postfix](http://www.postfix.org/), and [Exim](https://www.exim.org/) mail servers. To fine-tune your installation, refer to [Monitrox's manual pages](https://www.monitorix.org/documentation.html) and edit the `/etc/monitorix/monitorix.conf` file using your preferred text editor.
 
-    {{< file "/etc/monitorix/monitorix.conf" >}}
+    ```file {title="/etc/monitorix/monitorix.conf"}
 # Monitorix - configuration file
 #
 # See monitorix.conf(5) manpage for a detailed description of each option.
@@ -66,7 +66,7 @@ image_format = PNG
 enable_parallelizing = y
 include_dir = /etc/monitorix/conf.d
 ...
-{{</ file >}}
+```
 
 {{< note >}}
 Debian and Ubuntu Linux systems contain an additional configuration file, `/etc/monitorix/conf.d/00-debian.conf`. This file includes Debian/Ubuntu-specific options and is read after the main Monitorix configuration file. This means any changes you make to the `/etc/monitorix/conf.d/00-debian.conf` supersede `monitorix.conf` options.

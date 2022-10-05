@@ -38,10 +38,10 @@ The first command should show your short hostname, and the second should show yo
 
 To install a more current version of Ruby Gems, which is required for running Sinatra Applications on Debian 5 (Lenny), you must install several packages from the [Backports project](http://backports.debian.org). Insert the following line in your `/etc/apt/sources.list` file:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 deb http://backports.debian.org/debian-backports lenny-backports main
 
-{{< /file >}}
+```
 
 
 Issue the following commands to update your system's package database and all installed packages, and install the backports repository's key:
@@ -52,11 +52,11 @@ Issue the following commands to update your system's package database and all in
 
 Add the following snippet to the `/etc/apt/preferences` file (you may need to create it):
 
-{{< file "/etc/apt/preferences" >}}
+```file {title="/etc/apt/preferences"}
 Package: rubygems Pin: release a=lenny-backports Pin-Priority: 999
 
 Package: rubygems1.8 Pin: release a=lenny-backports Pin-Priority: 999
-{{< /file >}}
+```
 
 Issue the following command to install Ruby dependencies for Sinatra.
 
@@ -121,18 +121,18 @@ Create the following directories beneath the `/srv/www` hierarchy for your appli
 
 Insert the following line into the `/opt/nginx/conf/nginx.conf` file, modifying the path for `/srv/www/example.com/nginx.conf` to match the directory created above:
 
-{{< file "/etc/apt/preferences" nginx >}}
+```file {title="/etc/apt/preferences"}
 # [...]
 http {
     include /srv/www/example.com/nginx.conf;
     passenger_root /opt/passenger-3.0.1;
     passenger_ruby /usr/bin/ruby1.8;
 # [...]
-{{< /file >}}
+```
 
 This inserts the contents of `/srv/www/example.com/nginx.conf` into your nginx configuration, and allows you to specify the configuration of the virtual host for the `example.com` site. Consider the following example configuration, and modify this file to meet the needs of your deployment:
 
-{{< file "/srv/www/example.com/nginx.conf" nginx >}}
+```file {title="/srv/www/example.com/nginx.conf"}
 server {
         listen 80;
         server_name www.example.com example.com;
@@ -150,7 +150,7 @@ server {
 
 }
 
-{{< /file >}}
+```
 
 
 Your Sinatra application will handle all requests for the `www.example.com` and `example.com` domains, except those that begin with `/static` which are handled directly by nginx. When this configuration has been created and properly modified, issue the following command to restart the web server:
@@ -161,7 +161,7 @@ Your Sinatra application will handle all requests for the `www.example.com` and 
 
 The following is a very basic Sinatra application. Place the following code in the `/srv/www/example.com/application/app.rb` file.
 
-{{< file "/srv/www/example.com/application/app.rb" ruby >}}
+```file {title="/srv/www/example.com/application/app.rb"}
 require 'rubygems'
 require 'sinatra'
 
@@ -177,21 +177,21 @@ get '/bye' do
   "Goodbye World! :("
 end
 
-{{< /file >}}
+```
 
 
 ## Deploy Sinatra Applications with Rack
 
 Create a Rack configuration file located at `/srv/www/example.com/application/config.ru` to allow Passenger to run your application properly. Deploy the following `config.ru` file:
 
-{{< file "/srv/www/example.com/application/config.ru" ruby >}}
+```file {title="/srv/www/example.com/application/config.ru"}
 require 'rubygems'
 require 'sinatra'
 
 require 'app'
 run Sinatra::Application
 
-{{< /file >}}
+```
 
 
 The `require 'app'` statement references the `app.rb` file. Modify this line to `require` your application. Any time you make changes to your Rack file or your application, issue the following command so that Passenger will restart your application:

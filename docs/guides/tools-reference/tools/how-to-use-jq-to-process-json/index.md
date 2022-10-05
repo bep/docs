@@ -36,7 +36,7 @@ JSON files share a common format. Here are some highlights of the JSON specifica
 
 JSON lacks error handling and is not completely secure from hostile services or users. Due to its origins as an open standard, it has limited official support. Below is an example of a sample JSON file, which is taken from the official JSON site.
 
-{{< file "menu.json" json >}}
+```file {title="menu.json"}
 {"menu": {
   "id": "file",
   "value": "File",
@@ -48,7 +48,7 @@ JSON lacks error handling and is not completely secure from hostile services or 
     ]
   }
 }}
-{{< /file >}}
+```
 
 jq was developed specifically to address the need for a JSON processor. Traditionally, there were few good tools for working with JSON data. Users had to rely on `grep`, `sed`, and other Linux commands, or write their own functions. jq is available for most systems and can be installed using a variety of package managers or directly as a binary. It is written in the C programming language and is completely portable to other systems, with no runtime dependencies.
 
@@ -297,13 +297,13 @@ jq processes arrays using the `[]` operator. This operator iterates over each it
 
 To simplify certain array-processing instructions, the file `submenu.json` is sometimes used in this section.
 
-{{< file "submenu.json" json >}}
+```file {title="submenu.json"}
 [
   {"value": "New", "onclick": "CreateNewDoc()", "priority": 20},
   {"value": "Open", "onclick": "OpenDoc()", "priority": 17},
   {"value": "Close", "onclick": "CloseDoc()"}
 ]
-{{< /file >}}
+```
 
 The output of the `[]` operator is similar to the basic `jq '.'` output because the `.` operator automatically iterates through any arrays it encounters. However, the `[]` operator can be extended to display the value of a specific field for each item in the array. Follow the `[]` operator with the `.` operator and the name of the property inside the array item. To display only the `value` field from each entry in the array, use `jq '.[].value'`. The `|` operator can also be used to pipe the contents of the array to the `field` operator, for example, `jq '.[] | .value'`.
 

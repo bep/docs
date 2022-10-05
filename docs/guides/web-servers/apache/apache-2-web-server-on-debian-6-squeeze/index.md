@@ -102,7 +102,7 @@ Follow these instructions:
 
         nano /etc/apache2/sites-available/example.net
 
-    {{< file "/etc/apache2/sites-available/example.net" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.net"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.net
      ServerName example.net
@@ -112,25 +112,25 @@ Follow these instructions:
      CustomLog /srv/www/example.net/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     {{< note >}}
 If you would like to enable Perl support, add the following lines to the `VirtualHost` entry, right above the closing `</VirtualHost>` tag:
 
-{{< file "/etc/apache2/sites-available/example.net" apache >}}
+```file {title="/etc/apache2/sites-available/example.net"}
 Options ExecCGI
 AddHandler cgi-script .pl
 {{< /note >}}
 
-{{< /file >}}
+```
 
     >
 3.  Now you'll make the configuration file for the second domain. Create the file for **example.org**, called `/etc/apache2/sites-available/example.org`, with the following content. Be sure to replace **example.org** with your own domain name.
 
         nano /etc/apache2/sites-available/example.org
 
-    {{< file "/etc/apache2/sites-available/example.org" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.org"}
 <VirtualHost *:80>
      ServerAdmin admin@example.org
      ServerName example.org
@@ -140,7 +140,7 @@ AddHandler cgi-script .pl
      CustomLog /srv/www/example.org/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -246,12 +246,12 @@ For more complex setups, however, we recommend that you consider using an altern
 
     Add the following lines to the file's `<VirtualHost >` block:
 
-    {{< file "/etc/apache2/sites-available/example.net" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.net"}
 <IfModule mpm_itk_module>
    AssignUserId webeditor webgroup
 </IfModule>
 
-{{< /file >}}
+```
 
 
     In this example, `webeditor` is the name of the user for example.net, and `webgroup` is the name of the group that owns example.net. Remember that you must create the user accounts and groups using the `useradd` command.

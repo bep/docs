@@ -247,13 +247,13 @@ Before you migrate the instance, turn off the daemons that communicate with Goog
 
         sudo nano /etc/default/instance_configs.cfg.template
 
-    {{< file "/etc/default/instance_configs.cfg.template" >}}
+    ```file {title="/etc/default/instance_configs.cfg.template"}
 [Daemons]
 accounts_daemon = false
 clock_skew_daemon = false
 network_daemon = false
 ip_forwarding_daemon = false
-    {{</ file >}}
+    ```
 
 1.  Regenerate the `instance_configs.cfg` file with your changes by running the following script:
 

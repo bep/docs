@@ -147,7 +147,7 @@ In this section you set up a firewall on your Plex Media Server using the [Uncom
 
 1. Using a text editor of your choice, create a new UFW application profile file in the following location `/etc/ufw/applications.d/plexmediaserver`. Copy and past the contents of the example file to your own `plexmediaserver` file:
 
-    {{< file "/etc/ufw/applications.d/plexmediaserver" >}}
+    ```file {title="/etc/ufw/applications.d/plexmediaserver"}
 [plexmediaserver]
 title=Plex Media Server (Standard)
 description=The Plex Media Server
@@ -162,7 +162,7 @@ ports=1900/udp|32469/tcp
 title=Plex Media Server (Standard + DLNA)
 description=The Plex Media Server (with additional DLNA capability)
 ports=32400/tcp|3005/tcp|5353/udp|8324/tcp|32410:32414/udp|1900/udp|32469/tcp
-{{</ file >}}
+```
 
 1. Save and update your UFW application profile:
 

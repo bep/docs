@@ -80,7 +80,7 @@ Most of the configuration of Seaside occurs within a fully graphical Smalltalk i
 
 In addition to enabling mod\_proxy, you'll need to allow localhost to access the proxy. In `/etc/apache2/mods-enabled/proxy.conf`, add "Allow from localhost" in the `<Proxy *>` block:
 
-{{< file "/etc/apache2/mods-enabled/proxy.conf" apache >}}
+```file {title="/etc/apache2/mods-enabled/proxy.conf"}
 <IfModule mod_proxy.c>
         #turning ProxyRequests on and allowing proxying from all may allow
         #spammers to use your proxy to send email.
@@ -100,7 +100,7 @@ In addition to enabling mod\_proxy, you'll need to allow localhost to access the
         ProxyVia On
 </IfModule>
 
-{{< /file >}}
+```
 
 
 In order to configure Apache to serve static content, you'll need to enable `mod_rewrite`. Run the following command to enable `mod_rewrite`:

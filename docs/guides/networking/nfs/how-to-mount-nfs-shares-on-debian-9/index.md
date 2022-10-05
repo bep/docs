@@ -54,17 +54,17 @@ Choose one Linode to be your NFS server. Follow the instructions below to config
 
 4.  Prevent access to the services used by NFS by default by adding the following line to your `hosts.deny` file.
 
-    {{< file "/etc/hosts.deny" >}}
+    ```file {title="/etc/hosts.deny"}
 rpcbind mountd nfsd statd lockd rquotad : ALL
-{{< /file >}}
+```
 
 5.  Allow access to the services used by NFS for your client and localhost. Add the following lines to your `hosts.allow` file, replacing `example_IP` with the client Linode's private IPv4 address.
 
-    {{< file "/etc/hosts.allow" >}}
+    ```file {title="/etc/hosts.allow"}
 rpcbind mountd nfsd statd lockd rquotad : 127.0.0.1 : allow
 rpcbind mountd nfsd statd lockd rquotad : example_IP : allow
 rpcbind mountd nfsd statd lockd rquotad : ALL : deny
-{{< /file >}}
+```
 
 6.  Create a directory in your local filesystem to use as the NFS share's root location:
 
@@ -76,9 +76,9 @@ rpcbind mountd nfsd statd lockd rquotad : ALL : deny
 
 8.  Add the following line to the `/etc/exports` file, replacing `example_IP` with the client Linode's private IPv4 address. Make sure there is no space between the /17 and the opening parenthesis, and that there is a blank line at the end of the file.
 
-    {{< file "/etc/exports" >}}
+    ```file {title="/etc/exports"}
 /var/nfsroot     example_IP/17(rw,root_squash,subtree_check)
-{{< /file >}}
+```
 
 9.  Update the table of exported file systems with the following command:
 
@@ -108,9 +108,9 @@ The second Linode will be your NFS client. Follow the instructions below to conf
 
 4.  Use your favorite editor to add the following line to the client's `fstab` file, replacing `example_IP` with the server Linode's private IPv4 address.
 
-    {{< file "/etc/fstab" >}}
+    ```file {title="/etc/fstab"}
 example_IP:/var/nfsroot /mnt/remotenfs nfs rw,async,hard,intr,noexec 0 0
-{{< /file >}}
+```
 
 5.  Mount the filesystem by running the following command:
 

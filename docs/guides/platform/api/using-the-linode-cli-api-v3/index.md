@@ -201,10 +201,10 @@ The Linode CLI requires your API key to function. If you need to generate an API
 
 -   In the `.linodecli/config` file:
 
-    {{< file ".linodecli/config" >}}
+    ```file {title=".linodecli/config"}
 api-key SampleKey123456...
 
-{{< /file >}}
+```
 
 
 -   As an environment variable:

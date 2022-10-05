@@ -52,7 +52,7 @@ Linode destroys encryption keys immediately after your data is encrypted. Object
 
 1.  Using a code editor, open a new file labeled `example.py` for your Python script and enter the following:
 
-    {{< file "example.py" python >}}
+    ```file {title="example.py"}
 #!/usr/bin/env python
 import boto3
 
@@ -104,7 +104,7 @@ r3 = client.delete_object(
 
 if r3["ResponseMetadata"]["HTTPStatusCode"] == 204:
     print("Deletion successful.")
-    {{< /file >}}
+    ```
 
 1.  In your script file, `example.py`, replace the following example values with your own unique values created in previous steps and save your changes:
 

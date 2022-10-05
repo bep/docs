@@ -43,10 +43,10 @@ Once the EPEL repository has been added install PHPMailer by running:
 
 Before restarting Apache, modify your `php.ini` file to match MantisBT's upload file size. Find the following line in your `php.ini` file and tweak it to match the example below:
 
-{{< file "/etc/php.ini" ini >}}
+```file {title="/etc/php.ini"}
 ; Maximum allowed size for uploaded files.
 upload_max_filesize = 5M
-{{< /file >}}
+```
 
 
 Afterwards, restart Apache by running the following command:
@@ -74,7 +74,7 @@ After the installation completes, you will be redirected to the login page. The 
 
 Next, we'll set the timezone in `config_inc.php`. You can find a list of supported timezones at the [List of Supported Timezones in the PHP Manual](http://php.net/manual/en/timezones.php) page. You'll need to add the `$g_default_timezone` line yourself. This section of the files should look similar to the following:
 
-{{< file "/srv/www/example.com/public\\_html/mantis/config\\_inc.php" php >}}
+```file {title="/srv/www/example.com/public\\_html/mantis/config\\_inc.php"}
 <?php
     $g_hostname = 'localhost';
     $g_db_type = 'mysql';
@@ -86,7 +86,7 @@ Next, we'll set the timezone in `config_inc.php`. You can find a list of support
     $g_default_timezone = 'America/New_York';
 ?>
 
-{{< /file >}}
+```
 
 
 Ensure that you have no whitespace at the end of this file, or Mantis will throw an error. Save and close the file. Finally, make sure to remove the `admin` folder under your MantisBT installation. In our example, the command would look like the following command. Note: Make sure to double-check your syntax when using the `rm -rf` command:

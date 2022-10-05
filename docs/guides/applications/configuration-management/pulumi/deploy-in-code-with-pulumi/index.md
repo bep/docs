@@ -133,7 +133,7 @@ node_modules  package-lock.json  Pulumi.yaml
 
 Let's take a look at the contents of our `index.js` file:
 
-{{< file "index.js" javascript >}}
+```file {title="index.js"}
 "use strict";
 const pulumi = require("@pulumi/pulumi");
 const linode = require("@pulumi/linode");
@@ -147,7 +147,7 @@ const instance = new linode.Instance("my-instance", {
 
 // Export the Instance label of the instance
 exports.instanceLabel = instance.label;
-{{< /file >}}
+```
 
 The file requires two JavaScript modules unique to Pulumi: Pulumi's SDK, and Pulumi's Linode integration. [Pulumi's API Reference Documentation](https://pulumi.io/reference/pkg/nodejs/pulumi/linode/) serves as a reference for the JavaScript you'll see here. It also includes a library of several additional options that enable you to create configurations more specific to your use case.
 
@@ -196,7 +196,7 @@ To better demonstrate the power of Pulumi code, we'll create a new `index.js` fi
 
 1.  Replace the contents of your `index.js` file with the following:
 
-    {{< file "index.js" javascript >}}
+    ```file {title="index.js"}
 const pulumi = require("@pulumi/pulumi");
 const linode = require("@pulumi/linode");
 
@@ -271,7 +271,7 @@ const balancerNode2 = new linode.NodeBalancerNode("balancerNode2", {
 //Output your NodeBalancer's Public IPV4 address and the port we configured to access it
 exports.nodeBalancerIP = nodeBalancer.ipv4;
 exports.nodeBalancerPort = nodeBalancerConfig.port;
-{{< /file >}}
+```
 
     {{< note >}}
 In our `index.js` file we've created and configured two Linodes using an existing [StackScript](/docs/platform/stackscripts/) which installs NGINX. Pulumi's Linode integration allows for the creation of entirely [new StackScripts](https://pulumi.io/reference/pkg/nodejs/pulumi/linode/#StackScript) directly in code, which can help you to automate your deployments even further.

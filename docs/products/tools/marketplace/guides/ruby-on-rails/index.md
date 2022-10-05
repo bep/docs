@@ -115,13 +115,13 @@ create      app/assets/stylesheets/welcome.scss
 
 1.  With the text editor of your choice, edit the file `app/views/welcome/index.html.erb` and replace the contents with the following:
 
-    {{< file "app/views/welcome/index.html.erb" html >}}
+    ```file {title="app/views/welcome/index.html.erb"}
 <h1>Hello, World! This is Ruby on Rails!</h1>
-{{</ file >}}
+```
 
 1.  Tell Rails where to find the document root. Edit the file `config/routes.rb`, find and uncomment the line root as shown:
 
-    {{< file "config/routes" conf >}}
+    ```file {title="config/routes"}
 Rails.application.routes.draw do
   get 'welcome/index'
 
@@ -131,7 +131,7 @@ Rails.application.routes.draw do
 
 ...
 end
-{{</ file >}}
+```
 
 1.  Start the server again:
 

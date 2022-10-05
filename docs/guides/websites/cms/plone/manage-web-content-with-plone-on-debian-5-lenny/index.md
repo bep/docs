@@ -57,7 +57,7 @@ Begin by installing the Apache web server. You can read more about this process 
 
 Edit the `/etc/apache2/mods-available/proxy.conf` file to properly configure the [ProxyPass](/docs/web-servers/apache/proxy-configuration/multiple-webservers-proxypass-debian-5-lenny) as follows:
 
-{{< file "/etc/apache2/mods-available/proxy.conf" apache >}}
+```file {title="/etc/apache2/mods-available/proxy.conf"}
 <IfModule mod_proxy.c>
         #turning ProxyRequests on and allowing proxying from all may allow
         #spammers to use your proxy to send email.
@@ -77,7 +77,7 @@ Edit the `/etc/apache2/mods-available/proxy.conf` file to properly configure the
         ProxyVia On
 </IfModule>
 
-{{< /file >}}
+```
 
 
 This enables proxy support in the module's configuration. **Please note** the warning regarding the `ProxyRequests` directive. This setting should be "off" in your configuration. Next, we'll issue the following commands:

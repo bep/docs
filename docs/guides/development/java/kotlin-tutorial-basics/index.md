@@ -137,7 +137,7 @@ To declare a read-only variable, use the `val` keyword, instead of the `var` key
 
 There is some confusion between read-only and immutable. A Kotlin read-only variable isn’t immutable, which means that its value could never change. The computed value of a read-only variable can change. To understand what this means, consider the following example of the `Square` class.
 
-{{< file "variables_example.kt" kotlin >}}
+```file {title="variables_example.kt"}
 fun main() {
   var MySquare = Square()
   println("The value of Area is: ${MySquare.area}")
@@ -157,7 +157,7 @@ class Square {
     }
 }
 
-{{</ file >}}
+```
 
 If an application attempts to directly assign a value to `area`, Kotlin produces an error message, just as it does for any read-only variable. However, when you view the output from the above example code, you see the value of `area` does change during application execution as shown below:
 
@@ -182,7 +182,7 @@ Strings form an important part of any application. Kotlin supports a variety of 
 
 A string literal is one in which the entire value of the string appears as part of the assignment. Consider the following example:
 
-{{< file "string_literal_example.kt" kotlin>}}
+```file {title="string_literal_example.kt"}
 fun main() {
   var MyEscapedString = "Hello\nWorld!"
   println("Example of Escaped String: ${MyEscapedString}")
@@ -191,7 +191,7 @@ fun main() {
   World!"""
   println("Example of Raw String: ${MyRawString}")
 }
-{{</ file >}}
+```
 
 In the above example, the first form of string literal (i.e., the variable, `MyEscapedString`) is an escaped string, where special codes, such as `\n`, perform formatting. The second form of string literal (i.e., the variable, `MyRawString`) is a raw string. In a raw string, the actual appearance of the string performs the formatting and no escape characters are used. The output for `MyRawString` has `Hello` appear on the first line, and `World!` appears on the second line. Raw string literals are always contained within triple quotes as shown in the example above.
 

@@ -145,7 +145,7 @@ The links between the Subversion client and the modules used for the Apache repo
 
 1. Add the example content to the `dav_svn.conf` file. The [example configuration](https://nsrc.org/workshops/ws-files/2012/pacnog11-nmm/configs/etc/apache2/mods-enabled/dav_svn.conf) below demonstrate how to configure repository authentication and access control.
 
-    {{< file "dav_svn.conf" >}}
+    ```file {title="dav_svn.conf"}
 # dav_svn.conf - Example Subversion/Apache configuration
 #
 # For details and further options see the Apache user manual and
@@ -200,7 +200,7 @@ AuthName "Subversion Repository"
 #</LimitExcept>
 
 #</Location>
-    {{</ file >}}
+    ```
 
 {{< note >}}
 You may need to restart Subversion using systemctl for your configuration changes to take effect.

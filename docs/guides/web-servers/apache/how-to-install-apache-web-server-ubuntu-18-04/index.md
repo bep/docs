@@ -68,7 +68,7 @@ The Prefork Module is ideal for single threaded applications. It's a single pare
 
 1.  Open `/etc/apache2/mods-available/mpm_prefork.conf` in your text editor and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/apache2/mods-available/mpm_prefork.conf" conf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_prefork.conf"}
 # prefork MPM
 # StartServers: number of server processes to start
 # MinSpareServers: minimum number of server processes which are kept spare
@@ -85,7 +85,7 @@ The Prefork Module is ideal for single threaded applications. It's a single pare
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-{{</ file >}}
+```
 
 1.  On Ubuntu 18.04, the *event module* is enabled by default. Disable it, and enable the *prefork module* :
 
@@ -102,7 +102,7 @@ The Worker Module is a hybrid Prefork, multi-threaded, multi-processor module. I
 
 1.  Open `/etc/apache2/mods-available/mpm_worker.conf` in your text editor and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/apache2/mods-available/mpm_worker.conf" conf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_worker.conf"}
 # worker MPM
 # StartServers: initial number of server processes to start
 # MinSpareThreads: minimum number of worker threads which are kept spare
@@ -125,7 +125,7 @@ The Worker Module is a hybrid Prefork, multi-threaded, multi-processor module. I
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-{{</ file >}}
+```
 
 1.  On Ubuntu 18.04, the *event module* is enabled by default. Disable it, and enable the *worker module* :
 
@@ -142,7 +142,7 @@ The Event Module is similar to the Worker Module except each thread has a dedica
 
 1.  If you choose to keep the *event module* enabled, open `/etc/apache2/mods-available/mpm_event.conf` in your text editor and edit the values as needed. The following are the default values:
 
-    {{< file "/etc/apache2/mods-available/mpm_event.conf" conf >}}
+    ```file {title="/etc/apache2/mods-available/mpm_event.conf"}
 # event MPM
 # StartServers: initial number of server processes to start
 # MinSpareThreads: minimum number of worker threads which are kept spare
@@ -161,7 +161,7 @@ The Event Module is similar to the Worker Module except each thread has a dedica
 </IfModule>
 
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
-{{</ file >}}
+```
 
 1.  Restart Apache:
 
@@ -177,7 +177,7 @@ Apache supports *name-based virtual hosting*, which allows you to host multiple 
 
 1.  Create an `example.com.conf` file in `/etc/apache2/sites-available` with your text editor, replacing instances of `example.com` with your own domain URL in both the configuration file and in the file name:
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.com
      ServerName example.com
@@ -186,19 +186,19 @@ Apache supports *name-based virtual hosting*, which allows you to host multiple 
      ErrorLog /var/www/example.com/logs/error.log
      CustomLog /var/www/example.com/logs/access.log combined
 </VirtualHost>
-{{</ file >}}
+```
 
     Repeat this process for any other domains you host.
 
     {{< note >}}
 If you would like to enable Perl support, add the following lines above the closing `</VirtualHost>` tag:
 
-{{< file "/etc/apache2/sites-available/example.com.conf" aconf >}}
+```file {title="/etc/apache2/sites-available/example.com.conf"}
 Options ExecCGI
 AddHandler cgi-script .pl
 {{</ note >}}
 
-{{< /file >}}
+```
 
 1.  Create directories for your websites and websites' logs, replacing `example.com` with your own domain information:
 
@@ -207,7 +207,7 @@ AddHandler cgi-script .pl
 
 1.  Create a simple page for your `index.html`.
 
-    {{< file "/var/www/example.com/public_html/index.html" html >}}
+    ```file {title="/var/www/example.com/public_html/index.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -217,7 +217,7 @@ AddHandler cgi-script .pl
         <h1>Hello World! This is my sample website with Apache on Ubuntu!</h1>
     </body>
 </html>
-{{</ file >}}
+```
 
 1.  Enable the site:
 

@@ -41,10 +41,10 @@ Piwik requires a few additional dependencies beyond LAMP fundamentals. Most impo
 
 If you followed our recommendations in the CentOS LAMP guide, your PHP `memory_limit` value is set to 64 megabytes. For medium to high traffic sites, Piwik's creators recommend setting this value to 128 megabytes. Edit the `php.ini` file so the `memory_limit` setting reflects these changes
 
-{{< file "/etc/php.ini" ini >}}
+```file {title="/etc/php.ini"}
 memory_limit = 128M
 
-{{< /file >}}
+```
 
 
 ### Restart the Web Server
@@ -61,7 +61,7 @@ To create a virtual host we need to add an "[A Record](/docs/networking/dns/dns-
 
 We'll append the following virtual host to our `vhost.conf` file, located at `/etc/httpd/conf.d/vhost.conf`:
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 <VirtualHost *:80>
      ServerAdmin admin@example.net
      ServerName stats.example.net
@@ -70,7 +70,7 @@ We'll append the following virtual host to our `vhost.conf` file, located at `/e
      CustomLog /srv/www/stats.example.net/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 We'll need to create the `logs` and `public_html` directories by issuing the following commands:

@@ -61,7 +61,7 @@ You will be asked for several configuration values. Enter values appropriate for
 
 We'll need to edit the virtual host configuration directives for sites that you would like to enable SSL on. For each virtual host, you must add the following stanza, changing the values as appropriate for each site. Note that we've essentially duplicated the configuration for a non-SSL site, with the addition of three lines for SSL.
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 NameVirtualHost 12.34.56.78:443
 
 <VirtualHost 12.34.56.78:443>
@@ -76,7 +76,7 @@ NameVirtualHost 12.34.56.78:443
     CustomLog /srv/www/mydomain.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Restart Apache:
@@ -149,7 +149,7 @@ For example, if we downloaded a root cert for Verisign, we would save it to `/et
 
 In the following example, edit the virtual host configuration file for the site you would like to enable SSL on (www.mydomain.com in our example). Add the following stanza to your virtual hosting configuration file, (e.g. `/etc/httpd/conf.d/vhost.conf`). Note that we've reproduced the configuration for the non-SSL version of the site, with the addition of four lines for SSL. This example uses the CA certificate file for a certificate signed by Verisign.
 
-{{< file "/etc/httpd/conf.d/vhost.conf" apache >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 <VirtualHost 12.34.56.78:443>
      SSLEngine On
      SSLCertificateFile /etc/httpd/ssl/www.mydomain.com.crt
@@ -163,7 +163,7 @@ In the following example, edit the virtual host configuration file for the site 
      CustomLog /srv/www/mydomain.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Restart Apache:

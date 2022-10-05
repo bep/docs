@@ -31,7 +31,7 @@ This guide is written for Ubuntu 9.10 (Karmic), and assumes that you've followed
 
 Before installing Ikiwiki, we must enable the `universe` repository. To enable `universe`, modify your `/etc/apt/sources.list` file to mirror the example file below. You'll need to uncomment the universe lines:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -48,7 +48,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates universe
 deb http://security.ubuntu.com/ubuntu karmic-security universe
 deb-src http://security.ubuntu.com/ubuntu karmic-security universe
 
-{{< /file >}}
+```
 
 
 After updating this file, run the following commands:
@@ -108,7 +108,7 @@ It's important to set up a git repository that will be the "origin" repository f
 
 Edit the `~/wiki/.git/config` file to create the remote repository so that it looks something like the following example:
 
-{{< file "~/wiki/.git/config" >}}
+```file {title="~/wiki/.git/config"}
 [core]
 :   repositoryformatversion = 0 filemode = true bare = false logallrefupdates = true
 
@@ -117,7 +117,7 @@ Edit the `~/wiki/.git/config` file to create the remote repository so that it lo
 
 [branch "master"]
 :   remote = origin merge = refs/heads/master
-{{< /file >}}
+```
 
 Now perform the first push using the following sequence of commands. This will update the "origin" repository with the first commit created above:
 
@@ -163,7 +163,7 @@ The process for creating a bare repository to push/pull the `wiki-admin` git rep
 
 Next, edit the `~/wiki-admin/.git/config` file to set up the remote repository. Use the following example as a guideline.
 
-{{< file "~/wiki/.git/config" >}}
+```file {title="~/wiki/.git/config"}
 [core]
 :   repositoryformatversion = 0 filemode = true bare = false logallrefupdates = true
 
@@ -172,7 +172,7 @@ Next, edit the `~/wiki-admin/.git/config` file to set up the remote repository. 
 
 [branch "master"]
 :   remote = origin merge = refs/heads/master
-{{< /file >}}
+```
 
 Now you can perform the first push for the `wiki-admin` repository by issuing the following commands:
 

@@ -155,7 +155,7 @@ The **docker-compose yml** files will control which system configuration we can 
 
 2.  Open `docker-init.yml` in a text editor and edit the content as follows:
 
-    {{< file "~/docker-init.yml" >}}
+    ```file {title="~/docker-init.yml"}
 version: '2'
 
 services:
@@ -209,7 +209,7 @@ services:
 volumes:
   dbfiles:
 
-{{< /file >}}
+```
 
 
       - In the MySQL container section in the docker-init.yml, export the MySQL data directory, forward the MySQL port to the host, and add the restart command so that this service is automatically restarted if it goes down.

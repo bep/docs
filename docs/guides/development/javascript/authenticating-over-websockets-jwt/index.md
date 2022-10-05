@@ -142,7 +142,7 @@ Additionally, the example uses a simple secret. But in production, you should us
 
     - The Express JS server provides an endpoint for authentication. It takes in a username and password and attempts to match them to stored credentials. If it finds a match, it serves a JWT in its response.
 
-        {{< file "server.js" javascript >}}
+        ```file {title="server.js"}
 // [...]
 
 // Create an endpoint for authentication.
@@ -170,13 +170,13 @@ const fetchUserToken = (req) => {
 }
 
 // [...]
-        {{< /file >}}
+        ```
 
     - The WebSocket server mounts to the Express JS server's `/ws` route. When a connection attempt is made, the WebSocket server reads a token from the URL. If it can verify the JWT, then it allows the connection and adds the user to the client pool.
 
         When the server receives a message from one of the clients, it broadcasts it to everyone in the client pool. Before it broadcasts, the WebSocket server checks for and handles any clients with expired tokens.
 
-        {{< file "server.js" >}}
+        ```file {title="server.js"}
 // [...]
 
 // Define the WebSocket server. Here, the server mounts to the `/ws`
@@ -219,7 +219,7 @@ wss.on('connection', (ws, req) => {
         }
     });
 });
-        {{< /file >}}
+        ```
 
 ### Create the Client
 
@@ -229,7 +229,7 @@ wss.on('connection', (ws, req) => {
 
     - This function attempts to authenticate the user whenever a username and password are provided. If it gets back a token, it calls another function to open the WebSocket connection.
 
-        {{< file "public/main.js" javascript >}}
+        ```file {title="public/main.js"}
 // [...]
 
 // Take the entered username and password and attempt to authenticate them. If the
@@ -252,11 +252,11 @@ const getJwtAuth = () => {
 }
 
 // [...]
-        {{< /file >}}
+        ```
 
     - This function attempts to open a WebSocket connection using the JWT provided by the server. It first makes sure to close any existing WebSocket connection (e.g., from a previous login). Whenever it opens a new connection, it sends a message over the WebSocket. Anytime a message is received, it displays it.
 
-        {{< file "public/main.js" javascript >}}
+        ```file {title="public/main.js"}
 // [...]
 
 // Open the WebSocket connection using the JWT.
@@ -294,11 +294,11 @@ const openWsConnection = (jwtAuth) => {
 }
 
 // [...]
-        {{< /file >}}
+        ```
 
     - This function sends a user-entered message. Before doing so, it ensures that the user is logged in and that the message is not empty.
 
-        {{< file "public/main.js" javascript >}}
+        ```file {title="public/main.js"}
 // Send the message entered by the user. First, however, ensure that the user is logged
 // in and that the message field is not empty.
 const sendWsMessage = () => {
@@ -314,11 +314,11 @@ const sendWsMessage = () => {
         errorMessageSpan.innerHTML = "Error: You must log in to send a message."
     }
 }
-        {{< /file >}}
+        ```
 
 1. Complete the frontend by creating an `index.html` file in the `public` directory. Add the `index.html` file to the directory.
 
-    {{< file "public/index.html" >}}
+    ```file {title="public/index.html"}
 <!doctype html>
 
 <html>
@@ -371,7 +371,7 @@ const sendWsMessage = () => {
     <script src="./main.js"></script>
 </body>
 </html>
-    {{< /file >}}
+    ```
 
 ### Run the Example
 

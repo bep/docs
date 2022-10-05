@@ -164,7 +164,7 @@ DNF has a supplemental package, [DNF Automatic](https://dnf.readthedocs.io/en/la
 
     The following presents example values for some configuration options. It is recommended that you change these values.
 
-    {{< file "/etc/dnf/automatic.conf" >}}
+    ```file {title="/etc/dnf/automatic.conf"}
 [commands]
 #
 upgrade_type=default
@@ -174,7 +174,7 @@ download_update=yes
 apply_updates=yes
 #
 emit_via=motd
-{{< /file >}}
+```
 
     You can switch `upgrade_type` to `security` if you want to limit the updates made to only those impacting system security. With `emit_via` set to `motd`, DNF Automatic's reports will be stored in the `/etc/motd` file.
 

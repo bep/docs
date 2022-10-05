@@ -61,13 +61,13 @@ Ensure that the version number matches the Drupal 8 version you wish to download
 
 1.  Enforce [trusted hostnames](https://www.drupal.org/node/2410395) with those that users will access your site from. With the text editor of your choice, edit your `settings.php` file replacing the [regular expression (RegEx)](https://www.php.net/manual/en/reference.pcre.pattern.syntax.php) with a pattern that matches your own site's URL(s).
 
-    {{< file "/var/www/html/example.com/public_html/sites/default/settings.php" conf >}}
+    ```file {title="/var/www/html/example.com/public_html/sites/default/settings.php"}
 $settings['trusted_host_patterns'] = array(
   '^www\.example\.com$',
   '^example\.com$',
   );
 
-{{< /file >}}
+```
 
     {{< note >}}
 `trusted_host_patterns` also accepts IP addresses or localhost.
@@ -81,7 +81,7 @@ $settings['trusted_host_patterns'] = array(
 
 2.  Specify the rewrite conditions for your Drupal site's document root in Apache's configuration file using the text editor of your choice. If you installed and configured your Apache server using [LAMP stack on Ubuntu 18.04](/docs/guides/how-to-install-a-lamp-stack-on-ubuntu-18-04/) guide, the configuration file for your site is located at `/etc/apache2/sites-available/example.com.conf`.
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" conf >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
     Options Indexes FollowSymLinks
     AllowOverride All
@@ -92,7 +92,7 @@ $settings['trusted_host_patterns'] = array(
       RewriteCond %{REQUEST_FILENAME} !-d
       RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </Directory>
-{{< /file >}}
+```
 
 1.  Change the ownership of your site's document root from `root` to `www-data`. This allows you to install modules and themes, and to update Drupal, without being prompted for FTP credentials.
 

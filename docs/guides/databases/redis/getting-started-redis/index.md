@@ -45,13 +45,13 @@ You can use the Redis CLI tool to connect to a Redis server that is located loca
 
 The examples that follow assume that you have created a user on the Redis server and have set up restricted access using the `requirepass` configuration directive. For these examples, the Redis authentication and user configuration is shown below:
 
-{{< file "/etc/redis/redis.conf" >}}
+```file {title="/etc/redis/redis.conf"}
 # [...]
 requirepass admin-password
 # [...]
 user example-user +@all allkeys on >password
 # [...]
-{{< /file >}}
+```
 
 ### Connect to a Local Redis Server
 
@@ -103,11 +103,11 @@ To connect to your Redis server remotely, you first need to open the appropriate
 
     The example below listens for both local and remote connections. Replace `192.0.2.0` with your server's IP address. You could, alternatively, replace this IP address with your server's domain name.
 
-    {{< file "/etc/redis/redis.conf" >}}
+    ```file {title="/etc/redis/redis.conf"}
 # [...]
 bind 127.0.0.1 192.0.2.0
 # [...]
-    {{< /file >}}
+    ```
 
     Subsequent examples use this IP address for your server, so replace them as you go.
 
@@ -141,11 +141,11 @@ Redis does not have *database creation* in the same way you might see with SQL d
 
 You can alter the number of databases via the Redis configuration file. The example below demonstrates what the default configuration looks like:
 
-{{< file "/etc/redis/redis.conf" >}}
+```file {title="/etc/redis/redis.conf"}
 # [...]
 databases 16
 # [...]
-{{< /file >}}
+```
 
 Redis does not give you a way to name or otherwise define a database beyond the databases' indices.
 
@@ -256,13 +256,13 @@ By default, the Redis server backs up databases for any of the following three c
 
 You can alter how Redis backs up databases via the configuration file's `save` directive. This directive takes a number of seconds and a number of changes. For example, following is the default configuration represented as a configuration:
 
-{{< file "/etc/redis/redis.conf" >}}
+```file {title="/etc/redis/redis.conf"}
 # [...]
 save 3600 1
 save 300 100
 save 60 10000
 # [...]
-{{< /file >}}
+```
 
 ### Manually Save a Redis Database
 

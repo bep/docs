@@ -89,7 +89,7 @@ These next sections break down the particular fields needed for CORS policies an
 
 The overall structure for CORS policies on S3 looks like the following. While policies on your object storage instance can generally be set with JSON or XML, CORS policies must use the XML format:
 
-{{< file "cors_policies.xml" xml >}}
+```file {title="cors_policies.xml"}
 <CORSConfiguration>
   <CORSRule>
     <AllowedHeader>*</AllowedHeader>
@@ -107,7 +107,7 @@ The overall structure for CORS policies on S3 looks like the following. While po
     <MaxAgeSeconds>3000</MaxAgeSeconds>
   </CORSRule>
 </CORSConfiguration>
-{{< /file >}}
+```
 
 To break this structure down:
 
@@ -135,7 +135,7 @@ To give more concrete ideas of how you can work with CORS policies, the followin
 
 - First, a public access read-only policy. This lets any origin, with any request headers, make `GET` and `HEAD` requests to the bucket. However, the policy does not expose custom response headers.
 
-    {{< file "cors_policies.xml" xml >}}
+    ```file {title="cors_policies.xml"}
 <CORSConfiguration>
   <CORSRule>
     <AllowedHeader>*</AllowedHeader>
@@ -146,11 +146,11 @@ To give more concrete ideas of how you can work with CORS policies, the followin
     <AllowedOrigin>*</AllowedOrigin>
   </CORSRule>
 </CORSConfiguration>
-    {{< /file >}}
+    ```
 
 - Next, a set of policies for fine control over requests from `example.com`. The `<AllowedOrigin>` elements specify the range of possible `example.com` domains. The two policies distinguish the kinds of headers allowed based on the kinds of request methods.
 
-    {{< file "cors_policies.xml" xml >}}
+    ```file {title="cors_policies.xml"}
 <CORSConfiguration>
   <CORSRule>
     <AllowedHeader>Authorization</AllowedHeader>
@@ -186,7 +186,7 @@ To give more concrete ideas of how you can work with CORS policies, the followin
     <MaxAgeSeconds>3000</MaxAgeSeconds>
   </CORSRule>
 </CORSConfiguration>
-    {{< /file >}}
+    ```
 
 ### Deploying Policies
 

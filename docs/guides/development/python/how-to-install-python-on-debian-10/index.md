@@ -103,7 +103,7 @@ At this guide's publication time, the latest stable version of Python 3 was 3.9.
 
     Your file should match this:
 
-    {{< file "/etc/apt/sources.list" yaml>}}
+    ```file {title="/etc/apt/sources.list"}
 deb http://mirrors.linode.com/debian buster main
 deb-src http://mirrors.linode.com/debian buster main
 
@@ -117,7 +117,7 @@ deb-src http://mirrors.linode.com/debian buster-updates main
 # Debian Testing Non-Free
 
 deb http://http.us.debian.org/debian/ testing non-free contrib main
-{{< /file >}}
+```
 
 1. After editing the file, download the information for all of the packages available with the following command:
 

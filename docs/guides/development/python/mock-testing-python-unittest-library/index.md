@@ -282,22 +282,22 @@ They both accomplish the same thing; they replace an object with a mock. This se
 
 1. The first thing you need is an object to patch. Create a file named `AClass.py` and add the following code:
 
-    {{< file "AClass.py" >}}
+    ```file {title="AClass.py"}
 class MyClass(object):
     def Hello(self):
         print("Hello There!")
-    {{</ file >}}
+    ```
 
 1. Now you need some code that uses `MyClass.Hello()`. Create another file named `UseMyClass.py` and add the following code:
 
-    {{< file "UseMyClass.py" >}}
+    ```file {title="UseMyClass.py"}
 from AClass import MyClass
 
 def SayHello():
     MyClass().Hello()
 
 #SayHello()
-    {{</ file >}}
+    ```
 
     The call to `SayHello()` in the last line is commented out, so you can see that the `SayHello()` method actually does access `MyClass.Hello()`. To run the code in the file, from the command line use the following command:
 
@@ -305,7 +305,7 @@ def SayHello():
 
 1. Create a third file named `TestUseMyClass.py` with the test code as shown below:
 
-    {{< file "TestUseMyClass.py" >}}
+    ```file {title="TestUseMyClass.py"}
 import unittest
 from mock import patch, MagicMock
 from UseMyClass import SayHello
@@ -323,7 +323,7 @@ class TestAClass(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    {{</ file >}}
+    ```
 
 You need to import the `unittest` functionality to perform the test. The `mock` package provides the ability to use the `patch()` decorator, and `MagicMock` as an object replacement. You also need access to the file under test (not the class file, but the file that is actually using the object). To use `@patch()` you need to specify the following:
 

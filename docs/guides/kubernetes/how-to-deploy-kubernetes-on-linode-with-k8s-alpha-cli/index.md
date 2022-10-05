@@ -123,12 +123,12 @@ You will need to run all of your k8s-alpha CLI commands from the terminal that y
 
 1.  Update your `~/.ssh/config` SSH configuration file. This configuration will add keys to the persistent agent and store passphrases in the OS keychain:
 
-    {{< file "~/.ssh/config" >}}
+    ```file {title="~/.ssh/config"}
 Host *
   AddKeysToAgent yes
   UseKeychain yes
   IdentityFile ~/.ssh/id_rsa
-{{< /file >}}
+```
 
   {{< note >}}
 Although `kubectl` should be used in all cases possible to interact with nodes in your cluster, the key pair cached in the `ssh-agent` process will enable you to access individual nodes via SSH as the `core` user.

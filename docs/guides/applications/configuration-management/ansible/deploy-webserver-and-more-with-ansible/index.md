@@ -138,7 +138,7 @@ As a shortcut, you can also `wget` the configuration files from [the author's Gi
     wget https://raw.githubusercontent.com/bennettnw2/Ansible_webserver_infra_files/main/myplaybook.yml
 {{</ note >}}
 
-{{< file "ansibleCN_setup.sh" bash >}}
+```file {title="ansibleCN_setup.sh"}
 #! /bin/bash
 # This is the script to run to setup an Ansible control node.
 
@@ -209,9 +209,9 @@ chown $USERNAME:$USERNAME /home/$USERNAME/myplaybook.yml
 echo "##########################################################"
 echo "# Dunzo. Poke around if you like.  I recommend a reboot. #"
 echo "##########################################################"
-{{</ file >}}
+```
 
-{{< file "ansibleMN_setup.sh" bash >}}
+```file {title="ansibleMN_setup.sh"}
 #!/bin/bash
 # This is the script to run in order to setup Ansible managed nodes.
 
@@ -249,11 +249,11 @@ visudo -c
 echo "##########################################################"
 echo "# Dunzo. Poke around if you like.  I recommend a reboot. #"
 echo "##########################################################"
-{{</ file >}}
+```
 
 Ansible playbooks are what makes Ansible powerful software. The syntax of the tasks is very similar to plain language and therefore, makes the playbook file human readable. As a best practice, ensure your task names are descriptive and precise. Review the names of the tasks in `myplaybook.yml`, to learn what each task is supposed to do accomplish.
 
-{{< file "myplaybook.yml" yaml >}}
+```file {title="myplaybook.yml"}
 ---
 - hosts: webservers
   become: yes
@@ -384,7 +384,7 @@ Ansible playbooks are what makes Ansible powerful software. The syntax of the ta
       service:
         name: rsyslog
         state: restarted
-{{</ file >}}
+```
 
 ## Configure Your Control Node
 
@@ -470,14 +470,14 @@ Use the line of code below to ensure you can ping all the hostnames.
 
 Using a text editor, create and copy the configuration file, `ansible.cfg`, to your home directory.
 
-{{< file "/home/YOUR_USERNAME/ansible.cfg" yaml >}}
+```file {title="/home/YOUR_USERNAME/ansible.cfg"}
 [defaults]
 inventory = $HOME/hosts
-{{</ file >}}
+```
 
 Create and copy the below Ansible hosts configuration file to your home directory.
 
- {{< file "/home/YOUR_USERNAME/hosts">}}
+ ```file {title="/home/YOUR_USERNAME/hosts"}
  [webservers]
  vm2
  vm3
@@ -491,7 +491,7 @@ Create and copy the below Ansible hosts configuration file to your home director
  [lamp:children]
  webservers
  dbservers
-{{</ file >}}
+```
 
 Using the command below to ensure all hosts are accessible.
 

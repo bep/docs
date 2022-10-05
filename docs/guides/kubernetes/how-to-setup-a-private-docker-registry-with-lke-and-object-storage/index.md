@@ -170,7 +170,7 @@ Now that cert-manager is installed and running on your cluster, you will need to
 
 1.  Using the text editor of your choice, create a file named `acme-issuer-prod.yaml` with the example configurations. Replace the value of `email` with your own email address.
 
-    {{< file "~/registry/acme-issuer-prod.yaml" >}}
+    ```file {title="~/registry/acme-issuer-prod.yaml"}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -185,7 +185,7 @@ spec:
     - http01:
         ingress:
           class: nginx
-    {{</ file >}}
+    ```
 
     - This manifest file creates a ClusterIssuer resource that will register an account on an ACME server. The value of `spec.acme.server` designates Let's Encrypt's production ACME server, which should be trusted by most browsers.
 
@@ -206,7 +206,7 @@ After you have a ClusterIssuer resource, you can create a Certificate resource. 
 
 1.  Using the text editor of your choice, create a file named `certificate-prod.yaml` with the example configurations. Replace the value of `email` with your own email address. Replace the value of `spec.dnsNames` with your own domain that you will use to host your Docker registry.
 
-    {{< file "~/registry/certificate-prod.yaml">}}
+    ```file {title="~/registry/certificate-prod.yaml"}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -220,7 +220,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - registry.example.com
-    {{</ file >}}
+    ```
 
     {{< note >}}
 The configurations in this example create a Certificate that is valid for 90 days and renews 15 days before expiry.
@@ -301,7 +301,7 @@ If you have not yet [generated an Object Storage key pair](/docs/products/storag
       - `secrets.htpasswd` with the value returned when you view the contents of your `my_docker_pass` file. However, ensure you do not remove the `|-` characters. This ensures that your YAML is properly formatted. See step 4 in the [Enable Basic Authentication](#enable-basic-authentication) section for details on viewing the contents of your password file.
       - `s3.region` with your Object Storage bucket's cluster region, `s3.regionEndpoint` with your Object Storage bucket's region endpoint, and `s3.bucket` with your registry's Object Storage bucket name.
 
-      {{< file "~/registry/docker-configs.yaml" >}}
+      ```file {title="~/registry/docker-configs.yaml"}
 ingress:
   enabled: true
   hosts:
@@ -328,7 +328,7 @@ s3:
   regionEndpoint: us-east-1.linodeobjects.com/
   secure: true
   bucket: registry
-      {{</ file >}}
+      ```
 
       - The NGINX Ingress annotation `nginx.ingress.kubernetes.io/proxy-body-size: "0"` disables a [maximum allowed size client request body](http://nginx.org/en/docs/http/ngx_http_core_module.html#client_max_body_size) check and ensures that you won't receive a `413` error when pushing larger Docker images to your registry. The values for `nginx.ingress.kubernetes.io/proxy-read-timeout: "6000"` and `nginx.ingress.kubernetes.io/proxy-send-timeout: "6000"` are sane values to begin with, but [may be adjusted as needed](https://kubernetes.github.io/ingress-nginx/user-guide/nginx-configuration/annotations/#custom-timeouts).
 
@@ -394,7 +394,7 @@ nginx-ingress-controller   LoadBalancer   10.128.169.60   192.0.2.0   80:32401/T
 
 1.  Using a text editor, create the `static-site-test.yaml` file with the example configurations. This file will create a deployment, service, and an ingress.
 
-      {{< file "~/registry/staic-site-test.yaml">}}
+      ```file {title="~/registry/staic-site-test.yaml"}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
@@ -445,7 +445,7 @@ spec:
         - containerPort: 80
       imagePullSecrets:
       - name: regcred
-      {{</ file >}}
+      ```
 
       - In the Deployment section of the manifest, the [`imagePullSecrets` field](https://kubernetes.io/docs/concepts/configuration/secret/#using-imagepullsecrets) references the secret you created in the [Grant your Cluster Access to your Docker Registry](#grant-your-cluster-access-to-your-docker-registry) section. This secret contains the authentication credentials that your cluster's kubelet can use to pull your private registry's image.
       - The `image` field provides the image to pull from your Docker registry.

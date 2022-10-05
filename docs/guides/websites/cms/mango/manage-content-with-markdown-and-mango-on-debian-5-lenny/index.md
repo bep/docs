@@ -66,35 +66,35 @@ Issue the following commands to install Django, create a Django project in the `
 
 Edit the `INSTALLED_APPS` list at the end of the `/srv/www/example.com/application/settings.py` file to resemble the following:
 
-{{< file "/srv/www/example.com/application/settings.py" python >}}
+```file {title="/srv/www/example.com/application/settings.py"}
 INSTALLED_APPS = (
     'mango',
 )
 
-{{< /file >}}
+```
 
 
 Edit the `ROOT_URLCONF` variable in the `/srv/www/example.com/application/settings.py` file to resemble the following:
 
-{{< file "/srv/www/example.com/application/settings.py" python >}}
+```file {title="/srv/www/example.com/application/settings.py"}
 ROOT_URLCONF = 'mango.urls'
 
-{{< /file >}}
+```
 
 
 Edit the `urlpatterns` array in the `/srv/www/example.com/application/urls.py` file to resemble the following:
 
-{{< file "/srv/www/example.com/application/urls.py" python >}}
+```file {title="/srv/www/example.com/application/urls.py"}
 urlpatterns = patterns('',
     (r'', include('mango.urls')),
 )
 
-{{< /file >}}
+```
 
 
 Create a `application.wsgi` file, using the following as a model:
 
-{{< file "/srv/www/example.com/application/application.wsgi" python >}}
+```file {title="/srv/www/example.com/application/application.wsgi"}
 import os
 import sys
 
@@ -113,14 +113,14 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
 
-{{< /file >}}
+```
 
 
 ## Configure Apache
 
 Create a `VirtualHost` specification based on the following example:
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost *:80>
    ServerName example.com
    ServerAlias www.example.com
@@ -136,7 +136,7 @@ Create a `VirtualHost` specification based on the following example:
    Alias /static /srv/www/example.com/application/mango/static
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 Issue the following command to enable the "`VirtualHost` and restart the web server to load the configuration:
@@ -150,12 +150,12 @@ You will need to restart the server anytime you make changes to the Apache confi
 
 The behavior of the Mango application is controlled the settings in the `/srv/www/example.com/application/mango/settings/default.py` file which you can override in a `/srv/www/example.com/application/mango/settings/custom.py` file. Add configuration values to `custom.py` as needed to produce your site. The most relevant settings are below:
 
-{{< file "/srv/www/example.com/application/mango/settings/custom.py" python >}}
+```file {title="/srv/www/example.com/application/mango/settings/custom.py"}
 DOCUMENTS_PATH = 'content'
 
 SITE_TITLE = 'example Blog'
 
-{{< /file >}}
+```
 
 
 The paths specified in this file are relative to the top level of the Django application, for this document: `/srv/www/example.com/application/`. In the above example, all documents processed by Mango are stored in the `/srv/www/example.com/application/docs/` directory. Explore each setting in this document while you configure your site.

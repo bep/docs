@@ -35,7 +35,7 @@ Network configuration settings for ifupdown are managed inside of an [interfaces
 
 Here is an example of a typical configuration file for ifupdown. It statically defines the IPv4 address and allows SLAAC to configure the IPv6 address.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 auto lo
 iface lo inet loopback
 
@@ -49,7 +49,7 @@ iface eth0 inet6 auto
 iface eth0 inet static
     address 192.0.2.123/24
     gateway 192.0.2.1
-{{</ file >}}
+```
 
 ## Configuring IP Addresses Manually
 
@@ -77,24 +77,24 @@ iface eth0 inet static
 
 To change the main IPv4 address configured on the system, set the `address` and `gateway` parameters under `iface eth0 inet static` to match the new IP address and its corresponding gateway IP address.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet static
     address 192.0.2.123/24
     gateway 192.0.2.1
-{{</ file >}}
+```
 
 ## Configuring the Primary IPv4 Address through DHCP
 
 DHCP can be used to automatically configure your primary IPv4 address. The primary IPv4 address is defined as the IPv4 address assigned to your system that is in the first position when sorted numerically. To enable DHCP, modify or add an `iface` for your interface using `dhcp` instead of `static`.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet dhcp
 # iface eth0 inet static
 #    address 192.0.2.123/24
 #    gateway 192.0.2.1
-{{</ file >}}
+```
 
 {{< caution >}}
 When using DHCP, the IPv4 address configured on your system may change if you add or remove IPv4 addresses on your Compute Instance. If this happens, any tool or system using the original IPv4 address will no longer be able to connect.
@@ -106,11 +106,11 @@ To disable DHCP, switch `dhcp` back to `static` and manually add the relevant `a
 
 Additional IP addresses can be configured by adding or modifying the `iface` group for the desired interface. Multiple `address` lines can be provided to configure more than one IP address.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet static
     address [ip-address]/[prefix]
-{{</ file >}}
+```
 
 In the example above, make the following replacements:
 
@@ -121,32 +121,32 @@ In the example above, make the following replacements:
 
 SLAAC is used to automatically configure your primary IPv6 address. Within ifupdown, you can configure an IPv6 SLAAC address by adding or modifying the `iface` for your interface and the `inet6` protocol, making sure to set it to `auto` instead of `static`.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet6 auto
     accept_ra 2
-{{</ file >}}
+```
 
 If you wish to disable IPv6 SLAAC addressing and instead statically configure your primary IPv6 address (not recommended), you can modify the `iface eth0 inet6` group by setting it to `static` and adding your primary IPv6 address within the `address` parameter (using the prefix of `/128`).
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet6 static
     address [ip-address]/128
     # accept_ra 2
-{{</ file >}}
+```
 
 ## Configuring Additional IPv6 Addresses
 
 If you have an IPv6 range assigned to your Compute Instance, addresses from this range can be configured within the `iface eth0 inet6` group, making sure it's set to `static` instead of `auto`. Multiple `address` lines can be provided to configure more than one IP address.
 
-{{< file "/etc/network/interfaces" >}}
+```file {title="/etc/network/interfaces"}
 ...
 iface eth0 inet6 static
     address [ip-address]/[prefix]
     autoconf 1
     accept_ra 2
-{{</ file >}}
+```
 
 In the example above, make the following replacements:
 
@@ -159,13 +159,13 @@ The `autoconf` parameter (when set to `1`), allows the primary IPv6 address to b
 
 DNS resolvers are the entities that resolve domain names to their corresponding IPv4 address. By default, the Compute Instance should be using the DNS resolvers for the data center in which it resides. You can change these through the `/etc/resolv.conf` file, setting the `nameserver` parameters to your preferred DNS resolvers.
 
-{{< file "/etc/resolv.conf" >}}
+```file {title="/etc/resolv.conf"}
 domain ip.linodeusercontent.com
 search ip.linodeusercontent.com
 nameserver 203.0.113.1
 nameserver 203.0.113.2
 nameserver 203.0.113.3
 ...
-{{</ file >}}
+```
 
 In the above example, replace the IP addresses provided with the IP addresses of the DNS resolvers you wish to use.

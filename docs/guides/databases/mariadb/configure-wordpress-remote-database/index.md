@@ -62,9 +62,9 @@ Run these steps on the database server.
 
 1.  Change the `bind-address` to the database server's private IP to configure the MariaDB to accept remote connections:
 
-    {{< file "/etc/mysql/mariadb.conf.d/50-server.cnf" >}}
+    ```file {title="/etc/mysql/mariadb.conf.d/50-server.cnf"}
 bind-address    = 192.0.2.100
-{{< /file >}}
+```
 
 2.  Restart MariaDB and allow connections to port `3306` through the firewall. This example uses UFW to automatically open the port over both IPv4 and IPv6:
 
@@ -115,7 +115,7 @@ When first installed and configured through the web interface and a local databa
 
 2.  Change the login variables to match the database and user. Replace `192.0.2.100` with the database server's private IP:
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
 
@@ -127,13 +127,13 @@ define('DB_PASSWORD', 'password');
 
 /** MySQL hostname */
 define('DB_HOST', '192.0.2.100');
-{{< /file >}}
+```
 
 ### Add Security Keys to Secure wp-admin Logins
 
 Use the [WordPress Security Key Generator](https://api.wordpress.org/secret-key/1.1/salt/) to create randomized, complicated hashes that WordPress will use to encrypt login data. Copy the result and replace the matching section in `wp-config.php`:
 
-{{< file "/var/www/html/example.com/public_html/wp-config.php" >}}
+```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /**#@+
  * Authentication Unique Keys and Salts.
  *
@@ -152,7 +152,7 @@ define('SECURE_AUTH_SALT', 'put your unique phrase here');
 define('LOGGED_IN_SALT',   'put your unique phrase here');
 define('NONCE_SALT',       'put your unique phrase here');
 /**#@-*/
-{{< /file >}}
+```
 
 ## Secure WordPress Database Traffic with SSL
 
@@ -277,11 +277,11 @@ An optional company name []:
 
 11. Configure the MariaDB server to use the certificates. Find the following lines and remove the `#` to uncomment the certificate locations. Modify the paths to match:
 
-    {{< file "/etc/mysql/mariadb.conf.d/50-server.cnf" >}}
+    ```file {title="/etc/mysql/mariadb.conf.d/50-server.cnf"}
 ssl-ca=/etc/mysql/ssl/cacert.pem
 ssl-cert=/etc/mysql/ssl/server-cert.pem
 ssl-key=/etc/mysql/ssl/server-key.pem
-{{< /file >}}
+```
 
 12. Log in to MariaDB and require SSL for all logins to the database. Replace `192.0.2.255` with the web server Linode's private IP:
 
@@ -306,12 +306,12 @@ ssl-key=/etc/mysql/ssl/server-key.pem
 
 2.  Configure the web server's MariaDB client to use SSL. Find the `[mysql]` section and add locations for the certificates and key:
 
-    {{< file "/etc/mysql/mariadb.conf.d/50-mysql-clients.cnf" >}}
+    ```file {title="/etc/mysql/mariadb.conf.d/50-mysql-clients.cnf"}
 [mysql]
 ssl-ca=/etc/mysql/ssl/cacert.pem
 ssl-cert=/etc/mysql/ssl/client-cert.pem
 ssl-key=/etc/mysql/ssl/client-key.pem
-{{< /file >}}
+```
 
     {{< note >}}
 If the web server uses MySQL you can find the configuration file in `/etc/mysql/mysql.conf.d/mysqld.cnf`.
@@ -331,7 +331,7 @@ If the web server uses MySQL you can find the configuration file in `/etc/mysql/
 
 6.  Add a directive before the remote database information in `wp-config` which forces WordPress to use SSL for the database connection:
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 ...
 define( 'MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL );
 
@@ -347,7 +347,7 @@ define('DB_PASSWORD', 'password');
 /** MySQL hostname */
 define('DB_HOST', '192.0.2.100');
 ...
-{{< /file >}}
+```
 
 ## Complete the WordPress Installation
 

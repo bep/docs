@@ -110,7 +110,7 @@ The tasks are defined in a module that will be used both by the workers and the 
 
 2.  Create a `downloaderApp.py` module that will contain two functions, `download` and `list`, that will be the asynchronous tasks. Replace `celery` in the `BASEDIR` path with your system username.
 
-    {{< file "~/downloaderApp/downloaderApp.py" py >}}
+    ```file {title="~/downloaderApp/downloaderApp.py"}
 from celery import Celery
 import urllib.request
 import os
@@ -141,7 +141,7 @@ def list():
     """ Return an array of all downloaded files """
     return os.listdir(BASEDIR)
 
-    {{< /file >}}
+    ```
 
 All the magic happens in the `@app.task` annotation. This tells celery that this function will not be run on the client, but sent to the workers via RabbitMQ. All the Celery configuration happens in following line:
 
@@ -194,7 +194,7 @@ In a production environment with more than one worker, the workers should be dae
 
 1.  Using `sudo`, create a new service definition file in `/etc/systemd/system/celeryd.service`. Change the `User` and `Group` properties according to your actual user and group name:
 
-    {{< file "/etc/systemd/system/celeryd.service" py >}}
+    ```file {title="/etc/systemd/system/celeryd.service"}
 [Unit]
 Description=Celery Service
 After=network.target
@@ -216,11 +216,11 @@ ExecReload=/bin/sh -c '${CELERY_BIN} multi restart ${CELERYD_NODES} \
 
 [Install]
 WantedBy=multi-user.target
-    {{< /file >}}
+    ```
 
 2.  Create a`/etc/default/celeryd` configuration file:
 
-    {{< file "/etc/default/celeryd" py >}}
+    ```file {title="/etc/default/celeryd"}
 # The names of the workers. This example create two workers
 CELERYD_NODES="worker1 worker2"
 
@@ -237,7 +237,7 @@ CELERYD_LOG_LEVEL=INFO
 
 # Path to celery binary, that is in your virtual environment
 CELERY_BIN=/home/celery/miniconda3/bin/celery
-    {{< /file >}}
+    ```
 
 3.  Create log and pid directories:
 

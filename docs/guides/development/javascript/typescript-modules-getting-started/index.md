@@ -41,7 +41,7 @@ The steps in this section provide a basic example that shows you how to create a
 
 1. Create a new directory named `TestTypescript` and move into that directory. Then, create a new file named `Greetings.ts` and add the following code:
 
-    {{< file "Greetings.ts">}}
+    ```file {title="Greetings.ts"}
 export function SayHello(name : string) : void {
     ShowGreeting("Hello ", name);
 }
@@ -53,7 +53,7 @@ export function SayGoodbye(name : string) : void {
 function ShowGreeting(text : string, name : string) : void {
     console.log(text + name + "!");
 }
-    {{< /file >}}
+    ```
 
     The `Greetings.ts` file exports two functions: one contains a prompt that says "hello", the other says "goodbye". Notice the `export` keyword in front of each function declaration. If you don’t include the `export` keyword, the function remains hidden and no one can use it outside of the module. The  `ShowGreeting()` function does not contain the `export` keyword, so it is hidden from view outside of `Greetings.ts`. If you try to import it into another module, you see an error message similar to the following:
 
@@ -63,7 +63,7 @@ error TS2339: Property 'ShowGreeting' does not exist on type 'typeof import("/TS
 
 1. In your `TestTypescript` directory, create a new file named `TestGreetings.ts`. This new file uses the code you created for `Greetings.ts`. Add the following code to the `TestGreetings.ts` file:
 
-    {{< file "TestGreetings.ts" >}}
+    ```file {title="TestGreetings.ts"}
 /* Import the required code */
 import greet = require("/TestTypescript/Greetings");
 
@@ -76,7 +76,7 @@ console.log("Work is all done <whew>!");
 
 /* End the session */
 greet.SayGoodbye("Sam");
-    {{</ file >}}
+    ```
 
     The `TestGreetings.ts` file demonstrates one of the most common methods used to import a module. You assign it to a variable by calling `require()` with the required path. All of the exported entities are now available for use. You might think that you can provide the name of the module if it appears in the same directory (i.e., `TestTypescript` directory in this example) as the second module, but this isn’t the case. If you use `import greet = require("Greetings");`, and run the `TestGreetings.ts` module, you see the following error message:
 
@@ -169,7 +169,7 @@ A potential problem in TypeScript is that there is no specific integer or float 
 
 1. In your `TestTypescript` directory, create a file named `MathStuff.ts` and include the following code in it.
 
-    {{< file "MathStuff.ts">}}
+    ```file {title="MathStuff.ts"}
 export class MyMath {
     static DoIntAdd(Input1: number, Input2: number): number {
         return Math.floor(Input1) + Math.floor(Input2);
@@ -187,20 +187,20 @@ export class MyMath {
         return Math.floor(Input1 / Input2);
     }
 }
-    {{</ file >}}
+    ```
 
     The code relies on the `Math.floor()` function to convert any floating-point number to an integer before performing the calculation using certain rules. You might choose to implement this class using the `Math.round()` function instead, so that larger decimal values are rounded up. However, even if you input floating-point values, an integer is returned.
 
 1. Create another file named `TestMathStuff.ts` and add the following code to it.
 
-    {{< file "TestMathStuff.ts" >}}
+    ```file {title="TestMathStuff.ts"}
 import { MyMath } from "/TestTypescript/MathStuff";
 
 console.log("5 + 2 = ", MyMath.DoIntAdd(5.1, 2.4));
 console.log("5 - 2 = ", MyMath.DoIntSub(5.1, 2.4));
 console.log("5 * 2 = ", MyMath.DoIntMul(5.1, 2.4));
 console.log("5 / 2 = ", MyMath.DoIntDiv(5.1, 2.4));
-    {{</ file >}}
+    ```
 
     When you work with classes, you export the class as a whole, rather than individual methods within the class. To keep a particular feature hidden, make the member private by using the `private` keyword. When performing an import in a consumer module, specify the class as a whole, not specific members, even though the members are available. This particular class performs a task that works best using static members because you don’t need to maintain data related to individual instances. For this reason, it adds the `static` keyword in front of each method declaration. The [Classes page](https://www.typescriptlang.org/docs/handbook/2/classes.html) in the TypeScript documentation discusses classes in more detail and shows when to use non-static class members.
 
@@ -263,13 +263,13 @@ You create a namespace by using the `namespace` keyword, followed by the name of
 
 1. In the `TestTypescript` directory, create a new file named `NSFullMath.ts` and add the code in the file below. The `export` statement makes the function accessible outside of the namespace.
 
-    {{< file "NSFullMath.ts" >}}
+    ```file {title="NSFullMath.ts"}
 namespace IntMath {
     export function DoIntAdd(Input1: number, Input2: number): number {
         return Math.floor(Input1) + Math.floor(Input2);
     }
    }
-    {{</ file >}}
+    ```
 
 1. Compile the example code:
 
@@ -277,11 +277,11 @@ namespace IntMath {
 
 1. Create a new file named `TestNamespace.ts` and add the following code:
 
-    {{< file "TestNamespace.ts" >}}
+    ```file {title="TestNamespace.ts"}
 /// <reference path="/TestTypescript/NSFullMath.ts" />
 
 console.log("5 + 2 = ", IntMath.DoIntAdd(5.1, 2.4));
-    {{</ file >}}
+    ```
 
     Notice the reference to the file containing the namespace. This is different from the normal module importing method. When working with namespaces, you need to ensure that you use the format displayed above.
 
@@ -303,7 +303,7 @@ console.log("5 + 2 = ", IntMath.DoIntAdd(5.1, 2.4));
 
 1. When the compilation process completes, open the resulting `TestNamespace.js` file. Notice the difference between a namespace and a module.
 
-    {{< file "TestNamespace.js" >}}
+    ```file {title="TestNamespace.js"}
 var IntMath;
 (function (IntMath) {
     function DoIntAdd(Input1, Input2) {
@@ -313,7 +313,7 @@ var IntMath;
 })(IntMath || (IntMath = {}));
 /// <reference path="/TSC/NSFullMath.ts" />
 console.log("5 + 2 = ", IntMath.DoIntAdd(5.1, 2.4));
-    {{</ file >}}
+    ```
 
     The code from the namespace file is compiled directly as part of the `TestNamespace.js` file. Even though the code is in separate files, the result isn’t. Compare this output to a module version of the same code.
 

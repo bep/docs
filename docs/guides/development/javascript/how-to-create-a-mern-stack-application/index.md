@@ -163,7 +163,7 @@ You can create a tiny application which receives a request from a web browser, c
 
 1.  Create `demonstration/server/index.js` with this content:
 
-    {{< file "demonstration/server/index.js" javascript >}}
+    ```file {title="demonstration/server/index.js"}
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -194,11 +194,11 @@ app.use((req, res, next) => {
   app.listen(port, () => {
     console.log(`Server runs on port ${port}.`);
   });
-{{</ file >}}
+```
 
 2.  Create `demonstration/routes/api.js` with this content:
 
-    {{< file "demonstration/routes/api.js" javascript >}}
+    ```file {title="demonstration/routes/api.js"}
 const express = require('express');
 const router = express.Router();
 
@@ -221,11 +221,11 @@ router.get('/record', (req, res, next) => {
   });
 })
 module.exports = router;
-{{</ file >}}
+```
 
 3.  Create `demonstration/server/server.js` with this content:
 
-    {{< file "demonstration/server/server.js" javascript >}}
+    ```file {title="demonstration/server/server.js"}
 const express = require("express");
 const app = express();
 const cors = require("cors");
@@ -243,7 +243,7 @@ app.listen(port, () => {
   });
   console.log(`Server is running on port: ${port}`);
 });
-{{</ file >}}
+```
 
 ### Verify your application
 

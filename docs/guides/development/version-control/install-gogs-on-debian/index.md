@@ -178,7 +178,7 @@ We will use nginx as the reverse proxy for Gogs, so we can access Gogs using our
 
 3.  Set nginx as the reverse proxy for Gogs. Using `sudo`, create a new file named `/etc/nginx/sites-available/gogs`, and set the content as shown below:
 
-    {{< file "/etc/nginx/sites-available/gogs" nginx >}}
+    ```file {title="/etc/nginx/sites-available/gogs"}
 server {
     listen 80;
     server_name example.com;
@@ -198,7 +198,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 4.  Activate the reverse proxy:
@@ -216,7 +216,7 @@ In this section we will set up Gogs to run automatically on boot by creating a s
 
 1.  Using `sudo`, create `/etc/systemd/system/gogs.service`:
 
-    {{< file "/etc/systemd/system/gogs.service" ini >}}
+    ```file {title="/etc/systemd/system/gogs.service"}
 [Unit]
 Description=Gogs (Go Git Service)
 After=syslog.target
@@ -236,7 +236,7 @@ Environment=USER=git HOME=/home/git
 [Install]
 WantedBy=multi-user.target
 
-{{< /file >}}
+```
 
 
 2.  Enable the systemd unit file:
@@ -305,7 +305,7 @@ The Gogs site is still accessible over unsecured HTTP via `http://example.com:30
 
 2.  Open the configuration file `custom/conf/app.ini`. Add a new configuration value `HTTP_ADDR` under the `[server]` section. The section should look like this:
 
-    {{< file "/home/git/go/src/github.com/gogs/gogs/custom/conf/app.ini" ini >}}
+    ```file {title="/home/git/go/src/github.com/gogs/gogs/custom/conf/app.ini"}
 [server]
 DOMAIN = example.com
 HTTP_ADDR = 127.0.0.1
@@ -315,7 +315,7 @@ DISABLE_SSH = false
 SSH_PORT = 22
 OFFLINE_MODE = false
 
-{{< /file >}}
+```
 
 
 4.  Logout from user `git`:

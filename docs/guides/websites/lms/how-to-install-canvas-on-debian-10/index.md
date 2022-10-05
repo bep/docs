@@ -195,7 +195,7 @@ Canvas specifically requires version **2.6** of Ruby, which the default package 
 
 1. Using your preferred text editor, open the database configuration file, `/var/canvas/config/database.yml`. Modify the `username` and `password` fields in the `production` section to match the `canvas` PostgreSQL user you created.
 
-    {{< file "/var/canvas/config/database.yml" >}}
+    ```file {title="/var/canvas/config/database.yml"}
 production:
   adapter: postgresql
   encoding: utf8
@@ -204,15 +204,15 @@ production:
   username: canvas
   password: password
   timeout: 5000
-    {{< /file >}}
+    ```
 
 1. Open the domain configuration file, `/var/canvas/config/domain.yml`. Modify the `domain` field in the `production` section to match your server's domain name.
 
-    {{< file "/var/canvas/config/domain.yml" >}}
+    ```file {title="/var/canvas/config/domain.yml"}
 production:
   domain: "example.com"
   ssl: true
-    {{< /file >}}
+    ```
 
 1. Open the outgoing mail configuration file, `/var/canvas/config/outgoing_mail.yml`. Locate the production section, and complete it as follows:
 
@@ -224,7 +224,7 @@ production:
 
    - In the `default_name` field, enter a name to be used by default on emails sent from Canvas.
 
-    {{< file "var/canvas/config/outgoing_mail.yml" >}}
+    ```file {title="var/canvas/config/outgoing_mail.yml"}
 production:
   address: "http://smtp.mailgun.org/"
   port: "587"
@@ -234,7 +234,7 @@ production:
   domain: "example.com"
   outgoing_address: "canvas@example.com"
   default_name: "Example Canvas"
-    {{< /file >}}
+    ```
 
 1. Open the security configuration file, `/var/canvas/config/security.yml`. Enter a random string of 20 or more characters into the `encryption_key` field.
 
@@ -297,7 +297,7 @@ production:
 
 1. Using your preferred text editor, create and open a new configuration file, `/etc/apache2/sites-available/canvas.conf`. Enter the following as the file's content. Replace `example@example-email.com` with the email address for the system administrator.
 
-    {{< file "/etc/apache2/sites-available/canvas.conf" >}}
+    ```file {title="/etc/apache2/sites-available/canvas.conf"}
 <VirtualHost *:80>
   ServerName example.com
   ServerAlias example.com
@@ -335,17 +335,17 @@ production:
     Require all granted
   </Directory>
 </VirtualHost>
-    {{< /file >}}
+    ```
 
 1. Open the Passenger configuration file, `/etc/apache2/mods-available/passenger.conf`. Add a `PassengerDefaultUser` line, and make its value the username of the user you used to set up Canvas. This is `example-user` in the following example:
 
-    {{< file "/etc/apache2/mods-available/passenger.conf" >}}
+    ```file {title="/etc/apache2/mods-available/passenger.conf"}
 <IfModule mod_passenger.c>
   PassengerRoot /usr/lib/ruby/vendor_ruby/phusion_passenger/locations.ini
   PassengerDefaultRuby /usr/bin/passenger_free_ruby
   PassengerDefaultUser example-user
 </IfModule>
-    {{< /file >}}
+    ```
 
     {{< note >}}
 Canvas has a relatively long startup time, which can sometimes lead to timeout issues. You can add a version of the following line to the **`passenger.conf`** file to increase the time before Canvas times out at startup. This example increases the amount of time before the Passenger times out from the default 60 seconds up to 180 seconds.
@@ -401,10 +401,10 @@ By default, your Canvas site uses self-signed SSL certificates. The following st
 
 1. Open the `/etc/apache2/sites-available/canvas.conf` file again, and modify the `SSL` lines as follows:
 
-    {{< file "/etc/apache2/sites-available/canvas.conf" >}}
+    ```file {title="/etc/apache2/sites-available/canvas.conf"}
 SSLCertificateFile /etc/letsencrypt/live/example.com/fullchain.pem
 SSLCertificateKeyFile /etc/letsencrypt/live/example.com/privkey.pem
-    {{< /file >}}
+    ```
 
 1. Restart the Apache server.
 
@@ -424,14 +424,14 @@ Canvas has caching disabled by default, but you can optionally configure it to u
 
 1. Using your preferred text editor, open the `cache_store.yml` file, and set `redis_store` as the `cache_store` for `development`, `test`, and `production`. The configuration file should resemble the following:
 
-    {{< file "/var/canvas/config/cache_store.yml" >}}
+    ```file {title="/var/canvas/config/cache_store.yml"}
 development:
   cache_store: redis_store
 test:
   cache_store: redis_store
 production:
   cache_store: redis_store
-    {{< /file >}}
+    ```
 
 1. Copy the example Redis configuration file.
 
@@ -439,11 +439,11 @@ production:
 
 1. Open the `redis.yml` file. Add a `production` section like the following by entering the server location for Redis. If you are running Redis on the same machine as Canvas, this should be `redis://localhost`, as in the following example:
 
-    {{< file "/var/canvas/config/redis.yml" >}}
+    ```file {title="/var/canvas/config/redis.yml"}
 production:
   servers:
     - redis://localhost
-    {{< /file >}}
+    ```
 
 1. Once again assign ownership of the configuration files to the current user and limit them to read access.
 

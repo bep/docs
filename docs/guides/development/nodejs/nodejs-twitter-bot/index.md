@@ -164,12 +164,12 @@ After your developer account has been registered, you can create an app within t
 
 1. Create a file named `.env` inside your code repository on your workstation. Paste the following snippet into the file.
 
-    {{< file ".env" >}}
+    ```file {title=".env"}
 consumer_key=
 consumer_secret=
 access_token=
 access_token_secret=
-{{< /file >}}
+```
 
     Later in this section, the keys that are provided by the Twitter developer portal are recorded in this file. Your `.env` file serves as your one source of truth for these keys. The `.gitignore` for your project excludes the `.env` file from source control, so you won’t accidentally upload your keys to GitHub.
 
@@ -330,35 +330,35 @@ Before we can start adding our code, we should adjust a few parts of the `packag
 
 1. Currently, the `scripts` section of your `package.json` should look like:
 
-    {{< file "package.json" javascript >}}
+    ```file {title="package.json"}
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-{{< /file >}}
+```
 
     The `scripts` section contains commands that can be used to invoke your project. For more information about this part of `package.json`, see the [`scripts` reference](https://docs.npmjs.com/cli/v7/using-npm/scripts) in the npm documentation.
 
     Open this file and modify the `scripts` section to look like the following snippet:
 
-    {{< file "package.json" javascript >}}
+    ```file {title="package.json"}
   "scripts": {
     "test": "snes.js",
     "start": "node ./snes.js",
     "develop": "NODE_ENV=develop node snes.js"
   },
-{{< /file >}}
+```
 
 1. Scroll to the `main` section of the same file. This should currently look like:
 
-    {{< file "package.json" javascript >}}
+    ```file {title="package.json"}
   "main": "index.js",
-{{< /file >}}
+```
 
     Update this line so that it instead says:
 
-    {{< file "package.json" javascript >}}
+    ```file {title="package.json"}
   "main": "snes.js",
-{{< /file >}}
+```
 
 1. These changes reference an `snes.js` file that doesn’t exist yet. Create an empty placeholder file with this name in your code repository. The [`touch` command](https://en.wikipedia.org/wiki/Touch_(command)) can do this from your terminal (or you can just create the empty file with your text editor):
 
@@ -376,7 +376,7 @@ Your Node.js project is now prepared for the Twitter bot application code. Open 
 
 Copy and paste this snippet into `snes.js`. After copying and pasting, **make sure to replace the `@SnesSoundtracks` string on line 3 with your own Twitter username**:
 
-{{< file "snes.js" javascript >}}
+```file {title="snes.js"}
 console.log("SNES Soundtracks booting up");
 
 const twitterUsername = '@SnesSoundtracks';
@@ -408,7 +408,7 @@ var soundtrackArray = [
     "https://www.youtube.com/watch?v=wpchBo75N68", // Super Mario RPG: Legend of the Seven Stars
   ];
 var soundtrackArrayLength = soundtrackArray.length;
-{{< /file >}}
+```
 
 Here's what the code does:
 
@@ -430,7 +430,7 @@ Documentation for this method of scheduling is found in the [Recurrence Rule Sch
 
 1. Append this snippet to the bottom of `snes.js`:
 
-    {{< file "snes.js" javascript >}}
+    ```file {title="snes.js"}
 // ... append to bottom of file:
 
 // Create a Twitter client object to connect to the Twitter API
@@ -447,7 +447,7 @@ var stream = T.stream('statuses/filter', { track: twitterUsername });
 // Now looking for Tweet events
 // See: https://dev.Twitter.com/streaming/userstreams
 stream.on('tweet', pressStart);
-{{< /file >}}
+```
 
     We start using Twit in this section of code:
 
@@ -469,14 +469,14 @@ stream.on('tweet', pressStart);
 
 1. In your code repository, make a file named `config.js` and paste this snippet into it:
 
-    {{< file "config.js" javascript >}}
+    ```file {title="config.js"}
 module.exports = {
   consumer_key: process.env.consumer_key,
   consumer_secret: process.env.consumer_secret,
   access_token: process.env.access_token,
   access_token_secret: process.env.access_token_secret,
 };
-{{< /file >}}
+```
 
     This file exports an object that matches the configuration object accepted by the constructor function in the `twit` module. Specifically, `twit` expects a configuration object with the following form, as described in [the `twit` README on GitHub](https://github.com/ttezel/twit#var-t--new-twitconfig):
 
@@ -495,7 +495,7 @@ module.exports = {
 
 Append this snippet to the bottom of `snes.js`:
 
-{{< file "snes.js" javascript >}}
+```file {title="snes.js"}
 // ... append to bottom of file:
 
 function pressStart(tweet) {
@@ -538,7 +538,7 @@ function pressStart(tweet) {
     }
   };
 }
-{{< /file >}}
+```
 
 This section of code defines a `pressStart` function that's called when another Twitter user mentions the bot. It contains a few local variables, a bit of logic, and another callback function that must be included in the `T.post` method:
 
@@ -580,7 +580,7 @@ Where the `gameOver` function is passed to `T.post`, you could use an anonymous 
 
 Append this snippet to the bottom of `snes.js`:
 
-{{< file "snes.js" javascript >}}
+```file {title="snes.js"}
 // ... append to bottom of file:
 
 function pressSelect() {
@@ -604,7 +604,7 @@ function pressSelect() {
 }
 
 const job1 = schedule.scheduleJob(rule, pressSelect);
-{{< /file >}}
+```
 
 This section of code defines a `pressSelect` function that sends new Tweets with a link to a soundtrack. It then schedules the function to be called periodically:
 
@@ -779,13 +779,13 @@ At this point, the bot is running, and if you wait long enough, then it should s
 
 1. Comment out the last line of the code in `snes.js` and call `pressSelect` directly:
 
-    {{< file "snes.js" javascript >}}
+    ```file {title="snes.js"}
 // ... modify end of file as follows:
 
 // const job1 = schedule.scheduleJob(rule, pressSelect);
 
 pressSelect();
-{{< /file >}}
+```
 
     By doing this, the tweeting function runs immediately, and you don’t have to wait until the next scheduled Tweet.
 
@@ -1026,12 +1026,12 @@ Error: Twit config must include `consumer_key` when using user auth.
 
 This Twit error about your `consumer_key` means there may be a syntax error in your `.env` file. In your `.env`, ensure there are no spaces between the variable, equals sign, and key itself in your .env file. As an example, here's what your `.env` might look like when correctly formatted (your keys are different):
 
-{{< file ".env" >}}
+```file {title=".env"}
 consumer_key=rA8yWhr4ZnuWoKGDmmdbhF4Su
 consumer_secret=BVMRjkQRTzlkBRC8qVZQKkWsEIEzPE9XAV1egY2D86yrQqadXH
 access_token=1399573085406306304-PkDdzGOQu6ikxbwbhpmsLoP4W87jaE
 access_token_secret=gf6ohLUT06RqcvfB4H6qQRZstcc6UgkouszIiLxHLGtGj
-{{< /file >}}
+```
 
 If the error persists after correcting any syntax issues, you may have copied your keys incorrectly. Review the [Troubleshooting Twitter Error 401 Unauthorized](#troubleshooting-twitter-error-401-unauthorized) section for further guidance.
 

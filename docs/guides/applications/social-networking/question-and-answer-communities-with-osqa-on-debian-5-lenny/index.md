@@ -110,18 +110,18 @@ To configure OSQA, copy the `settings_local.py.dist` file inside of the `/srv/ww
 
 Edit the newly created `/srv/www/example.com/osqa/settings_local.py` and set the following values to correspond to the database and database credentials that you have created.
 
-{{< file "settings\\_local.py" python >}}
+```file {title="settings\\_local.py"}
 DATABASE_NAME = 'osqa'                  # Or path to database file if using sqlite3.
 DATABASE_USER = 'username'                # Not used with sqlite3.
 DATABASE_PASSWORD = '5t1ck'             # Not used with sqlite3.
 DATABASE_ENGINE = 'mysql'               # mysql, ext.
 
-{{< /file >}}
+```
 
 
 The majority of OSQA's features can be controlled from within the application itself. However, there are some options that can only be controlled from within the `setings_local.py` file. Consider the following settings, which you may need to modify to suit the needs of your application:
 
-{{< file "settings\\_local.py" python >}}
+```file {title="settings\\_local.py"}
 DEBUG=False                             # set to True to enable debug mode
 
 SERVER_EMAIL = ''
@@ -152,7 +152,7 @@ LOGIN_URL = '/%s%s%s' % (FORUM_SCRIPT_ALIAS,'account/','signin/')
 DJANGO_VERSION = 1.1                    # must be either 1.0 or 1.1
 RESOURCE_REVISION=4                     # increment when you update media files - clients will be forced to load new version
 
-{{< /file >}}
+```
 
 
 ### Application Deployment
@@ -182,7 +182,7 @@ Alias /static /srv/www/example.com/public_html/static
 
 Now create the required `django.wsgi` file, as specified:
 
-{{< file "/srv/www/example.com/osqa/django.wsgi" python >}}
+```file {title="/srv/www/example.com/osqa/django.wsgi"}
 import os
 import sys
 
@@ -194,7 +194,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
 
-{{< /file >}}
+```
 
 
 After the application has been configured, issue the following commands to properly initialize the database:

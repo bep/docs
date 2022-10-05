@@ -65,7 +65,7 @@ In this section, we will take a closer look at SaltStack's `timezone-formula`, w
 
 1. Take a look at the contents of the `init.sls` file that defines the timezone state:
 
-    {{< file "timezone/init.sls" >}}
+    ```file {title="timezone/init.sls"}
 # This state configures the timezone.
 
 {%- set timezone = salt['pillar.get']('timezone:name', 'Europe/Berlin') %}
@@ -88,7 +88,7 @@ timezone_symlink:
     - force: true
     - require:
       - pkg: {{ confmap.pkgname }}
-    {{</ file >}}
+    ```
 
     Salt will interpret the name of this file as `timezone`, since any `init.sls` file in a subdirectory is referred to by the path of the directory.
 
@@ -102,7 +102,7 @@ timezone_symlink:
 
 1. Next, inspect the `map.jinja` file:
 
-      {{< file "timezone/map.jinja" >}}
+      ```file {title="timezone/map.jinja"}
 {% import_yaml "timezone/defaults.yaml" as defaults %}
 {% import_yaml "timezone/osfamilymap.yaml" as osfamilymap %}
 
@@ -118,36 +118,36 @@ timezone_symlink:
                                 default=defaults,
                                 merge=True,
                                 ) %}
-      {{</ file >}}
+      ```
 
       The `map.jinja` file allows the formula to abstract static defaults into a dictionary that contains platform specific data. The two main dictionaries are defined in the repository's `timezone/defaults.yaml` and `timezone/osfamilymap.yaml` files. The `defaults.yml` file serves as a base dictionary containing values shared by all OSes, while the `osfamilymap.yml` file stores any values that are different from the base values. Any file throughout the formula could make use of these dictionary values by importing the `map.jinja` file. In addition, any dictionary values can be overridden in a Pillar file. Overidding dictionary values will be discussed in the [Modify Your SaltStack Formula](#modify-your-saltstack-formula) section.
 
 1.  Open the `timezone/defaults.yaml` file and the `timezone/osfamilymap,yaml` file to view the data stored in those files:
 
-      {{< file "timezone/defaults.yaml" >}}
+      ```file {title="timezone/defaults.yaml"}
     path_localtime: /etc/localtime
     path_zoneinfo: /usr/share/zoneinfo/
     pkgname: tzdata
-      {{</ file >}}
+      ```
 
-      {{< file "timezone/osfamilymap.yaml" >}}
+      ```file {title="timezone/osfamilymap.yaml"}
     Suse:
       pkgname: timezone
     FreeBSD:
       pkgname: zoneinfo
     Gentoo:
       pkgname: sys-libs/timezone-data
-      {{</ file >}}
+      ```
 
       The values defined in these YAML files are used in the `init.sls` file.
 
 1.  Open the `pillar.example` file to review its contents:
 
-      {{< file "pillar.example" >}}
+      ```file {title="pillar.example"}
   timezone:
     name: 'Europe/Berlin'
     utc: True
-      {{</ file >}}
+      ```
 
     This file provides an example for you to use when creating your own Pillar file on the Salt master. The `init.sls` file uses the values for `name` and `utc` in its `timezone_setting` state declaration. The value for `name` will set the time zone for your minion. The boolean value for `utc` determines whether or not to set the minion's hardware clock to UTC.
 
@@ -220,7 +220,7 @@ When structuring Pillar data, Salt's official documentation states that it is a 
 
 1. Open the `init.sls` file in a text editor and modify its `timezone` and `utc` variable statements to match the example file:
 
-      {{< file "timezone/init.sls">}}
+      ```file {title="timezone/init.sls"}
 # This state configures the timezone.
 
 {%- set timezone = salt['pillar.get']('timezone:lookup:name', 'Europe/Berlin') %}
@@ -243,7 +243,7 @@ timezone_symlink:
     - force: true
     - require:
       - pkg: {{ confmap.pkgname }}
-      {{</ file >}}
+      ```
 
     The `init.sls` file now expects a second-level lookup key when retrieving the specified Pillar values. Following this convention will make it easier to override dictionary values in your Pillar file. You will create a Pillar file in the [Installing a Salt Formula](#installing-a-salt-formula) section of this guide.
 
@@ -330,26 +330,26 @@ GitFs allows Salt to serve files directly from remote git repositories. This is 
 
 1. Edit the Salt master configuration file to use GitFs as a fileserver backend. Make sure the lines listed below are uncommented in your master configuration file:
 
-      {{< file "/etc/salt/master" >}}
+      ```file {title="/etc/salt/master"}
 fileserver_backend:
   - gitfs
   - roots
-{{</ file >}}
+```
 
     When using multiple backends, you should list all backends in the order you want them to be searched. `roots` is the fileserver backend used to serve files from any of the master's directories listed in the `file_roots` configuration.
 
 1. In the same Salt master configuration file, add the location of your timezone formula's GitHub repository. Ensure you have uncommented `gitfs_remote`:
 
-      {{< file "/etc/salt/master" >}}
+      ```file {title="/etc/salt/master"}
 gitfs_remotes:
   - https://github.com/git-username/timezone-formula.git
-{{</ file >}}
+```
 
 1. Uncomment the gitfs_provider declaration and set its value to gitpython:
 
-    {{< file "/etc/salt/master" >}}
+    ```file {title="/etc/salt/master"}
 gitfs_provider: gitpython
-{{</ file >}}
+```
 
 1. Restart the Salt master to apply the new configurations:
 
@@ -367,11 +367,11 @@ To include your timezone formula in your Salt state tree, you must add it to you
 
 2. Add the `timezone` state declared in the `timezone-formula` to your top file:
 
-    {{< file "/srv/salt/top.sls" >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - timezone
-    {{</ file >}}
+    ```
 
     The example Top file declares one environment, the `base` environment that targets all minions and applies the `timezone` state to them. This top file could easily contain several states that already exist in your state tree, like an `apache` state, a `wordpress` state, etc., and several environments that target different minions. Any Salt formula can be easily dropped-in to the top file and will be applied to the targeted minions the next time you run a highstate.
 
@@ -383,7 +383,7 @@ base:
 
 1. Create a Pillar file to store the data that will be used by your timezone formula:
 
-    {{< file "/srv/pillar/timezone.sls" >}}
+    ```file {title="/srv/pillar/timezone.sls"}
 timezone:
   lookup:
     {%- if grains['os_family'] == 'Debian' %}
@@ -392,13 +392,13 @@ timezone:
     name: 'Europe/Berlin'
     {%- endif %}
     utc: True
-    {{</ file >}}
+    ```
 
     The `timezone.sls` Pillar file was created from the `pillar.example` file provided in the SaltStack timezone formula. The example was modified to add Jinja control statements that will assign a different timezone on any minion that is a Debian family OS. You can replace any of the timezone `name` values to your preferred timezone or add additional Jinja logic, if necessary. For an introduction to Jinja, read the [Introduction to Jinja Templates for Salt](/docs/applications/configuration-management/introduction-to-jinja-templates-for-salt).
 
     You can also override any of the dictionary values defined in the `timezone/defaults.yaml` or `timezone/osfamilymap.yaml` in the Pillar file using Salt's lookup dictionary convention. For example, if you wanted to override the `pkgname` value defined in `timezone/defaults.yaml` your Pillar file might look like the following example:
 
-    {{< file "/srv/pillar/timezone.sls" >}}
+    ```file {title="/srv/pillar/timezone.sls"}
 timezone:
   lookup:
     {%- if grains['os_family'] == 'Debian' %}
@@ -408,32 +408,32 @@ timezone:
     {%- endif %}
     utc: True
     pkgname: timezone
-    {{</ file >}}
+    ```
 
 1. If you cloned the timezone-formula to your master instead of adding the formula as a GitFS remote, add the timezone-formula's directory to the Salt master's `file_roots` configuration:
 
-    {{< file "/etc/salt/master">}}
+    ```file {title="/etc/salt/master"}
 file_roots:
   base:
     - /srv/salt/
     - /srv/formulas/timezone-formula
-    {{</ file >}}
+    ```
 
 1. Add the Pillar to the Pillar's top file:
 
-    {{< file "/srv/pillar/top.sls" >}}
+    ```file {title="/srv/pillar/top.sls"}
 base:
   '*':
     - timezone
-    {{</ file >}}
+    ```
 
 1. Configure the location of the Pillar file:
 
-    {{< file "/etc/salt/master">}}
+    ```file {title="/etc/salt/master"}
 pillar_roots:
   base:
     - /srv/pillar
-    {{</ file >}}
+    ```
 
 1. Restart the Salt master for the new configurations to take effect on the Salt master:
 

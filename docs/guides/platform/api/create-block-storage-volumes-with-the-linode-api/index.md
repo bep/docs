@@ -99,9 +99,9 @@ The API can't directly mount the new Volume after it is attached. SSH into the L
 
 4.  To automatically mount the Volume every time your Linode boots, add the following line to your `/etc/fstab` file:
 
-    {{< file "/etc/fstab" >}}
+    ```file {title="/etc/fstab"}
 $volume_path /mnt/my-volume defaults 0 2
-{{< /file >}}
+```
 
 ## Attach and Detach the Volume
 

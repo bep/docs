@@ -149,10 +149,10 @@ FFmpeg provides a mechanism to concatenate, or join, several media files into on
 
 1. Create a `join.txt` file containing the full path of all the files to join. Each file must be preceded by the keyword `file` and listed on a separate line. Do not add any empty lines between the entries.
 
-    {{< file "join.txt" aconf >}}
+    ```file {title="join.txt"}
 file dir/file1.mov
 file dir/file2.mov
-    {{< /file >}}
+    ```
 1. Use the `concat` filter to join the files. Specify the `join.txt` file as the input file. The following command appends `file2.mov` to the end of `file1.mov` and saves the resulting file as `concatenate.mov`.
 
         ffmpeg -f concat -i join.txt -c copy concatenate.mov

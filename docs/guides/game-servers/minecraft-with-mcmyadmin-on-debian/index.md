@@ -41,7 +41,7 @@ dedicated_cpu_link: true
 
     **IPv4**
 
-    {{< file "/tmp/v4" >}}
+    ```file {title="/tmp/v4"}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -73,7 +73,7 @@ dedicated_cpu_link: true
 -A FORWARD -j REJECT
 
 COMMIT
-{{< /file >}}
+```
 
     **IPv6**
 
@@ -81,7 +81,7 @@ COMMIT
 
     If you choose *not* to use IPv6 on your Minecraft server, then it needs only basic IPv6 firewall rules.
 
-    {{< file "/tmp/v6" >}}
+    ```file {title="/tmp/v6"}
 *filter
 
 # Allow all loopback (lo0) traffic and reject traffic
@@ -100,7 +100,7 @@ COMMIT
 -A FORWARD -j REJECT
 
 COMMIT
-{{< /file >}}
+```
 
 2. Import the rulesets into immediate use:
 

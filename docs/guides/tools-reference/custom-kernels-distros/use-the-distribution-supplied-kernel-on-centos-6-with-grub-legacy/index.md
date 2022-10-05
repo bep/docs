@@ -56,7 +56,7 @@ This guide is intended for Linodes running on our KVM hypervisor. For older Xen 
 
 4.  Create a file named `/boot/grub/menu.lst` with the following contents. Adjust the `kernel`, and `initrd` lines to reflect the actual file names found in the `/boot/` directory.
 
-    {{< file "/boot/grub/menu.lst" >}}
+    ```file {title="/boot/grub/menu.lst"}
 timeout 5
 title CentOS 6
   root (hd0)
@@ -64,7 +64,7 @@ title CentOS 6
   initrd /boot/initramfs-2.6.32-431.23.3.el6.x86_64.img
 
 
-{{< /file >}}
+```
 
 
 5.  In the Linode Manager, edit your Linode's [configuration profile](/docs/guides/linode-configuration-profiles#editing-a-configuration-profile) by selecting the **Grub (Legacy)** option within the *Kernel* drop-down menu.

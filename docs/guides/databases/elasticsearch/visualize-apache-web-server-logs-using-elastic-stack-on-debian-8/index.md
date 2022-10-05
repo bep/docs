@@ -105,11 +105,11 @@ Before configuring and loading log data, install each piece of the stack, indivi
 
 2.  Set the JVM heap size to approximately half of your server's available memory. For example, if your server has 1GB of RAM, change the `Xms` and `Xmx` values in the `/etc/elasticsearch/jvm.options` file to the following, and leave the other values in this file unchanged:
 
-    {{< file "/etc/elasticsearch/jvm.options" aconf >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m
 -Xmx512m
 
-{{< /file >}}
+```
 
 
 3.  Start and enable the `elasticsearch` service:
@@ -157,7 +157,7 @@ By default, Elasticsearch will create five shards and one replica for every inde
 
 1.  Create a temporary JSON file with an *index template* that instructs Elasticsearch to set the number of shards to one and number of replicas to zero for all matching index names (in this case, a wildcard `*`):
 
-    {{< file "template.json" json >}}
+    ```file {title="template.json"}
 {
   "template": "*",
   "settings": {
@@ -168,7 +168,7 @@ By default, Elasticsearch will create five shards and one replica for every inde
   }
 }
 
-{{< /file >}}
+```
 
 
 2.  Use `curl` to create an index template with these settings that'll be applied to all indices created hereafter:
@@ -185,7 +185,7 @@ In order to collect Apache access logs, Logstash must be configured to watch any
 
 1.  Create the following Logstash configuration:
 
-    {{< file "/etc/logstash/conf.d/apache.conf" aconf >}}
+    ```file {title="/etc/logstash/conf.d/apache.conf"}
 input {
   file {
     path => '/var/www/*/logs/access.log'
@@ -202,7 +202,7 @@ output {
   elasticsearch { }
 }
 
-{{< /file >}}
+```
 
 
 2.  Start and enable `logstash`:
@@ -215,11 +215,11 @@ output {
 
 1.  Open `/etc/kibana/kibana.yml`. Uncomment the following two lines and replace `localhost` with the public IP address of your Linode. If you have a firewall enabled on your server, make sure that the server accepts connections on port `5601`.
 
-    {{< file "/etc/kibana/kibana.yml" >}}
+    ```file {title="/etc/kibana/kibana.yml"}
 server.port: 5601
 server.host: "localhost"
 
-{{< /file >}}
+```
 
 
 2.  Enable and start the Kibana service:

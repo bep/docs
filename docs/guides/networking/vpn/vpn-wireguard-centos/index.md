@@ -101,7 +101,7 @@ Install a signed WireGuard Linux kernel module and the WireGuard tools.
 
 1. Create the file `/etc/wireguard/wg0.conf` with the following content. You need `PrivateKey` for the PrivateKey field and its private IP addresses in the `Address` field.
 
-    {{< file "/etc/wireguard/wg0.conf" >}}
+    ```file {title="/etc/wireguard/wg0.conf"}
 [Interface]
   PrivateKey = <Private Key>
   Address = 10.0.0.1/24, fd86:ea04:1115::1/64
@@ -109,7 +109,7 @@ Install a signed WireGuard Linux kernel module and the WireGuard tools.
   PostUp = iptables -A FORWARD -i wg0 -j ACCEPT; iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE; ip6tables -A FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
   PostDown = iptables -D FORWARD -i wg0 -j ACCEPT; iptables -t nat -D POSTROUTING -o eth0 -j MASQUERADE; ip6tables -D FORWARD -i wg0 -j ACCEPT; ip6tables -t nat -D POSTROUTING -o eth0 -j MASQUERADE
   SaveConfig = true
-    {{< /file >}}
+    ```
 
 Here's an explanation of the above configuration file:
 

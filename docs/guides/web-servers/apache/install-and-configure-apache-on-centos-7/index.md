@@ -77,7 +77,7 @@ By default, CentOS 7 is set to block web traffic. Run the following commands to 
 
 2.  Update the `httpd.conf` file with the document root directory in order to point Apache to the files of the website and also add the `<IfModule prefork.c>` section to adjust the resource use settings (these are a good starting point for a **Linode 2GB**)
 
-    {{< file "/etc/httpd/conf/httpd.conf" aconf >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 DocumentRoot "/var/www/html/example.com/public_html"
 
 ...
@@ -89,7 +89,7 @@ DocumentRoot "/var/www/html/example.com/public_html"
     MaxRequestWorkers   256
     MaxConnectionsPerChild 5500
 </IfModule>
-{{< /file >}}
+```
 
 {{< note >}}
 These settings may also be added to a separate file. The file must be located in either the `conf.module.d` or `conf` directories and must end in `.conf` (as this is the format of files included in the resulting configuration).
@@ -105,7 +105,7 @@ There are multiple ways to set up a virtual host, but this section explains and 
 
 2.  Edit `vhost.conf` using the following example. Remember to substitute the domain name for `example.com`.
 
-    {{< file "/etc/httpd/conf.d/vhost.conf" aconf >}}
+    ```file {title="/etc/httpd/conf.d/vhost.conf"}
 NameVirtualHost *:80
 
 <VirtualHost *:80>
@@ -117,7 +117,7 @@ NameVirtualHost *:80
     CustomLog /var/www/html/example.com/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 3.  Create the directories referenced in the previous step:
 

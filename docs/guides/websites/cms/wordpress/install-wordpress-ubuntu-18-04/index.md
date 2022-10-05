@@ -49,12 +49,12 @@ Replace each instance of `example.com` in this guide with the domain name or IP 
 
 -   If you are running NGINX, edit the `location /` block of the configuration to set `index.php` as an index for the site:
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ =404;
 }
-{{< /file >}}
+```
 
 -    If you are using Apache, run the following commands to ensure that `mod_rewrite` is enabled:
 
@@ -143,10 +143,10 @@ If WordPress doesn't display when you visit the domain, try adding `/wp-admin` t
 
 3.  By default, WordPress prompts you for FTP credentials when you install new themes or plugins. To bypass this, modify the `wp-config.php` file by adding the following lines:
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /** Bypass FTP */
 define('FS_METHOD', 'direct');
-{{< /file >}}
+```
 
 5.  To make changes to the site in the future, you can access the Dashboard of the WordPress site from the web interface by adding `/wp-admin` to the site's URL: `example.com/wp-admin`.
 
@@ -174,13 +174,13 @@ To configure permalink settings:
 
 Instruct Apache to allow individual sites to update the `.htaccess` file, by adding the following options to the *Directory* section in the virtual host configuration:
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <Directory /var/www/html/example.com/public_html>
     Options Indexes FollowSymLinks
     AllowOverride All
     Require all granted
 </Directory>
-{{< /file >}}
+```
 
 Reload Apache to enable the changes:
 
@@ -190,12 +190,12 @@ Reload Apache to enable the changes:
 
 Direct nginx to check whether each permalink refers to an existing page. By default, nginx assumes that it doesn't, and returns a server-side 404. Update the following lines in the `location / {` block in the virtual host configuration:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ /index.php?$args;
 }
-{{< /file >}}
+```
 
 Reload NGINX to enable the changes:
 
@@ -209,11 +209,11 @@ By default, PHP restricts web uploads to under two megabytes. To allow larger fi
 
 **NGINX**: `/etc/php/7.2/fpm/php.ini`
 
-{{< file "php.ini" >}}
+```file {title="php.ini"}
 ; Maximum allowed size for uploaded files.
 ; http://php.net/upload-max-filesize
 upload_max_filesize = 2M
-{{< /file >}}
+```
 
 ## Install Optional PHP Extensions
 

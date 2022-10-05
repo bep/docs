@@ -27,7 +27,7 @@ Web animations add dynamic graphics and effects to a web page. Movement on a web
 
 1. In your Angular project's root application module, enable the animations module by importing the `BrowserAnimationsModule` as shown in the following code:
 
-    {{< file "/home/username/example-app/src/app/app.module.ts" >}}
+    ```file {title="/home/username/example-app/src/app/app.module.ts"}
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -41,7 +41,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-    {{</ file >}}
+    ```
 
     The `bootstrap` key bootstraps the component that contains the majority of your animation code. You create this code in the next section.
 
@@ -53,7 +53,7 @@ The example Angular code used in this guide animates the transition between two 
 
 In your preferred text editor, open your Angular application's `/home/username/example-app/src/app/app.component.ts` file and add the `animations` metadata property to the declared component. The majority of the code used to animate the `<div>` element is contained in the `animations` metadata option.
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -64,17 +64,17 @@ In your preferred text editor, open your Angular application's `/home/username/e
   ]
 })
 ...
-    {{</ file >}}
+    ```
 
 The HTML that is animated is stored in the component's HTML template which is the `./app.component.html` file. You add the HTML code to this file in the next section.
 
 {{< note >}}
 Ensure that the top of your `app.component.ts` file includes the following import statements.
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 import { Component } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-{{< /file >}}
+```
 {{</ note >}}
 
 ### Create the Angular Component HTML Template
@@ -85,7 +85,7 @@ Your Angular project already contains a component HTML template file. The `app.c
 
 1. Add the example HTML template code as shown below:
 
-    {{< file "/home/username/example-app/src/app/app.component.html" >}}
+    ```file {title="/home/username/example-app/src/app/app.component.html"}
 
 <h1>Angular Animation Example</h1>
 
@@ -93,7 +93,7 @@ Your Angular project already contains a component HTML template file. The `app.c
   <h2>A Heading Contained in a Div</h2>
   <p>Click inside the Div to view the div's background color change using an Angular animation.</p>
 </div>
-    {{</ file >}}
+    ```
 
      The HTML template adds a `<div>` element that gets animated. For now, the `<div>` does not call any of the functionality that enables the `<div>` to be animated. You add this in the next section.
 
@@ -109,7 +109,7 @@ In this section, you add an Angular animation *trigger*. The trigger is used to 
 
 Open the component file and add the `trigger()` function to the `animations` metadata object.
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 @Component({
   selector: 'app-root',
   templateUrl: './div-animation.component.html',
@@ -121,7 +121,7 @@ Open the component file and add the `trigger()` function to the `animations` met
   ]
 })
 ...
-    {{</ file >}}
+    ```
 
 In the example above, `changeDivColor` is the animation trigger. This trigger can now be called in your Angular component template. You complete that step in one of the following sections. The next section shows you how to add animation states to your component.
 
@@ -131,7 +131,7 @@ Angular animation *states* specify the change that you want to apply during your
 
 Open the component file and add the two `state()` functions to the `changeDivColor` state of the `trigger()` function as shown below:
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 @Component({
   selector: 'app-root',
   templateUrl: './div-animation.component.html',
@@ -152,7 +152,7 @@ Open the component file and add the two `state()` functions to the `changeDivCol
   ]
 })
 ...
-    {{</ file >}}
+    ```
 
 The `state` functions assign a name to each state and provide their associated styles. The `start` state uses a background color of `green`, while the `end` state uses a background color of light green.
 
@@ -162,7 +162,7 @@ Now, you need to define the Angular animation's *transitions* from one state to 
 
 Open the component file and add the `transition()` function to the end of the `trigger()` function as shown below:
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 ...
 @Component({
   selector: 'app-root',
@@ -185,7 +185,7 @@ Open the component file and add the `transition()` function to the end of the `t
   ]
 })
 ...
-    {{</ file >}}
+    ```
 
 The updated code above creates a state-to-state transition. The first state transition goes from the `start` state to the `end` state, while the second transition does the opposite. This state transition allows you to toggle between both states each time a user clicks on the bound HTML element (the `<div>` element). The `transition()` function uses the `animate()` function to specify the timing for the transition.
 
@@ -195,7 +195,7 @@ Now that your animation is defined, you need to add a function that can detect t
 
 Add the following `toggleState()` function to your `AppComponent` class. The `AppComponent` class is located below the `@Component` decorator.
 
-{{< file "/home/username/example-app/src/app/app.component.ts" >}}
+```file {title="/home/username/example-app/src/app/app.component.ts"}
 ...
 export class AppComponent {
   title = 'example-app';
@@ -206,7 +206,7 @@ export class AppComponent {
     this.divState = this.divState === 'start' ? 'end' : 'start';
   }
 }
-    {{</ file >}}
+    ```
 
 The code above adds a `divState` variable that stores the current toggle state of the `<div>`. The `toggleState()` function uses a conditional ternary operator to update the value of `divState` depending on its current value.
 
@@ -218,14 +218,14 @@ In this section, you bind the animation trigger you created in the previous step
 
 1. Open your HTML component template and add the animation trigger to the `<div>`. You also add a `click` event that invokes the `toggleState()` function you added to the `AppComponent` class declaration.
 
-    {{< file "/home/username/example-app/src/app/app.component.html" >}}
+    ```file {title="/home/username/example-app/src/app/app.component.html"}
 <h1>The div element</h1>
 
 <div (click)="toggleState()" [@changeDivColor]=divState>
   <h2>This is a heading in a div element</h2>
   <p>This is some text in a div element.</p>
 </div>
-    {{</ file >}}
+    ```
 
     Notice that the `@changeDivColor` trigger binding is set to the value of the `divState` variable. This enables the `div` to begin in the `start` toggle state. You are now ready to view your animation.
 

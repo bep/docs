@@ -59,7 +59,7 @@ The next sections will illustrate core Terraform concepts with examples written 
 
 Here's a simple example of a complete Terraform configuration in HCL:
 
-{{< file "example.tf" >}}
+```file {title="example.tf"}
 terraform {
   required_providers {
     linode = {
@@ -81,7 +81,7 @@ resource "linode_instance" "example_instance" {
     authorized_keys = ["ssh-rsa AAAA...Gw== user@example.local"]
     root_pass = "your-root-password"
 }
-{{< /file >}}
+```
 
 {{< note >}}
 The SSH key in this example was truncated for brevity.
@@ -105,14 +105,14 @@ In Terraform, data sources represent read-only values that can be retrieved and 
 
 Data sources are accessed by declaring a `data` block which contains any required information. Once the data block has been declared, the data source provides access to a number of attributes which can be called on as part of the terraform configuration. In the example below, the `linode_account` data source is called on in the `data` block, and is used later in the `output` block to output the `email` attribute:
 
-{{< file "example.tf" >}}
+```file {title="example.tf"}
 ...
 data "linode_account" "account" {}
 
 output "linode_account_email" {
         value = "${data.linode_account.account.email}"
 }
-{{< /file >}}
+```
 
 ### Dependencies
 
@@ -120,7 +120,7 @@ Terraform resources can depend on each other. When one resource depends on anoth
 
 The following snippet expands on the previous example. It declares a new domain with an A record that targets the Linode instance's IP address:
 
-{{< file "example.tf" >}}
+```file {title="example.tf"}
 terraform {
 ...
 }
@@ -145,7 +145,7 @@ resource "linode_domain_record" "example_domain_record" {
     record_type = "A"
     target = linode_instance.example_instance.ip_address
 }
-{{< /file >}}
+```
 
 The domain record's `domain_id` and `target` arguments use HCL's [interpolation syntax](/docs/applications/configuration-management/introduction-to-hcl/#interpolation) to retrieve the ID of the domain resource and the IP of the Linode instance, respectively. Terraform creates an *implicit dependency* on the `example_instance` and `example_domain` resources for the `example_domain_record` resource. As a result, the domain record will not be created until after the Linode instance and the domain are created.
 
@@ -159,7 +159,7 @@ The previous example hard-coded sensitive data in your configuration, including 
 
 Input variables can also be used for non-sensitive data. The following example files will employ variables for the sensitive `token` and `root_pass` arguments and the non-sensitive `authorized_keys` and `region` arguments:
 
-{{< file "example.tf" >}}
+```file {title="example.tf"}
 terraform {
   required_providers {
     linode = {
@@ -188,13 +188,13 @@ variable "ssh_key" {}
 variable "region" {
   default = "us-southeast"
 }
-{{< /file >}}
+```
 
-{{< file "terraform.tfvars" >}}
+```file {title="terraform.tfvars"}
 token = "your-linode-api-token"
 root_pass = "your-root-password"
 ssh_key = "ssh-rsa AAAA...Gw== user@example.local"
-{{< /file >}}
+```
 
 {{< note >}}
 Place all of your Terraform project's files in the same directory. Terraform will automatically load input variable values from any file named `terraform.tfvars` or ending in `.auto.tfvars`.
@@ -242,7 +242,7 @@ In addition to resource declarations, Terraform configurations can include *prov
 
 The following example uploads a setup script to a newly created Linode instance and then executes it. This pattern can be used to bootstrap the new instance or enroll it in configuration management:
 
-{{< file "example.tf" >}}
+```file {title="example.tf"}
 resource "linode_instance" "example_instance" {
   # ...
 
@@ -265,7 +265,7 @@ resource "linode_instance" "example_instance" {
     ]
   }
 }
-{{< /file >}}
+```
 
 When a provisioner is assigned, it should also include the addition of a [connection block](https://www.terraform.io/docs/language/resources/provisioners/connection.html) nested within the resource block to describe how terraform will connect to the remote resource.
 

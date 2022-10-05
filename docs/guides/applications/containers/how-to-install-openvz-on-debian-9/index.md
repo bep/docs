@@ -90,7 +90,7 @@ Before OpenVZ can be installed, the system must be configured for compatibility.
 
 2. Create a new file in the directory designated below and name it *tune*. Copy and paste the text below into this new file and save:
 
-    {{< file "/etc/initramfs-tools/scripts/local-premount/tune" sh >}}
+    ```file {title="/etc/initramfs-tools/scripts/local-premount/tune"}
 #!/bin/sh
 
 if [ "$readonly" != "y" ] ;
@@ -101,7 +101,7 @@ e2fsck -f $Volume
 tune2fs -O -metadata_csum $Volume
 e2fsck -f $Volume
 
-{{< /file >}}
+```
 
 
 3. Update file properties and existing initramfs image to load the *tune* script:
@@ -137,23 +137,23 @@ Formatting a volume with the `mkfs` command may result in data loss.
 
 4. Create file `avoid-systemd` and paste in the contents below:
 
-    {{< file "/etc/apt/preferences.d/avoid-systemd" >}}
+    ```file {title="/etc/apt/preferences.d/avoid-systemd"}
 Package: *systemd*
 Pin: release *
 Pin-Priority: -1
 
-{{< /file >}}
+```
 
 
 ### Add OpenVZ Repository
 
 1. Create a new repository source file and paste in the contents below:
 
-    {{< file "/etc/apt/sources.list.d/openvz.list" sourceslist >}}
+    ```file {title="/etc/apt/sources.list.d/openvz.list"}
 deb http://download.openvz.org/debian jessie main
 deb http://download.openvz.org/debian wheezy main
 
-{{< /file >}}
+```
 
 
 2. Add the repository key to your system:
@@ -177,9 +177,9 @@ deb http://download.openvz.org/debian wheezy main
 
 3. Create file `vznet.conf` and paste in the line below:
 
-    {{< file "/etc/vz/vznet.conf" >}}
+    ```file {title="/etc/vz/vznet.conf"}
 EXTERNAL_SCRIPT="/usr/sbin/vznetaddbr"
-{{< /file >}}
+```
 
 
 4. This step is optional, and will cause OpenVZ virtual instances to stop when the OpenVZ service is stopped. If this behavior is desired, issue the command below.
@@ -196,7 +196,7 @@ The system must be configured to boot the OpenVZ kernel each time the server is 
 
 2. Within the `grub.cfg` file, look for a section resembling the following:
 
-    {{< file "/boot/grub/grub.cfg" cfg >}}
+    ```file {title="/boot/grub/grub.cfg"}
 . . .
 
 menuentry 'Debian GNU/Linux' --class debian --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-simple-e025e52b-91c4-4f64-962d-79f244caa92a' {
@@ -219,14 +219,14 @@ submenu 'Advanced options for Debian GNU/Linux' $menuentry_id_option 'gnulinux-a
 
 . . .
 
-{{< /file >}}
+```
 
 
        Copy the text entry preceeding `submenu`, in this example the text would be: **Advanced options for Debian GNU/Linux**.
 
 3. Within the `grub.cfg` file underneath the "submenu" line, you will see multiple indented "menuentry" sections. These represent the available kernels. From these, you need to locate the newly installed OpenVZ kernel menu entry. It should look similar to the content below. Note that some will be recovery kernels and should be ignored:
 
-    {{< file "/boot/grub/grub.cfg" cfg >}}
+    ```file {title="/boot/grub/grub.cfg"}
 . . .
 
     menuentry 'Debian GNU/Linux, with Linux 2.6.32-openvz-042stab123.9-amd64' --class debian --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-2.6.32-openvz-042stab123.9-amd64-advanced-e025e52b-91c4-4f64-962d-79f244caa92a' {
@@ -248,7 +248,7 @@ submenu 'Advanced options for Debian GNU/Linux' $menuentry_id_option 'gnulinux-a
 
 . . .
 
-{{< /file >}}
+```
 
 
          Again, write down the text directly after "menuentry" in single quotes. Here, the text to copy is **Debian GNU/Linux, with Linux 2.6.32-openvz-042stab123.9-amd64**.
@@ -286,9 +286,9 @@ submenu 'Advanced options for Debian GNU/Linux' $menuentry_id_option 'gnulinux-a
 
 3. Edit `/etc/vz/vz.conf` and change the following line to use `simfs` instead of `ploop`:
 
-    {{< file "/etc/vz/vz.conf" >}}
+    ```file {title="/etc/vz/vz.conf"}
 VE_LAYOUT=simfs
-{{< /file >}}
+```
 
 
 4. List available OS templates for download:
@@ -315,7 +315,7 @@ VE_LAYOUT=simfs
 
     You may also configure other options at your discretion, such as SWAP and RAM allocation. Save and close when finished.
 
-    {{< file "/etc/vz/conf/101.conf" >}}
+    ```file {title="/etc/vz/conf/101.conf"}
 . . .
 
 # RAM
@@ -342,7 +342,7 @@ NAMESERVER="8.8.8.8"
 IP_ADDRESS="192.168.0.101/24"
 HOSTNAME="centos-7"
 
-{{< /file >}}
+```
 
 
 9. Boot into your newly created container using the commands below. Replace [CTID] with your container's CTID number. To exit any container session while leaving the virtual environment running, type `exit` in the command line.

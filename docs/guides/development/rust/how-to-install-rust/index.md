@@ -81,11 +81,11 @@ rustc 1.50.0 (cb75ad5db 2021-02-10)
 
 1.  If the `version` command still does not work, manually add the `~/.cargo/bin` directory to the `PATH` variable in `~/.bashrc`. Source the `.bashrc` file and try the command again.
 
-    {{< file "~/.bashrc" >}}
+    ```file {title="~/.bashrc"}
 ...
 export PATH="$HOME/.cargo/bin:$PATH"
 ...
-    {{< /file >}}
+    ```
 
 {{< note >}}
 It is also possible to use Git to install Rust. Clone the [Rust GitHub repository](https://github.com/rust-lang/rustup) and run `cargo run --release`. See the `rustup` [installation page](https://rust-lang.github.io/rustup/installation/other.html) for more information.
@@ -126,11 +126,11 @@ As with most programming languages, it is easiest to learn the basics with a sim
 
     Consult [Rust's documentation](https://doc.rust-lang.org/rust-by-example/index.html) for further discussion of Rust's style conventions.
 
-    {{< file "~/projects/hello/hello.rs" rust >}}
+    ```file {title="~/projects/hello/hello.rs"}
 fn main() {
     println!("Hello, world!");
 }
-    {{< /file >}}
+    ```
 1.  Save and close the `hello.rs` file.
 
 1.  Compile the program using the `rustc` compiler. Provide the name of the file as an argument to `rustc`. This creates an executable named `hello`. The name of the executable is the name of the source file containing the `main` routine, minus the `.rs` extension.

@@ -34,7 +34,7 @@ This section provides an introductory description of Jinja syntax and concepts a
 
 Applications like Salt can define default behaviors for the Jinja templating engine. All examples in this guide use Salt's default Jinja environment options. These settings can be changed in the Salt master configuration file:
 
-{{< file "/etc/salt/master" yaml >}}
+```file {title="/etc/salt/master"}
 # Default Jinja environment options for all templates except sls templates
 #jinja_env:
 #  block_start_string: '{%'
@@ -62,7 +62,7 @@ Applications like Salt can define default behaviors for the Jinja templating eng
 #  line_comment_prefix:
 #  trim_blocks: False
 #  lstrip_blocks: False
-{{</ file >}}
+```
 
 {{< note >}}
 Before including Jinja in your Salt states, be sure to review the [Salt and Jinja Best Practices](#salt-and-jinja-best-practices) section of this guide to ensure that you are creating maintainable and readable Salt states. More advanced Salt tools and concepts can be used to improve the modularity and reusability of some of the Jinja and Salt state examples used throughout this guide.
@@ -80,7 +80,7 @@ Templating language delimiters are used to denote the boundary between the templ
 
 In this example Salt state file, you can differentiate the Jinja syntax from the YAML because of the `{% ... %}` delimiters surrounding the if/else conditionals:
 
-{{< file "/srv/salt/webserver/init.sls" yaml >}}
+```file {title="/srv/salt/webserver/init.sls"}
 {% if grains['group'] == 'admin' %}
     America/Denver:
         timezone.system:
@@ -88,7 +88,7 @@ In this example Salt state file, you can differentiate the Jinja syntax from the
     Europe/Minsk:
         timezone.system:
 {% endif %}
-{{</ file >}}
+```
 
 See the [control structures](#control-structures) section for more information on conditionals.
 
@@ -178,7 +178,7 @@ These chained filters will return a recursive list of all the files in the `/etc
 
 Macros are small, reusable templates that help you to minimize repetition when creating states. Define macros within Jinja templates to represent frequently used constructs and then reuse the macros in state files.
 
-{{< file "/srv/salt/mysql/db_macro.sls" jinja >}}
+```file {title="/srv/salt/mysql/db_macro.sls"}
 {% macro mysql_privs(user, grant=select, database, host=localhost) %}
 {{ user }}_exampledb:
    mysql_grants.present:
@@ -187,13 +187,13 @@ Macros are small, reusable templates that help you to minimize repetition when c
     - user: {{user}}
     - host: {{ host }}
 {% endmacro %}
-{{</ file >}}
+```
 
-{{< file "db_privs.sls" yaml >}}
+```file {title="db_privs.sls"}
 {% import "/srv/salt/mysql/db_macro.sls" as db -%}
 
 db.mysql_privs('jane','exampledb.*','select,insert,update')
-{{</ file >}}
+```
 
 The `mysql_privs()` macro is defined in the `db_macro.sls` file. The template is then imported to the `db` variable in the `db_privs.sls` state file and is used to create a MySQL `grants` state for a specific user.
 
@@ -219,12 +219,12 @@ This import targets the macro `mysql_privs` defined within the `user.sls` state 
 
 The `{% include %}` tag renders the output of another template into the position where the include tag is declared. When using the `{% include %}` tag the context of the included template is passed to the invoking template.
 
-{{< file "/srv/salt/webserver/webserver_users.sls" >}}
+```file {title="/srv/salt/webserver/webserver_users.sls"}
 include:
   - groups
 
 {% include 'users.sls' %}
-{{</ file >}}
+```
 
 {{< note >}}
 A file referenced by the Jinja `include` tag needs to be specified by its [absolute path from Salt's `file_roots` setting](https://github.com/saltstack/salt/issues/15863#issuecomment-57823633); using a relative path from the current state file will generate an error. To include a file in the same directory as the current state file:
@@ -272,7 +272,7 @@ Jinja provides control structures common to many programming languages such as l
 
 For loops allow you to iterate through a list of items and execute the same code or configuration for each item in the list. Loops provide a way to reduce repetition within Salt states.
 
-{{< file "/srv/salt/users.sls" yaml >}}
+```file {title="/srv/salt/users.sls"}
 {% set groups = ['sudo','wheel', 'admins'] %}
 include:
   - groups
@@ -288,7 +288,7 @@ jane:
     {%- for group in groups %}
       - {{ group }}
     {%- endfor -%}
-{{</ file >}}
+```
 
 The previous for loop will assign the user `jane` to all the groups in the `groups` list set at the top of the `users.sls` file.
 
@@ -296,7 +296,7 @@ The previous for loop will assign the user `jane` to all the groups in the `grou
 
 A conditional expression evaluates to either `True` or `False` and controls the flow of a program based on the result of the evaluated boolean expression. Jinja's conditional expressions are prefixed with `if`/`elif`/`else` and placed within the `{% ... %}` delimiter.
 
-{{< file "/srv/salt/users.sls" yaml >}}
+```file {title="/srv/salt/users.sls"}
 {% set users = ['anna','juan','genaro','mirza'] %}
 {% set admin_users = ['genaro','mirza'] %}
 {% set admin_groups = ['sudo','wheel', 'admins'] %}
@@ -323,7 +323,7 @@ include:
     {% endfor %}
 {%- endif -%}
 {% endfor %}
-{{</ file >}}
+```
 
 In this example the presence of a user within the `admin_users` list determines which groups are set for that user in the state. Refer to the [Salt Best Practices](#salt-and-jinja-best-practices) section for more information on using conditionals and control flow statements within state files.
 
@@ -333,7 +333,7 @@ With template inheritance you can define a base template that can be reused by c
 
 Use the `{% block block_name %}` tag with a block name to define an area of a base template that can be overridden.
 
-{{< file "/srv/salt/users.jinja" >}}
+```file {title="/srv/salt/users.jinja"}
 {% block user %}jane{% endblock %}:
   user.present:
     - fullname: {% block fullname %}{% endblock %}
@@ -343,18 +343,18 @@ Use the `{% block block_name %}` tag with a block name to define an area of a ba
     - uid: 4000
     - groups:
       - sudo
-{{</ file >}}
+```
 
 This example creates a base user state template. Any value containing a `{% block %}` tag can be overridden by a child template with its own value.
 
 To use a base template within a child template, use the `{% extends "base.sls"%}` tag with the location of the base template file.
 
-{{< file "/srv/salt/webserver_users.sls" yaml >}}
+```file {title="/srv/salt/webserver_users.sls"}
 {% extends "/srv/salt/users.jinja" %}
 
 {% block fullname %}{{ salt['pillar.get']('jane:fullname', '') }}{% endblock %}
 {% block home_dir %}{{ salt['pillar.get']('jane:home_dir', 'jane') }}{% endblock %}
-{{</ file >}}
+```
 
 The `webserver_users.sls` state file extends the `users.jinja` template and defines values for the `fullname` and `home_dir` blocks. The values are generated using the [`salt` context variable](#template-variables) and pillar data. The rest of the state will be rendered as the parent `user.jinja` template has defined it.
 

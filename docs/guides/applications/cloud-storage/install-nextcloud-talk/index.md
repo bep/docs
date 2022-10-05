@@ -80,7 +80,7 @@ The basic Nextcloud Docker image is already configured for persistent data in th
 
 1.  In a text editor, create `docker-compose.yaml` and add the following configuration (from the [Nextcloud Github repo](https://github.com/nextcloud/docker)). Fill in the `MYSQL_ROOT_PASSWORD` and `MYSQL_PASSWORD` with suitable values.
 
-    {{< file "docker-compose.yaml" yaml >}}
+    ```file {title="docker-compose.yaml"}
   version: '2'
 
   volumes:
@@ -108,7 +108,7 @@ The basic Nextcloud Docker image is already configured for persistent data in th
       volumes:
         - nextcloud:/var/www/html
       restart: always
-{{< /file >}}
+```
 
 2.  If it is still running, stop the container from the previous section using `docker stop` and the container name or ID.
 

@@ -77,7 +77,7 @@ This section covers installing the keepalived software from your distribution's 
 If configuring IP failover on a VLAN IP, you likely need to change the *interface* value from `eth0` to `eth1`. See the **interface** item under [Configuration Options](#configuration-options) for help finding the Network Interface your VLAN may be using.
 {{</ note >}}
 
-    {{< file "/etc/keepalived/keepalived.conf" >}}
+    ```file {title="/etc/keepalived/keepalived.conf"}
 vrrp_instance Instance1 {
     state MASTER
     interface eth0
@@ -92,7 +92,7 @@ vrrp_instance Instance1 {
         192.0.2.1
     }
 }
-{{</ file >}}
+```
 
 1.  Enable and start the keepalived service.
 

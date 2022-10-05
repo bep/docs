@@ -235,7 +235,7 @@ To set up your own Vault server, you need to begin by setting up a configuration
         sudo nano config.hcl
 
 1. Add the following contents to the `config.hcl` file. Ensure that you replace `<LinodeIPaddress>` with the IP address of the Linode server and save the file.
-{{< file "config.hcl">}}
+```file {title="config.hcl"}
 storage "raft" {
   path    = "./vault/data"
   node_id = "node1"
@@ -251,7 +251,7 @@ disable_mlock = true
 api_addr = "http://127.0.0.1:8200"
 cluster_addr = "https://127.0.0.1:8201"
 ui = true
-{{< /file >}}
+```
   Where:
     - `disable_mlock` - By default, Vault uses `mlock()` to lock its process memory pages, preventing them from being swapped to disk. You should always strive to have it enabled (it is enabled by default) as described in production hardening when operating Vault in production. However, this option is not supported on certain platforms like macOS or Windows, so for this to be a most portable and useful example, it disables `mlock()`.
 
@@ -337,7 +337,7 @@ Access in Vault is set up and managed by access policies that are configured to 
 
 1. Modify the default policy to allow any users assigned to this policy permissions to access a particular path. in the UI go to **Policies** and click *default*.
 
-    {{< file "default.hcl">}}
+    ```file {title="default.hcl"}
 path"alexis-passwords/*"{
     capabilities = ["create","update","read"]
 }
@@ -355,7 +355,7 @@ path "auth/token/renew-self" {
 path "auth/token/revoke-self" {
     capabilities = ["update"]
 }
-{{< /file >}}
+```
 
 
 1. Add the vault address environment variable to the client by running the following command:

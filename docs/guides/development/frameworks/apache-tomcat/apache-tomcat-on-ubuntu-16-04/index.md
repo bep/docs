@@ -80,12 +80,12 @@ To use the `tomcat8-admin` web application, add the following lines to the end o
 
 If you are not using the web application and plan to manage your application(s) from the command line only, you should not enter these lines, because doing so may expose your server to unauthorized login attempts.
 
-{{< file "/var/lib/tomcat8/conf/tomcat-users.xml" xml >}}
+```file {title="/var/lib/tomcat8/conf/tomcat-users.xml"}
 <role rolename="manager-gui"/>
 <role rolename="admin-gui"/>
 <user username="username" password="password" roles="manager-gui,admin-gui"/>
 
-{{< /file >}}
+```
 
 
 Restart the Tomcat server, which will allow these changes to take effect:

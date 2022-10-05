@@ -57,14 +57,14 @@ Using a JSON file to load [Airflow variables](https://airflow.apache.org/docs/st
 
 1. Using a text editor, create a new JSON file to store key-value pairs of any values you need to reuse in your DAGs. The example file includes connection information for a MySQL database.
 
-    {{< file "~/example_vars.json">}}
+    ```file {title="~/example_vars.json"}
 {
     "my_prod_db": "dbname",
     "my_prod_db_user": "username",
     "my_prod_db_pass": "securepassword",
     "my_prod_db_uri": "mysql://192.0.2.0:3306/"
 }
-    {{</ file >}}
+    ```
 
 
 1. Issue the following command to load all your variables. Replace the path with the location of your `example_vars.json` file.
@@ -90,13 +90,13 @@ The Airflow CLI can be used to create your [Connections](https://airflow.apache.
 
 1. Create a new file named `connection.sh`. Replace the values with your own values or expand on the script to create the Connections required by your DAGs.
 
-    {{< file "connection.sh">}}
+    ```file {title="connection.sh"}
 #!/usr/bin/env bash
 
 airflow connections -d --conn_id db_conn
 
 airflow connections -a --conn_id db_conn --conn_type mysql --conn_host 'mysql://192.0.2.0:3306/' --conn_schema 'dbname' --conn_login 'username' --conn_port '3306' --conn_password 'securepassword'
-    {{</ file >}}
+    ```
 
     The third line of the script deletes any connections that the script may have created previously to maintain [*idempotency*](https://en.wikipedia.org/wiki/Idempotence). This means your script can be run as many times as desired with the same expected result.
 

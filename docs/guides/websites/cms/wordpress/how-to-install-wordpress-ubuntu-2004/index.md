@@ -73,12 +73,12 @@ To satisfy these requirements, you can set up a LAMP (Linux, Apache, MySQL, and 
 
     - Add `index.php` to the `location /` block of your site's configuration file.
 
-        {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+        ```file {title="/etc/nginx/sites-available/example.com"}
 location / {
     index index.php index.html index.htm;
     try_files $uri $uri/ =404;
 }
-        {{< /file >}}
+        ```
 
     - Unlink the default configuration file.
 
@@ -148,10 +148,10 @@ FLUSH PRIVILEGES;
 
 1. By default, WordPress attempts to use FTP credentials to install themes and plug-ins. Bypass this by adding the following lines to the `public/wp-config.php` file.
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 /** Bypass FTP */
 define('FS_METHOD', 'direct');
-    {{< /file >}}
+    ```
 
     ![WordPress's default, "Hello, World!" post.](wordpress-default-post.png)
 

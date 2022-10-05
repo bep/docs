@@ -32,7 +32,7 @@ The examples in this guide use a web browser's developer tools to view the DOM a
 
 Most of this guide's examples are based on an example web page created from the HTML source code displayed below. To follow along with this guide's example, [view the rendered example web page](example-page.html) in your browser.
 
-{{< file "example-page.html" html >}}
+```file {title="example-page.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +51,7 @@ Most of this guide's examples are based on an example web page created from the 
         </div>
     </body>
 </html>
-{{< /file >}}
+```
 
 ## Understanding the DOM Tree
 

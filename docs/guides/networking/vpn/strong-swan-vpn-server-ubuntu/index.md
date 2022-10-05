@@ -93,19 +93,19 @@ At the end of this section, you should have generated the following files on you
 
     Use your preferred text editor to edit your `/etc/sysctl.conf` file. The configurations to add enable packet forwarding for IPsec and StrongSwan on your Ubuntu system. Ensure the configurations displayed below are uncommented.
 
-    {{< file "/etc/sysctl.conf" >}}
+    ```file {title="/etc/sysctl.conf"}
 
 net.ipv4.ip_forward=1
 net.ipv6.conf.all.forwarding=1
 net.ipv4.conf.all.accept_redirects = 0
 net.ipv6.conf.all.accept_redirects = 0
-    {{</ file >}}
+    ```
 
 1. Configure the StrongSwan file. Open your `/etc/ipsec.conf` file and add the configurations included in the example file below.
 
     Within the context of StrongSwan, the gateway host server (your Ubuntu server) is referred to as *left* resources. External hosts connecting to the StrongSwan VPN are referred to as *right* resources.
 
-    {{< file "/etc/ipsec.conf" >}}
+    ```file {title="/etc/ipsec.conf"}
 config setup
         charondebug="ike 1, knl 1, cfg 0, net 1"
         strictcrlpolicy=no
@@ -135,7 +135,7 @@ conn ipsec-ikev2-vpn
       eap_identity=%identity
       ike=chacha20poly1305-sha512-curve25519-prfsha512,aes256gcm16-sha384-prfsha384-ecp384,aes256-sha1-modp1024,aes128-sha1-modp1024,3des-sha1-modp1024!
       esp=chacha20poly1305-sha512,aes256gcm16-ecp384,aes256-sha256,aes256-sha1,3des-sha1!
-    {{</ file >}}
+    ```
 
     - The `leftid` configuration matches the tunneled network assets that are exposed to VPN clients. A route through this subnet must be reachable if a local resolver is used to access resources.
 
@@ -149,11 +149,11 @@ conn ipsec-ikev2-vpn
 
     Using a text editor, create a the `/etc/ipsec.secrets` file with the following contents:
 
-    {{< file "/etc/ipsec.secrets" >}}
+    ```file {title="/etc/ipsec.secrets"}
 : RSA "/etc/ipsec.d/private/server.key.pem"
 username : EAP "<user’s password>"
 another_username : EAP "<user’s password>"
-    {{</ file >}}
+    ```
 
     {{< note >}}
 Make sure that you use unique usernames each time you add a new user to the access secrets file.
@@ -183,9 +183,9 @@ StrongSwan should be installed on Linux systems using Ubuntu 16.04. Older versio
 
 1. Add the IPsec secrets file to the StrongSwan client. Using a text editor, add the `/etc/ipsec.secrets` file. The credentials for this user must exactly match those created on the StrongSwan VPN server.
 
-    {{< file "/etc/ipsec.secrets" >}}
+    ```file {title="/etc/ipsec.secrets"}
 <username> : "<password>"
-    {{</ file >}}
+    ```
 
     If the username or password are changed in the StrongSwan VPN server, then the client's secret file must be updated as well.
 
@@ -193,7 +193,7 @@ StrongSwan should be installed on Linux systems using Ubuntu 16.04. Older versio
 
     **Resolver/DNS**
 
-    {{< file "/etc/ipsec.conf" >}}
+    ```file {title="/etc/ipsec.conf"}
 config setup
 conn ikev2-rw
     right=<qualified domain name and can also be left blank>
@@ -205,11 +205,11 @@ conn ikev2-rw
     leftauth=eap-mschapv2
     eap_identity=%identity
     auto=start
-    {{</ file >}}
+    ```
 
     **Server IPv4 Address**
 
-    {{< file "/etc/ipsec.conf" >}}
+    ```file {title="/etc/ipsec.conf"}
 config setup
 conn ikev2-rw
     right=<IP address of the host VPN>
@@ -221,7 +221,7 @@ conn ikev2-rw
     leftauth=eap-mschapv2
     eap_identity=%identity
     auto=start
-    {{</ file >}}
+    ```
 
 1. To start the StrongSwan client VPN, use the following command:
 

@@ -108,7 +108,7 @@ Consult our guide to configure this using [SFTP jails on Debian or Ubuntu](/docs
 
 1.  Change the `sftp` subsystem line and add a `Match Group sftpOnly` section in `sshd_config`:
 
-    {{< file "/etc/ssh/sshd_config" >}}
+    ```file {title="/etc/ssh/sshd_config"}
 ...
 Subsystem sftp internal-sftp
 ...
@@ -117,7 +117,7 @@ Match Group sftpOnly
     X11Forwarding no
     AllowTcpForwarding no
     ForceCommand internal-sftp
-{{< /file >}}
+```
 
 1.  Create an `sftpOnly` group that will only have SFTP access:
 
@@ -310,7 +310,7 @@ If you are only trying to change a WordPress user's login information, see the [
 
 1.  Edit your site's `wp-config.php` to reflect the changes:
 
-    {{< file "/var/www/html/example.com/public_html/wp-config.php" php >}}
+    ```file {title="/var/www/html/example.com/public_html/wp-config.php"}
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'wordpress');
@@ -323,4 +323,4 @@ define('DB_PASSWORD', 'newPassword');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
-{{< /file >}}
+```

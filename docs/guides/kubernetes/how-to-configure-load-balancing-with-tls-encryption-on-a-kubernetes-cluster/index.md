@@ -65,7 +65,7 @@ Each example manifest file creates three Pods to serve the application.
 
 1.  Using a text editor, create a new file named `hello-one.yaml` with the contents of the example file.
 
-      {{< file "hello-one.yaml">}}
+      ```file {title="hello-one.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -97,11 +97,11 @@ spec:
         image: nginxdemos/hello
         ports:
         - containerPort: 80
-{{</ file >}}
+```
 
 1.  Create a second Service and Deployment manifest file named `hello-two.yaml` with the contents of the example file.
 
-      {{< file "hello-two.yaml">}}
+      ```file {title="hello-two.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -133,7 +133,7 @@ spec:
         image: nginxdemos/hello
         ports:
         - containerPort: 80
-{{</ file>}}
+```
 
 1.  Use kubectl to create the Services and Deployments for your example applications.
 
@@ -280,7 +280,7 @@ You should wait until all cert-manager pods are ready and running prior to proce
 
 1.  Create a manifest file named `acme-issuer-prod.yaml` that will be used to create a ClusterIssuer resource on your cluster. Ensure you replace `user@example.com` with your own email address.
 
-      {{< file "acme-issuer-prod.yaml">}}
+      ```file {title="acme-issuer-prod.yaml"}
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
@@ -295,7 +295,7 @@ spec:
     - http01:
         ingress:
           class: nginx
-{{</ file >}}
+```
 
     - This manifest file creates a ClusterIssuer resource that will register an account on an ACME server. The value of `spec.acme.server` designates Let's Encrypt's production ACME server, which should be trusted by most browsers.
 
@@ -322,7 +322,7 @@ clusterissuer.cert-manager.io/letsencrypt-prod created
 
 1.  Create an Ingress resource manifest file named `hello-app-ingress.yaml`. If you assigned a different name to your ClusterIssuer, ensure you replace `letsencrypt-prod` with the name you used. Replace all `hosts` and `host` values with your own application's domain name.
 
-    {{< file "hello-app-ingress.yaml" >}}
+    ```file {title="hello-app-ingress.yaml"}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -357,7 +357,7 @@ spec:
             name: hello-two
             port:
               number: 80
-{{</ file >}}
+```
 
     This resource defines how traffic coming from the Linode NodeBalancers is handled. In this case, NGINX will accept these connections over port 80, diverting traffic to both of your services via their domain names. The `tls` section of the Ingress resource manifest handles routing HTTPS traffic to the hostnames that are defined.
 

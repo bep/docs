@@ -86,7 +86,7 @@ To create your third data set, you will use a Perl script that categorizes the c
 
 1. Create a file named `command_length.pl` in your home directory with the following content:
 
-    {{< file "~/command_length.pl" perl >}}
+    ```file {title="~/command_length.pl"}
 #!/usr/bin/perl -w
 
 use strict;
@@ -149,7 +149,7 @@ sub check_category {
     elsif ( $length <= 15 ) { $CAT4 ++; }
     else { $CAT5 ++; }
 }
-    {{< /file >}}
+    ```
 
 1. Run the Perl script. The script expects a single argument; the directory that holds all data files that you want to process. The file's output will be saved in a new file `command_categories.txt`. The `command_categories.txt` file will be used later in this guide to create visualizations using R.
 
@@ -163,14 +163,14 @@ Your Perl script must be executable in order to run. To add these permissions, e
 
     Open the `.command_categories.txt` file to view the categorizations created by your Perl script. Your file should resemble the following example:
 
-    {{< file "command_categories.txt">}}
+    ```file {title="command_categories.txt"}
 "Category Name" "Number of Times"
 Category1 5514
 Category2 2381
 Category3 2624
 Category4 2021
 Category5 11055
-    {{</ file >}}
+    ```
 
 You now have three sources of data that you can use to explore data visualization tools in the next sections.
 
@@ -228,7 +228,7 @@ Word clouds depict text data using varying font sizes and colors to visually dem
 
 1. Create a file named `create_wordcloud.py` in your home directory with the following content:
 
-    {{< file "~/create_wordcloud.py" python >}}
+    ```file {title="~/create_wordcloud.py"}
 #!/usr/bin/env python3
 
 import pandas as pd
@@ -265,7 +265,7 @@ if os.path.exists(path):
 
 else:
     print("File" + path +  "does not exist")
-    {{< /file >}}
+    ```
 
 1. Run your Python script and pass the path of one of your data set files as an argument. The script will read the contents of the file using panda's `read_table()` function and convert it into a data frame with a column name of `CMD`. It will then use the data in the `CMD` column to create a concatenated string representation of the data that can be passed to wordcloud to generate a `.png` wordcloud image.
 
@@ -292,7 +292,7 @@ To convert your data set into JSON, you will create a [Golang](https://golang.or
 
 1. Create a file named `cToJSON.go` in your home directory with the following content:
 
-    {{< file "./cToJSON.go" go >}}
+    ```file {title="./cToJSON.go"}
 package main
 
 import (
@@ -384,7 +384,7 @@ func main() {
     }
     fmt.Println("];")
 }
-    {{< /file >}}
+    ```
 
     - The utility expects file paths to your Bash and Zsh data sets as arguments.
     - It will then read the files and find the 10 most popular commands and output it as JSON formatted data.
@@ -419,7 +419,7 @@ func main() {
 In this example, your JSON data is hardcoded in `pieChart.html` for simplicity. Web browser security constraints restrict how a document or script loaded from one origin can interact with a resource from another origin. However, you may consider using the [d3-fetch module](https://github.com/d3/d3-fetch/blob/v1.1.2/README.md#json) to fetch your JSON data from a specific URL.
     {{</ note >}}
 
-      {{< file "~/pieChart.html" javascript >}}
+      ```file {title="~/pieChart.html"}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -524,7 +524,7 @@ In this example, your JSON data is hardcoded in `pieChart.html` for simplicity. 
                   .attr("d", arc);
   </script>
 </html>
-{{< /file >}}
+```
 
 1. Navigate to your preferred browser and enter the HTML file's absolute path to view the pie chart. For a macOS user that has stored the HTML file in their home directory, the path would resemble the following: `/Users/username/pieChart.html`
 

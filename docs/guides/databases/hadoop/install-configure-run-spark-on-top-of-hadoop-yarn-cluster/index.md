@@ -64,15 +64,15 @@ Spark binaries are available from the [Apache Spark download page](https://spark
 
     **For Debian/Ubuntu systems:**
 
-    {{< file "/home/hadoop/.profile" shell >}}
+    ```file {title="/home/hadoop/.profile"}
 PATH=/home/hadoop/spark/bin:$PATH
-{{< /file >}}
+```
 
     **For RedHat/Fedora/CentOS systems:**
 
-    {{< file "/home/hadoop/.profile" shell >}}
+    ```file {title="/home/hadoop/.profile"}
 pathmunge /home/hadoop/spark/bin
-{{< /file >}}
+```
 
 ## Integrate Spark with YARN
 
@@ -80,11 +80,11 @@ To communicate with the YARN Resource Manager, Spark needs to be aware of your H
 
 1.  Edit the *hadoop* user profile `/home/hadoop/.profile` and add the following lines:
 
-    {{< file "/home/hadoop/.profile" shell >}}
+    ```file {title="/home/hadoop/.profile"}
 export HADOOP_CONF_DIR=/home/hadoop/hadoop/etc/hadoop
 export SPARK_HOME=/home/hadoop/spark
 export LD_LIBRARY_PATH=/home/hadoop/hadoop/lib/native:$LD_LIBRARY_PATH
-{{< /file >}}
+```
 
 2. Restart your session by logging out and logging in again.
 
@@ -94,9 +94,9 @@ export LD_LIBRARY_PATH=/home/hadoop/hadoop/lib/native:$LD_LIBRARY_PATH
 
 4. Edit `$SPARK_HOME/conf/spark-defaults.conf` and set `spark.master` to `yarn`:
 
-    {{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+    ```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.master    yarn
-{{< /file >}}
+```
 
 Spark is now ready to interact with your YARN cluster.
 
@@ -141,9 +141,9 @@ In cluster mode, the Spark Driver runs inside YARN Application Master. The amoun
 
   - Set the default amount of memory allocated to Spark Driver in cluster mode via `spark.driver.memory` (this value defaults to `1G`). To set it to `512MB`, edit the file:
 
-    {{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+    ```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.driver.memory    512m
-{{< /file >}}
+```
 
 **From the Command Line**
 
@@ -159,9 +159,9 @@ In client mode, the Spark driver will not run on the cluster, so the above confi
 
 Set the amount of memory allocated to Application Master in client mode with `spark.yarn.am.memory` (default to `512M`)
 
-{{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.yarn.am.memory    512m
-{{< /file >}}
+```
 
 This value can not be set from the command line.
 
@@ -180,9 +180,9 @@ Example: for `spark.executor.memory` of 1Gb , the required memory is 1024+384=14
 
 To set executor memory to `512MB`, edit `$SPARK_HOME/conf/spark-defaults.conf` and add the following line:
 
-{{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.executor.memory          512m
-{{< /file >}}
+```
 
 ## How to Submit a Spark Application to the YARN Cluster
 
@@ -206,10 +206,10 @@ Spark provides a History Server that collects application logs from HDFS and dis
 
 1.  Edit `$SPARK_HOME/conf/spark-defaults.conf` and add the following lines to enable Spark jobs to log in HDFS:
 
-    {{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+    ```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.eventLog.enabled  true
 spark.eventLog.dir hdfs://node-master:9000/spark-logs
-{{< /file >}}
+```
 
 2.  Create the log directory in HDFS:
 
@@ -217,12 +217,12 @@ spark.eventLog.dir hdfs://node-master:9000/spark-logs
 
 3.  Configure History Server related properties in `$SPARK_HOME/conf/spark-defaults.conf`:
 
-    {{< file "$SPARK_HOME/conf/spark-defaults.conf" conf >}}
+    ```file {title="$SPARK_HOME/conf/spark-defaults.conf"}
 spark.history.provider            org.apache.spark.deploy.history.FsHistoryProvider
 spark.history.fs.logDirectory     hdfs://node-master:9000/spark-logs
 spark.history.fs.update.interval  10s
 spark.history.ui.port             18080
-{{< /file>}}
+```
 
     You may want to use a different update interval than the default `10s`. If you specify a bigger interval, you will have some delay between what you see in the History Server and the real time status of your application. If you use a shorter interval, you will increase I/O on the HDFS.
 

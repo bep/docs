@@ -95,7 +95,7 @@ This guide also provides instructions for configuring local emails, which are no
 
 1. Using your preferred text editor, open the Nagios commands configuration file, located at `/etc/nagios4/objects/commands.cfg`. Identify the command definitions for `notify-host-by-email` and `notify-service-by-email`. For each, verify that the location of the `mail` binary is `/usr/bin/mail`, as in the following example:
 
-    {{< file "/etc/nagios4/objects/commands.cfg" >}}
+    ```file {title="/etc/nagios4/objects/commands.cfg"}
 
 # 'notify-host-by-email' command definition
 
@@ -110,7 +110,7 @@ define command{
         command_name    notify-service-by-email
         command_line    /usr/bin/printf "%b" "***** Nagios *****\n\nNotification Type: $NOTIFICATIONTYPE$\n\nService: $SERVICEDESC$\nHost: $HOSTALIAS$\nAddress: $HOSTADDRESS$\nState: $SERVICESTATE$\n\nDate/Time: $LONGDATETIME$\n\nAdditional Info:\n\n$SERVICEOUTPUT$\n" | /usr/bin/mail -s "** $NOTIFICATIONTYPE$ Service Alert: $HOSTALIAS$/$SERVICEDESC$ is $SERVICESTATE$ **" $CONTACTEMAIL$
         }
-    {{< /file >}}
+    ```
 
 1. Open the Nagios `contacts.cfg` configuration file, located at `/etc/nagios4/objects/contacts.cfg`. Identify the `nagiosadmin` contact definition. In the email field, enter the email address where you would like to receive Nagios notifications.
 
@@ -118,9 +118,9 @@ define command{
 
 1. Open the Nagios `templates.cfg` configuration file, located at `/etc/nagios/objects/templates.cfg`. Find the `generic-host` definition, and ensure that it has the following line:
 
-    {{< file "/etc/nagios4/objects/templates.cfg" >}}
+    ```file {title="/etc/nagios4/objects/templates.cfg"}
 contact_groups      admins
-    {{< /file >}}
+    ```
 
     Similarly, find the `generic-service` definition, and ensure that the same line is present.
 

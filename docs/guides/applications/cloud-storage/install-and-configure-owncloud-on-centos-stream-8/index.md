@@ -193,7 +193,7 @@ Apache requires a [virtual host configuration file](https://httpd.apache.org/doc
 
 1. Paste the following text into the new file. Replace mentions of `example.com` with your own domain name or your [Linode's IP Address](/docs/guides/find-your-linodes-ip-address/):
 
-{{< file "/etc/httpd/conf.d/owncloud.conf">}}
+```file {title="/etc/httpd/conf.d/owncloud.conf"}
 Alias /owncloud "/var/www/html/owncloud/"
 <Directory /var/www/html/owncloud/>
   Options +FollowSymlinks
@@ -207,7 +207,7 @@ Alias /owncloud "/var/www/html/owncloud/"
  SetEnv HTTP_HOME /var/www/html/owncloud
 
 </Directory>
-{{</ file >}}
+```
 
 1. Save and close the file by typing **Ctrl + O** and then, **Ctrl + X**:
 

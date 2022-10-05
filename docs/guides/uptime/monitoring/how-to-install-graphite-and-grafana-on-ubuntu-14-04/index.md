@@ -57,7 +57,7 @@ external_resources:
 
     The retention times given below will save data every 5 seconds for 3 hours, and a separate set of data from that aggregated sample every 1 minute for 1 day.
 
-    {{< file "/etc/carbon/storage-schemas.conf" >}}
+    ```file {title="/etc/carbon/storage-schemas.conf"}
 [carbon]
 pattern = ^carbon\.
 retentions = 60:90d
@@ -69,7 +69,7 @@ retentions = 5s:3h,1m:1d
 [default_1min_for_1day]
 pattern = .*
 retentions = 60s:1d
-{{< /file >}}
+```
 
 
     For more information on how to configure Carbon storage, see the section [storage-schemas.conf](http://graphite.readthedocs.org/en/latest/config-carbon.html#storage-schemas-conf) in Graphite's documentation.
@@ -82,9 +82,9 @@ retentions = 60s:1d
 
 3.  Enable Carbon's cache to run on boot:
 
-    {{< file "/etc/default/graphite-carbon" >}}
+    ```file {title="/etc/default/graphite-carbon"}
 CARBON_CACHE_ENABLED=true
-{{< /file >}}
+```
 
 
 4.  Start the Carbon cache service:
@@ -116,7 +116,7 @@ CARBON_CACHE_ENABLED=true
 
 1.  Update Graphite's `DATABASES` dictionary definition with the settings for the PostgreSQL database created earlier:
 
-    {{< file "/etc/graphite/local_settings.py" py >}}
+    ```file {title="/etc/graphite/local_settings.py"}
 DATABASES = {
     'default': {
         'NAME': 'graphite',
@@ -127,16 +127,16 @@ DATABASES = {
         'PORT': ''
         }
     }
-{{< /file >}}
+```
 
 
 2.  Also add the following lines to the end of the file:
 
-    {{< file "/etc/graphite/local_settings.py" py >}}
+    ```file {title="/etc/graphite/local_settings.py"}
 USE_REMOTE_USER_AUTHENTICATION = True
 TIME_ZONE = 'Your/Timezone'
 SECRET_KEY = 'somelonganduniquesecretstring'
-{{< /file >}}
+```
 
 
     *   TIME_ZONE is your Linode's time zone, which will be used in graphs. For possible values, run `timedatectl` or see the *TZ* column in [Wikipedia's timezone database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
@@ -158,17 +158,17 @@ SECRET_KEY = 'somelonganduniquesecretstring'
 
 2.  Change Graphite's port from 80 to 8080 (port 80 will be used for Grafana later).
 
-    {{< file "/etc/apache2/sites-available/apache2-graphite.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/apache2-graphite.conf"}
 <VirtualHost *:8080>
-{{< /file >}}
+```
 
 
 3.  Make sure Apache is listening on port 8080. Add `Listen 8080` after `Listen 80` in `ports.conf`:
 
-    {{< file "/etc/apache2/ports.conf" aconf >}}
+    ```file {title="/etc/apache2/ports.conf"}
 Listen 80
 Listen 8080
-{{< /file >}}
+```
 
 
 4.  Disable the default Apache site to avoid conflicts:
@@ -213,7 +213,7 @@ Listen 8080
 
 4.  Configure Grafana to use the PostgreSQL database created earlier:
 
-    {{< file "/etc/grafana/grafana.ini" ini >}}
+    ```file {title="/etc/grafana/grafana.ini"}
 [database]
 # Either "mysql", "postgres" or "sqlite3", it's your choice
 type = postgres
@@ -221,12 +221,12 @@ host = 127.0.0.1:5432
 name = grafana
 user = graphite
 password = graphiteuserpassword
-{{< /file >}}
+```
 
 
 5.  Also in `/etc/grafana/grafana.ini`, configure the `domain` and `root_url`, and set a strong admin password and secret key:
 
-    {{< file "/etc/grafana/grafana.ini" ini >}}
+    ```file {title="/etc/grafana/grafana.ini"}
 [server]
 protocol = http
 http_addr = 127.0.0.1
@@ -239,7 +239,7 @@ root_url = %(protocol)s://%(domain)s/
 admin_user = admin
 admin_password = SecureAdminPass
 secret_key = somelongrandomstringkey
-{{< /file >}}
+```
 
 
 6.  Enable proxy modules for Apache reverse proxying to work:
@@ -248,14 +248,14 @@ secret_key = somelongrandomstringkey
 
 7.  Create an Apache site configuration file to proxy requests to Grafana. Remember to change `example.com` to your own domain:
 
-    {{< file "/etc/apache2/sites-available/apache2-grafana.conf" aconf >}}
+    ```file {title="/etc/apache2/sites-available/apache2-grafana.conf"}
 <VirtualHost *:80>
     ProxyPreserveHost On
     ProxyPass / http://127.0.0.1:3000/
     ProxyPassReverse / http://127.0.0.1:3000/
     ServerName example.com
 </VirtualHost>
-{{< /file >}}
+```
 
 
 7.  Enable Grafana's site configuration with:

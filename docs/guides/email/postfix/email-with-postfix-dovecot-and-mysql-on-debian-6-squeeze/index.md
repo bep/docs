@@ -274,11 +274,11 @@ This completes configuration for `saslauthd`. Next, you'll configure Dovecot to 
 
 Edit the file `/etc/postfix/master.cf` and add the dovecot service to the bottom of the file.
 
-{{< file "/etc/postfix/master.cf" >}}
+```file {title="/etc/postfix/master.cf"}
  dovecot unix - n n - - pipe
  :   flags=DRhu user=vmail:vmail argv=/usr/lib/dovecot/deliver -d \${recipient}
 
-{{< /file >}}
+```
 
 Issue the following command to make a backup copy of your `/etc/dovecot/dovecot.conf` file.
 

@@ -175,13 +175,13 @@ By default the GRUB menu will only work with the Glish interface. This section e
 
 3.  Open the GRUB configuration file under `/etc/default/grub` with the text editor of your choice. Make the following changes to the appropriate directives:
 
-    {{< file "/etc/default/grub" >}}
+    ```file {title="/etc/default/grub"}
 GRUB_TIMEOUT=10
 GRUB_CMDLINE_LINUX="console=ttyS0,19200n8"
 GRUB_SERIAL_COMMAND="serial --speed=19200 --unit=0 --word=8 --parity=no --stop=1"
 GRUB_TERMINAL=serial
 
-{{< /file >}}
+```
 
 
 4.  Save your changes, then apply them to your GRUB configuration:

@@ -131,7 +131,7 @@ Create the directories referenced in this configuration by issuing the following
 
 Beyond placing configuration directives in the `nginx.conf` directory, there are several methods you can use to ensure that these options are included in your nginx configuration. You may insert the server directives directly into the `http` section of the `/opt/nginx/conf/nginx.conf` or `/etc/nginx/nginx.con` file, although this may be difficult to manage. You may also replicate the management system created by the Debian/Ubuntu operating systems by creating `sites-available/` and `sites-enabled/` directories and inserting the following line into your `nginx.conf` file:
 
-{{< file "nginx.conf" nginx >}}
+```file {title="nginx.conf"}
 http {
 # [...]
 
@@ -140,12 +140,12 @@ include /opt/etc/nginx/sites-enabled/*;
 # [...]
 }
 
-{{< /file >}}
+```
 
 
 Modify the include statement to point to the path of your `sites-enabled` directory. Create site configurations in the `sites-available` directory and then create symbolic links to these files in the `sites-enabled` directory. In other circumstances, it may make more sense to create and include a file named `/opt/nginx-sites.conf` that is included in the `nginx.conf` file as follows:
 
-{{< file "nginx.conf" nginx >}}
+```file {title="nginx.conf"}
 http {
 # [...]
 
@@ -154,7 +154,7 @@ include /opt/nginx-sites.conf;
 # [...]
 }
 
-{{< /file >}}
+```
 
 
 Then, depending on the size and nature of your deployment, place your virtual host configurations either directly in the `/opt/nginx-sites.conf` file or include statements for server-specific configuration files in the `nginx-sites.file` format. For more information regarding nginx configuration options, consider our [overview of nginx configuration](/docs/guides/how-to-configure-nginx/).

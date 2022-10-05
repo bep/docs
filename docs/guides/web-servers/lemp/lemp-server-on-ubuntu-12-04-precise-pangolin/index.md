@@ -117,7 +117,7 @@ Now, issue the following command to start the web-server:
 
 Regardless of the method you use to install nginx, you will need to configure `server` declarations to specify name-based virtual hosts. There are a number of approaches to organizing configuration files with nginx. Regardless of the organizational strategy, all virtual host configurations are contained within `server` configuration blocks that are in turn contained within the `http` block in the `nginx.conf` file. Consider the following nginx virtual host configuration:
 
-{{< file "/etc/nginx/nginx.conf" nginx >}}
+```file {title="/etc/nginx/nginx.conf"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -130,7 +130,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Create the directories referenced in this configuration by issuing the following commands:
@@ -152,7 +152,7 @@ The source file is saved, and the site can be re-enabled at any time.
 
 If you installed the web server after compiling it from source you have a number of options. You may insert the server directives directly into the `http` section of the `/opt/nginx/conf/nginx.conf` or `/etc/nginx/nginx.conf` file, although this may be difficult to manage. You may also replicate the management system created by the Ubuntu packages by creating `sites-available/` and `sites-enabled/` directories and inserting the following line into your `nginx.conf` file:
 
-{{< file "nginx.conf" nginx >}}
+```file {title="nginx.conf"}
 http {
 # [...]
 
@@ -161,12 +161,12 @@ include /opt/etc/nginx/sites-enabled/*;
 # [...]
 }
 
-{{< /file >}}
+```
 
 
 Modify the include statement to point to the path of your `sites-enabled` directory. In some circumstances, it may make more sense to create and include a file named `/opt/nginx-sites.conf` that is included in the `nginx.conf` file as follows:
 
-{{< file "nginx.conf" nginx >}}
+```file {title="nginx.conf"}
 http {
 # [...]
 
@@ -175,7 +175,7 @@ include /opt/nginx-sites.conf;
 # [...]
 }
 
-{{< /file >}}
+```
 
 
 Then, depending on the size and nature of your deployment, place your virtual host configurations either directly in the `/opt/nginx-sites.conf` file or include statements for server-specific configuration files in the `nginx-sites.file`. For more information regarding nginx configuration options, consider our [overview of nginx configuration](/docs/websites/nginx/basic-nginx-configuration).

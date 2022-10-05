@@ -91,7 +91,7 @@ In this section, you will create a Helm chart values file and use it to deploy P
 The below configuration will establish persistent data storage with three separate 10GB [Block Storage Volumes](https://www.linode.com/products/block-storage/) for Prometheus, Alertmanager, and Grafana. Because the Prometheus Operator deploys as [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/), these Volumes and their associated [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) resources must be deleted manually if you later decide to tear down this Helm release.
     {{< /caution >}}
 
-    {{< file "~/lke-monitor/values.yaml" yaml >}}
+    ```file {title="~/lke-monitor/values.yaml"}
 # Prometheus Operator Helm Chart values for Linode Kubernetes Engine minimal deployment
 prometheus:
   prometheusSpec:
@@ -128,7 +128,7 @@ kubeControllerManager:
 
 kubeScheduler:
   enabled: false
-    {{< /file >}}
+    ```
 
 1.  Export an environment variable to store your Grafana admin password:
 
@@ -317,7 +317,7 @@ Now that cert-manager is installed and running on your cluster, you will need to
 
 1.  Using the text editor of your choice, create a file named `acme-issuer-prod.yaml` with the example configurations, replacing the value of `email` with your own email address for the ACME challenge:
 
-    {{< file "~/lke-monitor/acme-issuer-prod.yaml" yaml>}}
+    ```file {title="~/lke-monitor/acme-issuer-prod.yaml"}
 apiVersion: cert-manager.io/v1alpha2
 kind: ClusterIssuer
 metadata:
@@ -332,7 +332,7 @@ spec:
     - http01:
         ingress:
           class: nginx
-    {{< /file >}}
+    ```
 
     - This manifest file creates a ClusterIssuer resource that will register an account on an ACME server. The value of `spec.acme.server` designates Let's Encrypt's production ACME server, which should be trusted by most browsers.
 
@@ -357,7 +357,7 @@ After you have a ClusterIssuer resource, you can create a Certificate resource. 
 Replace the value of `spec.dnsNames` with the domain, including subdomains, that you will use to host your monitoring interfaces.
     {{< /note >}}
 
-    {{< file "~/lke-monitor/certificate-prod.yaml" yaml >}}
+    ```file {title="~/lke-monitor/certificate-prod.yaml"}
 apiVersion: cert-manager.io/v1alpha2
 kind: Certificate
 metadata:
@@ -372,7 +372,7 @@ spec:
     kind: ClusterIssuer
   dnsNames:
   - example.com
-    {{< /file >}}
+    ```
 
     {{< note >}}
 The configurations in this example create a Certificate in the `monitoring` namespace that is valid for 90 days and renews 15 days before expiry.
@@ -436,7 +436,7 @@ Replace all instances of `example.com` below with the [domain you have configure
 The below configuration will establish persistent data storage with three separate 10GB [Block Storage Volumes](https://www.linode.com/products/block-storage/) for Prometheus, Alertmanager, and Grafana. Because the Prometheus Operator deploys as [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/), these Volumes and their associated [Persistent Volume](https://kubernetes.io/docs/concepts/storage/persistent-volumes/) resources must be deleted manually if you later decide to tear down this Helm release.
     {{< /caution >}}
 
-    {{< file "~/lke-monitor/values-https-basic-auth.yaml" yaml >}}
+    ```file {title="~/lke-monitor/values-https-basic-auth.yaml"}
 # Helm chart values for Prometheus Operator with HTTPS and basic auth
 prometheus:
   ingress:
@@ -531,7 +531,7 @@ kubeControllerManager:
 
 kubeScheduler:
   enabled: false
-    {{< /file >}}
+    ```
 
 1.  Export an environment variable to store your Grafana admin password:
 

@@ -67,14 +67,14 @@ Though there are a number of options available to install Node.js, we recommend 
 4.  Use a text editor to create `app.js` and add the following content:
 
 
-    {{< file "app.js" js >}}
+    ```file {title="app.js"}
 const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.listen(3000, () => console.log('Node.js app listening on port 3000.'))
-{{< /file >}}
+```
 
 5.  Run the app:
 
@@ -96,7 +96,7 @@ At this point, you could configure Node.js to serve the example app on your Lino
 
 1.  Create a configuration file for the app in `/etc/nginx/conf.d/`. Replace `example.com` in this example with your app's domain or public IP address:
 
-    {{< file "/etc/nginx/conf.d/nodeapp.conf" conf >}}
+    ```file {title="/etc/nginx/conf.d/nodeapp.conf"}
 server {
   listen 80;
   listen [::]:80;
@@ -107,7 +107,7 @@ server {
       proxy_pass http://localhost:3000/;
   }
 }
-{{< /file >}}
+```
 
     The `proxy_pass` directive is what makes this configuration a reverse proxy. It specifies that all requests which match the location block (in this case the root `/` path) should be forwarded to port `3000` on `localhost`, where the Node.js app is running.
 
@@ -129,21 +129,21 @@ server {
 
 For a simple app, the `proxy_pass` directive is sufficient. However, more complex apps may need additional directives. For example, Node.js is often used for apps that require a lot of real-time interactions. To accommodate, disable NGINX's buffering feature:
 
-  {{< file "/etc/nginx/conf.d/nodeapp.conf" conf >}}
+  ```file {title="/etc/nginx/conf.d/nodeapp.conf"}
 location / {
     proxy_pass http://localhost:3000/;
     proxy_buffering off;
 }
-{{< /file >}}
+```
 
 You can also modify or add the headers that are forwarded along with the proxied requests with `proxy_set_header`:
 
-{{< file "/etc/nginx/conf.d/nodeapp.conf" conf >}}
+```file {title="/etc/nginx/conf.d/nodeapp.conf"}
 location / {
     proxy_pass http://localhost:3000/;
     proxy_set_header X-Real-IP $remote_addr;
 }
-{{< /file >}}
+```
 
 This configuration uses the built-in `$remote_addr` variable to send the IP address of the original client to the proxy host.
 
@@ -183,7 +183,7 @@ The following is an explanation of what each proxy header does:
 ## Nginx Forward Header For Reverse Proxy
 
 Usually any header for a reverse proxy would look something like this:
-{{< file "/etc/nginx/conf.d/nodeapp.conf" conf >}}
+```file {title="/etc/nginx/conf.d/nodeapp.conf"}
 X-Forwarded-For: 33.14.57.33, 12.26.13.54
 
 X-Real-IP: 23.67.28.33
@@ -191,7 +191,7 @@ X-Real-IP: 23.67.28.33
 X-Forwarded-Host: linode.com
 
 X-Forwarded-Proto: https
-{{</ file>}}
+```
 
 Using a `Forward header`, you can update the client address to `X-Forwarded-For` Header. But when you use `X-Forwarded-For`, you have to hard code IP addresses that should be trusted. Which may not be a good solution in some cases.
 
@@ -204,7 +204,7 @@ The way `Fowarded` changes this is by embedding a secret token in the client for
 
 To do so add the following to your NGINX configuration file:
 
-  {{< file "/etc/nginx/conf.d/nodeapp.conf" conf >}}
+  ```file {title="/etc/nginx/conf.d/nodeapp.conf"}
   map $remote_addr $forwarded_proxy {
 
       # To send IPv4 addresses
@@ -233,7 +233,7 @@ map $http_forwarded $proxy_add_forwarded {
 
 }
 
-{{< /file >}}
+```
 
 Now, make changes to your proxy _pass directive to enable `Forwarded`. Add the following line:
 

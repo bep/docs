@@ -62,7 +62,7 @@ The unattended-upgrades package ignores lines that start with `//`, as that line
 
 1.  In our example, remove `//` from the “security” line if it's there, `"${distro_id}:${distro_codename}-security";`. This section should look like the following:
 
-    {{< file "/etc/apt/apt.conf.d/50unattended-upgrades" >}}
+    ```file {title="/etc/apt/apt.conf.d/50unattended-upgrades"}
 ...
 
 Unattended-Upgrade::Allowed-Origins {
@@ -80,7 +80,7 @@ Unattended-Upgrade::Allowed-Origins {
 };
 
 ...
-{{</ file >}}
+```
 
 ### Blacklisting Packages
 
@@ -88,7 +88,7 @@ The `Unattended-Upgrade::Package-Blacklist` section of the configuration file al
 
 To block upgrades for specific packages, add the desired package name to the list. In this example, add "apache2" and "vim":
 
-{{< file "/etc/apt/apt.conf.d/50unattended-upgrades" >}}
+```file {title="/etc/apt/apt.conf.d/50unattended-upgrades"}
 ...
 
 Unattended-Upgrade::Package-Blacklist {
@@ -114,13 +114,13 @@ Unattended-Upgrade::Package-Blacklist {
 };
 
 ...
-{{</ file >}}
+```
 
 ### Deleting Dependencies
 
 You can explicitly set up the unattended-upgrades service to remove unused dependencies by changing the `Remove-Unused-Kernel-Packages`, `Remove-New-Unused-Dependencies`, and `Remove-Unused-Dependencies` options to true. Remember to remove `//` to uncomment these lines.
 
-{{< file "/etc/apt/apt.conf.d/50unattended-upgrades" >}}
+```file {title="/etc/apt/apt.conf.d/50unattended-upgrades"}
 ...
 
 // Remove unused automatically installed kernel-related packages
@@ -135,7 +135,7 @@ Unattended-Upgrade::Remove-New-Unused-Dependencies "true";
 Unattended-Upgrade::Remove-Unused-Dependencies "true";
 
 ...
-{{</ file >}}
+```
 
 ## Enabling Automatic Upgrades
 
@@ -143,11 +143,11 @@ To enable automatic updates create a new auto-upgrades file: `/etc/apt/apt.conf.
 
 This file allows you to define how often the auto updates take place.
 
-{{< file "/etc/apt/apt.conf.d/20auto-upgrades" >}}
+```file {title="/etc/apt/apt.conf.d/20auto-upgrades"}
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 APT::Periodic::AutocleanInterval "7";
-{{</ file >}}
+```
 
 - **Update-Package-Lists**: `1` enables auto-update, `0` disables.
 - **Unattended-Upgrade**: `1` enables auto-upgrade, `0` disables.

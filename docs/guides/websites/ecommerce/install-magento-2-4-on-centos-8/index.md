@@ -150,10 +150,10 @@ Follow the instructions in the [How to Install a LAMP Stack on CentOS 8](/docs/g
     After creating the key, edit the `/etc/httpd/conf.d/ssl.conf` file. Set the values of `SSLCertificateFile` and `SSLCertificateKeyFile` to reference the key you created:
 
 
-    {{< file "/etc/httpd/conf.d/ssl.conf" aconf >}}
+    ```file {title="/etc/httpd/conf.d/ssl.conf"}
     SSLCertificateFile /etc/pki/tls/certs/httpd.crt
     SSLCertificateKeyFile /etc/pki/tls/private/httpd.key
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -164,7 +164,7 @@ Most payment processors and financial institutions do not recognise or accept se
 
     To allow URLs with path separators (for example, `%2F` for "/"), set `AllowEncodedSlashes` to `NoDecode` in either the global server config or the virtual host configuration. The default value of `off` causes Apache to refuse this class of URLs and return a 404 error.
 
-    {{< file "/etc/httpd/conf.d/vhost.conf" aconf >}}
+    ```file {title="/etc/httpd/conf.d/vhost.conf"}
 <Directory /var/www/html/example.com/public_html>
     Require all granted
 </Directory>
@@ -185,12 +185,12 @@ Most payment processors and financial institutions do not recognise or accept se
 
 </VirtualHost>
 
-{{< /file >}}
+```
 5.  Add an `IncludeOptional` directive to `etc/httpd/conf/httpd.conf` to parse this directory:
 
-    {{< file "etc/httpd/conf/httpd.conf" aconf >}}
+    ```file {title="etc/httpd/conf/httpd.conf"}
     IncludeOptional conf.d/*.conf
-{{< /file >}}
+```
 6.  SELinux might prevent Apache from writing to these logs or even from starting up with these settings. If this occurs, navigate to the `var/www/html/example.com` directory and run the following commands:
 
         semanage fcontext -a -t httpd_sys_rw_content_t 'logs'
@@ -282,7 +282,7 @@ The `php.ini` file requires a number of modifications. This file is typically lo
         realpath_cache_ttl=7200
 4.  Adjust a few other settings, such as `upload_max_filesize`, `max_input_time`, and `max_execution_time`. See the settings in the following file snippet for the full list.
 
-    {{< file "/etc/php.ini" >}}
+    ```file {title="/etc/php.ini"}
 date.timezone = Europe/London
 memory_limit= 2G
 realpath_cache_size=10M
@@ -292,7 +292,7 @@ max_execution_time = 18000
 max_input_time = 30
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 error_log = /var/log/php/error.log
-{{< /file >}}
+```
 
 Enable the PHP Opcache for better performance. This setting can be found and modified in `opcache.ini`.
 
@@ -337,18 +337,18 @@ Elasticsearch could potentially be in the "yellow" state if back up capabilities
         sudo dnf install mod_proxy
 7.  Enable communication between Elasticsearch and the web server. This process sets up an unsecured communication channel between Apache and Elasticsearch because this is easier to set up and verify. To improve the security of this channel later on, consult [Magento's proxy information](https://devdocs.magento.com/guides/v2.4/install-gde/prereq/es-config-apache.html#es-ws-secure-apache-pwd). Open the file `/etc/httpd/sites-available/000-default.conf`, and add the following information to the top of the file:
 
-    {{< file "/etc/httpd/sites-available/000-default.conf" >}}
+    ```file {title="/etc/httpd/sites-available/000-default.conf"}
 Listen 8080
 <VirtualHost *:8080>
     ProxyPass "/" "http://localhost:9200/"
     ProxyPassReverse "/" "http://localhost:9200/"
 </VirtualHost>
-{{< /file >}}
+```
 
     Ensure there is an `IncludeOptional` entry for `sites-available/*.conf` in `/etc/httpd/conf/httpd.conf`.
-    {{< file "/etc/httpd/conf/httpd.conf" >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 IncludeOptional sites-available/*.conf
-{{< /file >}}
+```
 8.  Restart Apache:
 
         sudo systemctl restart httpd.service
@@ -613,10 +613,10 @@ After you have installed Magento and no longer want to make any more basic chang
 
 We recommend you disable the ability to display your storefront within a frame to prevent clickjacking attempts. Modify the following setting in the `/var/www/html/example.com/public_html/app/etc/env.php` file, replacing example.com in the file path with your own domain:
 
-{{< file "/var/www/html/example.com/public_html/app/etc/env.php" php >}}
+```file {title="/var/www/html/example.com/public_html/app/etc/env.php"}
 'x-frame-options' => 'DENY',
 
-{{< /file >}}
+```
 
 ### SSL Certificates
 

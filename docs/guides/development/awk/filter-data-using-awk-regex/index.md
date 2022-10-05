@@ -35,7 +35,7 @@ Each line of the input file is matched against the pattern; if the line matches 
 
 To become more familiar with AWK, create a sample text file and save it as `inputfile.txt` with the contents below. The example includes warnings returned by [Vale](https://github.com/errata-ai/vale), a syntax linter for prose.
 
-{{< file "~/inputfile.txt" >}}
+```file {title="~/inputfile.txt"}
 [
   { path:
      'docs/guides/databases/mariadb/how-to-install-mariadb-on-centos-8/index.md',
@@ -67,7 +67,7 @@ To become more familiar with AWK, create a sample text file and save it as `inpu
     message: 'Avoid using future tense: "will bind"'
   }
 ]
-{{< /file >}}
+```
 
 The general form of an AWK program is a list of patterns and actions with each pattern matched against each line in the input file.
 

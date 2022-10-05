@@ -63,7 +63,7 @@ The steps in this guide require root privileges. Be sure to run the steps below 
 
 1.  Because the Salt minion is running in masterless mode, you will need to modify the minion configuration file (`/etc/salt/minion`) to instruct Salt to look for state files locally. Open the minion configuration file in a text editor, uncomment the line `#file_client: remote`, and set it to `local`:
 
-    {{< file "/etc/salt/minion" yaml >}}
+    ```file {title="/etc/salt/minion"}
 ...
 
 # Set the file client. The client defaults to looking on the master server for
@@ -73,11 +73,11 @@ The steps in this guide require root privileges. Be sure to run the steps below 
 file_client: local
 
 ...
-{{< /file >}}
+```
 
 1.  There are some configuration values that do not normally exist in `/etc/salt/minion` which you will need to add in order to run your minion in masterless mode. Copy the following lines into the end of `/etc/salt/minion`:
 
-    {{< file "/etc/salt/minion" yaml >}}
+    ```file {title="/etc/salt/minion"}
 ...
 
 fileserver_backend:
@@ -88,7 +88,7 @@ gitfs_remotes:
   - https://github.com/saltstack-formulas/plex-formula.git
 
 gitfs_provider: gitpython
-{{< /file >}}
+```
 
     The `fileserver_backend` block instructs the Salt minion to look for Salt configuration files in two places. First, it tells Salt to look for Salt state files in our minion's `roots` backend (`/srv/salt`). Secondly, it instructs Salt to use the Git Fileserver (gitfs) to look for Salt configuration files in any Git remote repositories that have been named in the `gitfs_remotes` section. The address for the Plex Salt formula's Git repository is included in the `gitfs_remotes` section.
 
@@ -102,18 +102,18 @@ It is best practice to create a fork of the Plex formula's Git repository on Git
 
 1.  Create a Salt state top file at `/srv/salt/top.sls` and copy in the following configuration. This file tells Salt to look for state files in the plex folder of the Plex formula's Git repository, and for a state files named `disk.sls` and `directory.sls`, which you will create in the next steps.
 
-    {{< file "/srv/salt/top.sls" yaml >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - plex
     - disk
     - directory
-{{< /file >}}
+```
 
 
 1.  Create the `disk.sls` file in `/srv/salt`:
 
-    {{< file "/srv/salt/disk.sls" yaml >}}
+    ```file {title="/srv/salt/disk.sls"}
 disk.format:
   module.run:
     - device: /dev/disk/by-id/scsi-0Linode_Volume_{{ pillar['volume_name'] }}
@@ -125,13 +125,13 @@ disk.format:
     - fstype: ext4
     - mkmnt: True
     - persist: True
-{{< /file >}}
+```
 
     This file instructs Salt to prepare your Block Storage Volume for use with Plex. It first formats your Block Storage Volume with the `ext4` filesystem type by using the `disk.format` Salt module, which can be run in a state file using `module.run`. Then `disk.sls` instructs Salt to mount your volume at `/mnt/plex`, creating the mount target if it does not already exist with `mkmnt`, and persisting the mount to `/etc/fstab` so that the volume is always mounted at boot.
 
 1.  Create the `directory.sls` file in `/srv/salt`:
 
-    {{< file "/srv/salt/directory.sls" >}}
+    ```file {title="/srv/salt/directory.sls"}
 /mnt/plex/plex-media:
   file.directory:
     - require:
@@ -152,25 +152,25 @@ disk.format:
       - mount: /mnt/plex
     - user: username
     - group: plex
-{{< /file >}}
+```
 
     The directories that are created during this step are for organizational purposes, and will house your media. Make sure you replace `username` with the name of the limited user account you created when following the [Setting Up and Securing a Compute Instance](/docs/guides/set-up-and-secure/) guide. The location of the directories is the volume you mounted in the previous step. If you wish to add more directories, perhaps one for your music media, you can do so here, just be sure to include the `- require` block, as this prevents Salt from trying to create the directory before the Block Storage Volume has been mounted.
 
 1.  Go to the [Plex Media Server download page](https://www.plex.tv/media-server-downloads/#plex-media-server) and note the most recent version of their Linux distribution. At the time of writing, the most recent version is `1.13.9.5456-ecd600442`. Create the `plex.sls` Pillar file in `/srv/pillar` and change the Plex version number and the name of your Block Storage Volume as necessary:
 
-    {{< file "/srv/pillar/plex.sls" yaml >}}
+    ```file {title="/srv/pillar/plex.sls"}
 plex:
   version: 1.13.9.5456-ecd600442
 volume_name: plex
-{{< /file >}}
+```
 
 1.  Create the Salt Pillar top file in `/srv/pillar`. This file will instruct Salt to look for the `plex.sls` Pillar file you created in the previous step.
 
-    {{< file "/srv/pillar/top.sls" >}}
+    ```file {title="/srv/pillar/top.sls"}
 base:
   '*':
     - plex
-{{< /file >}}
+```
 
 1.  Apply your Salt state locally using `salt-call`:
 

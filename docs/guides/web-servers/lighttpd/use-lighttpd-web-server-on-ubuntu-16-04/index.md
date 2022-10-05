@@ -113,12 +113,12 @@ This section covers configuration for simple virtual hosting. The `simple-vhost`
 
 1.  Modify the following settings in the `/etc/lighttpd/conf-available/10-simple-vhost.conf` file:
 
-    {{< file "/etc/lighttpd/conf-available/10-simple-vhost.conf" lighty >}}
+    ```file {title="/etc/lighttpd/conf-available/10-simple-vhost.conf"}
 simple-vhost.server-root = "/var/www/html"
 simple-vhost.document-root = "htdocs"
 simple-vhost.default-host = "example.com"
 
-{{< /file >}}
+```
 
     The `server-root` defines the base directory under which all virtual host directories are created.
 
@@ -155,18 +155,18 @@ Enhanced virtual hosting works slightly differently than Simple by building the 
 
 1.  To accomplish the same directory structure with `evhost` as with `simple-vhost` above, you need to modify the `/etc/lighttpd/conf-available/10-evhost.conf` file:
 
-    {{< file "/etc/lighttpd/conf-available/10-evhost.conf" lighty >}}
+    ```file {title="/etc/lighttpd/conf-available/10-evhost.conf"}
 evhost.path-pattern = "/var/www/html/%0/htdocs/"
 
-{{< /file >}}
+```
 
 
 1.  Modify the `server.document-root` in the main lighttpd configuration file:
 
-    {{< file "/etc/lighttpd/lighttpd.conf" lighty >}}
+    ```file {title="/etc/lighttpd/lighttpd.conf"}
 server.document-root = "/var/www/html/example.com/htdocs"
 
-{{< /file >}}
+```
 
 
     With the configuration you set in Steps 3 and 4, if `example.com` is requested, and `/var/www/html/example.com/htdocs/` is found, that directory becomes the document root when serving requests. The `0%` in the path pattern specifies that a request will be checked against host files named in the format of domain and Top Level Domain (TLD). The `server.document-root` directive specifies a default host that is used when a matching directory does not exist.
@@ -244,7 +244,7 @@ Lighttpd sends CGI requests to CGI handlers on the basis of file extensions, whi
 
 For example, if you install the `php7.0-cgi` package and enable FastCGI with `lighty-enable-mod fastcgi-php` then a default FastCGI handler is configured in the file `/etc/lighttpd/conf-enabled/15-fastcgi-php.conf`. Though the handler likely requires specific customization, the default settings offer an effective example:
 
-{{< file "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf" lighty >}}
+```file {title="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"}
 fastcgi.server   += ( ".php" =>
         ((
                 "bin-path" => "/usr/bin/php-cgi",
@@ -261,15 +261,15 @@ fastcgi.server   += ( ".php" =>
         ))
 )
 
-{{< /file >}}
+```
 
 
 To map more than one file extension to a single FastCGI handler, add the following entry to your configuration file:
 
-{{< file "/etc/lighttpd/conf-enabled/15-fastcgi-php.conf" lighty >}}
+```file {title="/etc/lighttpd/conf-enabled/15-fastcgi-php.conf"}
 fastcgi.map-extensions = ( ".[ALT-EXTENSION]" => ".[EXTENSION]" )
 
-{{< /file >}}
+```
 
 ## How To Encrypt Lighttpd Configuration On Ubuntu 16.04?
 
@@ -299,26 +299,26 @@ After access permissions are in place, you can run the following commands to mer
 
 Now, you need to add the following lines to the lighttpd config file (lighttpd.conf):
 
-{{< file "lighttpd.conf" plaintext >}}
+```file {title="lighttpd.conf"}
 $SERVER["socket"] == ":443" {
     ssl.engine = "enable"
     ssl.pemfile = "/etc/letsencrypt/live/example.com/chain.pem"
     ssl.ca-file = "/etc/letsencrypt/live/example.com/lighttpd_merged.pem"
 }
-{{< /file >}}
+```
 You also need to force Lighttpd server to use SSL. And finally, add the following code to the `lighttpd.conf` file to enable SSL usage:
 
-{{< file "lighttpd.conf" plaintext >}}
+```file {title="lighttpd.conf"}
 $HTTP["scheme"] == "http" {
     $HTTP["host"] =~ ".*" {
         url.redirect = (".*" => "https://%0$0")
     }
 }
-{{< /file >}}
+```
 
 Now, the `lighttpd.conf` file should look something like this:
 
-{{< file "lighttpd.conf" plaintext >}}
+```file {title="lighttpd.conf"}
 fastcgi.server = ( ".php" => ((
                         "bin-path" => "/usr/bin/php5-cgi",
                         "socket" => "/tmp/php.socket"
@@ -336,7 +336,7 @@ $HTTP["scheme"] == "http" {
 }
 
 server.max-keep-alive-requests = 0
-{{< /file >}}
+```
 
 After you save this new Lighttpd configuration, restart the Lighttpd server in order for this new configuration to apply.
 

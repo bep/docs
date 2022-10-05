@@ -53,7 +53,7 @@ This guide's examples use Bokeh version 2.3.2, however, the examples should work
 
 1. Create a new file named `main.py` and insert the following code:
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 import numpy as np
 np.random.seed(1)
 
@@ -77,7 +77,7 @@ plot.legend.location = "bottom_right"
 plot.legend.click_policy="hide"
 
 show(plot)
-    {{< /file >}}
+    ```
 
 The code generates a series of random numbers to be used for the visualizations. To experiment with the same numbers in the code, call `np.random.seed(1)`.
 
@@ -109,7 +109,7 @@ The steps in this section show you how to add controls to a Bokeh graph. Before 
 
 1. Create a new file named `main.py` and insert the following code:
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 from bokeh.layouts import column, row
 from bokeh.models import ColorPicker
 
@@ -137,7 +137,7 @@ picker2.js_link('color', line2.glyph, 'line_color')
 picker2.color='green'
 
 show(column(plot, row(picker1, picker2)))
-    {{< /file >}}
+    ```
 
 The example above lets you change the graph's line colors using a `ColorPicker` control. The code generates two controls, one for each line. Instead of using the default color of black for the `ColorPicker`, it uses the colors defined earlier in the code. When you show the figure on screen using `show()`, you define how to display the controls using rows and columns. The output `column()` has two rows in it and the second row within the column contains a `row(`) with two columns: `picker1` and `picker2`.
 
@@ -159,7 +159,7 @@ Bokeh's built-in support of different output methods means the majority of your 
 
 1. Create a new file named `main.py` and insert the following code:
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 from bokeh.plotting import output_notebook
 output_notebook()
 
@@ -184,7 +184,7 @@ plot.legend.orientation = "horizontal"
 plot.legend.location = "top_center"
 
 show(plot)
-    {{< /file >}}
+    ```
 
     The code above introduces a few features not yet explored in this guide. The code creates labels for the `x-axis` instead of using numbers. The `ColumnDataSource()` function contains a dictionary with the x-axis, y-axis, and the colors to use for them. Creating the `figure()` is the same as before, except you use the list of `x-axis` label names in place of numeric labels this time.
 

@@ -89,7 +89,7 @@ Each additional virtual host needs its own file in the `/etc/apache2/sites-avail
 
 First create example.com (`/etc/apache2/sites-available/example.net`) so that it resembles the following.
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost *:80>
      ServerAdmin admin@example.net
      ServerName example.net
@@ -99,21 +99,21 @@ First create example.com (`/etc/apache2/sites-available/example.net`) so that it
      CustomLog /srv/www/example.net/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 If you would like to enable Perl support, then add the following lines to the `VirtualHost` entry above.
 
-{{< file "/etc/apache2/sites-available/example.net" apache >}}
+```file {title="/etc/apache2/sites-available/example.net"}
 Options ExecCGI
 AddHandler cgi-script .pl
 
-{{< /file >}}
+```
 
 
 Next, create example.org (`/etc/apache2/sites-available/example.org`) so that it resembles this:
 
-{{< file "/etc/apache2/sites-available/example.com" apache >}}
+```file {title="/etc/apache2/sites-available/example.com"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.org
      ServerName example.org
@@ -123,7 +123,7 @@ Next, create example.org (`/etc/apache2/sites-available/example.org`) so that it
      CustomLog /srv/www/example.org/logs/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 You'll note that some basic options are specified for both sites, including where the files for the site will reside (under `/srv/www/`). You can add (or remove) additional configuration options, such as the Perl support, on a site-by-site basis to these files as your needs dictate.

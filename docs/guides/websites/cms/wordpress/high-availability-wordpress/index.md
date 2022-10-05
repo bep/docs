@@ -41,7 +41,7 @@ Use the following commands to install Apache, PHP, and MySQL on each of the Lino
 
     **Server 1:**
 
-    {{< file "/etc/mysql/my.cnf" aconf >}}
+    ```file {title="/etc/mysql/my.cnf"}
 server_id           = 1
 log_bin             = /var/log/mysql/mysql-bin.log
 log_bin_index       = /var/log/mysql/mysql-bin.log.index
@@ -53,12 +53,12 @@ log_slave_updates   = 1
 auto-increment-increment = 2
 auto-increment-offset = 1
 
-{{< /file >}}
+```
 
 
     **Server 2:**
 
-    {{< file "/etc/mysql/my.cnf" aconf >}}
+    ```file {title="/etc/mysql/my.cnf"}
 server_id           = 2
 log_bin             = /var/log/mysql/mysql-bin.log
 log_bin_index       = /var/log/mysql/mysql-bin.log.index
@@ -70,15 +70,15 @@ log_slave_updates   = 1
 auto-increment-increment = 2
 auto-increment-offset = 2
 
-{{< /file >}}
+```
 
 
 2.  For each of the Linodes, edit the `bind-address` configuration in order to use the private IP addresses:
 
-    {{< file "/etc/mysql/my.cnf" >}}
+    ```file {title="/etc/mysql/my.cnf"}
 bind-address    = x.x.x.x
 
-{{< /file >}}
+```
 
 
 3.  Once completed, restart the MySQL application:
@@ -167,7 +167,7 @@ For the following sections of this guide, replace "example.com" with your domain
 
 
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 # domain: example.com
 # public: /var/www/example.com/public_html/
 
@@ -186,7 +186,7 @@ For the following sections of this guide, replace "example.com" with your domain
   CustomLog /var/www/example.com/log/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
     {{< caution >}}
@@ -257,7 +257,7 @@ chmod 755 /var/www/example.com/public_html/
 
 2.  Create a configuration file in order to perform sync actions.  Replace `x.x.x.x` with the Private IP address of the second Linode in your cluster.
 
-    {{< file "/etc/lsyncd/lsyncd.conf.lua" lua >}}
+    ```file {title="/etc/lsyncd/lsyncd.conf.lua"}
 settings = {
 logfile = "/var/log/lsyncd.log",
 statusFile = "/var/log/lsyncd-status.log"
@@ -282,7 +282,7 @@ port = 22
 }
 }
 
-{{< /file >}}
+```
 
 
 3.  Start the Lsyncd daemon:

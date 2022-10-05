@@ -52,10 +52,10 @@ In this section, you will install the `mod_fcgid` and `PHP-FPM` modules on your 
 
 1. Load the `mod_proxy` and `mod_proxy_fcgi` modules by editing your main Apache configuration to add the lines included in the example. Both these modules are included by default in your Apache installation, but the must be explicitly loaded in order to use them. You will need these modules to proxy requests through `mod_fcgid` to your socket.
 
-    {{< file "/etc/apache2/apache2.conf" >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 LoadModule proxy_module /usr/lib/apache2/modules/mod_proxy.so
 LoadModule proxy_fcgi_module /usr/lib/apache2/modules/mod_proxy_fcgi.so
-    {{</ file>}}
+    ```
 
 1. Verify that the configuration is correct:
 
@@ -82,15 +82,15 @@ listen = /run/php/php7.2-fpm.sock
 
 1.  If no output is returned, you will need to edit your [PHP pool configuration file](https://www.php.net/manual/en/install.fpm.configuration.php) by adding a `listen` setting with the address on which to accept FastCGI requests. Add the line in the example file.
 
-    {{< file "/etc/php/7.2/fpm/pool.d/www.conf" >}}
+    ```file {title="/etc/php/7.2/fpm/pool.d/www.conf"}
 listen = /var/run/php/php7.2-fpm.sock
-    {{< /file >}}
+    ```
 
 1.  If the `listen = 127.0.0.1` is not already uncommented, do so now.
 
-    {{< file "/etc/php/7.2/fpm/pool.d/www.conf" >}}
+    ```file {title="/etc/php/7.2/fpm/pool.d/www.conf"}
 listen = 127.0.0.1
-    {{< /file >}}
+    ```
 
 1.  Restart the `php-fpm` daemon for these changes to take effect.
 
@@ -98,13 +98,13 @@ listen = 127.0.0.1
 
 1. With the text editor of your choice, update your default Apache configuration file with the following basic settings for `mod_fcgid`. You may consider [changing these settings](https://httpd.apache.org/mod_fcgid/mod/mod_fcgid.html) based on your own needs.
 
-      {{< file "/etc/apache2/apache2.conf" apache >}}
+      ```file {title="/etc/apache2/apache2.conf"}
 AddHandler  fcgid-script .fcgi .php .fpl
 FcgidConnectTimeout 20
 FcgidMaxRequestLen 268435456
 FcgidMaxProcessesPerClass 10
 FcgidIOTimeout 300
-      {{</ file >}}
+      ```
 
 1.  Check for configuration errors:
 
@@ -112,7 +112,7 @@ FcgidIOTimeout 300
 
 1. Edit your FastCGI module's configuration file to add the settings in the example file. Some of the example settings may already be included in your configuration. Add the missing settings.
 
-    {{< file "/etc/apache2/mods-available/fcgid.conf" >}}
+    ```file {title="/etc/apache2/mods-available/fcgid.conf"}
 <IfModule mod_fcgid.c>
   FcgidConnectTimeout 20
   AddType  application/x-httpd-php         .php
@@ -122,7 +122,7 @@ FcgidIOTimeout 300
     AddHandler fcgid-script .fcgi
   </IfModule>
 </IfModule>
-{{< /file >}}
+```
 
 1.  Check for configuration errors:
 
@@ -153,7 +153,7 @@ FcgidIOTimeout 300
 1.  Edit the file to change the socket name, user and group, and socket listen address. Ensure that the listen address is different from the listen address that you set in the main PHP pool configuration file. You can append the name of your site as part of the file name, for example, `listen = /var/run/php/php7.2-fpm_example.com.sock`. Also, ensure that you comment out any existing `user` and `group` and add or replace your own `user` and `group` settings as shown in the example.
 
 
-    {{< file "/etc/php/7.2/fpm/pool.d/example.com.conf" >}}
+    ```file {title="/etc/php/7.2/fpm/pool.d/example.com.conf"}
 ; Start a new pool named 'www'.
 ; the variable $pool can be used in any directive and will be replaced by the
 ; pool name ('www' here)
@@ -171,7 +171,7 @@ group = bob
 
 listen = /var/run/php/php7.2-fpm_example.com.sock
 
-{{< /file >}}
+```
 
 
 1.  Restart the `php7.2-fpm` process for the new pool to be created.
@@ -180,7 +180,7 @@ listen = /var/run/php/php7.2-fpm_example.com.sock
 
 1.  Edit the virtual host file of `example.com` to use your new PHP-FPM pool. Depending on your current virtual hosts file what you need to add and edit may differ. The `<IfModuel mod_fcgid.c>` directive and its contents is what you should add to your file. Ensure you replace any instance of `example.com` with your own domain name.
 
-    {{< file "/etc/apache2/sites-available/example.com.conf" apache >}}
+    ```file {title="/etc/apache2/sites-available/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
         Require all granted
 </Directory>
@@ -201,7 +201,7 @@ listen = /var/run/php/php7.2-fpm_example.com.sock
          ProxyPassMatch " ^/(.*\.php(/.*)?)$" "unix:/run/php/php7.2-fpm_example.com.sock|fcgi://localhost/var/www/html/example.com/public_html/"
      </IfModule>
 </VirtualHost>
-{{< /file >}}
+```
 
 
 1.  Check the configuration file for errors.

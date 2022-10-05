@@ -160,13 +160,13 @@ Open the `/etc/nginx/nginx.conf` file with a text editor such a vim and add the 
 
 Here is an example portion of an Nginx configuration file that includes the above line:
 
-{{< file "/etc/nginx/nginx.conf" nginx >}}
+```file {title="/etc/nginx/nginx.conf"}
 user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
 load_module /etc/nginx/modules/ngx_http_modsecurity_module.so;
-{{< /file >}}
+```
 
 ## Setting Up OWASP-CRS
 
@@ -211,7 +211,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 
 1.  With a text editor such as vim, open `/etc/modsecurity/modsecurity.conf` and change the value for `SecRuleEngine` to `On`:
 
-    {{< file "/etc/modsecurity/modsecurity.conf" aconf >}}
+    ```file {title="/etc/modsecurity/modsecurity.conf"}
 # -- Rule engine initialization ----------------------------------------------
 
 # Enable ModSecurity, attaching it to every transaction. Use detection
@@ -220,7 +220,7 @@ ModSecurity is a firewall and therefore requires rules to function. This section
 #
 SecRuleEngine On
 ...
-{{< /file >}}
+```
 
 1.  Create a new configuration file called `main.conf` under the `/etc/nginx/modsec` directory:
 
@@ -228,11 +228,11 @@ SecRuleEngine On
 
 1.  Open `/etc/nginx/modsec/main.conf` with a text editor such as vim and specify the rules and the Modsecurity configuration file for Nginx by inserting following lines:
 
-    {{< file "/etc/modsecurity/modsecurity.conf" aconf >}}
+    ```file {title="/etc/modsecurity/modsecurity.conf"}
 Include /etc/nginx/modsec/modsecurity.conf
 Include /usr/local/modsecurity-crs/crs-setup.conf
 Include /usr/local/modsecurity-crs/rules/*.conf
-{{< /file >}}
+```
 
 ## Configuring Nginx
 
@@ -245,7 +245,7 @@ Now that you have configured ModSecurity to work with Nginx, you must enable Mod
 
     Here is an example configuration file that includes the above lines:
 
-    {{< file "/etc/nginx/sites-available/default" nginx >}}
+    ```file {title="/etc/nginx/sites-available/default"}
 server {
         listen 80 default_server;
         listen [::]:80 default_server;
@@ -262,7 +262,7 @@ server {
                 try_files $uri $uri/ =404;
         }
 }
-{{< /file >}}
+```
 
 1.  Restart the nginx service to apply the configuration:
 

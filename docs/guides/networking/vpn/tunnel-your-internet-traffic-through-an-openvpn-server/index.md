@@ -67,7 +67,7 @@ The steps below will overwrite any custom IPv4 firewall rules you may have.
 
 2.  Create a new IPv4 rule file using the ruleset below. The path `/etc/iptables/rules.v4` assumes Debian or Ubuntu with `iptables-persistent` installed.
 
-    {{< file "/etc/iptables/rules.v4" aconf >}}
+    ```file {title="/etc/iptables/rules.v4"}
 *filter
 
 # Allow all loopback (lo) traffic and reject traffic
@@ -123,7 +123,7 @@ The steps below will overwrite any custom IPv4 firewall rules you may have.
 
 COMMIT
 
-{{< /file >}}
+```
 
 
 3.  Import the new ruleset:

@@ -69,11 +69,11 @@ This guide's target scenario is a three machine configuration:
 
 4. To run Zipkin manually later without having to remember the java command, create a `start-zipkin.sh` file to contain the commands:
 
-    {{< file "start-zipkin.sh" bash >}}
+    ```file {title="start-zipkin.sh"}
 #!/bin/bash
 java -jar zipkin.jar
 
-{{< /file >}}
+```
 
 
 5. Make your new start-zipkin.sh file executable:
@@ -88,10 +88,10 @@ java -jar zipkin.jar
 
 2. Add the new hostname to `/etc/hosts`:
 
-    {{< file "/etc/hosts" >}}
+    ```file {title="/etc/hosts"}
 192.0.2.0     zipkinsvr
 
-{{< /file >}}
+```
 
 
 ### Configure the Firewall for the Zipkin Server
@@ -156,20 +156,20 @@ The default Fedora 26 firewall rules block all ports as a safety precaution. Cre
 
 1. Set `ZIPKIN_SERVER` to the IP address of the Zipkin server:
 
-    {{< file "website.py" python >}}
+    ```file {title="website.py"}
 def http_transport(encoded_span):
     import requests
     ZIPKIN_SERVER = "192.0.2.0"
 
-{{< /file >}}
+```
 
 
 2.  Set the host to allow access on the public IP address. If your Zipkin server and analyst machine are on the same local network as the webserver, skip this step:
 
-    {{< file "website.py" >}}
+    ```file {title="website.py"}
 run(host='0.0.0.0', port=8080, reloader=True)
 
-{{< /file >}}
+```
 
 
 ### Configure the Firewall for the Web Server

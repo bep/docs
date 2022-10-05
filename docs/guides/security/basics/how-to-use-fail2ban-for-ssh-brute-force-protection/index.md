@@ -103,7 +103,7 @@ A Fail2ban jail is a configuration file that contains filters or arguments that 
 You can customize the Fail2Ban configuration options and values as per your security requirements.
 {{</ note >}}
 
-    {{< file "/etc/fail2ban/jail.local" >}}
+    ```file {title="/etc/fail2ban/jail.local"}
 [sshd]
 enabled = true
 port = ssh
@@ -113,7 +113,7 @@ maxretry = 3
 findtime = 300
 bantime = 3600
 ignoreip = 127.0.0.1
-{{</ file >}}
+```
 
     {{< note >}}
 You can disable a Fail2Ban jail by setting the enabled configuration to false
@@ -127,11 +127,11 @@ You can disable a Fail2Ban jail by setting the enabled configuration to false
 
 1.  You can now test this functionality by re-enabling `PasswordAuthentication` in the OpenSSH Configuration file found in `/etc/ssh/sshd_config`. Do this by changing the value from `no` to `yes` using the text editor of your choice. Make sure these lines are uncommented.
 
-    {{< file "/etc/ssh/sshd_config" >}}
+    ```file {title="/etc/ssh/sshd_config"}
 #To disable tunneled clear text passwords, change to no here!
 PasswordAuthentication yes
 PermitEmptyPasswords no
-{{</ file >}}
+```
 
     This allows users to use passwords for authentication in addition to SSH key-pairs. Fail2Ban automatically detects brute-force attempts on SSH and blocks the users automatically. This greatly improves the security of both password based authentication and the server and is useful for user accounts that do not have administrator privileges.
 

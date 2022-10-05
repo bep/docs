@@ -102,7 +102,7 @@ This sometimes results in the same command that would be run via remote executio
 
 Here's an example state file which ensures that: rsync and curl are installed; NGINX is installed; and NGINX is run and enabled to run at boot:
 
-{{< file "/srv/salt/webserver_setup.sls">}}
+```file {title="/srv/salt/webserver_setup.sls"}
 network_utilities:
   pkg.installed:
     - pkgs:
@@ -119,7 +119,7 @@ nginx_service:
     - enable: True
     - require:
       - pkg: nginx_pkg
-{{< /file >}}
+```
 
 State files end with the extension `.sls` (SaLt State). State files can have one or more *state declarations*, which are the top-level sections of the file (`network_utilities`, `nginx_pkg`, and `nginx_service` in the above example). State declarations IDs are arbitrary, so you can name them however you prefer.
 
@@ -166,14 +166,14 @@ In addition to manually applying states to minions, Salt provides a way for you 
 
 Here's a simple top file:
 
-{{< file "/srv/salt/top.sls" >}}
+```file {title="/srv/salt/top.sls"}
 base:
   '*':
     - universal_setup
 
   'webserver1':
     - webserver_setup
-{{< /file >}}
+```
 
 `base` refers to the Salt [*environment*](https://docs.saltproject.io/en/latest/ref/states/top.html#environments). You can specify more than one environment corresponding to different phases of your work; for example: development, QA, production, etc. `base` is the default.
 
@@ -260,7 +260,7 @@ Salt Pillar is sometimes confused with Salt Grains, as they both keep data that 
 
 Pillar data is kept in `.sls` files which are written in the same YAML syntax as states:
 
-{{< file "/srv/pillar/user_info.sls">}}
+```file {title="/srv/pillar/user_info.sls"}
 users:
   joe:
     shell: /bin/zsh
@@ -268,15 +268,15 @@ users:
     shell: /bin/bash
   sam
     shell: /bin/fish
-{{< /file >}}
+```
 
 As with state files, a top file (separate from your states' top file) maps pillar data to minions:
 
-{{< file "/srv/pillar/top.sls">}}
+```file {title="/srv/pillar/top.sls"}
 base:
   'webserver1':
     - user_info
-{{< /file >}}
+```
 
 ## Jinja Templates
 
@@ -284,13 +284,13 @@ To inject pillar data into your states, use [Jinja's template syntax](https://do
 
 This example state file uses the pillar data from the previous section to create system users and set the shell for each:
 
-{{< file "/srv/salt/user_setup.sls" >}}
+```file {title="/srv/salt/user_setup.sls"}
 {% for user_name, user_info in pillar['users'].iteritems() %}
 {{ user_name }}:
   user.present:
     - shell: {{ user_info['shell'] }}
 {% endfor %}
-{{< /file >}}
+```
 
 Salt will compile the state file into something that looks like this before it is applied to the minion:
 
@@ -310,7 +310,7 @@ sam:
 
 You can also use Jinja to interact with grain data in your states. This example state will install Apache and adjust the name for the package according to the operating system:
 
-{{< file "/srv/salt/webserver_setup.sls" >}}
+```file {title="/srv/salt/webserver_setup.sls"}
 install_apache:
   pkg.installed:
     {% if grains['os'] == 'CentOS' %}
@@ -318,7 +318,7 @@ install_apache:
     {% else %}
     - name: apache
     {% endif %}
-{{< /file >}}
+```
 
 {{< note >}}
 In addition to Salt's documentation on Jinja, the [official Jinja documentation](http://jinja.pocoo.org/docs/2.10/templates/) also details the template syntax.

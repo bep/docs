@@ -74,13 +74,13 @@ Ensure that the version number matches the Drupal 8 version you wish to download
 
 1.  Enforce [trusted hostnames](https://www.drupal.org/node/2410395) with those that users will access your site from. With the text editor of your choice, edit your `settings.php` file replacing the [regular expression (RegEx)](https://www.php.net/manual/en/reference.pcre.pattern.syntax.php) with a pattern that matches your own site's URL(s).
 
-    {{< file "/var/www/html/example.com/public_html/sites/default/settings.php" conf >}}
+    ```file {title="/var/www/html/example.com/public_html/sites/default/settings.php"}
 $settings['trusted_host_patterns'] = array(
   '^www\.example\.com$',
   '^example\.com$',
   );
 
-{{< /file >}}
+```
 
 
     {{< note >}}
@@ -91,13 +91,13 @@ $settings['trusted_host_patterns'] = array(
 
 1.  Enable Apache's [rewrite module](https://httpd.apache.org/docs/current/mod/mod_rewrite.html). This module is necessary since Drupal 8 enables [Clean URLs](https://www.drupal.org/getting-started/clean-urls) by default. To enable this module, edit your Apache configuration to include the `LoadModule` line displayed in the example file below.
 
-    {{< file "/etc/httpd/conf/httpd.conf" apache >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 LoadModule rewrite_module modules/mod_rewrite.so
-    {{</ file >}}
+    ```
 
 2.  Specify the rewrite conditions for your Drupal site's document root in Apache's configuration file using the text editor of your choice. If you installed and configured your Apache server using [LAMP stack on CentOS 8](/docs/guides/how-to-install-a-lamp-stack-on-centos-8/) guide, the configuration file for your site is located at `/etc/httpd/conf.d/example.com.conf`.
 
-    {{< file "/etc/httpd/sites-enabled/example.com.conf" conf >}}
+    ```file {title="/etc/httpd/sites-enabled/example.com.conf"}
 <Directory /var/www/html/example.com/public_html>
     Options Indexes FollowSymLinks
     AllowOverride All
@@ -108,7 +108,7 @@ LoadModule rewrite_module modules/mod_rewrite.so
       RewriteCond %{REQUEST_FILENAME} !-d
       RewriteRule ^(.*)$ index.php?q=$1 [L,QSA]
 </Directory>
-{{< /file >}}
+```
 
 1. Set the SELinux context for your site's directories in order to read and write to them. This includes your site's root directory and subdirectories.
 

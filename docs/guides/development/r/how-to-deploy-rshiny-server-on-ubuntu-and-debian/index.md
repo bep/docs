@@ -111,7 +111,7 @@ By default, Shiny Server uses `/srv/shiny-server/` as its site directory. Any Sh
 
 Shiny Server's configuration file is stored at `/etc/shiny-server/shiny-server.conf`:
 
-{{< file "/etc/shiny-server/shiny-server.conf" >}}
+```file {title="/etc/shiny-server/shiny-server.conf"}
 # Instruct Shiny Server to run applications as the user "shiny"
 run_as shiny;
 
@@ -133,7 +133,7 @@ server {
     directory_index on;
   }
 }
-{{< /file >}}
+```
 
 You can edit the port that Shiny Server will listen on, or change the site directory from which apps are served. The `directory_index` option allows visitors to view the contents of a directory by navigating to that path (for example, visiting `example.com:3838/sample-apps` will show a list of the example apps included in the Shiny Server installation). You can disable this behavior and hide the contents of directories by setting this option to `off`. For more information about configuring Shiny Server, see the official [Administrator's Guide](http://docs.rstudio.com/shiny-server/).
 

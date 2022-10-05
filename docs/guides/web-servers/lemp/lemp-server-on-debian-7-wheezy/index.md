@@ -66,7 +66,7 @@ This will install version 1.2.1-22 of the Nginx server.
 
 You will need to configure `server` declarations to specify name-based virtual hosts. Since you are using the packages from the Debian project, create the virtual hosting configuration in the as `/etc/nginx/sites-available/example.com`. Consider the following Nginx virtual host configuration:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen   80;
     server_name www.example.com example.com;
@@ -79,7 +79,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Create the `public_html` and `log` directories referenced in this configuration by issuing the following command (make sure to change example.com to your domain name):
@@ -120,7 +120,7 @@ Issue the following sequence of commands to download a small wrapper script for 
 
 Below is a sample Nginx virtual host configuration file. Modify your configuration to be similar to the one below. Remember to replace example.com with your domain.
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 server {
     server_name www.example.com example.com;
     access_log /srv/www/example.com/logs/access.log;
@@ -131,24 +131,24 @@ server {
         index index.html index.htm index.php;
     }
 
-{{< /file >}}
+```
 
 In addition, with in the Nginx virtual host file, ensure the `location ~ \.php$ { }` block resembles the one in this example:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
     fastcgi_pass  127.0.0.1:9000;
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/www/example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 **Important security note:** If you are planning to run applications that support file uploads (images, for example), the above configuration may expose you to a security risk by allowing arbitrary code execution. The short explanation for this behavior is that a properly crafted URI which ends in ".php", in combination with a malicious image file that actually contains valid PHP, can result in the image being processed as PHP. For more information on the specifics of this behavior, you may wish to review the information provided on [Neal Poole's blog](https://nealpoole.com/blog/2011/04/setting-up-php-fastcgi-and-nginx-dont-trust-the-tutorials-check-your-configuration/).
 
 To mitigate this issue, you may wish to modify your configuration to include a `try_files` directive. Please note that this fix requires Nginx and the php-fcgi workers to reside on the same server.
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ \.php$ {
     try_files $uri =404;
     include /etc/nginx/fastcgi_params;
@@ -156,11 +156,11 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/www/example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 Additionally, it is a good idea to secure any upload directories your applications may use. The following configuration excerpt demonstrates securing an "/images" directory:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
     if ($uri !~ "^/images/") {
@@ -169,7 +169,7 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/www/example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 When you have completed the modifications to the configuration, make sure that the virtual host is enabled and issue the following command to restart the web server:
 

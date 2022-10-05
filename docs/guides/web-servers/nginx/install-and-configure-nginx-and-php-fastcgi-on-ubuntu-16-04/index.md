@@ -72,7 +72,7 @@ Nginx uses `server` directives to specify name-based virtual hosts. Nginx calls 
 
 2.  You should now have the following server block in the nginx virtual host configuration. Replace all instances of `example.com` with your domain, modify the **root** path as shown below, and add the `location ~ \.php$` block:
 
-    {{< file "/etc/nginx/sites-available/example.com" nginx >}}
+    ```file {title="/etc/nginx/sites-available/example.com"}
 server {
     listen 80;
     listen [::]:80;
@@ -93,7 +93,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 3.  Create the root directory referenced in this configuration, replacing `example.com` with your domain name:
@@ -127,7 +127,7 @@ If you're planning to run applications that support file uploads (images, for ex
 
 To mitigate this issue, you may wish to modify your configuration to include a `try_files` directive as shown in this excerpt:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ \.php$ {
     try_files $uri =404;
     include /etc/nginx/fastcgi_params;
@@ -136,12 +136,12 @@ location ~ \.php$ {
     fastcgi_param SCRIPT_FILENAME /var/www/html/example.com/public_html/$fastcgi_script_name;
 }
 
-{{< /file >}}
+```
 
 
 Additionally, it's a good idea to secure any upload directories your applications may use. The following configuration excerpt demonstrates securing an `/images` directory:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
     if ($uri !~ "^/images/") {
@@ -151,17 +151,17 @@ location ~ \.php$ {
     fastcgi_param SCRIPT_FILENAME /var/www/html/example.com/public_html/$fastcgi_script_name;
 }
 
-{{< /file >}}
+```
 
 
 ## Test PHP with FastCGI
 
 Create a file called `test.php` in your site's `public_html` directory with the following contents:
 
-{{< file "/var/www/html/example.com/public_html/test.php" php >}}
+```file {title="/var/www/html/example.com/public_html/test.php"}
 <?php phpinfo(); ?>
 
-{{< /file >}}
+```
 
 
 When you visit `http://www.example.com/test.php` in your browser, the standard "PHP info" output is shown.

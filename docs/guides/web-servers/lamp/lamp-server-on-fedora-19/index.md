@@ -65,7 +65,7 @@ By default, all files ending in the `.conf` extension in `/etc/httpd/conf.d/` ar
 
 Edit the main Apache configuration file to add these resource use settings, or create a new .conf file in `/etc/httpd/conf.d/`. The settings shown below are a good starting point for a **Linode 2GB**.
 
-{{< file "/etc/httpd/conf/httpd.conf" >}}
+```file {title="/etc/httpd/conf/httpd.conf"}
 KeepAlive Off
 
 <IfModule prefork.c>
@@ -75,7 +75,7 @@ KeepAlive Off
         MaxClients          200
         MaxRequestsPerChild 4500
 </IfModule>
-{{< /file >}}
+```
 
 Now we'll configure virtual hosting so that we can host multiple domains (or subdomains) with the server. These websites can be controlled by different users, or by a single user, as you prefer.
 
@@ -87,7 +87,7 @@ There are different ways to set up Virtual Hosts, however we recommend the metho
 
 Now we will create virtual host entries for each site that we need to host with this server. Here are two examples for sites at "example.com" and "example.org".
 
-{{< file "/etc/httpd/conf.d/vhost.conf" >}}
+```file {title="/etc/httpd/conf.d/vhost.conf"}
 <VirtualHost *:80>
      ServerAdmin webmaster@example.com
      ServerName example.com
@@ -105,7 +105,7 @@ Now we will create virtual host entries for each site that we need to host with 
      ErrorLog /var/www/example.org/logs/error.log
      CustomLog /var/www/example.org/logs/access.log combined
 </VirtualHost>
-{{< /file >}}
+```
 
 Notes regarding this example configuration:
 
@@ -193,7 +193,7 @@ Once PHP5 is installed, we'll need to tune the configuration file located in `/e
 
 Make sure that the following values are set, and relevant lines are uncommented (comments are lines beginning with a semi-colon (`;` character)):
 
-{{< file "/etc/php.ini" >}}
+```file {title="/etc/php.ini"}
 error_reporting = E_COMPILE_ERROR|E_RECOVERABLE_ERROR|E_ERROR|E_CORE_ERROR
 display_errors = Off
 log_errors = On
@@ -202,7 +202,7 @@ max_execution_time = 30
 memory_limit = 128M
 register_globals = Off
 max_input_time = 30
-{{< /file >}}
+```
 
 You will need to create the log directory for PHP and give the Apache user ownership:
 
@@ -215,9 +215,9 @@ If you need support for MySQL in PHP, then you must install the php5-mysql packa
 
 You can test PHP by creating a file with the following contents under your "public\_html" directory:
 
-{{< file "/var/www/example.com/public\_html/test.php" >}}
+```file {title="/var/www/example.com/public\_html/test.php"}
 <?php phpinfo(); ?>
-{{< /file >}}
+```
 
 You will need to restart Apache before php scripts will work:
 

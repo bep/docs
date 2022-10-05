@@ -56,24 +56,24 @@ The `BeautifulSoup` class from `bs4` will handle the parsing of the web pages. T
 
 Open `craigslist.py` in a text editor and add the necessary import statements:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 from bs4 import BeautifulSoup
 import datetime
 from tinydb import TinyDB, Query
 import urllib3
 import xlsxwriter
-{{< /file >}}
+```
 
 ### Add Global Variables
 
 After the import statements, add global variables and configuration options:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 url = 'https://elpaso.craigslist.org/search/mcy?sort=date'
 total_added = 0
-{{< /file >}}
+```
 
 `url` stores the URL of the webpage to be scraped, and `total_added` will be used to keep track of the total number of results added to the database. The `urllib3.disable_warnings()` function ignores any SSL certificate warnings.
 
@@ -81,12 +81,12 @@ total_added = 0
 
 The `make_soup` function makes a GET request to the target url and converts the resulting HTML into a BeautifulSoup object:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 def make_soup(url):
     http = urllib3.PoolManager()
     r = http.request("GET", url)
     return BeautifulSoup(r.data,'lxml')
-{{< /file >}}
+```
 
 The `urllib3` library has excellent exception handling; if `make_soup` throws any errors, check the
 [urllib3 docs](https://urllib3.readthedocs.io/en/latest/) for detailed information.
@@ -97,7 +97,7 @@ Beautiful Soup has different parsers available which are more or less strict abo
 
 An object of class `BeautifulSoup` is organized in a tree structure. In order to access the data you are interested in, you will have to be familiar with how the data is organized in the original HTML document. Go to the initial website in a browser, right click and select **View page source** (or **Inspect**, depending on your browser) to review the structure of the data that you would like to scrape:
 
-{{< file "https://elpaso.craigslist.org/search/mcy?sort=date" html >}}
+```file {title="https://elpaso.craigslist.org/search/mcy?sort=date"}
 <li class="result-row" data-pid="6370204467">
   <a href="https://elpaso.craigslist.org/mcy/d/ducati-diavel-dark/6370204467.html" class="result-image gallery" data-ids="1:01010_8u6vKIPXEsM,1:00y0y_4pg3Rxry2Lj,1:00F0F_2mAXBoBiuTS">
     <span class="result-price">$12791</span>
@@ -125,7 +125,7 @@ An object of class `BeautifulSoup` is organized in a tree structure. In order to
     </span>
   </p>
 </li>
-{{< /file >}}
+```
 
 1.  Select the web page snippets by selecting just the **li** html tags and further narrow down the choices by selecting only those **li** tags that have a class of **result-row**. The **results** variable contains all the web page snippets that match this criteria:
 
@@ -133,7 +133,7 @@ An object of class `BeautifulSoup` is organized in a tree structure. In order to
 
 2.  Attempt to create a record according to the structure of the target snippet. If the structure doesn't match, then Python will throw an exception which will cause it to skip this record and snippet:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 rec = {
 'pid': result['data-pid'],
 'date': result.p.time['datetime'],
@@ -143,7 +143,7 @@ rec = {
 'descr': result.p.a.string.strip(),
 'createdt': datetime.datetime.now().isoformat()
 }
-{{< /file >}}
+```
 
 3.  Use Beautiful Soup's array notation to access attributes of an HTML element:
 
@@ -173,7 +173,7 @@ rec = {
 
 8.  Use the Query object to check if a record already exists in the database before inserting it. This avoids creating duplicate records.
 
-      {{< file "craigslist.py" python >}}
+      ```file {title="craigslist.py"}
 Result = Query()
 s1 = db.search(Result.pid == rec["pid"])
 
@@ -181,7 +181,7 @@ if not s1:
     total_added += 1
     print ("Adding ... ", total_added)
     db.insert(rec)
-{{< /file >}}
+```
 
 ### Error Handling
 
@@ -193,29 +193,29 @@ The other error is a `KeyError`. It will be thrown if a required HTML tag attrib
 
 If either of these errors occurs when parsing a result, that result will be skipped to ensure that a malformed snippet isn't inserted into the database:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 except (AttributeError, KeyError) as ex:
     pass
-{{< /file >}}
+```
 
 ### Cleaning Functions
 
 These are two short custom functions to clean up the snippet data. The `clean_money` function strips any dollar signs from its input:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 def clean_money(amt):
     return int(amt.replace("$",""))
-{{< /file >}}
+```
 
 The `clean_pic` function generates a URL for accessing the first image in each search result:
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 def clean_pic(ids):
     idlist = ids.split(",")
     first = idlist[0]
     code = first.replace("1:","")
     return "https://images.craigslist.org/%s_300x300.jpg" % code
-{{< /file >}}
+```
 
 The function extracts and cleans the id of the first image, then adds it to the base URL.
 
@@ -225,24 +225,24 @@ The `make_excel` function takes the data in the database and writes it to an Exc
 
 1.  Add spreadsheet variables:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 Headlines = ["Pid", "Date", "Cost", "Webpage", "Pic", "Desc", "Created Date"]
 row = 0
-{{< /file >}}
+```
 
     The **Headlines** variable is a list of titles for the columns in the spreadsheet. The **row** variable tracks the current spreadsheet
 row.
 
 2.  Use `xlsxwriter` to open a workbook and add a worksheet to receive the data.
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 workbook = xlsxwriter.Workbook('motorcycle.xlsx')
 worksheet = workbook.add_worksheet()
-{{< /file >}}
+```
 
 3.  Prepare the worksheet:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 worksheet.set_column(0,0, 15) # pid
 worksheet.set_column(1,1, 20) # date
 worksheet.set_column(2,2, 7)  # cost
@@ -250,20 +250,20 @@ worksheet.set_column(3,3, 10)  # webpage
 worksheet.set_column(4,4, 7)  # picture
 worksheet.set_column(5,5, 60)  # Description
 worksheet.set_column(6,6, 30)  # created date
-{{< /file >}}
+```
 
     The first 2 items are always the same in the `set_column` method. That is because it is setting the attributes of a section of columns from the first indicated column to the next. The last value is the width of the column in characters.
 
 4.  Write the column headers to the worksheet:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 for col, title in enumerate(Headlines):
     worksheet.write(row, col, title)
-{{< /file >}}
+```
 
 5.  Write the records to the database:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 for item in db.all():
     row += 1
     worksheet.write(row, 0, item['pid'] )
@@ -273,21 +273,21 @@ for item in db.all():
     worksheet.write_url(row, 4, item['pic'], string="Picture" )
     worksheet.write(row, 5, item['descr'] )
     worksheet.write(row, 6, item['createdt'] )
-{{< /file >}}
+```
 
     Most of the fields in each row can be written using `worksheet.write`; `worksheet.write_url` is used for the listing and image URLs. This makes the resulting links clickable in the final spreadsheet.
 
 6.  Close the Excel workbook:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
     workbook.close()
-{{< /file >}}
+```
 
 ### Main Routine
 
 The main routine will iterate through every page of search results and run the **soup_process** function on each page. It also keeps track of the total number of database entries added in the global variable **total_added**, which is updated in the **soup_process** function and displayed once the scrape is complete. Finally, it creates a TinyDB database `db.json` and stores the parsed data; when the scrape is complete, the database is passed to the **make_excel** function to be written to a spreadsheet.
 
-{{< file "craigslist.py" python >}}
+```file {title="craigslist.py"}
 def main(url):
     total_added = 0
     db = TinyDB("db.json")
@@ -304,7 +304,7 @@ def main(url):
     print ("Added ",total_added)
 
     make_excel(db)
-{{< /file >}}
+```
 
 A sample run might look like the following. Notice that each page has the index embedded in the URL. This is how Craigslist knows where the next page of data starts:
 
@@ -330,7 +330,7 @@ This section will set up a cron task to run the scraping script automatically at
 
 2. Make sure the complete `craigslist.py` script is in the home directory:
 
-    {{< file "craigslist.py" python >}}
+    ```file {title="craigslist.py"}
 from bs4 import BeautifulSoup
 import datetime
 from tinydb import TinyDB, Query
@@ -435,7 +435,7 @@ def make_excel(db):
     workbook.close()
 
 main(url)
-{{< /file >}}
+```
 
 3. Add a cron tab entry as the user:
 

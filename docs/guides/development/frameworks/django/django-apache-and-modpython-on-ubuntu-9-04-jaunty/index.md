@@ -31,11 +31,11 @@ We assume that you've completed the [Setting Up and Securing a Compute Instance]
 
 The package that contains the Django application is contained in the "universe" repository for Ubuntu Jaunty. To make this repository accessible to your system, add or uncomment the following lines to your `/etc/apt/sources.list` file:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 deb http://us.archive.ubuntu.com/ubuntu/ jaunty universe
 deb-src http://us.archive.ubuntu.com/ubuntu/ jaunty universe
 
-{{< /file >}}
+```
 
 
 Then, to refresh your system issue the following command:

@@ -141,7 +141,7 @@ This guide uses [Rust](https://www.rust-lang.org/) to get started with WebAssemb
 
 1. Open the `package.json` file (the one in the `www` subdirectory), and add a `dependencies` section with an entry for your WebAssembly `pkg` directory.
 
-    {{< file "package.json" >}}
+    ```file {title="package.json"}
 {
   // [...]
 
@@ -151,15 +151,15 @@ This guide uses [Rust](https://www.rust-lang.org/) to get started with WebAssemb
 
   // [...]
 }
-    {{< /file >}}
+    ```
 
 1. Open the `index.js` file, and change the default `hello-wasm-pack` reference to your WebAssembly application's name.
 
-    {{< file "index.js" >}}
+    ```file {title="index.js"}
 import * as wasm from "hello-wasm-world";
 
 wasm.greet();
-    {{< /file >}}
+    ```
 
 1. Have NPM again install the project dependencies, since your WebAssembly application has been added in.
 

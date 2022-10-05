@@ -121,16 +121,16 @@ Email Address []:admin@yacht.local
 
 1.  Open the `local/nginx/nginx.conf` file using `vim` or another text editor of your choice and locate the server block for port 8000 (around line 30).
 
-    {{< file "local/nginx/nginx.conf" conf>}}
+    ```file {title="local/nginx/nginx.conf"}
 ...
 server {
      listen *:8000;
 ...
-{{</ file >}}
+```
 
      Add the `ssl` parameter and paths for the certificate and key.
 
-    {{< file "local/nginx/nginx.conf" conf >}}
+    ```file {title="local/nginx/nginx.conf"}
 ...
 
 server {
@@ -139,7 +139,7 @@ server {
      ssl_certificate_key /etc/nginx/ssl/yacht.key;
 
 ...
-{{</ file  >}}
+```
 
 1.   Copy `local/nginx/nginx.conf` and `local/ssl` to the `/etc/nginx/` directory in the Yacht container, and then reload Nginx.
 

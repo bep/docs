@@ -135,7 +135,7 @@ While `choose` doesn't provide the complex features offered by `cut` and `awk`, 
 
 These examples use the CSV file shown below, which lets you see how `choose` handles custom delimiters as well as multi-line content:
 
-{{< file "example-text.csv" csv >}}
+```file {title="example-text.csv"}
 first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth
 21,30,37,3,22,2,20,16,11
 19,39,20,31,25,16,40,11,32
@@ -146,7 +146,7 @@ first,second,third,fourth,fifth,sixth,seventh,eighth,ninth,tenth
 28,8,37,37,14,14,15,19,2
 12,26,6,19,37,41,10,21,18
 12,41,9,10,8,39,4,29,15
-{{< /file >}}
+```
 
 With `choose`, you can use the `-f` flag to define the delimiter to use on your input text. For a CSV file like this, typically this would be a `,`:
 

@@ -74,17 +74,17 @@ In this section, you create the List and View endpoints. These endpoints return 
 
 1. Using your preferred text editor, create a new file named `main.py` and add the following contents to the file:
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 from fastapi import FastAPI
 
 app = FastAPI()
-{{</ file >}}
+```
 
     In the first line, you import the FastAPI module. Then, you instantiate the `FastAPI` class and assign the new instance to the `app` variable.
 
 1. Instantiate your API's in-memory data store and populate it with data:
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -94,7 +94,7 @@ in_memory_datastore = [
   {"name": "ALGOL", "publication_year": 1958, "contribution": "scoping and nested functions"},
   {"name": "APL", "publication_year": 1962, "contribution": "array processing"},
 ]
-{{</ file >}}
+```
 
     The previous code adds the following to your API:
 
@@ -110,7 +110,7 @@ Each record within the `in_memory_datastore` list is a Python dictionary. RESTfu
 
 1. Add the List Programming Languages endpoint to your `main.py` file. This endpoint fetches all the records in the data store and returns them to the client as a JSON object. The JSON object has the label `programming_languages`.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -124,7 +124,7 @@ in_memory_datastore = [
 @app.get('/programming_languages')
 def get_programming_languages():
    return {"programming_languages" : in_memory_datastore }
-{{</ file >}}
+```
 
     The List endpoint returns an object instead of a raw array because this makes it easier to maintain the return body. An object provides the freedom to add more attributes to the return body later. For example, if you want to return a count of objects in your data store, you cannot add a `count` attribute to a raw array. However, you can add a `count` attribute to an enclosing JSON object with one key that points to an array. This becomes especially useful in APIs that allow clients to filter sections of data or request aggregate metrics for the data or sections of data.
 
@@ -148,12 +148,12 @@ In this section you create an endpoint to retrieve an individual programming lan
 
 1. Add the example code to the bottom of the `main.py` file.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 ...
 @app.get('/programming_languages/{programming_language_id}')
 def get_programming_language(programming_language_id: int):
    return in_memory_datastore[programming_language_id]
-{{</ file >}}
+```
 
     This endpoint includes an interpolated variable (`{programming_language_id}`) that allows you to query for a specific item in the data store. The `id` in this example points to an index value in the programming languages list.
 
@@ -177,16 +177,16 @@ This section shows you how to add filtering capabilities to your API. These chan
 
 1. Update the `main.py` file to import the `BaseModel` class from the `pydantic` module.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 from fastapi import FastAPI
 from pydantic import Basemodel
-{{</ file >}}
+```
 
     To allow clients to filter your API's data on the `publication_year` your code is updated to retrieve resources as objects rather than as dictionaries. FastAPI provides an object mapper that allows you to define attributes on a data type. The `BaseModel` class accesses the object mapper. With this capability, FastAPI attempts to automatically convert those objects to and from the input and output format, in this case, a dictionary.
 
 1. Update your `main.py` file to add more entries to your data store.
 
-    {{< file "main.py">}}
+    ```file {title="main.py"}
 ...
 in_memory_datastore = [
    {"name": "COBOL", "publication_year": 1960, "contribution": "record data"},
@@ -199,22 +199,22 @@ in_memory_datastore = [
    {"name": "CLU", "publication_year": 1975, "contribution": "iterators, abstract data types, generics, checked exceptions"}
 ]
 ...
-{{</ file >}}
+```
 
 1. Create your instance of the `BaseModel` class. Add the example line below your data store list.
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 class ProgrammingLanguage(BaseModel):
     name: str
     publication_year: int
     contribution: str
-{{</ file >}}
+```
 
     The model includes the attributes that the data store defined. The base model supports a constructor that takes all the keyword arguments out of a dictionary. It also supports a `to_dict()` method for turning an object into a dictionary representation.
 
 1. Modify the `list_programming_languages` method as displayed below:
 
-    {{< file "main.py" >}}
+    ```file {title="main.py"}
 ...
 @app.get('/programming_languages')
 def list_programming_languages(before_year: int = 30000, after_year: int = 0):
@@ -230,7 +230,7 @@ def list_programming_languages(before_year: int = 30000, after_year: int = 0):
    )
    return {"programming_languages" : qualifying_data }
 ...
-{{</ file >}}
+```
 
     Clients can now filter the programming languages with two query parameters: `before_year` and `after_year`. FastAPI automatically treats all parameters passed to a routed method as *query parameters* (except interpolated path parameters). If a client does not pass a query parameter in its request, the default start year of `0` is used. The default end year of `30000` automatically captures all languages.
 

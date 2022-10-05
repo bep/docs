@@ -87,13 +87,13 @@ When storing your Ansible configuration file, ensure that its corresponding dire
 
 1.  Create the Ansible configuration file, `ansible.cfg` in the `development` directory and add the `host_key_checking` and `enable_plugins` options.
 
-      {{< file "~/development/ansible.cfg">}}
+      ```file {title="~/development/ansible.cfg"}
 [defaults]
 host_key_checking = False
 VAULT_PASSWORD_FILE = ./vault-pass
 [inventory]
 enable_plugins = linode
-{{</ file >}}
+```
 
       - `host_key_checking = False` will allow Ansible to SSH into hosts without having to accept the remote server's host key. This will disable host key checking globally.
       - `VAULT_PASSWORD_FILE = ./vault-pass` is used to specify a Vault password file to use whenever Ansible Vault requires a password. Ansible Vault offers several options for password management. To learn more password management, read Ansible's [Providing Vault Passwords](https://docs.ansible.com/ansible/latest/user_guide/vault.html#providing-vault-passwords) documentation.
@@ -111,7 +111,7 @@ You can now begin creating Linode instances using Ansible. In this section, you 
 
 1. U sing your preferred text editor, create the `Create Linode` Playbook file and include the following values:
 
-    {{< file "~/development/linode_create.yml" yaml >}}
+    ```file {title="~/development/linode_create.yml"}
 - name: Create Linode
   hosts: localhost
   vars_files:
@@ -130,7 +130,7 @@ You can now begin creating Linode instances using Ansible. In this section, you 
       tags: example_group
       state: present
     register: my_linode
-{{</ file >}}
+```
 
     - The Playbook `my_linode` contains the `Create Linode` play, which will be executed on `hosts: localhost`. This means the Ansible playbook will execute on the local system and use it as a vehicle to deploy the remote Linode instances.
     - The `vars_files` key provides the location of a local file that contains variable values to populate in the play. The value of any variables defined in the vars file will substitute any Jinja template variables used in the Playbook. Jinja template variables are any variables between curly brackets, like: `{{ my_var }}`.
@@ -159,11 +159,11 @@ In the previous section, you created the *Create Linode Playbook* to deploy Lino
 
 1.  Create the variables file and populate it with the example variables. You can replace the values with your own.
 
-    {{< file "~/development/group_vars/example_group/vars">}}
+    ```file {title="~/development/group_vars/example_group/vars"}
 ssh_keys: >
         ['ssh-rsa AAAAB3N..5bYqyRaQ== user@mycomputer', '~/.ssh/id_rsa.pub']
 label: simple-linode-
-{{</ file >}}
+```
 
     - The `ssh_keys` example passes a list of two public SSH keys. The first provides the string value of the key, while the second provides a local public key file location.
 
@@ -189,9 +189,9 @@ Ansible Vault can also encrypt entire files containing sensitive values. View An
 
 1.  Create your Ansible Vault password file and add your password to the file. Remember the location of the password file was configured in the `ansible.cfg` file in the [Configure Ansible](#configure-ansible) section of this guide.
 
-    {{< file "~/development/vault-pass">}}
+    ```file {title="~/development/vault-pass"}
 My.ANS1BLEvault-c00lPassw0rd
-{{</ file >}}
+```
 
 1.  Encrypt the value of your Linode's root user password using Ansible Vault. Replace `My.c00lPassw0rd` with your own strong password that conforms to the [`root_pass` parameter's](#linode-v4-module-parameters) constraints.
 
@@ -220,7 +220,7 @@ Encryption successful
 
     The final `vars` file should resemble the example below:
 
-    {{< file "~/development/group_vars/example_group/vars">}}
+    ```file {title="~/development/group_vars/example_group/vars"}
 ssh_keys: >
         ['ssh-rsa AAAAB3N..5bYqyRaQ== user@mycomputer', '~/.ssh/id_rsa.pub']
 label: simple-linode-
@@ -241,7 +241,7 @@ token: !vault |
           34613532353031333731336339396233623533326130376431346462633832353432316163373833
           35316333626530643736636332323161353139306533633961376432623161626132353933373661
           36663135323664663130
-{{</ file >}}
+```
 
 ### Run the Ansible Playbook
 
@@ -293,7 +293,7 @@ The dynamic inventory plugin for Linode was enabled in the Ansible configuration
 
 1. Configure the Ansible dynamic inventory plugin for Linode by creating a file named `linode.yml`.
 
-      {{< file "~/development/linode.yml"yaml>}}
+      ```file {title="~/development/linode.yml"}
 plugin: linode
 regions:
   - us-east
@@ -301,7 +301,7 @@ groups:
   - example_group
 types:
   - g6-nanode-1
-{{</ file >}}
+```
 
       - The configuration file will create an inventory for any Linodes on your account that are in the `us-east` region, part of the `example_group` group and of type `g6-nanode-1`. Any Linodes that are not part of the `example_group` group, but that fulfill the `us-east` region and `g6-nanode-type` type will be displayed as ungrouped. All other Linodes will be excluded from the dynamic inventory. For more information on all supported parameters, see the [Plugin Parameters](#plugin-parameters) section.
 
@@ -380,7 +380,7 @@ simple-linode-29 | SUCCESS => {
 
 1.  To delete the Linode instance created in this guide, create a Delete Linode Playbook with the following content in the example. Replace the value of `label` with your Linode's label:
 
-    {{< file "~/development/linode_delete.yml" yaml>}}
+    ```file {title="~/development/linode_delete.yml"}
 - name: Delete Linode
   hosts: localhost
   vars_files:
@@ -390,7 +390,7 @@ simple-linode-29 | SUCCESS => {
     linode_v4:
       label: simple-linode-29
       state: absent
-      {{</ file >}}
+      ```
 
 1.  Run the Delete Linode Playbook:
 

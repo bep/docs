@@ -98,7 +98,7 @@ Kubespray comes with several configuration options not shown in this guide. Refe
 
 3.  Modify `~/kubespray/ansible.cfg` to run Ansible playbooks on hosts as a given user. Replace `username` with your Unix account username in `remote_user=username` under `[defaults]`.
 
-    {{< file "~/kubespray/ansible.cfg" cfg >}}
+    ```file {title="~/kubespray/ansible.cfg"}
 [ssh_connection]
 pipelining=True
 ssh_args = -o ControlMaster=auto -o ControlPersist=30m -o ConnectionAttempts=100 -o UserKnownHostsFile=/dev/null
@@ -114,7 +114,7 @@ callback_whitelist = profile_tasks
 roles_path = roles:$VIRTUAL_ENV/usr/local/share/kubespray/roles:$VIRTUAL_ENV/usr/local/share/ansible/roles:/usr/share/kubespray/roles
 deprecation_warnings=False
 remote_user=username
-{{< /file >}}
+```
 
 4.  Copy the example inventory directory and rename it:
 
@@ -131,7 +131,7 @@ Do not use hostnames when declaring `$IPS`. Only IP addresses are supported by t
 
 6.  Example configuration for the cluster in this guide.
 
-    {{< file "~/kubespray/inventory/minio/hosts.ini" ini >}}
+    ```file {title="~/kubespray/inventory/minio/hosts.ini"}
 [all]
 node1    ansible_host=kubernetes-master-ip ip=kubernetes-master-ip
 node2    ansible_host=etcd-ip ip=etcd-ip
@@ -157,7 +157,7 @@ kube-master
 node1
 node2
 node3
-{{< /file >}}
+```
 
 7.  Uncomment the line `docker_dns_servers_strict: false` in `~/kubernetes/inventory/minio/group_vars/all.yml`
 
@@ -182,7 +182,7 @@ Below is a loop that adds the line `username ALL=(ALL:ALL) NOPASSWD: ALL` to the
 
 Add this snippet below at the end of `~/kubespray/roles/bootstrap-os/tasks/main.yml` to disable swap using Ansible.
 
-{{< file "~/kubespray/roles/bootstrap-os/tasks/main.yml" >}}
+```file {title="~/kubespray/roles/bootstrap-os/tasks/main.yml"}
 - name: Remove swapfile from /etc/fstab
   mount:
     name: swap
@@ -191,7 +191,7 @@ Add this snippet below at the end of `~/kubespray/roles/bootstrap-os/tasks/main.
 
 - name: Disable swap
   command: swapoff -a
-{{< /file >}}
+```
 
 ## Run Ansible Playbook
 
@@ -235,7 +235,7 @@ Persistent Volumes(PV) are an abstraction in Kubernetes that represents a unit o
 
 1.  On the Kubernetes master node, create a file called `minio-volume.yaml` with the following YAML below. Replace `username` on the `hostPath` with the appropriate path.
 
-    {{< file "minio-volume.yaml" >}}
+    ```file {title="minio-volume.yaml"}
 kind: PersistentVolume
 apiVersion: v1
 metadata:
@@ -250,7 +250,7 @@ spec:
     - ReadWriteOnce
   hostPath:
     path: "/home/username"
-{{< /file >}}
+```
 
 2.  Create the PV:
 
@@ -258,7 +258,7 @@ spec:
 
 3.  Create a PVC with `minio-pvc.yaml`:
 
-    {{< file "minio-pvc.yaml" >}}
+    ```file {title="minio-pvc.yaml"}
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -272,7 +272,7 @@ spec:
   resources:
     requests:
       storage: 10Gi
-{{< /file >}}
+```
 
 4.  Create the PVC:
 
@@ -282,7 +282,7 @@ spec:
 
 1.  Create a Deployment configuration in `minio-deployment.yaml` and substitute `username` on the last line. The access and secret key are in the YAML file.
 
-    {{< file "minio-deployment.yaml" >}}
+    ```file {title="minio-deployment.yaml"}
 apiVersion: apps/v1 #  for k8s versions before 1.9.0 use apps/v1beta2  and before 1.8.0 use extensions/v1beta1
 kind: Deployment
 metadata:
@@ -326,7 +326,7 @@ spec:
         volumeMounts:
         - name: storage # must match the volume name, above
           mountPath: "/home/username"
-{{< /file >}}
+```
 
 2.  Create the Deployment.
 
@@ -336,7 +336,7 @@ spec:
 
 1.  Create a file for the service called `minio-service.yaml`
 
-    {{< file "minio-service.yaml" >}}
+    ```file {title="minio-service.yaml"}
 apiVersion: v1
 kind: Service
 metadata:
@@ -349,7 +349,7 @@ spec:
       protocol: TCP
   selector:
     app: minio
-{{< /file >}}
+```
 
 2.  Deploy the Minio service:
 

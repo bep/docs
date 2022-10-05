@@ -209,12 +209,12 @@ Both the CSV and Markdown exports provide similar data. Essentially, you get a t
 
     hyperfine --warmup 20 './binary-tree.pl 10' './binary-tree.py 10' --export-markdown benchmarks.md
 
-{{< file "benchmarks.md" >}}
+```file {title="benchmarks.md"}
 | Command | Mean [ms] | Min [ms] | Max [ms] | Relative |
 |:---|---:|---:|---:|---:|
 | `./binary-tree.pl 10` | 56.3 ± 1.6 | 54.8 | 63.8 | 1.00 |
 | `./binary-tree.py 10` | 56.6 ± 3.4 | 51.0 | 68.7 | 1.00 ± 0.07 |
-{{< /file >}}
+```
 
 That Markdown should render something like this:
 
@@ -229,7 +229,7 @@ The example command below generates a JSON report for the same benchmark procedu
 
     hyperfine --warmup 20 './binary-tree.pl 10' './binary-tree.py 10' --export-json benchmarks.json
 
-{{< file "benchmarks.json" >}}
+```file {title="benchmarks.json"}
 {
   "results": [
     {
@@ -266,7 +266,7 @@ The example command below generates a JSON report for the same benchmark procedu
     }
   ]
 }
-{{< /file >}}
+```
 
 ## Conclusion
 

@@ -217,7 +217,7 @@ The Python interpreter returns the interpolated string:
 
 The Python 3 Template class provides more readable code, especially when using a single template with various values stored in a [dictionary](/docs/guides/python-3-dictionaries/). For example:
 
-{{< file "~/home/username/template_example.py">}}
+```file {title="~/home/username/template_example.py"}
 from string import Template
 
 names = []
@@ -229,7 +229,7 @@ greeting = Template('Welcome, $first $last')
 
 for name in names:
     print(greeting.substitute(name))
-{{</ file >}}
+```
 
 When you run the above Python file, the following interpolated strings are returned as output:
 

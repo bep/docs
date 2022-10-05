@@ -71,20 +71,20 @@ A simple way to use Squid as an HTTP proxy is to use a client's IP address for a
 
 1.  Edit the Squid configuration file and add the following lines at the beginning of the file:
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 acl client src 192.0.2.0 # Home IP
 http_access allow client
-{{< /file >}}
+```
 
     Replace `client` with a name that identifies the client computer that will connect to your Squid HTTP proxy, then replace `192.0.2.0` with the client computer's IP address. You can also update the optional comment `# Home IP` to further describe the client.
 
 1.  Alternatively, you can configure multiple clients by adding new `acl` lines to `/etc/squid/squid.conf` and including them in the `http_access allow` line as follows:
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 acl client1 src 192.0.2.0 # Home IP
 acl client2 src 192.0.2.1 # Work IP
 http_access allow client1 client2
-{{< /file >}}
+```
 
     Replace `client1` and `client2` with names that identify the client computers, then replace `192.0.2.0` and `192.0.2.1` with their corresponding IP addresses. Update the optional comments `# Home IP` and `# Work IP` with accurate descriptions to help keep track of multiple clients. Access to the proxy is granted by adding the names defined by each `acl` to the `http_access allow` line.
 
@@ -128,17 +128,17 @@ Adding password for user user1
 Ensure that you update `/usr/lib/squid/basic_ncsa_auth` below with the location of the `nsca_auth` file that you checked in the previous step.
 {{< /note >}}
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/squid_passwd
 acl ncsa_users proxy_auth REQUIRED
 http_access allow ncsa_users
-{{< /file >}}
+```
 
 1.  To remove a user's access to the proxy, you must delete the corresponding entry in the `squid_passwd` file. Each user is represented in the file on a single line in the format of `user:passwordhash`:
 
-    {{< file "/etc/squid/squid_passwd" >}}
+    ```file {title="/etc/squid/squid_passwd"}
 user1:\$p948w3nvq3489v6npq396g user2:\$q3cn478554387cq34n57vn
-{{< /file >}}
+```
 
     If you are using Nano, the command `Control+k` will remove the entire line where the cursor rests.
 
@@ -154,13 +154,13 @@ You can combine authentication methods using the same `acl` definitions that you
 
 1.  Edit the Squid configuration file so that the lines you have added at the beginning of the file follow this form:
 
-    {{< file "/etc/squid/squid.conf" >}}
+    ```file {title="/etc/squid/squid.conf"}
 acl client1 src 192.0.2.0 # Home IP
 acl client2 src 192.0.2.1 # Work IP
 auth_param basic program /usr/lib/squid/basic_ncsa_auth /etc/squid/squid_passwd
 acl ncsa_users proxy_auth REQUIRED
 http_access allow client1 client2 ncsa_users
-{{< /file >}}
+```
 
     {{< note >}}
 Take care to avoid using multiple `http_access` rules when combining authentication methods, as Squid will follow the rules in the order that they appear. By using a single `http_access` rule for your `acl` definitions, you will ensure that several authentication methods will apply to each client that attempts to connect to your Squid HTTP proxy.
@@ -172,7 +172,7 @@ Here, you will add rules to mask client IP addresses from the servers that recei
 
 Add the following lines at the beginning of the Squid configuration file:
 
-{{< file "/etc/squid/squid.conf" >}}
+```file {title="/etc/squid/squid.conf"}
 forwarded_for off
 request_header_access Allow allow all
 request_header_access Authorization allow all
@@ -203,7 +203,7 @@ request_header_access Proxy-Connection allow all
 request_header_access User-Agent allow all
 request_header_access Cookie allow all
 request_header_access All deny all
-{{< /file >}}
+```
 
 ## Enable Connections
 

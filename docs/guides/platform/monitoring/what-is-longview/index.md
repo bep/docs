@@ -139,13 +139,13 @@ Although previously available, Longview is currently not officially supported an
   **CentOS**:
 
    Using the text editor of your choice, like [nano](/docs/guides/use-nano-to-edit-files-in-linux/), create a `.repo` file and copy the contents of the example file below. Replace `REV` in the repository URL with your CentOS version (e.g., 7). If unsure, you can find your CentOS version number with `cat /etc/redhat-release`.
-   {{< file "/etc/yum.repos.d/longview.repo" config >}}
+   ```file {title="/etc/yum.repos.d/longview.repo"}
     [longview]
     name=Longview Repo
     baseurl=https://yum-longview.linode.com/centos/REV/noarch/
     enabled=1
     gpgcheck=1
-   {{< /file >}}
+   ```
 
    **Debian or Ubuntu**:
 
@@ -155,9 +155,9 @@ Although previously available, Longview is currently not officially supported an
      stretch
 
    Using the text editor of your choice, like [nano](/docs/guides/use-nano-to-edit-files-in-linux/), create a custom sources file that includes Longview's Debian repository and the Debian distribution codename. In the command below, replace *stretch* with the output of the previous step.
-     {{< file "/etc/apt/sources.list.d/longview.list" config >}}
+     ```file {title="/etc/apt/sources.list.d/longview.list"}
    deb http://apt-longview.linode.com/ stretch main
-      {{< /file >}}
+      ```
 
 3\.  Download the repository's GPG key and import or move it to the correct location:
 

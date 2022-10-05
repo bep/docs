@@ -33,7 +33,7 @@ To follow along with the examples in this guide, use your web browser’s develo
 
 Most of this guide’s examples are based on an example web page created from the HTML source code displayed below. To follow along with this guide’s examples, [view the rendered example web page](example-page.html) in your browser as you read through the guide.
 
-{{< file "example-page.html" html >}}
+```file {title="example-page.html"}
 <!DOCTYPE html>
 <html>
     <head>
@@ -52,7 +52,7 @@ Most of this guide’s examples are based on an example web page created from th
         </div>
     </body>
 </html>
-{{< /file >}}
+```
 
 ## How to Create and Remove DOM Elements
 

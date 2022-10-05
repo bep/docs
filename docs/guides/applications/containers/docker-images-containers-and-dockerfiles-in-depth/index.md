@@ -50,7 +50,7 @@ Docker requires a working Dockerfile for its builds. Here, we will create a Dock
 
 4.  Copy the following example into your Dockerfile. This creates a Dockerfile that generates an updated Ubuntu image, sets the maintainer information, installs Apache, opens container port 80, and finally starts an Apache server when run:
 
-    {{< file "apache_dockerfile" docker >}}
+    ```file {title="apache_dockerfile"}
 FROM ubuntu
 MAINTAINER John Doe jdoe@example.com
 ARG DEBIAN_FRONTEND=noninteractive
@@ -60,7 +60,7 @@ RUN apt-get install apache2 -y
 RUN apt-get clean
 EXPOSE 80
 CMD ["apache2ctl","-D","FOREGROUND"]
-{{< /file >}}
+```
 
     {{< note >}}
 The `ARG DEBIAN_FRONTEND=noninteractive` instruction ensures that the subsequent `RUN apt-get` commands execute without requiring additional user input when building images. This instruction could also be written using `ENV` instead of `ARG` to make the environment variable persist in containers that are deployed with the image. Because non-interactivity may not be expected when working within such containers, `ARG` is recommended in this case.

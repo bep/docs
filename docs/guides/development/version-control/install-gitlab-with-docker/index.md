@@ -47,11 +47,11 @@ One of GitLab's features is the ability for you to push and fetch code changes t
 
 To fix this, you'll want to change the port that your system's SSH service listens on. This can be accomplished by editing your Linode's `/etc/ssh/sshd_config` file and changing the `Port` assignment. The example snippet below changes the port from 22 to port 26:
 
-{{< file "/etc/ssh/sshd_config" >}}
+```file {title="/etc/ssh/sshd_config"}
 ...
 Port 26
 ...
-{{< /file >}}
+```
 
 When editing the file, you may also need to uncomment the `Port` line by removing the `#` character from the start of the line, if one is present. After updating this file and saving the change, restart the SSH service:
 

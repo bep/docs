@@ -42,7 +42,7 @@ If you would like to run the Sun Microsystems implementation of Java, you must f
 
 Ensure that your `sources.list` list resembles the following:
 
-{{< file "/etc/apt/sources.list" >}}
+```file {title="/etc/apt/sources.list"}
 ## main & restricted repositories
 deb http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
 deb-src http://us.archive.ubuntu.com/ubuntu/ karmic main restricted
@@ -73,7 +73,7 @@ deb-src http://us.archive.ubuntu.com/ubuntu/ karmic-updates multiverse
 deb http://security.ubuntu.com/ubuntu karmic-security multiverse
 deb-src http://security.ubuntu.com/ubuntu karmic-security multiverse
 
-{{< /file >}}
+```
 
 
 Update apt to get the necessary package lists:
@@ -104,11 +104,11 @@ Tomcat should now be totally functional and should start automatically following
 
 You can test your Tomcat installation by pointing your browser at `http://[yourdomain-or-ip-address]:8080/`. By default, files are located in the `/usr/share/tomcat6` directory. To configure the admin area, you'll need to add the following lines to the end of your `tomcat-users.xml` file, substituting your own username and password. Make sure you keep the "manager" role.
 
-{{< file "/etc/tomcat6/tomcat-users.xml" xml >}}
+```file {title="/etc/tomcat6/tomcat-users.xml"}
 <role rolename="manager"/>
 <user username="tomcat" password="s3cret" roles="manager"/>
 
-{{< /file >}}
+```
 
 
 Issue the following command to restart the Tomcat server to allow this change to take effect:

@@ -23,19 +23,19 @@ The steps below configure all Salt Minions for a 2GB Linode, feel free to adjust
 
 1.  Open the `/etc/salt/base/top.sls` file and add the additional line:
 
-    {{< file "/etc/salt/base/top.sls" >}}
+    ```file {title="/etc/salt/base/top.sls"}
 base:
   '*':
      - lamp
      - extras
      - lampconf
 
-{{< /file >}}
+```
 
 
 2.  Create and edit the `/etc/salt/base/lampconf.sls` file:
 
-    {{< file "/etc/salt/base/lampconf.sls" >}}
+    ```file {title="/etc/salt/base/lampconf.sls"}
 #Apache Conguration for 2GB Linode
 /etc/apache2/apache2.conf-KA:
   file.replace:
@@ -116,7 +116,7 @@ mysql-run-at-boot-restart:
     - watch:
       - pkg: mysql-server
 
-{{< /file >}}
+```
 
 
     The above file uses the [file](http://docs.saltproject.io/en/latest/ref/states/all/salt.states.file.html) and [service](http://docs.saltproject.io/en/latest/ref/states/all/salt.states.service.html) Salt State modules.
@@ -152,7 +152,7 @@ Salt State Modules are used for settings across groups of Minions. To adjust a c
 
 4.  Create the `/etc/salt/base/minionsites/example.com.conf` vhost file for the specified Minion. Replace `example.com` throughout and in the following commands.
 
-    {{< file "/etc/salt/base/minionsites/example.com.conf" >}}
+    ```file {title="/etc/salt/base/minionsites/example.com.conf"}
 # domain: example.com
 # public: /var/www/example.com/public_html/
 
@@ -171,7 +171,7 @@ Salt State Modules are used for settings across groups of Minions. To adjust a c
   CustomLog /var/www/example.com/log/access.log combined
 </VirtualHost>
 
-{{< /file >}}
+```
 
 
 5.  Copy the vhost file from the Master to the `/sites-available` directory of the Minion:

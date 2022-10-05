@@ -68,14 +68,14 @@ Kitchen runs on Ruby. The following commands will install the Ruby version contr
 
 2.  Create a Gemfile in your working directory and add the `kitchen-salt`, `kitchen-docker`, and `kitchen-sync` gems:
 
-    {{< file "Gemfile" ruby>}}
+    ```file {title="Gemfile"}
 #Gemfile
 source 'https://rubygems.org'
 
 gem 'kitchen-salt'
 gem 'kitchen-docker'
 gem 'kitchen-sync'
-{{< /file >}}
+```
 
     `kitchen-sync` is used to copy files to Docker containers more quickly.
 
@@ -87,7 +87,7 @@ gem 'kitchen-sync'
 
 For testing purposes, create a Salt state file that installs NGINX and ensures that it is running. In a text editor, create an `nginx.sls` file in your working directory and add the following lines:
 
-{{< file "nginx.sls" yaml >}}
+```file {title="nginx.sls"}
 nginx:
   pkg:
     - installed
@@ -96,13 +96,13 @@ nginx:
     - reload: True
     - watch:
       - pkg: nginx
-{{< /file >}}
+```
 
 ## Configure kitchen.yml
 
 1.  Now, write the Kitchen configuration file, beginning with the **provisioner** section. Copy the following lines into a `kitchen.yml` file in your working directory.
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 provisioner:
   name: salt_solo
   salt_install: bootstrap
@@ -114,11 +114,11 @@ provisioner:
         - nginx
 
 ...
-{{< /file >}}
+```
 
     This section defines `salt_solo` as the provisioner, which will allow Kitchen to use Salt without a Salt master. In this section Salt is installed via the bootstrap script by setting `salt_install: bootstrap`, the Salt file root is mapped to the directory where `.kitchen.yml` is located by setting `is_file_root: true`, and Chef is disabled by setting `require_chef: false`. Instead of providing a top file for Salt states, the top file is declared inline. This section is also where Salt pillar files are added. For reference, they are added under the **provisioner** block:
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 provisioner:
 ...
   pillars:
@@ -128,11 +128,11 @@ provisioner:
           - nginx_pillar
   pillars_from_files:
     nginx_pillar.sls: nginx.pillar
-{{< /file >}}
+```
 
 1.  Next, configure the **driver** section:
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 ...
 
 driver:
@@ -143,13 +143,13 @@ driver:
     - 80
 
 ...
-{{< /file >}}
+```
 
     This section declares Docker as the driver, though you could also use Vagrant. Kitchen does not need to use `sudo` to build the Docker containers, so `user_sudo` is set to `false`. `privileged` is set to `true` to ensure that the containers run systemd as the exec command. The Docker container will `forward` traffic to the host on port `80`.
 
 1.  Configure the **platforms** section:
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 ...
 
 platforms:
@@ -158,13 +158,13 @@ platforms:
       run_command: /lib/systemd/systemd
 
 ...
-{{< /file >}}
+```
 
     This section defines which platform Docker will run. By default Docker will run the latest version of that platform. Because different platforms place systemd in different locations, the `driver_config` section is used to point to the systemd install path of that platform. More than one platform can be defined.
 
 1.  Configure the **suites** section:
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 ...
 
 suites:
@@ -173,18 +173,18 @@ suites:
       salt_bootstrap_options: -X -p git stable 2018.3
 
 ...
-{{< /file >}}
+```
 
     `suites` defines which software suite Kitchen will test against. In this context, Kitchen will test against the Oxygen release of Salt. More than one suite can be defined.
 
 1.  Lastly, the **transport** section allows us to specify the use of `kitchen-sync` for transferring files:
 
-    {{< file "kitchen.yml" yaml >}}
+    ```file {title="kitchen.yml"}
 ...
 
 transport:
   name: sftp
-{{< /file >}}
+```
 
 1.  You can now test your Salt configuration with Kitchen. Type the following command to run the test:
 
@@ -209,11 +209,11 @@ Though it is beyond the scope of this article, Kitchen allows for more robust te
 
 As an example, you can add the following code to your `kitchen.yaml` to verify your tests using the Inspec gem:
 
-{{< file "kitchen.yml" yaml >}}
+```file {title="kitchen.yml"}
 ...
 
 verifier:
   name: inspec
-{{< /file >}}
+```
 
 For more information on writing tests, visit the links in the More Information section below.

@@ -66,22 +66,22 @@ mod_evasive has just one prerequisite beyond the standard LAMP install: the Apac
 
     **Debian / Ubuntu:**
 
-    {{< file "/etc/apache2/apache2.conf" >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 # Include module configuration:
 Include mods-enabled/*.load
 Include mods-enabled/*.conf
-{{< /file >}}
+```
 
     **CentOS / Fedora:**
 
-    {{< file "/etc/httpd/conf/httpd.conf" >}}
+    ```file {title="/etc/httpd/conf/httpd.conf"}
 LoadModule evasive20_module /usr/lib/httpd/modules/mod_evasive20.so
 #
-{{< /file >}}
+```
 
 3.  Below that section, add the mod_evasive configuration:
 
-    {{< file "/etc/apache2/apache2.conf" >}}
+    ```file {title="/etc/apache2/apache2.conf"}
 <IfModule mod_evasive20.c>
     DOSHashTableSize 3097
     DOSPageCount 2
@@ -91,7 +91,7 @@ LoadModule evasive20_module /usr/lib/httpd/modules/mod_evasive20.so
     DOSBlockingPeriod 60
     DOSEmailNotify <someone@somewhere.com>
 </IfModule>
-{{< /file >}}
+```
 
 4.  Restart Apache for your changes to take effect:
 
@@ -159,11 +159,11 @@ IP addresses of trusted clients can be allowed to insure they are never denied. 
 
 To allow an address (or range) add an entry to the Apache configuration in the following fashion:
 
-{{< file "/etc/apache2/apache2.conf" >}}
+```file {title="/etc/apache2/apache2.conf"}
 DOSWhitelist 127.0.0.1
 DOSWhitelist 127.0.0.*
 
-{{< /file >}}
+```
 
 Wildcards can be used on up to the last 3 octets if necessary. Multiple DOSWhitelist commands may be used in the configuration.
 
@@ -179,11 +179,11 @@ Adding numbers to avoid a mod_evasive ban for a specific host is highly likely t
 
 To exclude certain vhosts from mod_evasive bans or triggers without compromising the system level performance, we can use the `DOSBlockingPeriod`. We can add the following to exclude vhosts:
 
-{{< file "default.conf" >}}
+```file {title="default.conf"}
 <IfModule mod_evasive24.c>
     DOSBlockingPeriod 0
 </IfModule>
-{{< /file >}}
+```
 
 ## How to Check if mod_evasive is Working
 
@@ -193,7 +193,7 @@ To test if our mod_evasive configuration is working as intended, we can use `tes
 
 However, this example file requires modification to properly test on a Linode. Open the file and edit line 13 so that the entire file contains the following:
 
-{{< file "/usr/share/doc/libapache2-mod-evasive/examples/test.pl" perl >}}
+```file {title="/usr/share/doc/libapache2-mod-evasive/examples/test.pl"}
 #!/usr/bin/perl
 
 # test.pl: a small perl script that test's mod_dosevasive's effectiveness
@@ -211,7 +211,7 @@ for(0..100) {
   print $response;
   close($SOCKET);
 }
-{{< /file >}}
+```
 
 If you don't have Perl installed on your system, you can install it by running the following command on your terminal:
 

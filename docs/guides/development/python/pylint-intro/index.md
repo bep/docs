@@ -72,11 +72,11 @@ pylint 2.7.0
 
 1. To learn what Pylint can do, create an example Python script, and name it `my_sum.py`.
 
-    {{< file "my_sum.py" python >}}
+    ```file {title="my_sum.py"}
     sum1 = 3 + 4;
     print("Sum is %d."; % sum1)
     Sum is 7.
-    {{< /file >}}
+    ```
 
     Pylint can help you be a better, more stylish one, though. From the command line, run:
     {{< output >}}
@@ -90,11 +90,11 @@ my_sum.py:1:0: W0301: Unnecessary semicolon
 
 1. Update `my_sum.py`, and re-run Pylint with the unnecessary semicolon removed. Pylint raises its score for the program.
 
-    {{< file "my_sum.py" python >}}
+    ```file {title="my_sum.py"}
     sum1 = 3 + 4
     print("Sum is %d." % sum1)
     Sum is 7.
-{{< /file >}}
+```
 
 With Pylint's help, you have a script with both the correct result and a standard style. Pylint is akin to a spell checker.
     {{< note >}}
@@ -105,13 +105,13 @@ Pylint does not produce correct programs; that's still the developer's responsib
 
 Pylint knows more than mere style. It embeds intelligence about several common coding errors. As a next example, consider the fragment:
 
-{{< file "my_sum.py" python >}}
+```file {title="my_sum.py"}
 def my_function():
     """ An example for a Pylint demonstration."""
     my_sum1 = 3 + 4
     print "The sum is %d." % my_sum1
     return my_sum
-{{< /file >}}
+```
 
 Run the above code in the terminal using Pylint:
     {{< output >}}
@@ -132,14 +132,14 @@ Your code has been rated at -5.00/10 (previous run: -5.00/10, +0.00)
 
 Update `my_sum.py` with the below code:
 
-{{< file "my_sum.py" python >}}
+```file {title="my_sum.py"}
 def my_function():
     """ An example for a Pylint demonstration."""
     my_sum1 = 3 + 4
     print "The sum is %d." % my_sum1
     raise Exception("This shouldn’t happen.")
     return True
-{{< /file >}}
+```
 
 Pylint again complains as follows:
     {{< output >}}
@@ -164,7 +164,7 @@ On Pylint's 0-to-10 quality scale, it is common for the first run against a new 
 If you are facing thousands of Pylint complaints, for instance, a project's code has an inconsistent indentation or mixes tabs and spaces for indentation. These kinds of lexical errors are easily corrected, and Pylint's score soars as soon as they are corrected.
 
 Consider the below example for *Variable Checker* messages.
-{{< file "variables_demo.py" python >}}
+```file {title="variables_demo.py"}
 var = 1
 
 def foo():
@@ -175,7 +175,7 @@ def foo():
 
 foo()
 print(var)
-{{< /file >}}
+```
 
 Though the code is clear on what it does, Pylint doesn't think so.
 
@@ -188,7 +188,7 @@ Pylint expects variable names to be at least three characters long. For a situat
 - Declare `v` to be a special-purpose name that Pylint accepts for this project.
 
 To follow Pylint's advice directly, rewrite the above code as follows:
-    {{< file "variables_demo.py" python >}}
+    ```file {title="variables_demo.py"}
 var = 1
 
 def foo():
@@ -199,7 +199,7 @@ def foo():
 
 foo()
 print(var)
-{{< /file >}}
+```
 
 In that case, you can see that Pylint's score is improved.
 
@@ -209,12 +209,12 @@ Pylint has an advanced message control feature where you can enable or disable a
 
 Alternatively, you can tell Pylint about your own coding conventions. You can write:
 
-{{< file "example.py" python >}}
+```file {title="example.py"}
 def my_func():
     """ An experiment with variable names. """
     for i in range(20): # pylint: disable=invalid-name
         print(i)
-{{< /file >}}
+```
 
 This has the effect of disabling Pylint's name-checking for the single variable `i`.
 
@@ -231,7 +231,7 @@ Pylint complains about several things. You can create a file that allows you to 
       pylint --generate-rcfile.
 
 - Configure Pylint so that Pylint knows not to complain about your program if your `pylintrc` contains the following:
-{{< file "pylintrc" python >}}
+```file {title="pylintrc"}
 
 ## It’s OK to name a loop variable "i"
 
@@ -243,7 +243,7 @@ Pylint complains about several things. You can create a file that allows you to 
 [MESSAGES CONTROL]
   disable=
       invalid-name
-{{< /file >}}
+```
 
     {{< note >}}
 One final tip for your initial encounter with Pylint: if you don't understand a Pylint report, or don't agree with it, it's perfectly fine at least temporarily to direct Pylint to ignore that line with an appropriate `# pylint: disable=... directive`.

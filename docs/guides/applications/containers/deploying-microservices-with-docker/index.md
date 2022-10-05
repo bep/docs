@@ -66,14 +66,14 @@ This section uses Dockerfiles to configure Docker images. For more information a
 
 1. Within the new `nginx` subdirectory, create a Dockerfile for the NGINX image:
 
-    {{< file "nginx/Dockerfile" yaml >}}
+    ```file {title="nginx/Dockerfile"}
 from nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
-{{</ file >}}
+```
 
 2.  Create the `nginx.conf` referenced in the Dockerfile:
 
-    {{< file "/nginx/nginx.conf" nginx >}}
+    ```file {title="/nginx/nginx.conf"}
 user  nginx;
 worker_processes 1;
 error_log  /dev/stdout info;
@@ -114,7 +114,7 @@ http {
         }
     }
 }
-{{</ file >}}
+```
 
 ### PostgreSQL
 
@@ -122,7 +122,7 @@ The PostgreSQL image for this microservice will use the official `postgresql` im
 
 In the `postgres` subdirectory, create an `init.sql` file:
 
-{{< file "postgres/init.sql">}}
+```file {title="postgres/init.sql"}
 SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
@@ -146,7 +146,7 @@ ALTER TABLE visitors OWNER TO postgres;
 COPY visitors (site_id, site_name, visitor_count) FROM stdin;
 1 	linodeexample.com  	0
 \.
-{{</ file >}}
+```
 
 {{< caution >}}
 In Line 22 of `init.sql`, make sure your text editor does not convert tabs to spaces. The app will not work without tabs between the entries in this line.
@@ -162,7 +162,7 @@ The `web` image will hold an example Flask app. Add the following files to the `
 
 2.  Create a Dockerfile for the `web` image:
 
-     {{< file "web/Dockerfile" yaml >}}
+     ```file {title="web/Dockerfile"}
 from python:3.6.2-slim
 RUN groupadd flaskgroup && useradd -m -g flaskgroup -s /bin/bash flask
 RUN echo "flask ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
@@ -173,11 +173,11 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN chown -R flask:flaskgroup /home/flask
 USER flask
 ENTRYPOINT ["/usr/local/bin/gunicorn", "--bind", ":8000", "linode:app", "--reload", "--workers", "16"]
-{{</ file >}}
+```
 
 3.  Create `web/linode.py` and add the example app script:
 
-    {{< file "web/linode.py" python >}}
+    ```file {title="web/linode.py"}
 from flask import Flask
 import logging
 import psycopg2
@@ -236,16 +236,16 @@ def resetcounter():
     app.logger.debug("reset visitor count")
     return "Successfully deleted redis and postgres counters"
 
-{{</ file >}}
+```
 
 4.  Add a `requirements.txt` file with the required Python dependencies:
 
-    {{< file "web/requirements.txt" text >}}
+    ```file {title="web/requirements.txt"}
 flask
 gunicorn
 psycopg2-binary
 redis
-{{</ file >}}
+```
 
 ## Docker Compose
 
@@ -253,7 +253,7 @@ Docker Compose will be used to be define the connections between containers and 
 
 Create a `docker-compose.yml` file in the `flask-microservice` directory and add the following:
 
-{{< file "docker-compose.yml" yaml >}}
+```file {title="docker-compose.yml"}
 version: '3'
 services:
  # Define the Flask web application
@@ -339,7 +339,7 @@ services:
    # Expose port 5432 to other Docker containers
    expose:
      - "5432"
-{{</ file >}}
+```
 
 
 ## Test the Microservice

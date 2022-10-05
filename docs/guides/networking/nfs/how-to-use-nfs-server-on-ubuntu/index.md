@@ -187,9 +187,9 @@ To add the new export directory to NFS, execute the following commands on the se
 
 1. Add the following line and save the file. Replace `client_ip_addr` with the actual IP address or subnet of the client.
 
-    {{< file "/etc/exports" >}}
+    ```file {title="/etc/exports"}
 /nfs/share/project1  client_ip_addr(rw,sync,no_subtree_check)
-    {{< /file >}}
+    ```
 
 1. Apply the configuration changes using the `exportfs` command.
 
@@ -233,9 +233,9 @@ server_ip_addr:/nfs/share/project1   79G   13G   63G  17% /nfs/mnt/project1
 1. The mount only persists until the system reboots. To automatically mount the directory when the system activates, add the mount point to the `/etc/fstab` file. The entry should consist of the export directory, the local mount point, a list of options, and two `0`'s. To see all the available options for this file, run `man nfs` on the client.
 
         sudo vi /etc/fstab
-    {{< file "/etc/fstab" >}}
+    ```file {title="/etc/fstab"}
 server_ip_addr:/nfs/share/project1  /nfs/mnt/project1 nfs timeo=900,intr,actimeo=1800 0 0
-    {{< /file >}}
+    ```
 1. To confirm the export directory is mounted properly upon system bootup, reboot the system and run the `df` command again. The export directory should appear in the output.
 
 ## Verify the NFS Service
@@ -278,8 +278,8 @@ A mount point can be removed when it is no longer required. Any unmounted direct
 1. Edit the `/etc/fstab` file and either remove the line referring to the export directory or comment it out with the `#` symbol.
 
         sudo vi /etc/fstab
-    {{< file "/etc/fstab" aconf >}}
+    ```file {title="/etc/fstab"}
 
 # server_ip_addr:/nfs/share/project1  /nfs/mnt/project1 nfs timeo=900,intr,actimeo=1800 0 0
 
-    {{< /file >}}
+    ```

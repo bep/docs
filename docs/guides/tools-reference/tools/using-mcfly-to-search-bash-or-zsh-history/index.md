@@ -185,42 +185,42 @@ McFly uses shell environment variables for configuration. Add the variables show
 
 With the default settings, McFly runs in "Dark Mode". To change the display to suit for a light terminal, export the `MCFLY_LIGHT` variable to the shell configuration file.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export MCFLY_LIGHT=TRUE
-{{< /file >}}
+```
 
 ### Set the Key Scheme
 
 McFly uses a key scheme based on `emacs`. For a scheme more similar to **vi** or **vim** inspired editors, change the `MCFLY_KEY_SCHEME` variable.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export MCFLY_KEY_SCHEME=vim
-{{< /file >}}
+```
 
 ### Enable Fuzzy Searching
 
 *Fuzzy Searching* applies a more lenient search algorithm, where closely related terms are also counted as matches. Some examples might be different tenses of a verb form, plural or collective forms of a noun, and slightly misspelled words. It is also known as *Approximate String Matching*. To enable fuzzy searching, export the `MCFLY_FUZZY` variable.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export MCFLY_FUZZY=true
-{{< /file >}}
+```
 
 ### Set the Interface View
 
 The McFly interface appears on the top of the screen by default. It can be shifted to the bottom through the use of the `MCFLY_INTERFACE_VIEW` variable.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export MCFLY_INTERFACE_VIEW=BOTTOM
-{{< /file >}}
+```
 
 ### Set the Number of Results Displayed or Used
 
 McFly allows users to adjust the number of results that are displayed and the depth of the search. The `MCFLY_RESULTS` variable determines how many results are shown. `MCFLY_HISTORY_LIMIT=x` limits the depth of the search to the `x` most recent commands. This variable can increase performance when the McFly database is very large.
 
-{{< file "~/.bashrc" aconf >}}
+```file {title="~/.bashrc"}
 export MCFLY_RESULTS=50
 export MCFLY_HISTORY_LIMIT=5000
-{{< /file >}}
+```
 
 ## How to Use McFly
 

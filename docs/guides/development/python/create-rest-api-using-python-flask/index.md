@@ -66,10 +66,10 @@ All the steps in this section edit the same file, `prog_lang_app.py`.
 
 - In your preferred text editor, open the `prog_lang_app.py` file and add the following lines:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 from flask import Flask
 app = Flask(__name__)
-    {{< /file >}}
+    ```
 
     These lines import Flask, and instantiate the app. You can instantiate the class `Flask` and assign it to a variable (traditionally, this variable is named `app`)
 
@@ -96,12 +96,12 @@ in_memory_datastore = {
 RESTful APIs are generally organized around a resource. A resource refers to the database records that an API gives clients access to. In the case of this tutorial, the resource is an instance of a programming language.
     {{</ note >}}
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.get('/programming_languages')
 def list_programming_languages():
    return {"programming_languages":list(in_memory_datastore.values())}
-    {{< /file >}}
+    ```
 
     Requests can be sent to the `/programming_languages` URL using the GET HTTP verb. The request should be sent without any parameters. This endpoint fetches all the records in the datastore. It returns a JSON object with the key `programming_languages`. This key points to all the records and is represented as an array.
 
@@ -128,12 +128,12 @@ The next step is to add an endpoint to retrieve a specific programming language 
 
 - Update the `prog_lang_app.py` file to add the code that creates your app's detail endpoint. This code goes underneath the code for listing the programming languages:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.route('/programming_languages/<programming_language_name>')
 def get_programming_language(programming_language_name):
    return in_memory_datastore[programming_language_name]
-    {{< /file >}}
+    ```
 
 - Run the app and visit `http://127.0.0.1:5000/programming_languages/COBOL` in your browser. You should see a similar output returned by your API.
 
@@ -147,7 +147,7 @@ Update the `prog_lang_app.py` file's `in_memory_datastore` dictionary with a few
 
 - Open the `prog_lang_app.py` file and edit the `in_memory_datastore` to add the additional entries.
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 in_memory_datastore = {
    "COBOL": {"name": "COBOL", "publication_year": 1960, "contribution": "record data"},
@@ -163,19 +163,19 @@ in_memory_datastore = {
            "contribution": "iterators, abstract data types, generics, checked exceptions"},
 }
 ...
-    {{< /file >}}
+    ```
 
 - Now, you can add the code to allow clients to filter on the `publication_year` parameter. First, add the `Flask.request` object to your `prog_lang_app.py` file's import statement as shown below:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 from flask import Flask, request
 app = Flask(__name__)
 ...
-    {{< /file >}}
+    ```
 
 - Next, change the `list_programming_languages()` function to act upon the query parameters `before_year` and `after_year`.
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.get('/programming_languages')
 def list_programming_languages():
@@ -190,7 +190,7 @@ def list_programming_languages():
 
    return {"programming_languages": qualifying_data}
 
-    {{< /file >}}
+    ```
 
     Clients can now filter the programming languages with two query parameters: `before_year` and `after_year`. Flask automatically treats all parameters passed to a routed function (besides interpolated path parameters) as query parameters. If a client does not pass any query parameters, the default start year of `0` and the default end year of `30,000` automatically capture all languages.
 
@@ -202,7 +202,7 @@ So far, all the endpoints expect clients to use the GET HTTP verb to make their 
 
 - To use the same route in your API with different request verbs, write your code under the same annotation. Then, use conditional logic to route the request to the correct place. To do this, edit your `prog_lang_app.py` file to remove the `@app.get` annotation and modify it as shown below:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.route('/programming_languages', methods=['GET', 'POST'])
 def programming_languages_route():
@@ -210,18 +210,18 @@ def programming_languages_route():
        return list_programming_languages()
    elif request.method == "POST":
        return create_programming_language(request.get_json(force=True))
-    {{< /file >}}
+    ```
 
 - Now, add the new `create_programming_language` method below `list_programming_languages()` method:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 def create_programming_language(new_lang):
    language_name = new_lang['name']
    in_memory_datastore[language_name] = new_lang
    return new_lang
 
-    {{< /file >}}
+    ```
 
 - The two helper functions handle listing programming languages, in the case of a GET request. In the case of a POST request, the second helper function creates a new programming language resource. Use cURL to create a programming language on the command line:
 
@@ -241,7 +241,7 @@ To update a resource, you send a PUT request with a request body to the URL of t
 
 - Remove the `@app.route` annotation and the `get_programming_language()` function. Replace them with the following code:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.route('/programming_languages/<programming_language_name>', methods=['GET', 'PUT'])
 def programming_language_route(programming_language_name):
@@ -249,17 +249,17 @@ def programming_language_route(programming_language_name):
        return get_programming_language(programming_language_name)
    elif request.method == "PUT":
        return update_programming_language(programming_language_name, request.get_json(force=True))
-    {{< /file >}}
+    ```
 
 - Now, add the new `update_programming_language()` function below the `get_programming_language()` function:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 def update_programming_language(lang_name, new_lang_attributes):
    lang_getting_update = in_memory_datastore[lang_name]
    lang_getting_update.update(new_lang_attributes)
    return lang_getting_update
-    {{< /file >}}
+    ```
 
 - To test your new endpoint, send a request to it to update an existing resource. For example, send a request using Postman similar to the following:
 
@@ -277,7 +277,7 @@ The endpoint to delete a record is similar to the update endpoint. The differenc
 
 - Update your `@app.route` annotation to include the `DELETE` method, as shown below:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 @app.route('/programming_languages/<programming_language_name>', methods=['GET', 'PUT', 'DELETE'])
 def programming_language_route(programming_language_name):
@@ -287,19 +287,19 @@ def programming_language_route(programming_language_name):
        return update_programming_language(programming_language_name, request.get_json(force=True))
    elif request.method == "DELETE":
        return delete_programming_language(programming_language_name)
-    {{< /file >}}
+    ```
 
     Notice the addition of `DELETE` is passed to the method's parameter in the annotation.
 
 - Next, add the `delete_programming_language()` function below the `update_programming_language()` function:
 
-    {{< file "prog_lang_app.py" >}}
+    ```file {title="prog_lang_app.py"}
 ...
 def delete_programming_language(lang_name):
    deleting_lang = in_memory_datastore[lang_name]
    del in_memory_datastore[lang_name]
    return deleting_lang
-    {{< /file >}}
+    ```
 
 - To delete a resource, use your preferred request client and issue the following request:
 

@@ -161,7 +161,7 @@ Apache requires a [virtual host configuration file](https://httpd.apache.org/doc
 
 1. Paste the following text into the new file. Replace mentions of `example.com` with your own domain name or your [Linode's IP Address](/docs/guides/find-your-linodes-ip-address/):
 
-{{< file "/etc/apache2/sites-available/owncloud.conf">}}
+```file {title="/etc/apache2/sites-available/owncloud.conf"}
 <VirtualHost \*:80>
      ServerAdmin admin@example.com
      DocumentRoot /var/www/html/owncloud
@@ -177,7 +177,7 @@ ErrorLog ${APACHE_LOG_DIR}/example.com_error.log
 CustomLog ${APACHE_LOG_DIR}/your-domain.com_access.log combined
 
 </VirtualHost>
-{{</ file >}}
+```
 
 1. Save and close the file by typing **Ctrl + O** and then, **Ctrl + X**:
 

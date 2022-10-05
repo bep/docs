@@ -45,7 +45,7 @@ Issue the following commands to update your system, install nginx, set it to sta
 
 Replace the contents of the file `/etc/nginx/nginx.conf` with the following contents.
 
-{{< file "/etc/nginx/nginx.conf" nginx >}}
+```file {title="/etc/nginx/nginx.conf"}
 user nginx;
 worker_processes 1;
 error_log /var/log/nginx/error.log;
@@ -72,7 +72,7 @@ http {
     include /etc/nginx/sites-enabled/*;
 }
 
-{{< /file >}}
+```
 
 
 Issue the following commands to create directories for your web content and logs, replacing "example.com" with your domain name.
@@ -87,7 +87,7 @@ Issue the following command to create directories for your nginx configuration f
 
 Create the file `/etc/nginx/sites-available/www.example.com`, replacing "example.com" with your domain name. It should contain the following configuration directives; again, be sure to replace "example.com" with your domain name.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     server_name www.example.com example.com;
     access_log /srv/www/www.example.com/logs/access.log;
@@ -99,7 +99,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 Issue the following commands to enable your site, replacing "example.com" with your domain name.
@@ -109,7 +109,7 @@ Issue the following commands to enable your site, replacing "example.com" with y
 
 Create a test index page for your website with the following contents.
 
-{{< file "/srv/www/www.example.com/public\\_html/index.html" html >}}
+```file {title="/srv/www/www.example.com/public\\_html/index.html"}
 <html>
 <head>
 <title>Welcome to example.com</title>
@@ -120,7 +120,7 @@ Create a test index page for your website with the following contents.
 </body>
 </html>
 
-{{< /file >}}
+```
 
 
 Issue the following command to restart nginx.
@@ -139,7 +139,7 @@ Issue the following command to install packages required for PHP-FastCGI.
 
 Edit the file `/etc/sysconfig/spawn-fcgi` to match the following contents.
 
-{{< file "/etc/sysconfig/spawn-fcgi" ini >}}
+```file {title="/etc/sysconfig/spawn-fcgi"}
 FASTCGI_USER=nginx
 FASTCGI_GROUP=nginx
 SOCKET=/var/run/spawn-fcgi.sock
@@ -150,7 +150,7 @@ PHP5=/usr/bin/php-cgi
 MODE=0600
 OPTIONS="-s $PHP5_SOCKET -S -M $MODE -P $PIDFILE -C $CHILDREN -u $FASTCGI_USER -g $FASTCGI_GROUP -f $PHP5"
 
-{{< /file >}}
+```
 
 
 Issue the following command to set PHP-FastCGI to start on boot and start it now.
@@ -160,7 +160,7 @@ Issue the following command to set PHP-FastCGI to start on boot and start it now
 
 Edit your site's nginx configuration file to resembled the following example.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 server {
     server_name www.example.com example.com;
     access_log /srv/www/www.example.com/logs/access.log;
@@ -179,7 +179,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 Issue the following command to restart nginx.
 
@@ -187,10 +187,10 @@ Issue the following command to restart nginx.
 
 Create a PHP test page so you can verify that everything is working correctly.
 
-{{< file "/srv/www/www.example.com/public\\_html/test.php" php >}}
+```file {title="/srv/www/www.example.com/public\\_html/test.php"}
 <?php phpinfo(); ?>
 
-{{< /file >}}
+```
 
 
 ### Important Security Considerations
@@ -199,7 +199,7 @@ If you're planning to run applications that support file uploads (images, for ex
 
 To mitigate this issue, you may wish to modify your configuration to include a `try_files` directive. Please note that this fix requires nginx and the php-fcgi workers to reside on the same server.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 location ~ \.php$ {
     try_files $uri =404;
     include /etc/nginx/fastcgi_params;
@@ -207,11 +207,11 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/www/www.example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 Additionally, it's a good idea to secure any upload directories your applications may use. The following configuration excerpt demonstrates securing an "/images" directory.
 
-{{< file "/etc/nginx/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/www.example.com"}
 location ~ \.php$ {
     include /etc/nginx/fastcgi_params;
     if ($uri !~ "^/images/") {
@@ -220,7 +220,7 @@ location ~ \.php$ {
     fastcgi_index index.php;
     fastcgi_param SCRIPT_FILENAME /srv/www/www.example.com/public_html$fastcgi_script_name;
 }
-{{< /file >}}
+```
 
 ## Install MySQL Database Server
 

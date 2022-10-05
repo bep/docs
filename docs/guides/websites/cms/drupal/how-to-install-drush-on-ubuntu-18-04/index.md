@@ -116,9 +116,9 @@ You may want to install Drush for only certain system users, for example, the **
 
 1.  Using the text editor of your choice, edit the user's `.bashrc` file to add the `vendor` directory to your path:
 
-      {{< file "~/.bashrc" >}}
+      ```file {title="~/.bashrc"}
 export PATH="$HOME/vendor/bin:$PATH"
-      {{< /file >}}
+      ```
 
 1.  Run the `source` command on the `.bashrc` file to enable the changes:
 

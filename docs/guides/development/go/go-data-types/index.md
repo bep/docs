@@ -48,27 +48,27 @@ Go supports pointers! Pointers are *memory addresses* that allow you to manipula
 
 - Prepend a non-pointer's variable name with the `&` symbol to get the memory address of that variable:
 
-    {{< file "" go >}}
+    ```file {title=""}
 var anInteger int = 5
 anIntegerPointer := &anInteger
-{{< /file >}}
+```
 
 - The type for a pointer variable is the type of the pointer's value with the `*` symbol prepended to it:
 
-    {{< file "" go >}}
+    ```file {title=""}
 var anotherIntegerPointer *int = &anInteger
-{{< /file >}}
+```
 
 - Once you have a pointer variable, prepend the `*` symbol to that pointer's name to get the value held at its memory address. This is called *dereferencing* the pointer:
 
-    {{< file "" go >}}
+    ```file {title=""}
 // Prints "5"
 fmt.Println(*anIntegerPointer)
-{{< /file >}}
+```
 
 - You can dereference the pointer to change the value at that memory location:
 
-    {{< file "" go >}}
+    ```file {title=""}
 *anIntegerPointer = 10
 // Prints "10"
 fmt.Println(*anIntegerPointer)
@@ -77,7 +77,7 @@ fmt.Println(*anIntegerPointer)
 // The original non-pointer variable
 // now also has this value.
 fmt.Println(anInteger)
-{{< /file >}}
+```
 
 ### Pointers Example
 
@@ -87,7 +87,7 @@ More complex examples of pointers are illustrated in `pointers.go`, including ho
 For more information on how to use functions in Go, review our [functions, loops, and errors guide](/docs/guides/learning-go-functions-loops-and-errors-a-tutorial/).
 {{< /note >}}
 
-{{< file "pointers.go" go >}}
+```file {title="pointers.go"}
 package main
 
 import (
@@ -126,7 +126,7 @@ func main() {
     fmt.Println("Value of k:\t\t", *k)
     fmt.Println("Memory address of k:\t", k)
 }
-{{< /file >}}
+```
 
 The output of `pointers.go` will resemble the following:
 
@@ -155,10 +155,10 @@ Go offers support for four different sizes of signed integers (`int8`, `int16`, 
 
 Note that when you are dividing integer variables, the returned value will be an integer. Specifically, the result be the largest integer less than or equal to the result of the calculation:
 
-{{< file "" go >}}
+```file {title=""}
 // result will be 3
 result := 13 / 4
-{{< /file >}}
+```
 
 If you want to preserve any decimal points in the result, you can first convert the integers to [floating point numbers](#floating-point-numbers), as demonstrated in [the `numeric.go` example](#numeric-types-example).
 
@@ -174,7 +174,7 @@ Similar to floating point numbers, Go offers two [complex number](https://en.wik
 
 The use of the numeric types of Go is illustrated in `numeric.go`:
 
-{{< file "numeric.go" go >}}
+```file {title="numeric.go"}
 package main
 
 import (
@@ -213,7 +213,7 @@ func main() {
     fmt.Println("divFloat:\t", divFloat)
     fmt.Println("Type of divFloat:", divFloat)
 }
-{{< /file >}}
+```
 
 The output of `numeric.go` will be as follows:
 
@@ -248,24 +248,24 @@ Arrays store an ordered list of values that are all of the same type:
 
 -   An array is defined with the length of the array and the type of its elements. This syntax will declare an array that can store four `int` values:
 
-    {{< file "" go >}}
+    ```file {title=""}
 var anArray [4]int
-{{< /file >}}
+```
 
 -   You can define an array with pre-defined elements by using the array literal syntax, where the values are specified in curly braces after the type:
 
-    {{< file "" go >}}
+    ```file {title=""}
 anArray := [4]int{1, 0, 0, -4}
-{{< /file >}}
+```
 
     {{< note >}}
 An array's type is composed of both its length and its elements' type. This means that when using the array literal syntax, you must supply the length of the array in the declaration. If you don't (for example, by writing `[]int{1, 0, 0, -4}`), you will create a [slice](#slices), not an array.
 
 Having said that, the Go compiler provides a convenience syntax which will count the items in your array literal for you:
 
-{{< file "" go >}}
+```file {title=""}
 anArray := [...]int{1, 0, 0, -4}
-{{< /file >}}
+```
 {{< /note >}}
 
 -   The index of the first element an array is `0`.
@@ -274,7 +274,7 @@ anArray := [...]int{1, 0, 0, -4}
 
 -   You can access an element in an array or assign a value to it with the `anArray[index]` syntax:
 
-    {{< file "" go >}}
+    ```file {title=""}
 anArray := [4]int{1, 0, 0, -4}
 // Prints "-4"
 fmt.Println(anArray[3])
@@ -282,7 +282,7 @@ fmt.Println(anArray[3])
 anArray[3] = -5
 // Prints "-5"
 fmt.Println(anArray[3])
-{{< /file >}}
+```
 
     {{< note >}}
 If you try to access an array element or a [slice](#slices) element that does not exist, your program will crash. This is called an *out-of-bounds error*. The same thing will happen if you use a negative index number. The good thing is that the Go compiler will catch that kind of error.
@@ -290,17 +290,17 @@ If you try to access an array element or a [slice](#slices) element that does no
 
 -   Last, you can find the length of an array using the `len()` function:
 
-    {{< file "" go >}}
+    ```file {title=""}
 anArray := [4]int{1, 0, 0, -4}
 // Prints "4"
 fmt.Println(len(anArray))
-{{< /file >}}
+```
 
 ### Multi-Dimensional Arrays
 
 An array's elements can also be arrays, and you can create multi-dimensional arrays as a result. Here's an example of multi-dimensional arrays:
 
-{{< file "multiDimensionalArrays.go" go >}}
+```file {title="multiDimensionalArrays.go"}
 package main
 
 import (
@@ -326,7 +326,7 @@ func main() {
         fmt.Println()
     }
 }
-{{< /file >}}
+```
 
 Executing `multiDimensionalArrays.go` will generate the following output:
 
@@ -364,19 +364,19 @@ Instead of using arrays, you will more often use [slices](#slices).
 
 Go *slices* are similar to arrays, but with fewer limitations in their usage. For example, slices can expand and shrink dynamically. You can add new elements to an existing slice using the `append()` function:
 
-{{< file "" go >}}
+```file {title=""}
 aSliceOfStrings = append(aSliceOfStrings, "another element", "one more element")
-{{< /file >}}
+```
 
 While an array's type is defined by both its length and its elements' type, a slice's type is only defined by its elements' type:
 
-{{< file "" go >}}
+```file {title=""}
 // Creates a nil slice of integers
 var aSliceOfInts []int
 
 // Create a slice of strings with the slice literal syntax:
 aSliceOfStrings := []string{"first string", "second string", "third string"}
-{{< /file >}}
+```
 
 Importantly, **a slice actually references an array** that Go maintains internally.
 Unlike arrays, slices are *passed by reference* to functions, which means that what is actually passed is the memory address of the slice value (*a pointer*). Any modifications you make to the elements of a slice inside a function will not be lost after the function exits. Moreover, passing a large slice to a function is significantly faster than passing an array with the same number of elements because Go will not have to make a copy of the slice.
@@ -387,13 +387,13 @@ A slice can be formed from an existing array or from other slices by using the s
 
 -   To use the slice operator, pass a starting and ending index within square brackets, separated by a colon:
 
-    {{< file "" go >}}
+    ```file {title=""}
 anArray := [4]string{"Go", "Data", "Types", "Tutorial"}
 var aSlice []string = anArray[1:3]
 
 // Prints [Data Types]
 fmt.Println(aSlice)
-{{< /file >}}
+```
 
     {{< note >}}
 Note that the element at the ending index is not included in the resulting slice.
@@ -401,14 +401,14 @@ Note that the element at the ending index is not included in the resulting slice
 
 -   When creating a new slice from an existing array or slice, the new slice will actually reference the original array, or the internal array of the original slice. This means that if you update an element of the new slice, **you will also update that element in the original array or slice**:
 
-    {{< file "" go >}}
+    ```file {title=""}
 anArray := [4]string{"Go", "Data", "Types", "Tutorial"}
 var aSlice []string = anArray[1:4]
 aSlice[2] = "Guide"
 
 // Prints [Go Data Types Guide]
 fmt.Println(anArray)
-{{< /file >}}
+```
 
     {{< note >}}
 Note that the element at `aSlice[2]` is equal to the element at `anArray[3]`. This is because `aSlice` starts at the second element of `anArray` (see line 2).
@@ -416,7 +416,7 @@ Note that the element at `aSlice[2]` is equal to the element at `anArray[3]`. Th
 
 -   When creating a slice, you can omit the starting or ending index. Omitting the starting index will make the resulting slice start from the beginning of the original array or slice (line 3 below). Omitting the ending index will make the resulting slice end with the last element of the original array or slice (line 7 below):
 
-    {{< file "" go >}}
+    ```file {title=""}
 aSlice := []string{"Go", "Data", "Types", "Tutorial"}
 
 var goDataTypesSlice []string = aSlice[:3]
@@ -426,17 +426,17 @@ fmt.Println(goDataTypesSlice)
 dataTypesTutorialSlice := aSlice[1:]
 // Prints [Data Types Tutorial]
 fmt.Println(dataTypesTutorialSlice)
-{{< /file >}}
+```
 
 -   You can also omit both the starting and ending indices, which will make a new slice with the same elements as the original array or slice:
 
-    {{< file "" go >}}
+    ```file {title=""}
 aSlice := []string{"Go", "Data", "Types", "Tutorial"}
 anotherSlice := aSlice[:]
 
 // Prints [Go Data Types Tutorial]
 fmt.Println(anotherSlice)
-{{< /file >}}
+```
 
 
 ### The Length and Capacity of a Slice
@@ -449,7 +449,7 @@ Arrays do not have a capacity property.
 
 If a slice runs out of room and you append a new element to it, Go automatically creates a new slice with a higher capacity to make room for even more elements. This is illustrated in the following code:
 
-{{< file "capacity.go" go >}}
+```file {title="capacity.go"}
 package main
 
 import (
@@ -478,7 +478,7 @@ func main() {
     aSlice = append(aSlice, -40)
     printSlice(aSlice)
 }
-{{< /file >}}
+```
 
 The output of `capacity.go` will be the following:
 
@@ -505,12 +505,12 @@ The `make()` function allows you to create empty slices with a desired *length* 
 
 For example, you can create a new empty slice for five integers with:
 
-{{< file "" go >}}
+```file {title=""}
 aSlice := make([]int, 5)
 
 // Prints [0 0 0 0 0]
 fmt.Println(aSlice)
-{{< /file >}}
+```
 
 Note that Go automatically initializes the elements of an empty slice to the zero value of the elements' type. This means that the value of the initialization depends on the type of the object stored in the slice. For integers, the zero value is `0`.
 
@@ -520,7 +520,7 @@ As you will see in a while, `make()` can also create [maps](#maps) in Go.
 
 Here's a Go program that illustrates the use of slices:
 
-{{< file "slices.go" go >}}
+```file {title="slices.go"}
 package main
 
 import (
@@ -562,7 +562,7 @@ func main() {
         fmt.Println(secondLevelSlice)
     }
 }
-{{< /file >}}
+```
 
 Executing `slices.go` will generate the following output:
 
@@ -596,7 +596,7 @@ Adding elements to twoDSlice...
 
 Go provides the `sort.Slice()` function for sorting slices, which is illustrated in `sortSlice.go`:
 
-{{< file "sortSlice.go" go >}}
+```file {title="sortSlice.go"}
 package main
 
 import (
@@ -624,7 +624,7 @@ func main() {
     })
     fmt.Println("Descending order:\t", mySlice)
 }
-{{< /file >}}
+```
 
 Executing `sortSlice.go` will create the following output:
 
@@ -644,7 +644,7 @@ If a slice contains numeric values or strings, then sorting them is straightforw
 
 You can append an array's elements to an existing slice:
 
-{{< file "appendA2S.go" go >}}
+```file {title="appendA2S.go"}
 package main
 
 import (
@@ -667,7 +667,7 @@ func main() {
     aSlicePlusSameSlice := append(aSlice, aSlice...)
     fmt.Println("aSlice + aSlice:\t\t", aSlicePlusSameSlice)
 }
-{{< /file >}}
+```
 
 The output of `appendA2S.go` will be the following:
 
@@ -708,26 +708,26 @@ While the `bool` data type is comparable, using it for the keys to a map will li
 
 -   A map's type is defined by its keys' type and its values' type:
 
-    {{< file "" go >}}
+    ```file {title=""}
 // Creates a nil map with strings as the keys and integers as the values:
 var aMapOfStringsToIntegers map[string]int
-{{< /file >}}
+```
 
 -   You can create an initialized, empty map with `string` keys and `int` values with the help of the `make()` function:
 
-    {{< file "" go >}}
+    ```file {title=""}
 // Creates an initialized map with strings as the keys and integers as the values:
 aMapOfStringsToIntegers := make(map[string]int)
-{{< /file >}}
+```
 
 -   You can access an element in a map or assign a value to it with the `aMap[key]` syntax:
 
-    {{< file "" go >}}
+    ```file {title=""}
 aMap := make(map[string]int)
 aMap["one"] = 1
 // Prints "1"
 fmt.Println(aMap["one"])
-{{< /file >}}
+```
 
     {{< note >}}
 You can add elements to a Go map without the need for an `append()` function like you did for slices.
@@ -737,7 +737,7 @@ You can add elements to a Go map without the need for an `append()` function lik
 
 The presented example shows how you can work with Go maps:
 
-{{< file "maps.go" go >}}
+```file {title="maps.go"}
 package main
 
 import (
@@ -777,7 +777,7 @@ func main() {
         fmt.Println(key, ":", value)
     }
 }
-{{< /file >}}
+```
 
 The output of `maps.go` will resemble the following:
 

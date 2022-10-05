@@ -58,41 +58,41 @@ Refer to InspIRCd's documentation on [configuration options](https://docs.inspir
 
 1. Locate the `server` tag. Change the `name` value to reflect your IRC server's hostname; leave the `id` value as is. Modify the other values in the `server` tag to reflect the description and naming you would like for your IRC server.
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <server name="irc.example.com"
     description="Example IRC Server"
     id="1AB"
     network="ExampleNet">
-    {{< /file >}}
+    ```
 
 1. Find the `admin` tag, and modify its contents to reflect the contact information for the server's administrator.
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <admin name="Example User"
     nick="example-user"
     email="example-user@example-email.com">
-    {{< /file >}}
+    ```
 
 1. Locate the `bind` tag, and remove the value from the `address` field. Doing so allows the server to respond to outside requests, where the default (`127.0.0.1`) limits the IRC server to local connections.
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <bind address="" port="6667" type="clients">
-    {{< /file >}}
+    ```
 
 1. Find the `power` tag. Enter the passwords to be required for the operator to shut down the IRC server (`diepass`) and to restart it (`restartpass`).
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <power diepass="shutdown-password" restartpass="restart-password" pause="2">
-    {{< /file >}}
+    ```
 
 1. Locate the `oper` tag. This defines the operator user, who has administrative authority on the IRC server. Enter a username (`name`) and password for the operator user. Leave the `type` as `NetAdmin`.
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <oper name="example-user"
     password="password"
     host="*@*"
     type="NetAdmin">
-    {{< /file >}}
+    ```
 
     - The `host` value defines the `username@hostname` masks from which a user may log in as the operator. Setting this to `*@*`, as in the example above, allows a user to log in as the operator from any address mask.
 
@@ -204,14 +204,14 @@ While not necessary, using SSL certification on your IRC server significantly in
 
 1. Open the InspIRCd configuration file again (`/etc/inspircd/inspircd.conf`), and add the following lines beneath the existing `bind` tag. These lines watch a given port for SSL connections, identify the certificate and key files and the specifications to use with them, and load InspIRCd's GnuTLS module for handling SSL connections.
 
-    {{< file "/etc/inspircd/inspircd.conf" >}}
+    ```file {title="/etc/inspircd/inspircd.conf"}
 <bind address="" port="6697" type="clients" ssl="gnutls">
 <gnutls
     certfile="/etc/inspircd/ssl/cert.pem"
     keyfile="/etc/inspircd/ssl/key.pem"
     priority="SECURE192:-VERS-SSL3.0">
 <module name="m_ssl_gnutls.so">
-    {{< /file >}}
+    ```
 
 ### Connect to the IRC Server Using SSL
 
@@ -247,12 +247,12 @@ You can learn more about using Cron in the [Schedule Tasks with Cron](/docs/guid
 
 1. Enter the following lines in the `copy-inspircd-certs.sh` file.
 
-    {{< file "/etc/inspircd/cron/copy-inspircd-certs.sh" >}}
+    ```file {title="/etc/inspircd/cron/copy-inspircd-certs.sh"}
 # !/bin/bash
 cp /etc/letsencrypt/live/debian-test.nathanielps.com/fullchain.pem /etc/inspircd/ssl/cert.pem
 cp /etc/letsencrypt/live/debian-test.nathanielps.com/privkey.pem /etc/inspircd/ssl/key.pem
 chown -R irc:irc /etc/inspircd
-    {{< /file >}}
+    ```
 
     The first line defines what program is used to execute the script. The remaining lines duplicate the ones used above for copying the certificate files into the `inspircd` directory and ensuring the InspIRCd user has the required permissions for them. The `sudo` portion of the commands has been removed since the cron job is to be run by the root user.
 

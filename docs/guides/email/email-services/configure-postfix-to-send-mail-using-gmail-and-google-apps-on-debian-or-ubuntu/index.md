@@ -57,9 +57,9 @@ In this section, you will install Postfix as well as *libsasl2*, a package which
 
 4.  Once the installation is complete, confirm that the `myhostname` parameter is configured with your server's FQDN:
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 myhostname = fqdn.example.com
-{{< /file >}}
+```
 
 ## Generate an App Password for Postfix
 
@@ -85,10 +85,10 @@ Usernames and passwords are stored in `sasl_passwd` in the `/etc/postfix/sasl/` 
 
 1.  Open or create the `/etc/postfix/sasl/sasl_passwd` file and add the SMTP Host, username, and password information:
 
-    {{< file "/etc/postfix/sasl/sasl\\_passwd" >}}
+    ```file {title="/etc/postfix/sasl/sasl\\_passwd"}
 [smtp.gmail.com]:587 username@gmail.com:password
 
-{{< /file >}}
+```
 
     {{< note >}}
 The SMTP server address configuration `smtp.gmail.com` supports message submission over port 587 ([StartTLS](https://en.wikipedia.org/wiki/Opportunistic_TLS)) and port 465 ([SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security)). Whichever protocol you choose, be sure the port number is the same in `/etc/postfix/sasl/sasl\\_passwd` and `/etc/postfix/main.cf` files. See Google Workspace's [Send email from a printer, scanner, or app](https://support.google.com/a/answer/176600?hl=en) help article for more information.
@@ -115,15 +115,15 @@ In this section, you will configure the `/etc/postfix/main.cf` file to use Gmail
 
 1.  Find and modify `relayhost` in `/etc/postfix/main.cf` to match the following example. Be sure the port number matches what you specified in `/etc/postfix/sasl/sasl\\_passwd` above.
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 relayhost = [smtp.gmail.com]:587
 
-{{< /file >}}
+```
 
 
 2.  At the end of the file, add the following parameters to enable authentication:
 
-    {{< file "/etc/postfix/main.cf" >}}
+    ```file {title="/etc/postfix/main.cf"}
 # Enable SASL authentication
 smtp_sasl_auth_enable = yes
 # Disallow methods that allow anonymous authentication
@@ -135,7 +135,7 @@ smtp_tls_security_level = encrypt
 # Location of CA certificates
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 
-{{< /file >}}
+```
 
 
 3.  Save your changes and close the file.

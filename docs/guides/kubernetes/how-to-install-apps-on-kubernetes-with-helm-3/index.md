@@ -176,13 +176,13 @@ The [`helm install` command](https://helm.sh/docs/intro/using_helm/#helm-install
 
 1.  Create a file named `ghost-values.yaml` on your computer for this snippet:
 
-    {{< file "ghost-values.yaml" >}}
+    ```file {title="ghost-values.yaml"}
 ghostHost: "ghost.example.com"
 ghostEmail: "email@example.com"
 ghostUsername: "admin"
 ghostPassword: "mySecurePassword123!!"
 mariadb.mariadbRootPassword: "secretpassword"
-{{< /file >}}
+```
 
     Replace the value for `ghostHost` with a domain or subdomain that you own and would like to assign to the app; the value for `ghostEmail` with your email; the values for `ghostUsername` and `ghostPassword` with the credentials you wish to use for logging into your site; and the value for `mariabd.mariadbRootPassword` for the password you wish to use for logging into the database.
 
@@ -268,14 +268,14 @@ The `upgrade` command can be used to upgrade an existing release to a new versio
 
 1.  In your computer's `ghost-values.yaml` file, add a line for the title of the website:
 
-    {{< file "ghost-values.yaml" >}}
+    ```file {title="ghost-values.yaml"}
 ghostHost: "ghost.example.com"
 ghostEmail: "email@example.com"
 ghostUsername: "admin"
 ghostPassword: "mySecurePassword123!!"
 mariadb.mariadbRootPassword: "secretpassword"
 ghostBlogTitle: "Example Site Name"
-{{< /file >}}
+```
 
 1.  Run the upgrade command, specifying the configuration file, release name, and chart name:
 

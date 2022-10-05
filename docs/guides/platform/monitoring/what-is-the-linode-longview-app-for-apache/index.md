@@ -113,10 +113,10 @@ To enable the Apache Longview app manually, follow these steps on your Linode vi
 
 1.  Edit `/etc/linode/longview.d/Apache.conf` to look like the following:
 
-    {{< file "/etc/linode/longview.d/Apache.conf" apache >}}
+    ```file {title="/etc/linode/longview.d/Apache.conf"}
 location http://127.0.0.1/server-status?auto
 
-{{< /file >}}
+```
 
 1.  Restart Apache:
 
@@ -286,19 +286,19 @@ To fix this, follow these steps:
 
     To direct Longview to the cPanel customized status page, edit the `location` line in `/etc/linode/longview.d/Apache.conf` to match the following:
 
-    {{< file "/etc/linode/longview.d/Apache.conf" apache >}}
+    ```file {title="/etc/linode/longview.d/Apache.conf"}
 location http://localhost/whm-server-status?auto
 
-{{< /file >}}
+```
 
 4.  Longview is designed to check the default location automatically. If you use the default location shown above, you should be done. Refresh the Longview in the Linode Cloud Manager to verify that it's working now.
 
 5.  If you're not using the default location, you need to create a new file, `/etc/linode/longview.d/Apache.conf`, and set the `location` variable to match what you set in the Apache configuration file:
 
-    {{< file "/etc/linode/longview.d/Apache.conf" apache >}}
+    ```file {title="/etc/linode/longview.d/Apache.conf"}
 location http://127.0.0.1/custom/location/path
 
-{{< /file >}}
+```
 
 6.  Determine if an Apache virtual host configuration is interfering with requests to the `mod_status location. Use a tool like `curl` or `wget` to request the server status location:
 
@@ -350,10 +350,10 @@ If some of your Apache graphs are missing, you may see the error `Enable Extende
 
 This indicates that you need to add the following line to your Apache configuration file in the `<IfModule mod_status.c>` section:
 
-{{< file "httpd.conf" apache >}}
+```file {title="httpd.conf"}
 ExtendedStatus On
 
-{{< /file >}}
+```
 
 
 When you've finished modifying the configuration file, restart Apache:

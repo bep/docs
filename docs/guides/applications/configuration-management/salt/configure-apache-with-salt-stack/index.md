@@ -43,7 +43,7 @@ The steps in this guide require root privileges. Be sure to run the steps below 
 
 1.  Create a Salt top file in `/srv/salt` that will be Salt's entry point to the Apache configuration:
 
-    {{< file "/srv/salt/top.sls" yaml >}}
+    ```file {title="/srv/salt/top.sls"}
 base:
   'G@os_family:Debian':
     - match: compound
@@ -52,7 +52,7 @@ base:
   'G@os:CentOS':
     - match: compound
     - apache-centos
-{{< /file >}}
+```
 
     This top file uses [compound matching](https://docs.saltstack.com/en/latest/topics/targeting/compound.html) to target your minions by operating system using Salt Grains. This will allow Salt to choose the appropriate Apache configuration depending on the Linux distribution. These matchers could be extended to be even more specific. For instance, if you wanted to only target minions with the ID of `web-server` that are running on Ubuntu, you can type `web* and G@os:Ubuntu`.
 
@@ -64,17 +64,17 @@ base:
 
 1.  Create a Pillar top file. This top file references the `apache.sls` Pillar file that you will create in the next step:
 
-    {{< file "/srv/pillar/top.sls" yaml >}}
+    ```file {title="/srv/pillar/top.sls"}
 base:
   '*':
     - apache
-{{< /file >}}
+```
 
 1.  Create the `apache.sls` file that was referenced in the previous step. This file defines Pillar data that will be used inside our Apache state file in the next section, in this case your domain name. Replace `example.com` with your domain:
 
-    {{< file "/srv/pillar/apache.sls" yaml >}}
+    ```file {title="/srv/pillar/apache.sls"}
 domain: example.com
-{{< /file >}}
+```
 
 ### Website Files
 
@@ -86,13 +86,13 @@ domain: example.com
 
 1.  Create an `index.html` file for your website in the `/srv/salt/example.com` directory, substituting `example.com` for the folder name you chose in the previous step. You will use this file as a test to make sure your website is functioning correctly.
 
-    {{< file "/srv/salt/example.com/index.html" html >}}
+    ```file {title="/srv/salt/example.com/index.html"}
 <html>
   <body>
     <h1>Server Up and Running!</h1>
   </body>
 </html>
-{{< /file >}}
+```
 
 ### Configuration Files
 
@@ -102,7 +102,7 @@ domain: example.com
 
 1.  Create a file called `tune_apache.conf` in `/srv/salt/files` and paste in the following block:
 
-    {{< file "/srv/salt/files/tune_apache.conf" ApacheConf >}}
+    ```file {title="/srv/salt/files/tune_apache.conf"}
 <IfModule mpm_prefork_module>
 StartServers 4
 MinSpareServers 20
@@ -110,15 +110,15 @@ MaxSpareServers 40
 MaxClients 200
 MaxRequestsPerChild 4500
 </IfModule>
-{{</ file >}}
+```
 
     This MPM prefork module provides additional [tuning for your Apache installation](/docs/guides/tuning-your-apache-server/). This file will be managed by Salt and installed into the appropriate configuration directory in a later step.
 
 1.  If you will be installing Apache on a CentOS machine, create a file called `include_sites_enabled.conf` in `/srv/salt/files` and paste in the following:
 
-    {{< file "/srv/salt/files/include_sites_enabled.conf" ApacheConf >}}
+    ```file {title="/srv/salt/files/include_sites_enabled.conf"}
 IncludeOptional sites-enabled/*.conf
-{{< /file >}}
+```
 
     This file will allow us to use file directories like those found on Debian installations to help organize the Apache configuration.
 
@@ -132,7 +132,7 @@ This guide will be going through the process of creating the Apache for Debian a
 
 1.  Instruct Salt to install the `apache2` package and start the `apache2` service:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 apache2:
   pkg.installed
 
@@ -144,7 +144,7 @@ apache2 Service:
       - pkg: apache2
 
 ...
-{{< /file >}}
+```
 
     Here Salt makes sure the `apache2` package is installed with `pkg.installed`. Likewise, it ensures the `apache2` service is running and enabled under `service.running`. Also under `service.running`, `apache-debian.sls` uses `require` to ensure that this command does not run before the `apache2` package is installed. This `require` step will be repeated throughout `apache-debian.sls`.
 
@@ -152,7 +152,7 @@ apache2 Service:
 
 1.  Turn off KeepAlive:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 Turn Off KeepAlive:
@@ -164,13 +164,13 @@ Turn Off KeepAlive:
     - require:
       - pkg: apache2
 ...
-{{< /file >}}
+```
 
     KeepAlive allows multiple requests to be sent over the same TCP connection. For the purpose of this guide KeepAlive will be disabled. To disable it, Salt is instructed to find the KeepAlive directive in `/etc/apache2/apache2.conf` by matching a pattern and replacing it with `KeepAlive Off`. `show_changes` instructs Salt to display any changes it has made during a highstate.
 
 1.  Transfer `tune_apache.conf` to your minion and enable it:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 /etc/apache2/conf-available/tune_apache.conf:
@@ -186,13 +186,13 @@ Enable tune_apache:
       - pkg: apache2
 
 ...
-{{< /file >}}
+```
 
     This step takes the `tune_apache.conf` file you created in the [Configuration Files](/docs/applications/configuration-management/configure-apache-with-salt-stack/#configuration-files) step and transfers it to your Salt minion. Then, Salt enables that configuration file with the [apache_conf module](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.apache_conf.html).
 
 1.  Create the necessary directories:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml>}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 /var/www/html/{{ pillar['domain'] }}:
@@ -208,11 +208,11 @@ Enable tune_apache:
   file.directory
 
 ...
-{{< /file >}}
+```
 
 1.  Disable the default virtual host configuration file:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 000-default:
@@ -221,13 +221,13 @@ Enable tune_apache:
       - pkg: apache2
 
 ...
-{{< /file >}}
+```
 
     This step uses Salt's [apache_site module](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.apache_site.html) to disable the default Apache virtual host configuration file, and is the same as running `a2dissite` on a Debian-based machine.
 
 1.  Create your site's virtual host configuration file:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 /etc/apache2/sites-available/{{ pillar['domain'] }}.conf:
@@ -244,13 +244,13 @@ Enable tune_apache:
           CustomLog: /var/www/html/{{ pillar['domain'] }}/log/access.log combined
 
 ...
-{{< /file >}}
+```
 
     This step uses Salt's [apache module](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.apache.html), (not to be confused with the `apache_site` module used in the previous step), to create your site's virtual host configuration file. The `this` variable signifies what would traditionally be include with `VirtualHost` within angle brackets in an Apache configuration file: `<VirtualHost *:80>`.
 
 1.  Enable your new virtual host configuration file:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 {{ pillar['domain'] }}:
@@ -259,19 +259,19 @@ Enable tune_apache:
       - pkg: apache2
 
 ...
-{{< /file >}}
+```
 
     This step uses the same `apache_site` module you used to disable the default virtual host file to enable your newly created virtual host file. `apache_site.enabled` creates a symlink from `/etc/apache2/sites-available/example.com.conf` to `/etc/apache2/sites-enabled/example.com.conf` and is the same as running `a2ensite` on a Debian-based machine.
 
 1.  Transfer your `index.html` website file to your minion:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 /var/www/html/{{ pillar['domain'] }}/public_html/index.html:
   file.managed:
     - source: salt://{{ pillar['domain'] }}/index.html
-{{< /file >}}
+```
 
     Any changes made to your `index.html` file on your Salt master will be propagated to your minion.
 
@@ -283,7 +283,7 @@ Since Salt is not watching configuration files for a change to trigger a restart
 
 ### Complete State File
 The complete `apache-debian.sls` file looks like this:
-{{< file "/srv/salt/apache-debian.sls" yaml >}}
+```file {title="/srv/salt/apache-debian.sls"}
 apache2:
   pkg.installed
 
@@ -353,7 +353,7 @@ Enable tune_apache:
 /var/www/html/{{ pillar['domain'] }}/public_html/index.html:
   file.managed:
     - source: salt://{{ pillar['domain'] }}/index.html
-{{< /file >}}
+```
 
 ## Creating an Apache State File for CentOS
 
@@ -363,7 +363,7 @@ Enable tune_apache:
 
 2.  On CentOS Apache is named `httpd`. Instruct Salt to install `httpd` and run the `httpd` service:
 
-    {{< file "/srv/salt/apache-centos.sls" yaml>}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 httpd:
   pkg.installed
 
@@ -377,7 +377,7 @@ httpd Service:
       - file: /etc/httpd/sites-available/{{ pillar['domain'] }}.conf
 
 ...
-{{< /file >}}
+```
 
     Here Salt makes sure the `httpd` package is installed with `pkg.installed`. Likewise, it ensures the `httpd` service is running and enabled under `service.running`. Also under `service.running`, `apache-debian.sls` uses `require` to ensure that this command does not run before the `httpd` package is installed. This `require` step will be repeated throughout `apache-centos.sls`.
 
@@ -385,7 +385,7 @@ httpd Service:
 
 1.  Turn off KeepAlive:
 
-    {{< file "/srv/salt/apache-centos.sls" yaml >}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 ...
 
 Turn Off KeepAlive:
@@ -397,13 +397,13 @@ Turn Off KeepAlive:
     - require:
       - pkg: httpd
 ...
-{{< /file >}}
+```
 
     KeepAlive allows multiple requests to be sent over the same TCP connection. For the purpose of this guide KeepAlive will be disabled. To disable it, Salt is instructed to find the KeepAlive directive in `/etc/httpd/conf/httpd.conf` by matching a pattern and replacing it with `KeepAlive Off`. `show_changes` instructs Salt to display any changes it has made during a highstate.
 
 1.  Change the DocumentRoot:
 
-    {{< file "/srv/salt/apache-centos.sls" yaml >}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 ...
 
 Change DocumentRoot:
@@ -416,13 +416,13 @@ Change DocumentRoot:
       - pkg: httpd
 
 ...
-{{< /file >}}
+```
 
     Similar to the last step, in this step `salt-centos.sls` instructs Salt to search for the DocumentRoot directive in Apache's `httpd.conf` file, and replaces that line with the new document root. This allows for the use of a Debian-style site directory architecture.
 
 1.  Transfer the `tune_apache.conf` and `include_sites_enabled.conf` to your minion.
 
-    {{< file "/srv/salt/apache-centos.sls" yaml>}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 ...
 
 /etc/httpd/conf.d/tune_apache.conf:
@@ -438,11 +438,11 @@ Change DocumentRoot:
       - pkg: httpd
 
 ...
-{{< /file >}}
+```
 
 1.  Create the necessary directories:
 
-    {{< file "srv/salt/apache-centos.sls" yaml >}}
+    ```file {title="srv/salt/apache-centos.sls"}
 ...
 
 /etc/httpd/sites-available:
@@ -461,11 +461,11 @@ Change DocumentRoot:
   file.directory
 
 ...
-{{< /file >}}
+```
 
 1.  Create your site's virtual host configuration file:
 
-    {{< file "/srv/salt/apache-centos.sls" yaml>}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 ...
 
 /etc/httpd/sites-available/{{ pillar['domain'] }}.conf:
@@ -483,13 +483,13 @@ Change DocumentRoot:
     - force: True
 
 ...
-{{< /file >}}
+```
 
     This step uses Salt's [apache module](https://docs.saltstack.com/en/latest/ref/states/all/salt.states.apache.html) to create your site's virtual host configuration file. The `this` variable signifies what would traditionally be include with `VirtualHost` within angle brackets in an Apache configuration file: `<VirtualHost *:80>`.
 
 1.  Transfer your `index.html` website file to your minion:
 
-    {{< file "/srv/salt/apache-debian.sls" yaml >}}
+    ```file {title="/srv/salt/apache-debian.sls"}
 ...
 
 /var/www/html/{{ pillar['domain'] }}/public_html/index.html:
@@ -497,13 +497,13 @@ Change DocumentRoot:
     - source: salt://{{ pillar['domain'] }}/index.html
 
 ...
-{{< /file >}}
+```
 
     Any changes made to your `index.html` file on your Salt master will be propigated to your minion.
 
 1.  Configure your firewall to allow http and https traffic:
 
-    {{< file "/srv/salt/apache-centos.sls" yaml >}}
+    ```file {title="/srv/salt/apache-centos.sls"}
 ...
 
 Configure Firewall:
@@ -513,7 +513,7 @@ Configure Firewall:
       - 22/tcp
       - 80/tcp
       - 443/tcp
-{{< /file >}}
+```
 
     {{< note >}}
 It is imperative that you list all ports you need open to your machine in this section. Failure to list these ports will result in their closure by Salt.
@@ -523,7 +523,7 @@ It is imperative that you list all ports you need open to your machine in this s
 
 The complete `apache-centos.sls` file looks like this:
 
-   {{< file "/srv/salt/apache-centos.sls" yaml >}}
+   ```file {title="/srv/salt/apache-centos.sls"}
 httpd:
   pkg.installed
 
@@ -606,7 +606,7 @@ Configure Firewall:
       - 22/tcp
       - 80/tcp
       - 443/tcp
-{{< /file >}}
+```
 
 ## Running the Apache State File
 

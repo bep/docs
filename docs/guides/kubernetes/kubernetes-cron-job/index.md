@@ -36,7 +36,7 @@ In this guide, you learn the syntax for creating Kubernetes CronJobs. You also l
 
 Like other Kubernetes resources, CronJobs are defined in a manifest file. The example manifest file creates a CronJob that deploys a simple "Hello" script once a minute.
 
-{{< file "cronjob.yaml">}}
+```file {title="cronjob.yaml"}
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -56,7 +56,7 @@ spec:
             - -c
             - date; echo Hello from the Kubernetes cluster
           restartPolicy: OnFailure
-{{< /file >}}
+```
 
 {{< note >}}
 The manifest file above uses the example provided in the [Kubernetes official documentation](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#example).
@@ -121,7 +121,7 @@ If your Pod does not have the password stored in its Pod environment, you can us
 
 Create a new Kubernetes manifest file with the following content:
 
-{{< file "backup.yaml">}}
+```file {title="backup.yaml"}
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
@@ -142,7 +142,7 @@ spec:
             - mysqldump drupal-db -p$MYSQL_ROOT_PASSWORD > dump.sql;
             - date; echo Drupal database has been backed up
           restartPolicy: OnFailure
-{{< /file >}}
+```
 
 Apply the CronJob to your Kubernetes cluster.
 

@@ -41,7 +41,7 @@ This guide is written for a non-root user. Depending on your configuration, some
 
 The bash scripting language has support for functions. The parameters of a function can be accessed as `$1`, `$2`, etc. and you can have as many parameters as you want. If you are interested in finding out the name of the function, you can use the `FUNCNAME` variable. Functions are illustrated in `functions.sh`, which is as follows:
 
-{{< file "functions.sh" bash >}}
+```file {title="functions.sh"}
 #!/bin/bash
 
 function f1 {
@@ -64,7 +64,7 @@ echo mySum = $mySum
 
 mySum="$(f2 10 -2)"
 echo mySum = $mySum
-{{< /file >}}
+```
 
 Run the script with the following command:
 
@@ -105,7 +105,7 @@ The example that follows will shed some light on the use of `date(1)`.
 
 The code of `dateTime.sh` is the following:
 
-{{< file "dateTime.sh" bash >}}
+```file {title="dateTime.sh"}
 #!/bin/bash
 
 # Print default output
@@ -154,7 +154,7 @@ touch $f
 mv $f $f.`date +"%s"`
 ls -l "$f".*
 rm "$f".*
-{{< /file >}}
+```
 
 If you want an even more unique filename, you can also use nanoseconds when defining the behaviour of your script.
 
@@ -189,7 +189,7 @@ This section will present some bash scripts that are generally helpful for UNIX 
 
 The bash script that follows watches the free space of your hard disks and warns you when that free space drops below a given threshold – the value of the threshold is given by the user as a command line argument. Notice that if the program gets no command line argument, a default value is used as the threshold.
 
-{{< file "freeDisk.sh" bash >}}
+```file {title="freeDisk.sh"}
 #!/bin/bash
 
 # default value to use if none specified
@@ -220,7 +220,7 @@ do
         echo "WARNING: The partition \"$p\" has used $used% of total available space - Date: $(date)"
     fi
 done
-{{< /file >}}
+```
 
 - The `sed s/%//g` command is used for omitting the percent sign from the output of `df -Ph`.
 - `df` is the command to report file system disk space usage, while the options `-Ph` specify `POSIX` output and `human-readable`, meaning, print sizes in powers of 1024.
@@ -248,7 +248,7 @@ Notice that the code of `freeDisk.sh` looks relatively complex. This is because 
 
 The presented bash script will help you to rotate a log file after exceeding a defined file size. If the log file is connected to a server process, you might need to stop the process before the rotation and start it again after the log rotation is complete – this is not the case with `rotate.sh`.
 
-{{< file "rotate.sh" bash >}}
+```file {title="rotate.sh"}
 #!/bin/bash
 
 f="/home/mtsouk/connections.data"
@@ -270,7 +270,7 @@ then
     mv ${f} ${f}.$timestamp
     touch ${f}
 fi
-{{< /file >}}
+```
 
 - Note that the path to the log file `/home/mtsouk/connections.data` will not exist by default. You'll need to either use a log file that already exists like `kern.log` on some Linux systems, or replace it with a new one.
 
@@ -302,14 +302,14 @@ If you want to make `rotate.sh` more generic, you can provide the name of the lo
 
 The presented bash script calculates the number of TCP connections on the current machine and prints that on the screen along with date and time related information.
 
-{{< file "tcpConnect.sh" bash >}}
+```file {title="tcpConnect.sh"}
 #!/bin/bash
 
 C=$(/bin/netstat -nt | tail -n +3 | grep ESTABLISHED | wc -l)
 D=$(date +"%m %d")
 T=$(date +"%H %M")
 printf "%s %s %s\n" "$C" "$D" "$T"
-{{< /file >}}
+```
 
 - The main reason for using the full path of `netstat(1)` when calling it is to make the script as secure as possible.
 - If you do not provide the full path then the script will search all the directories of the `PATH` variable to find that executable file.
@@ -337,7 +337,7 @@ The previous `cron(8)` job executes `tcpConnect.sh` every 4 minutes, every hour 
 
 The presented example will show how you can sort integer values in bash using the `sort(1)` utility:
 
-{{< file "sort.sh" bash >}}
+```file {title="sort.sh"}
 #!/bin/bash
 
 # test that at least one argument was passed
@@ -361,7 +361,7 @@ do
 done
 
 sort -n <(printf "%s\n" "${n[@]}")
-{{< /file >}}
+```
 
 - The presented technique uses an *array* to store all integer values before sorting them.
 - All numeric values are given as command line arguments to the script.
@@ -389,7 +389,7 @@ a is not a valid integer!
 
 This section will present a simple guessing game written in `bash(1)`. The logic of the game is based on a random number generator that produces random numbers between 1 and 20 and expects from the user to guess them.
 
-{{< file "guess.sh" bash >}}
+```file {title="guess.sh"}
 #!/bin/bash
 NUMGUESS=0
 
@@ -410,7 +410,7 @@ do
 done
 
 printf "Yes! You guessed it in $NUMGUESS guesses.\n"
-{{< /file >}}
+```
 
 Run the `guess` script:
 
@@ -434,7 +434,7 @@ Yes! You guessed it in 4 guesses.
 
 The following bash script will calculate the number of times each letter appears on a file.
 
-{{< file "freqL.sh" bash >}}
+```file {title="freqL.sh"}
 #!/bin/bash
 
 if [ -z "$1" ]; then
@@ -448,7 +448,7 @@ while read -n 1 c
 do
     echo "$c"
 done < "$filename" | grep '[[:alpha:]]' | sort | uniq -c | sort -nr
-{{< /file >}}
+```
 
 - The script reads the input file character by character, prints each character, and processes the output using the `grep`, `sort`, and `uniq` commands to count the frequency of each character.
 - The `[:alpha:]` pattern used by `grep(1)` matches all alphabetic characters and is equivalent to `A-Za-z`.
@@ -478,7 +478,7 @@ The file `text.txt` will not exist by default. You can use a pre-existing text f
 
 The `read` builtin command supports the `-t` timeout option that allows you to time out a read operation after a given time, which can be very convenient when you are expecting user input that takes too long. The technique is illustrated in `timeOut.sh`.
 
-{{< file "timeOut.sh" bash >}}
+```file {title="timeOut.sh"}
 #!/bin/bash
 
 if [[ $# -le 0 ]]
@@ -511,7 +511,7 @@ do
      ;;
   esac
 done
-{{< /file >}}
+```
 
 - The timeout of the `read` operation is given as a command line argument to the script, an integer representing the number of seconds that will pass before the script will "time out" and exit.
 - The `case` block is what handles the available options.
@@ -540,7 +540,7 @@ Timing out - user response took too long!
 
 The presented utility, which is named `t2s.sh`, will read a text file and convert each tab to the specified number of space characters. Notice that the presented script replaces each tab character with 4 spaces but you can change that value in the code or even get it as command line argument.
 
-{{< file "tabs2spaces.sh" bash >}}
+```file {title="tabs2spaces.sh"}
 #!/bin/bash
 
 for f in "$@"
@@ -554,7 +554,7 @@ do
     newFile=$(expand -t 4 "$f");
     echo "$newFile" > "$f";
 done
-{{< /file >}}
+```
 
 - The script uses the `expand(1)` utility that does the job of converting tabs to spaces for us.
 - `expand(1)` writes its results to standard output – the script saves that output and replaces the current file with the new output, which means that the original file will change.
@@ -578,7 +578,7 @@ The file `textfile.txt` will not exist by default. You can use a pre-existing te
 
 The following script will look into a predefined list of directories and count the number of files that exist in each directory and its subdirectories. If that number is above a threshold, then the script will generate a warning message.
 
-{{< file "./countFiles.sh" bash >}}
+```file {title="./countFiles.sh"}
 #!/bin/bash
 
 DIRECTORIES="/bin:/home/mtsouk/code:/srv/www/www.mtsoukalos.eu/logs:/notThere"
@@ -608,7 +608,7 @@ while read -d ':' dir; do
         echo "WARNING: Large number of files in $dir: $files!"
     fi
 done <<< "$DIRECTORIES:"
-{{< /file >}}
+```
 
 The counting of the files is done with the `find $dir -type f | wc -l` command. You can read more about the find command in [our guide](/docs/guides/find-files-in-linux-using-the-command-line/).
 

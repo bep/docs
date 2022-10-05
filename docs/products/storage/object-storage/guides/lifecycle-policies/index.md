@@ -69,7 +69,7 @@ If you don't have s3cmd set up on your computer, visit the [Using s3cmd with Obj
 
 In S3-compatible Object Storage, a lifecycle policy is represented by an XML file. You can use your preferred text editor to create this XML file. Consider the following lifecycle policy file:
 
-{{< file "lifecycle_policy.xml" xml >}}
+```file {title="lifecycle_policy.xml"}
 <LifecycleConfiguration>
     <Rule>
         <ID>delete-all-objects</ID>
@@ -82,7 +82,7 @@ In S3-compatible Object Storage, a lifecycle policy is represented by an XML fil
         </Expiration>
     </Rule>
 </LifecycleConfiguration>
-{{< /file >}}
+```
 
 The above lifecycle policy deletes all objects in the bucket after one day. Each lifecycle policy file needs a `LifecycleConfiguration` block and a nested `Rule` block. The `Rule` block must contain `Prefix` and `Status`, and at least one action, like the `Expiration` block. It's also a good idea to include an `ID` block:
 
@@ -100,7 +100,7 @@ Other actions can also be specified in a rule:
 
 - `NoncurrentVersionExpiration` block, and its child, `NoncurrentDays`. These are used to control the lifecycle of objects with multiple older versions, and should only be used with buckets that have [bucket versioning](/docs/products/storage/object-storage/guides/versioning/) enabled. Using this option will delete objects that are not the newest, most current version. Below is an example of how to use `NoncurrentVersionExpiration`:
 
-    {{< file "lifecycle_policy_noncurrent_versions.xml" xml >}}
+    ```file {title="lifecycle_policy_noncurrent_versions.xml"}
 <LifecycleConfiguration>
     <Rule>
         <ID>delete-prior-versions</ID>
@@ -111,7 +111,7 @@ Other actions can also be specified in a rule:
         </NoncurrentVersionExpiration>
     </Rule>
 </LifecycleConfiguration>
-{{</ file >}}
+```
 
 {{<note>}}
 If a versioned object is deleted in a bucket with the `NoncurrentVersionExpiration` policy, only the DeleteMarker for that object (not the actual object itself) will be retained after the number of days specified by `NoncurrentDays` have passed since the object was deleted.
@@ -119,7 +119,7 @@ If a versioned object is deleted in a bucket with the `NoncurrentVersionExpirati
 
 - `AbortIncompleteMultipartUpload`, and its child, `DaysAfterInitiation`. These work similarly to `NoncurrentVersionExpiration`, but instead of deleting previous versions of objects, they will delete failed multipart uploads. The following will delete failed multipart uploads three days after they were initiated:
 
-    {{< file "lifecycle_policy_multipart_upload.xml" xml >}}
+    ```file {title="lifecycle_policy_multipart_upload.xml"}
 <LifecycleConfiguration>
     <Rule>
         <ID>delete-incomplete-multipart-uploads</ID>
@@ -130,7 +130,7 @@ If a versioned object is deleted in a bucket with the `NoncurrentVersionExpirati
         </AbortIncompleteMultipartUpload>
     </Rule>
 </LifecycleConfiguration>
-{{</ file >}}
+```
 
     {{< disclosure-note "About multipart uploads" >}}
 Objects that are part of failed multipart uploads (the mechanism by which large files are uploaded) stay within Object Storage buckets, counting towards your total Object Storage costs. s3cmd will automatically initiate a multipart upload when a file is larger than 15MB. Lifecycle policies are a great way to clear out stale multipart uploads.
@@ -144,7 +144,7 @@ Linode Object Storage does not support the `NewerNoncurrentVersions` policy.
 
 More than one action can be specified in a single rule. For example, you may want to both expire the current version of an object after a set number of days and also remove old versions of it after another period of time. The following policy will delete the current version of an object after 10 days and remove any noncurrent versions of an object 3 days after they are demoted from the current version:
 
-{{< file "lifecycle_policy_multiple_actions.xml" xml >}}
+```file {title="lifecycle_policy_multiple_actions.xml"}
 <LifecycleConfiguration>
     <Rule>
         <ID>delete-prior-versions</ID>
@@ -158,7 +158,7 @@ More than one action can be specified in a single rule. For example, you may wan
         </NoncurrentVersionExpiration>
     </Rule>
 </LifecycleConfiguration>
-{{</ file >}}
+```
 
 {{< note >}}
 As a reminder, if a versioned object is deleted, only the current version of the object will be deleted and all older versions will be preserved in the bucket. For this reason, the above rule has the effect of deleting any objects if they are not updated within 10 days, and then removing the remaining object versions after 3 days.
@@ -168,7 +168,7 @@ As a reminder, if a versioned object is deleted, only the current version of the
 
 A lifecycle policy file can only contain one `LifecycleConfiguration` block, but the `LifecycleConfiguration` block can contain more than one `Rule`. For instance, if you had a bucket that contained both error and general output logs, you could set a lifecycle policy that saves error logs for a week but deletes standard logs at the end of every day:
 
-{{< file "lifecycle_policy_error_and_standard_logs.xml" xml >}}
+```file {title="lifecycle_policy_error_and_standard_logs.xml"}
 <LifecycleConfiguration>
     <Rule>
         <ID>delete-error-logs</ID>
@@ -187,7 +187,7 @@ A lifecycle policy file can only contain one `LifecycleConfiguration` block, but
         </Expiration>
     </Rule>
 </LifecycleConfiguration>
-{{</ file >}}
+```
 
 #### Uploading the Lifecycle Policy to a Bucket
 

@@ -30,7 +30,7 @@ When first learning VueJS, and when using it for smaller projects, you will like
 
 Below you can see an example of a barebones single file component, which we will examine part-by-part later in the guide:
 
-{{< file "SkeletonComponent.vue" html >}}
+```file {title="SkeletonComponent.vue"}
 <template>
 <h1>{{ greeting }}</h1>
 </template>
@@ -58,7 +58,7 @@ h1 {
 }
 </style>
 
-{{< /file >}}
+```
 
 In this guide, you will learn:
 
@@ -91,7 +91,7 @@ Single file components are similar to regular components, but there are a few ke
 
 Single file components are contained in files with the `.vue` extension. Each `.vue` file consists of three parts: template, script, style. Let's revisit our barebones component:
 
-{{< file "SkeletonComponent.vue" html >}}
+```file {title="SkeletonComponent.vue"}
 <template>
 <h1>{{ greeting }}</h1>
 </template>
@@ -118,7 +118,7 @@ h1 {
     text-align: center;
 }
 </style>
-{{< /file >}}
+```
 
 -   Lines 1-3 of the component define the `<template>`, where we specify the HTML template of our component. In comparison, a regular component's template is represented with a string property inside the component's JavaScript. This can become increasingly confusing for complex components, because there is no syntax highlighting within the string.
 
@@ -221,7 +221,7 @@ The `-I node_modules` option will tell `tree` to ignore your `node_modules/` dir
 
 Files in the `public` folder will not be bundled by webpack. When your project is created, this folder will contain [an index.html file](https://cli.vuejs.org/guide/html-and-static-assets.html#the-index-file):
 
-{{< file "index.html" html >}}
+```file {title="index.html"}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -243,7 +243,7 @@ Files in the `public` folder will not be bundled by webpack. When your project i
     <!-- built files will be auto injected -->
 </body>
 </html>
-{{< /file >}}
+```
 
 On lines 7, 8, and 13 you will notice the `<%= %>` syntax where the favicon link and page title are embedded; this is part of the [lodash template syntax](https://lodash.com/docs/4.17.15#template), which the index file is written in. While your index file isn't included in webpack's dependency bundle, it *will* be processed by the [html-webpack-plugin](https://github.com/jantimon/html-webpack-plugin), which does a few useful things:
 
@@ -254,7 +254,7 @@ On lines 7, 8, and 13 you will notice the `<%= %>` syntax where the favicon link
 
 This is an example of what the file will look like after the build procedure:
 
-{{< file "index.html" html >}}
+```file {title="index.html"}
 <!DOCTYPE html>
 <html lang=en>
 <head>
@@ -279,7 +279,7 @@ This is an example of what the file will look like after the build procedure:
     <script src=/js/app.ae3090b2.js></script>
 </body>
 </html>
-{{< /file >}}
+```
 
 Notice that your app's script and CSS dependencies have been added to the file on lines 21 and 22, and that these files have random hash appended their names (e.g. `app.ae3090b2.js`). These hashes will change over time for subsequent builds of your app, and the html-webpack-plugin will keep the hash updated in your index. Without this feature, you would need to update those lines for each build.
 {{< /disclosure-note >}}
@@ -293,7 +293,7 @@ The rest of the body contains these elements:
 
 The `src/` folder is where most of your work will be done. The `src/main.js` file will serve as the entry point for webpack's build process:
 
-{{< file "src/main.js" js >}}
+```file {title="src/main.js"}
 import Vue from 'vue'
 import App from './App.vue'
 
@@ -302,13 +302,13 @@ Vue.config.productionTip = false
 new Vue({
     render: h => h(App),
 }).$mount('#app')
-{{< /file >}}
+```
 
 This file imports VueJS (line 1), imports the `App` component from the `src` folder (line 2), and binds the `App` component to the container with the `id` property set to `app` (lines 6-8).
 
 Now to the interesting part: `src/App.vue`:
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
     <div id="app">
         <img alt="Vue logo" src="./assets/logo.png" />
@@ -336,7 +336,7 @@ export default {
     margin-top: 60px;
 }
 </style>
-{{< /file >}}
+```
 
 This is a simple single file component relatively similar to the example we discussed above, but this example shows how to import and use components:
 
@@ -369,7 +369,7 @@ This is how it will behave:
 
 Here's how the app's template will look in protocode; you do *not* need to copy and paste this:
 
-{{< file "" html >}}
+```file {title=""}
 <div id="app">
     <div class="inner">
         <div class="ratingContainer">
@@ -385,7 +385,7 @@ Here's how the app's template will look in protocode; you do *not* need to copy 
         <Summary></Summary>
     </div>
 </div>
-{{< /file >}}
+```
 
 We’ll make each star a separate component (named `Star`), and we'll also create a `Summary` component which will hold the summary of the votes.
 
@@ -393,7 +393,7 @@ We’ll make each star a separate component (named `Star`), and we'll also creat
 
 To start, replace the content of your `App.vue` with this snippet:
 
-{{< file "src/App.vue" html >}}
+```file {title="src/App.vue"}
 <template>
     <div id="app">
         <div class="inner">
@@ -479,7 +479,7 @@ export default {
     padding-left: 0.1em;
 }
 </style>
-{{< /file >}}
+```
 
 This is the main component, but there are no methods set on it yet, so for now it doesn’t have any functionality. Here are some notable parts of the code:
 
@@ -511,7 +511,7 @@ The `v-for` syntax is similar to the following for loop: `for(let index=1;index<
 
 In your `src/components/` directory, create two files named `Star.vue` and `Summary.vue` and paste these snippets into them:
 
-{{< file "src/components/Star.vue" html >}}
+```file {title="src/components/Star.vue"}
 <template>
     <i class="icon-star"></i>
 </template>
@@ -530,9 +530,9 @@ i.icon-star {
     margin-bottom: 0.5em;
 }
 </style>
-{{< /file >}}
+```
 
-{{< file "src/components/Summary.vue" html >}}
+```file {title="src/components/Summary.vue"}
 <template>
     <div class="summaryContainer">
         <ul>
@@ -557,7 +557,7 @@ export default {
     font-size: 13px;
 }
 </style>
-{{< /file >}}
+```
 
 Here are some notable parts of the code:
 
@@ -591,7 +591,7 @@ The application right now is a skeleton, so now we'll make it work. These three 
 
 1.  Update the `Star` component declaration in the `<template>` of `src/App.vue` to match this snippet:
 
-    {{< file "src/App.vue" html >}}
+    ```file {title="src/App.vue"}
 <!-- ... --->
 <Star
     v-for="index in 5"
@@ -604,7 +604,7 @@ The application right now is a skeleton, so now we'll make it work. These three 
     v-on:rate="rateHandler"
 ></Star>
 <!-- ... --->
-{{< /file >}}
+```
 
     The new additions to this declaration are the `v-on` directives, which set methods as event handlers for the custom `lightUp`, `lightDown`, and `rate` events.
 
@@ -614,7 +614,7 @@ The `Star` component will be updated in the next section to emit those events.
 
 1.  Next, replace the `methods` object in the component with the following snippet. These are the event handlers:
 
-    {{< file "src/App.vue" js >}}
+    ```file {title="src/App.vue"}
 // ...
 methods: {
     lightUpHandler: function (weight) {
@@ -651,7 +651,7 @@ methods: {
     },
 },
 // ...
-{{< /file >}}
+```
 
     - The `lightUpHandler` and `rateHandler` methods receive a `weight` from the `Star` component that emitted the corresponding event. These methods set the `weight` as the `currentRating`.
 
@@ -660,7 +660,7 @@ methods: {
     {{< disclosure-note "Full contents of App.vue">}}
 At this point, your `App.vue` should be the same as this snippet:
 
-{{< file "src/App.vue" >}}
+```file {title="src/App.vue"}
 <template>
     <div id="app">
         <div class="inner">
@@ -782,7 +782,7 @@ export default {
     padding-left: 0.1em;
 }
 </style>
-{{< /file >}}
+```
 {{< /disclosure-note >}}
 
 ### Updating Star.vue
@@ -791,7 +791,7 @@ Let's modify the `Star` component to emit the events:
 
 1.  In the template of `Star.vue`, replace the `<i>` element with this snippet:
 
-    {{< file "src/components/Star.vue" html >}}
+    ```file {title="src/components/Star.vue"}
 <!-- ... --->
 <i
     v-bind:class="getClass()"
@@ -800,7 +800,7 @@ Let's modify the `Star` component to emit the events:
     v-on:click="clickHandler"
 ></i>
 <!-- ... --->
-{{< /file >}}
+```
 
     -   The CSS classes of the icon will now be dynamically generated by a `getClass` method on the component. This change is made so that the hover highlight effect can be toggled by a CSS class.
 
@@ -808,7 +808,7 @@ Let's modify the `Star` component to emit the events:
 
 1.  In the script section, add this `data` function to the component:
 
-    {{< file "src/components/Star.vue" js >}}
+    ```file {title="src/components/Star.vue"}
 // ...
 data: function () {
     return {
@@ -816,13 +816,13 @@ data: function () {
     };
 },
 // ...
-{{< /file >}}
+```
 
     The `hover` variable will maintain the hover state of the component.
 
 1.  Also in the script section, add this `methods` object to the component:
 
-    {{< file "src/components/Star.vue" js >}}
+    ```file {title="src/components/Star.vue"}
 // ...
 methods: {
     getClass: function () {
@@ -863,7 +863,7 @@ methods: {
     },
 },
 // ...
-{{< /file >}}
+```
 
     -   The `mouseoverHandler`, `mouseleaveHandler`, and `clickHandler` methods will emit the `lightUp`, `lightDown`, and `rate` custom events, respectively.
 
@@ -877,18 +877,18 @@ The `currentRating` prop is not a particularly beautiful solution, but we will i
 
 1.  Finally, add this rule to the style section:
 
-    {{< file "src/components/Star.vue" js >}}
+    ```file {title="src/components/Star.vue"}
 /* ... */
 i.icon-star.hover {
     color: yellow;
 }
 /* ... */
-{{< /file >}}
+```
 
     {{< disclosure-note "Full contents of Star.vue" >}}
 At this point, your `Star.vue` should be the same as this snippet:
 
-{{< file "src/components/Star.vue" html >}}
+```file {title="src/components/Star.vue"}
 <template>
     <i
         v-bind:class="getClass()"
@@ -958,7 +958,7 @@ i.icon-star.hover {
     color: yellow;
 }
 </style>
-{{< /file >}}
+```
 {{< /disclosure-note >}}
 
 1. Head to http://localhost:8080/ in your browser, and you should see that your rating application now works. Try hovering over the stars and clicking on them to observe the interaction. If you refresh the page, you can vote again, and the votes will be tallied:
@@ -969,7 +969,7 @@ i.icon-star.hover {
 
 Notice how clumsy all of the `v-on` directives chained one after the other look:
 
-{{< file "" html >}}
+```file {title=""}
 <Star
     v-for="index in 5"
     v-bind:key="index"
@@ -980,7 +980,7 @@ Notice how clumsy all of the `v-on` directives chained one after the other look:
     v-on:lightDown="lightDownHandler"
     v-on:rate="rateHandler"
 ></Star>
-{{< /file >}}
+```
 
 This setup can be inelegant to scale: imagine having 10 of those on a single component, and then imagine you have 10 components. The directives would become hard to follow, so it's worth exploring other ways to communicate between components.
 
@@ -990,37 +990,37 @@ Fortunately, VueJS supports a [publish-subscribe pattern](https://en.wikipedia.o
 
 In VueJS, an event bus is a new Vue instance that is declared globally (in `main.js`, for example):
 
-{{< file "src/main.js" js >}}
+```file {title="src/main.js"}
 // ...
 export const eventBus = new Vue();
 // ...
-{{< /file >}}
+```
 
 It is then imported in each component which accesses it:
 
-{{< file "AnyComponent.vue" js >}}
+```file {title="AnyComponent.vue"}
 // ...
 import { eventBus } from "../main.js";
 // ...
-{{< /file >}}
+```
 
 Components can emit events to the event bus:
 
-{{< file "SomeComponent.vue" js >}}
+```file {title="SomeComponent.vue"}
 // ...
 eventBus.$emit("event", parameter);
 // ...
-{{< /file >}}
+```
 
 Other components will register event handlers on the same event bus with the [`$on` method](https://vuejs.org/v2/api/#vm-on):
 
-{{< file "AnotherComponent.vue" js >}}
+```file {title="AnotherComponent.vue"}
 // ...
 eventBus.$on("event", (parameter) => {
     // Do stuff
 });
 // ...
-{{< /file >}}
+```
 
 Basically, think of the event bus as a global communication layer between your components.
 
@@ -1030,7 +1030,7 @@ Now let's rebuild our example to take advantage of an event bus:
 
 1. Open `main.js` and replace its content with this snippet:
 
-    {{< file "src/main.js" js >}}
+    ```file {title="src/main.js"}
 import Vue from "vue";
 import App from "./App.vue";
 
@@ -1041,13 +1041,13 @@ export const eventBus = new Vue();
 new Vue({
     render: h => h(App)
 }).$mount("#app");
-{{< /file >}}
+```
 
     This update adds an event bus declaration on line 6.
 
 1.  Open `App.vue` and replace its content with this snippet:
 
-    {{< file "src/App.vue" html >}}
+    ```file {title="src/App.vue"}
 <template>
     <div id="app">
         <div class="inner">
@@ -1158,7 +1158,7 @@ export default {
     padding-left: 0.1em;
 }
 </style>
-{{< /file >}}
+```
 
     The following changes have been made in this updated file:
 
@@ -1172,7 +1172,7 @@ export default {
 
 1.  Open `Star.vue` and replace its content with this snippet:
 
-    {{< file "src/components/Star.vue" html >}}
+    ```file {title="src/components/Star.vue"}
 <template>
     <i
         v-bind:class="getClass()"
@@ -1262,7 +1262,7 @@ i.icon-star.active {
     color: #737373;
 }
 </style>
-{{< /file >}}
+```
 
     The following changes have been made in this updated file:
 

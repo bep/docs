@@ -42,7 +42,7 @@ If you plan to host a simple site such as a blog or photo gallery, another optio
 
 2.  Create an NGINX configuration file called `/etc/nginx/conf.d/example.com.conf` (replace this and each instance of `example.com` with your site's name) and add the following content:
 
-    {{< file "/etc/nginx/conf.d/example.com.conf" >}}
+    ```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80;
     listen         [::]:80;
@@ -54,7 +54,7 @@ server {
     gzip_comp_level  3;
     gzip_types       text/plain text/css application/javascript image/*;
 }
-{{< /file >}}
+```
 
 3.  The configuration above tells NGINX to look for your site's files in `/var/www/example.com`. Create this directory now, substituting your domain name for `example.com`:
 

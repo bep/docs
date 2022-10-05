@@ -44,17 +44,17 @@ Issue the following command to install the required packages from the Arch Linux
 
 Edit the `/etc/rc.conf` file, adding "nginx" and "fcgiwrap" to the "DEAMONS=" line as shown in the following excerpt:
 
-{{< file "/etc/rc.conf" >}}
+```file {title="/etc/rc.conf"}
 DAEMONS=(syslog-ng network netfs crond sshd ntpd nginx fcgiwrap)
 
-{{< /file >}}
+```
 
 
 ## Configure the FastCGI Wrapper
 
 Now, edit the `/etc/conf.d/fcgiwrap` file to resemble the following example:
 
-{{< file "/etc/conf.d/fcgiwrap" >}}
+```file {title="/etc/conf.d/fcgiwrap"}
 SPAWNER='/usr/bin/spawn-fcgi'
 FCGI_ADDRESS='127.0.0.1'
 FCGI_PORT='9001'
@@ -63,7 +63,7 @@ FCGI_GROUP='http'
 FCGI_EXTRA_OPTIONS=''
 SPAWNER_ARGS="-a $FCGI_ADDRESS -p $FCGI_PORT -u $FCGI_USER -g $FCGI_GROUP $FCGI_EXTRA_OPTIONS -- /usr/sbin/fcgiwrap"
 
-{{< /file >}}
+```
 
 
 Issue the following command to start the FastCGI wrapper for the first time:
@@ -84,7 +84,7 @@ Issue the following commands to create nginx virtual host directories:
 
 Create a virtual host configuration file for your site. Be sure to replace "example.com" with your domain name in the following example configuration.
 
-{{< file "/etc/nginx/conf/sites-available/www.example.com" nginx >}}
+```file {title="/etc/nginx/conf/sites-available/www.example.com"}
 server {
     listen   80;
     server_name example.com www.example.com;
@@ -105,7 +105,7 @@ server {
     }
 }
 
-{{< /file >}}
+```
 
 
 This example assumes that all CGI scripts will end with the characters `.cgi`. If your scripts have some other extension (e.g. `.pl` or `.plx`) modify the example to support that. If you want nginx to use the CGI script as an index page, add `index.cgi` to the `index` line of the `location /` block.
@@ -117,12 +117,12 @@ Issue the following commands to enable your new virtual host:
 
 Edit the file `/etc/nginx/conf/nginx.conf`, inserting the line `include /etc/nginx/conf/sites-enabled/*;` at the start of the `http {` block, as shown in the following file excerpt:
 
-{{< file "/etc/nginx/conf/nginx.conf" nginx >}}
+```file {title="/etc/nginx/conf/nginx.conf"}
 http {
 
     include /etc/nginx/conf/sites-enabled/*;
 
-{{< /file >}}
+```
 
 
 Issue the following command to start nginx:
@@ -133,7 +133,7 @@ Issue the following command to start nginx:
 
 Create a file called "test.cgi" in your site's "public\_html" directory with the following contents:
 
-{{< file "/srv/http/example.com/public\\_html/test.cgi" perl >}}
+```file {title="/srv/http/example.com/public\\_html/test.cgi"}
 #!/usr/bin/perl
 
 print "Content-type:text/html\n\n";
@@ -149,7 +149,7 @@ foreach $key (sort(keys %ENV)) {
 
 print "</body></html>";
 
-{{< /file >}}
+```
 
 
 Make the script executable by issuing the following command:

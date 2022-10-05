@@ -43,10 +43,10 @@ aliases: ['/databases/elasticsearch/install_elasticsearch_debian_ubuntu/']
 
 6.  Set the JVM heap size to approximately half of your server's available memory. For example, if your server has 1GB of RAM, change the `Xms` and `Xmx` values in the `/etc/elasticsearch/jvm.options` file to `512m`. Leave the other values in this file unchanged:
 
-    {{< file "/etc/elasticsearch/jvm.options" conf >}}
+    ```file {title="/etc/elasticsearch/jvm.options"}
 -Xms512m
 -Xmx512m
-{{< /file >}}
+```
 
 7.  Enable and start the `elasticsearch` service:
 

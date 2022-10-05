@@ -151,7 +151,7 @@ Now you should configure mount points for the new disks. Here's how:
 
 2.  Change the mount point for `root` to `/dev/sda`, and the mount and `swap` to `/dev/sdb`, as shown below:
 
-    {{< file "/media/sda/etc/fstab" >}}
+    ```file {title="/media/sda/etc/fstab"}
 # /etc/fstab: static file system information.
 #
 # <file system> <mount point>   <type>  <options>       <dump>  <pass>
@@ -160,7 +160,7 @@ Now you should configure mount points for the new disks. Here's how:
 proc            /proc           proc    defaults        0       0
 
 
-{{< /file >}}
+```
 
 
 You have successfully configured the mount points for the disks.

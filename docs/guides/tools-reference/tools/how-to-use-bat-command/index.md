@@ -98,11 +98,11 @@ Linux hostname 4.18.0-305.7.1.el8_4.x86_64 #1 SMP Thu Jul 1 02:00:00 EDT 2021 x8
 
 1. Add an alias for `bat` to your `.bashrc` file. Likely, the file is located in your user's home directory, as in: `~/.bashrc`. You can create the alias by adding the following line to the end of the file.
 
-    {{< file "~/.bashrc" >}}
+    ```file {title="~/.bashrc"}
 [...]
 
 alias bat="/usr/local/bat/bat"
-    {{< /file >}}
+    ```
 
 Once you have installed `bat`, by whatever method, you can verify the installation using the `version` command.
 
@@ -215,11 +215,11 @@ To select the theme you want to use, follow one of the options listed below:
 
 - Set the `BAT_THEME` environment variable in your `.bashrc` to make the theme selection persistent across your shell sessions.
 
-    {{< file "~/.bashrc" >}}
+    ```file {title="~/.bashrc"}
 [...]
 
 export BAT_THEME="Solarized (dark)"
-    {{< /file >}}
+    ```
 
 ### Add Languages for Syntax Highlighting in bat
 

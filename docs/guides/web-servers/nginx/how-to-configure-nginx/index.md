@@ -37,7 +37,7 @@ Note that any character after `#` in a line becomes a comment. And NGINX does no
 
 To better understand directives and blocks, take a look at the condensed copy of `/etc/nginx/nginx` conf below:
 
-{{< file "/etc/nginx/nginx.conf" >}}
+```file {title="/etc/nginx/nginx.conf"}
 user  nginx;
 worker_processes  1;
 
@@ -52,7 +52,7 @@ http {
        . . .
 }
 
-{{< /file >}}
+```
 
 
 There are 4 directives in this snippet in the main context :
@@ -69,7 +69,7 @@ Let’s take a look at these blocks and their NGINX configurations.
 
 http blocks contain directives for handling web traffic. These directives are often universal as they are passed on to all website configurations NGINX serves. A list of available directives for http blocks are available on official NGINX http block documentation.
 
-{{< file "/etc/nginx/nginx.conf" nginx >}}
+```file {title="/etc/nginx/nginx.conf"}
 http {
     include       /etc/nginx/mime.types;
     default_type  application/octet-stream;
@@ -89,7 +89,7 @@ http {
 
     include /etc/nginx/conf.d/*.conf;
 }
-{{< /file >}}
+```
 
 In the http block there’s an include directive that tells NGINX where website configuration files are located. It changes depending upon your source of NGINX installation:
 
@@ -100,7 +100,7 @@ In the http block there’s an include directive that tells NGINX where website 
 
 Regardless of the installation source, server configuration files contain a server block for a website. Here’s an example server block:
 
-{{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example.com.conf"}
 server {
     listen         80 default_server;
     listen         [::]:80 default_server;
@@ -110,7 +110,7 @@ server {
     try_files $uri /index.html;
 }
 
-{{</ file >}}
+```
 
 There are several directives in this block that are worth taking a look at:
   1. listen - tells NGINX the hostname/IP and the TCP port where it should listen for HTTP connections
@@ -122,35 +122,35 @@ Here are some examples for server_name NGINX configuration based on sites you wa
 
 Configuration for processing requests for both `example.com` and `www.example.com`:
 
-{{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example.com.conf"}
 server_name example.com www.example.com;
-{{< /file >}}
+```
 
 Configuration for processing requests for all subdomains for `example.com`:
 
-{{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example.com.conf"}
 server_name *.example.com;
 server_name .example.com;
-{{< /file >}}
+```
 
 Configuration for processing requests of all domains that start with `example.`:
 
-{{< file "/etc/nginx/conf.d/example.com.conf" nginx >}}
+```file {title="/etc/nginx/conf.d/example.com.conf"}
 server_name example.*;
-{{< /file >}}
+```
 
 ## NGINX Configuration of Location Blocks
 
 `Location` directives cover requests for specific files and folders. It also allows NGINX to respond to requests for resources within the server. Here’s an NGINX location blocks configuration:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location / { }
 location /images/ { }
 location /blog/ { }
 location /planet/ { }
 location /planet/blog/ { }
 
-{{< /file >}}
+```
 
 The locations are literal string matches, which means that a request to `http://example.com/planet/blog/` or `http://example.com/planet/blog/about/` is fulfilled by `location /planet/blog/` , even though `location /planet/`  also matches this request.
 
@@ -158,42 +158,42 @@ The locations are literal string matches, which means that a request to `http://
 
 When a  `location`  directive is followed by a tilde (~), NGINX server performs a regular expression (regex) match. NGINX uses [Perl Compatible Regular Expression (PCRE)](https://perldoc.perl.org/perlre) for regex. Here’s an example:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~ IndexPage\.php$ { }
 location ~ ^/BlogPlanet(/|/index\.php)$ { }
-{{< /file >}}
+```
 
 If you want this match to be case-insensitive, configure your location directive by adding an asterisk to tilde(~*).
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ~* \.(pl|cgi|perl|prl)$ { }
 location ~* \.(md|mdwn|txt|mkdn)$ { }
-{{< /file >}}
+```
 
 Adding a caret and tilde(^!) to location directives tells NGINX if it matches a particular string stop searching for more specific matches. And to use the directives here instead.
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location ^~ /images/IndexPage/ { }
 location ^~ /blog/BlogPlanet/ { }
 
-{{< /file >}}
+```
 
 Finally, if you add an equals sign (=), this forces an exact match with the path requested and stops searching for more specific matches.
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location = / { }
-{{< /file >}}
+```
 
 ### Location Root and Index Configuration
 
 `root` and `index` determine the content of the associated `location` directive block. Here’s an example:
 
-{{< file "/etc/nginx/sites-available/example.com" nginx >}}
+```file {title="/etc/nginx/sites-available/example.com"}
 location / {
     root html;
     index index.html index.htm;
 }
-{{< /file >}}
+```
 
 In this example, the document root is located in the `html/` directory. Under the default installation prefix for the NGINX, the full path to this location is `/etc/nginx/html/`.
 
@@ -272,7 +272,7 @@ If you see a successful test message, NGINX reverse proxy is properly configured
 
 We assume that you already have NGINX installed. If not, follow the steps from the previous section. To configure your NGINX and use it as a load balancer, add your backend servers to your configuration file first. Collect your server IPs that acts as load balancers:
 
-{{< file "load_balancer.conf" >}}
+```file {title="load_balancer.conf"}
 upstream backend {
   server 72.229.28.185;
   server 72.229.28.186;
@@ -281,11 +281,11 @@ upstream backend {
   server 72.229.28.189;
   server 72.229.28.190;
 }
-{{< /file >}}
+```
 
 After upstream servers are defined, go to the location `/etc/nginx/sites-available/` and edit `load_balancer.conf`.
 
-{{< file "/etc/nginx/sites-available/load_balancer.conf" >}}
+```file {title="/etc/nginx/sites-available/load_balancer.conf"}
 upstream backend {
   server 72.229.28.185;
   server 72.229.28.186;
@@ -304,7 +304,7 @@ server {
     proxy_pass https://backend;
            }
 }
-{{< /file >}}
+```
 
 Every time a request is made to port 80 to SUBDOMAIN.DOMAIN.LTD, request is routed to upstream servers.
 
