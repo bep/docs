@@ -13,6 +13,9 @@ modified_by:
 title: "An Overview of MySQL"
 h1_title: "What Is MySQL: An Overview"
 enable_h1: true
+keywords: ["bep1", "bep2"]
+keywordsAlgolia: ["abep1", "abep2", "abep3"]
+weightAge: 32
 contributor:
   name: Jeff Novotny
   link: https://github.com/JeffreyNovotny/
