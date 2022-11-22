@@ -11,7 +11,9 @@ modified: 2022-06-06
 modified_by:
   name: Linode
 title: "An Overview of MySQL"
-h1_title: "What Is MySQL: An Overview"
+h1_title: "What Is MySQL: An Overview h1_title"
+title_meta: "Overview MySQL Meta"
+title_social: "Overview MySQL Social"
 enable_h1: true
 contributor:
   name: Jeff Novotny
