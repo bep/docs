@@ -1,8 +1,5 @@
 ---
 slug: implementing-redundant-cross-datacenter-applications
-author:
-  name: Linode Community
-  email: docs@linode.com
 description: "The redundant cross–data center architecture utilizes WireGuard&#174; and Linode's VLAN service to run your SaaS applications on a segmented software-defined network. This tutorial walks you through how you can implement this architecture yourself, using Terraform provisioning and NGINX load balancing."
 og_description: "The redundant cross–data center architecture utilizes WireGuard&#174; and Linode's VLAN service to run your SaaS applications on a segmented software-defined network. This tutorial walks you through how you can implement this architecture yourself, using Terraform provisioning and NGINX load balancing."
 keywords: ['redundancy across data centers','data center redundancy','redundant cross region']
@@ -12,9 +9,7 @@ modified_by:
   name: Nathaniel Stickman
 title: "Implementing Redundant Cross-Data Center Applications"
 h1_title: "Implementing Redundant Cross-Data Center Applications"
-contributor:
-  name: Nathaniel Stickman
-  link: https://github.com/nasanos
+authors: ["Nathaniel Stickman"]
 ---
 
 A redundant cross–data center architecture gives you a completely segmented software-defined network for your *Software as a Service* (SaaS) applications. The architecture uses Linode's Virtual LAN (VLAN) service along with WireGuard&#174; to network an application across data centers.
