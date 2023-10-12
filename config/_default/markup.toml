@@ -24,7 +24,7 @@ ordered = true
 [goldmark.parser]
 autoHeadingID = true
 autoHeadingIDType = "github"
-wrapStandAloneImageWithinParagraph = true
+wrapStandAloneImageWithinParagraph = false
 [goldmark.parser.attribute]
 block = true
 title = true
