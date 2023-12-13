@@ -42,6 +42,8 @@ At the heart of Spark is the *Spark Core* engine. This application component dis
 
 Spark is organized around the concept of a *resilient distributed dataset* (RDD). An RDD is a fault-tolerant read-only collection of data, also known as a *multiset*. It can be distributed across a cluster and processed in parallel. An RDD is often created from data in external storage, such as Hadoop or a shared filesystem, or from a file. However, an existing RDD can be converted into a new RDD through data transformations. To increase efficiency, all analytical operations act upon an RDD rather than the original data. The Spark Core implements fault tolerance, keeping track of all operations and reconstructing data in the event of errors.
 
+{{< navigation/recommendations >}}
+
 Spark converts the instructions in the user's driver program into a *Directed Acyclic Graph* (DAG). In a DAG, a node represents an RDD, while each edge signifies an operation on the data. Spark uses this graph to construct an optimized scheduling algorithm and distribute the lower-level tasks to executor processes running on the cluster nodes.
 
 A DataFrame forms a higher layer abstraction on top of the RDD object. It organizes an RDD into a series of columns, similar to a database table. The result is a collection of objects that can be stored in memory and reused throughout the program. DataFrames can also be derived from structured data files and other databases.

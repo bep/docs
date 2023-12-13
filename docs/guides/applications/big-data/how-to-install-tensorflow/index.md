@@ -9,6 +9,7 @@ modified_by:
   name: Linode
 title: "Installing TensorFlow on Ubuntu 20.04"
 title_meta: "How to Install TensorFlow on Ubuntu 20.04"
+enableRelatedContent: true
 external_resources:
 - '[TensorFlow site](https://www.tensorflow.org/)'
 - '[deep neural networks](https://en.wikipedia.org/wiki/Deep_learning)'
@@ -37,6 +38,8 @@ This guide is written for a non-root user. Commands that require elevated privil
 {{< /note >}}
 
 ## Advantages of TensorFlow
+
+{{< navigation/recommendations >}}
 
 1. TensorFlow offers different levels of abstraction and complexity for different types of tasks, along with APIs which make it easier to get started.
 

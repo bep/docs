@@ -5,6 +5,7 @@ description: "Rasa is an open source machine learning framework for automating t
 keywords: ['rasa chatbot tutorial','rasa ai demo','rasa open source']
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
 authors: ["Nathaniel Stickman"]
+enableRelatedContent: true
 published: 2023-05-23
 modified_by:
   name: Nathaniel Stickman
@@ -18,7 +19,7 @@ Rasa is an open source machine learning framework that uses a story-driven appro
 
 In this tutorial, learn how to get started with Rasa. From installing the framework, to working with models, to deploying a Rasa instance to a Kubernetes cluster, find out how here.
 
-## Before You Begin
+## Before You Begin!
 
 1. If you have not already done so, create a Linode account and Compute Instance. See our [Getting Started with Linode](/docs/products/platform/get-started/) and [Creating a Compute Instance](/docs/products/compute/compute-instances/guides/create/) guides.
 
