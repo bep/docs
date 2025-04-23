@@ -14,6 +14,7 @@ disqusShortname="linode-1"
 
 enableGitInfo = true
 
+
 [outputs]
 # The JSON is for the search index. We build this on every build to make sure we have the image thumbnails in sync.
 home = ["HTML", "JSON", "RSS"]
@@ -171,4 +172,10 @@ anchor = "smart"
 
   [security.funcs]
     getenv = ['^HUGO_']
+    
+
+  [security.http]
+    methods = ['(?i)GET|POST|HEAD']
+    urls    = ['.*']
+
 

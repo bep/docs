@@ -1,0 +1,52 @@
+- name: Before You Begin
+  items:
+    - name: If you have not already done so, create a Linode account and Compute Instance
+    - name: Follow our Setting Up and Securing a Compute Instance guide to update your system.
+- name: What Is the Nginx Proxy Manager?
+- name: How to Run the Nginx Proxy Manager
+  items:
+    - name: Installing Docker and Docker Compose
+      items:
+        - name: Debian and Ubuntu
+          items:
+            - name: Remove any existing Docker installations.
+            - name: Install the prerequisite packages for adding the Docker repository to the APT package manager.
+            - name: Add the GPG key for the Docker repository for your distribution to the APT package manager.
+            - name: Add the Docker repository for your distribution to the APT package manager.
+            - name: Update the APT indices, then install the Docker Engine along with the Docker Compose plugin.
+        - name: AlmaLinux, CentOS Stream, Fedora, and Rocky Linux
+          items:
+            - name: Remove any existing Docker installations.
+            - name: Install the core plugins for the DNF package manager.
+            - name: Add the Docker repository for your distribution to the DNF package manager.
+            - name: Install the Docker Engine along with the Docker Compose plugin.
+    - name: Running the Nginx Proxy Manager
+      items:
+        - name: Create a directory for the Nginx Proxy Manager’s Docker Compose files, and change into that directory.
+        - name: Create a docker-compose.yml file within the directory.
+        - name: Give the file the following contents.
+        - name: Start up the Nginx Proxy Manager via Docker Compose.
+    - name: Accessing the Nginx Proxy Manager Interface
+    - name: How to Expose a Service through the Nginx Proxy Manager
+      items:
+        - name: Creating the DNS Records
+          items:
+            - name: Register a domain name.
+            - name: If using the Linode DNS Manager, insert the Linode name servers in your registrar’s interface.
+            - name: Create an A/AAAA DNS record pointing the domain to the public IP address for the instance running your service.
+            - name: "Optional: To follow along with setting up a reverse proxy for the Nginx Proxy Manager interface, create a separate A/AAAA record pointing to the same IP address."
+        - name: Setting Up a Service
+          items:
+            - name: Unzip the archive and change into the resulting directory.
+            - name: Open the docker-compose.yml file.
+            - name: "Optional: You can add the JSON for any Grafana dashboards to the grafana/provisioning/dashboards/ directory."
+            - name: Run the Docker Compose setup.
+        - name: Configuring the Nginx Proxy Manager
+          items:
+            - name: Access the Nginx Proxy Manager interface as previously shown in the Accessing the Nginx Proxy Manager Interface section.
+            - name: Navigate to the Proxy Hosts page.
+            - name: Click the Add Proxy Host button.
+            - name: Before saving the configuration, navigate to the SSL tab and complete the form as follows.
+            - name: Select Save to complete the proxy host setup.
+        - name: Accessing the Service
+- name: Conclusion
