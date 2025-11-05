@@ -4,11 +4,10 @@ description: "JetBackup is a backup solution designed for the web hosting indust
 published: 2021-08-13
 modified: 2022-05-17
 keywords: ['backups','cpanel', 'backup']
-tags: ["quick deploy apps", "linode platform", "cloud manager"]
-aliases: ['/guides/deploying-jetbackup-marketplace-app/','/guides/jetbackup-marketplace-app/']
+tags: ["marketplace", "linode platform", "cloud manager"]
 external_resources:
 - '[JetBackup](https://www.jetbackup.com/)'
-aliases: ['/products/tools/marketplace/guides/jetbackup/']
+aliases: ['/products/tools/marketplace/guides/jetbackup/','/guides/deploying-jetbackup-marketplace-app/','/guides/jetbackup-marketplace-app/']
 authors: ["Akamai"]
 contributors: ["Akamai"]
 license: '[CC BY-ND 4.0](https://creativecommons.org/licenses/by-nd/4.0)'
