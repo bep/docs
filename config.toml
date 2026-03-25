@@ -158,7 +158,7 @@ hits_per_page = 4
 enable = false
 
 [minify]
-disableSVG = false
+disableSVG = true
 
 [imaging]
 resampleFilter = "CatmullRom"
