@@ -9,7 +9,7 @@ outputs: ['html', 'json']
 cascade:
    noindex: true
    date: 2023-04-17
-   _build:
+   build:
       render: always
       list: never
       publishResources: false

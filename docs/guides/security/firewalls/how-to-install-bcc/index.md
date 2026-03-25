@@ -156,14 +156,14 @@ For CentOS 7.6 only
   mkdir llvm-build
 
   cd llvm-build
-  cmake3 -G "Unix Makefiles" -DLLVM_TARGETS_TO_BUILD="BPF;X86" \
-  -DCMAKE_BUILD_TYPE=Release ../llvm-7.0.1.src
+  cmake3 -G "Unix Makefiles" -DLLVM_TARGETS_TObuild="BPF;X86" \
+  -DCMAKEbuild_TYPE=Release ../llvm-7.0.1.src
   make
   sudo make install
 
   cd ../clang-build
-  cmake3 -G "Unix Makefiles" -DLLVM_TARGETS_TO_BUILD="BPF;X86" \
-  -DCMAKE_BUILD_TYPE=Release ../cfe-7.0.1.src
+  cmake3 -G "Unix Makefiles" -DLLVM_TARGETS_TObuild="BPF;X86" \
+  -DCMAKEbuild_TYPE=Release ../cfe-7.0.1.src
   make
   sudo make install
   cd ..

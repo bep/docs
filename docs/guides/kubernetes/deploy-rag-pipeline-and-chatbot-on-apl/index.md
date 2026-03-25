@@ -368,9 +368,9 @@ The Agent pipeline files in this section are not related to the Kubeflow pipelin
               max_retries=3,
               timeout=180.0
             )
-            self.kb_index = self._build_vector_index()
+            self.kb_index = self.build_vector_index()
 
-          def _build_vector_index(self):
+          def build_vector_index(self):
             """Builds a vector index from database."""
             db_credentials = self._get_db_credentials()
 

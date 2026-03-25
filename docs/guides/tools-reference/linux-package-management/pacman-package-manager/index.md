@@ -163,6 +163,6 @@ Because ABS downloads source versions of the `PKGBUILD` file as it creates the p
 
 If you're interested in learning more about Arch and its package management tools, consult these external sources for the documentation provided by the Arch community:
 
--   [The Arch Build System](http://wiki.archlinux.org/index.php/Arch_Build_System)
+-   [The Arch Build System](http://wiki.archlinux.org/index.php/Archbuild_System)
 -   [Pacman](http://wiki.archlinux.org/index.php/Pacman)
 

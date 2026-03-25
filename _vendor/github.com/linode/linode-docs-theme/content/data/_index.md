@@ -1,11 +1,11 @@
 ---
-_build:
+build:
   render: false
   list: false
   publishResources: false
 
 cascade:
-    _build:
+    build:
       render: true
       list: false
       publishResources: false

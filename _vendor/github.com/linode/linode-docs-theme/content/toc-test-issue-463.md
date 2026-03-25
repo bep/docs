@@ -4,7 +4,7 @@ description: This is a test page used in both manual and automatic tests. Do not
 noindex: true
 date: 2022-12-05
 promo_default: false
-_build:
+build:
   render: always
   list: never
   publishResources: false

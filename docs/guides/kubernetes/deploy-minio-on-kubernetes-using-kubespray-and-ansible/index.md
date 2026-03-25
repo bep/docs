@@ -138,7 +138,7 @@ Kubespray comes with several configuration options not shown in this guide. Refe
 
     ```command
     declare -a IPS=(kubernetes-master-ip etcd-ip slave-ip)
-    CONFIG_FILE=inventory/minio/hosts.ini python3 contrib/inventory_builder/inventory.py ${IPS[@]}
+    CONFIG_FILE=inventory/minio/hosts.ini python3 contrib/inventorybuilder/inventory.py ${IPS[@]}
     ```
 
     {{< note >}}
